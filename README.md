@@ -108,6 +108,7 @@ public class MyScrollViewCell : FancyScrollViewCell<MyCellDto>
 セルで発生したあらゆるイベントをハンドリングできます。
 サンプルにセルで発生したイベントをハンドリングする実装を含めているので、それを参考に実装してください。
 
+[Examples/02_CellEventHandling](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples/02_CellEventHandling) のスクリーンキャスト
 ![screencast](Document/screencast3.gif)
 
 #### セルをLoop(無限スクロール)させたいんだけど？
