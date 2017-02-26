@@ -1,4 +1,4 @@
-﻿namespace ArtisticScrollViewExamples
+﻿namespace FancyScrollViewExamples
 {
     public class Example02CellDto
     {

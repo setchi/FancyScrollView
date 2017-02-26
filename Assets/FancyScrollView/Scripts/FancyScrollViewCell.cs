@@ -41,4 +41,4 @@ public class FancyScrollViewCell<TData, TContext> : MonoBehaviour where TContext
     public int DataIndex { get; set; }
 }
 
-public class ArtisticScrollViewCell<TData> : FancyScrollViewCell<TData, ArtisticScrollViewNullContext> { }
+public class FancyScrollViewCell<TData> : FancyScrollViewCell<TData, FancyScrollViewNullContext> { }

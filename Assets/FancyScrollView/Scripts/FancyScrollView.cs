@@ -188,5 +188,5 @@ public class FancyScrollView<TData, TContext> : MonoBehaviour where TContext : c
     }
 }
 
-public sealed class ArtisticScrollViewNullContext { }
-public class ArtisticScrollView<TData> : FancyScrollView<TData, ArtisticScrollViewNullContext> { }
+public sealed class FancyScrollViewNullContext { }
+public class FancyScrollView<TData> : FancyScrollView<TData, FancyScrollViewNullContext> { }

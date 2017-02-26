@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-namespace ArtisticScrollViewExamples
+namespace FancyScrollViewExamples
 {
-    public class Example01ScrollView : ArtisticScrollView<Example01CellDto>
+    public class Example01ScrollView : FancyScrollView<Example01CellDto>
     {
 
         [SerializeField]

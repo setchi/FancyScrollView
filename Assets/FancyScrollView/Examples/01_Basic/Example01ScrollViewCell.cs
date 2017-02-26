@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace ArtisticScrollViewExamples
+namespace FancyScrollViewExamples
 {
-    public class Example01ScrollViewCell : ArtisticScrollViewCell<Example01CellDto>
+    public class Example01ScrollViewCell : FancyScrollViewCell<Example01CellDto>
     {
         [SerializeField]
         Animator animator;

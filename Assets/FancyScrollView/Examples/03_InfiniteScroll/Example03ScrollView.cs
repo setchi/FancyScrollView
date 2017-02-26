@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace ArtisticScrollViewExamples
+namespace FancyScrollViewExamples
 {
     public class Example03ScrollView : FancyScrollView<Example03CellDto, Example03ScrollViewContext>
     {
