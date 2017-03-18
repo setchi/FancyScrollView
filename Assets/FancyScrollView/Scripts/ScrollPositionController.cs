@@ -250,11 +250,11 @@ public class ScrollPositionController : UIBehaviour, IBeginDragHandler, IEndDrag
         dragStartScrollPosition = currentScrollPosition;
 
         snapScrollPosition = movementType == MovementType.Unrestricted
-            ? CalcShortestDistancePosition(index)
+            ? CalculateClosestPosition(index)
             : index;
     }
 
-    float CalcShortestDistancePosition(int index)
+    float CalculateClosestPosition(int index)
     {
         var diff = GetLoopPosition(index, dataCount)
             - GetLoopPosition(currentScrollPosition, dataCount);
