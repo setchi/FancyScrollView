@@ -172,7 +172,7 @@ public class ScrollPositionController : UIBehaviour, IBeginDragHandler, IEndDrag
 
     bool snapping;
     float snapStartTime;
-    float snapStartScrollPosition = 0;
+    float snapScrollPosition = 0;
 
     void Update()
     {
@@ -182,7 +182,7 @@ public class ScrollPositionController : UIBehaviour, IBeginDragHandler, IEndDrag
         if (snapping)
         {
             var alpha = Mathf.Clamp01((Time.unscaledTime - snapStartTime) / Mathf.Max(snap.Duration, float.Epsilon));
-            var position = Mathf.Lerp(dragStartScrollPosition, snapStartScrollPosition, EaseInOutCubic(0, 1, alpha));
+            var position = Mathf.Lerp(dragStartScrollPosition, snapScrollPosition, EaseInOutCubic(0, 1, alpha));
             UpdatePosition(position);
 
             if (Mathf.Approximately(alpha, 1f))
@@ -244,11 +244,35 @@ public class ScrollPositionController : UIBehaviour, IBeginDragHandler, IEndDrag
 
     public void SnapTo(int index)
     {
+        var diff = PositionDiff(index, currentScrollPosition);
+        if (Mathf.Abs(diff) > dataCount * 0.5f)
+        {
+            diff = Mathf.Sign(-diff) * (dataCount - Mathf.Abs(diff));
+        }
+
         velocity = 0;
         snapping = true;
-        snapStartScrollPosition = index;
+        snapScrollPosition = diff + currentScrollPosition;
         dragStartScrollPosition = currentScrollPosition;
         snapStartTime = Time.unscaledTime;
+    }
+
+    float PositionDiff(float a, float b)
+    {
+        return GetLoopPosition(a, dataCount) - GetLoopPosition(b, dataCount);
+    }
+
+    float GetLoopPosition(float position, int length)
+    {
+        if (position < 0)
+        {
+            position = (length - 1) + (position + 1) % length;
+        }
+        else if (position > length - 1)
+        {
+            position = position % length;
+        }
+        return position;
     }
 
     float EaseInOutCubic(float start, float end, float value)
