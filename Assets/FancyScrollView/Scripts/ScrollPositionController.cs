@@ -244,22 +244,26 @@ public class ScrollPositionController : UIBehaviour, IBeginDragHandler, IEndDrag
 
     public void SnapTo(int index)
     {
-        var diff = PositionDiff(index, currentScrollPosition);
+        velocity = 0;
+        snapping = true;
+        snapStartTime = Time.unscaledTime;
+        dragStartScrollPosition = currentScrollPosition;
+
+        snapScrollPosition = movementType == MovementType.Unrestricted
+            ? CalcShortestDistancePosition(index)
+            : index;
+    }
+
+    float CalcShortestDistancePosition(int index)
+    {
+        var diff = GetLoopPosition(index, dataCount)
+            - GetLoopPosition(currentScrollPosition, dataCount);
+
         if (Mathf.Abs(diff) > dataCount * 0.5f)
         {
             diff = Mathf.Sign(-diff) * (dataCount - Mathf.Abs(diff));
         }
-
-        velocity = 0;
-        snapping = true;
-        snapScrollPosition = diff + currentScrollPosition;
-        dragStartScrollPosition = currentScrollPosition;
-        snapStartTime = Time.unscaledTime;
-    }
-
-    float PositionDiff(float a, float b)
-    {
-        return GetLoopPosition(a, dataCount) - GetLoopPosition(b, dataCount);
+        return diff + currentScrollPosition;
     }
 
     float GetLoopPosition(float position, int length)
