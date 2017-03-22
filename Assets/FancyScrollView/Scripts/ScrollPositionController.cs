@@ -170,24 +170,25 @@ public class ScrollPositionController : UIBehaviour, IBeginDragHandler, IEndDrag
     float velocity;
     float prevScrollPosition;
 
-    bool snapping;
-    float snapStartTime;
-    float snapScrollPosition = 0;
+    bool autoScrolling;
+    float autoScrollDuration;
+    float autoScrollStartTime;
+    float autoScrollPosition;
 
     void Update()
     {
         var deltaTime = Time.unscaledDeltaTime;
         var offset = CalculateOffset(currentScrollPosition);
 
-        if (snapping)
+        if (autoScrolling)
         {
-            var alpha = Mathf.Clamp01((Time.unscaledTime - snapStartTime) / Mathf.Max(snap.Duration, float.Epsilon));
-            var position = Mathf.Lerp(dragStartScrollPosition, snapScrollPosition, EaseInOutCubic(0, 1, alpha));
+            var alpha = Mathf.Clamp01((Time.unscaledTime - autoScrollStartTime) / Mathf.Max(autoScrollDuration, float.Epsilon));
+            var position = Mathf.Lerp(dragStartScrollPosition, autoScrollPosition, EaseInOutCubic(0, 1, alpha));
             UpdatePosition(position);
 
             if (Mathf.Approximately(alpha, 1f))
             {
-                snapping = false;
+                autoScrolling = false;
             }
         }
         else if (!dragging && (offset != 0 || velocity != 0))
@@ -210,7 +211,7 @@ public class ScrollPositionController : UIBehaviour, IBeginDragHandler, IEndDrag
 
                 if (snap.Enable && Mathf.Abs(velocity) < snap.VelocityThreshold)
                 {
-                    SnapTo(Mathf.RoundToInt(currentScrollPosition));
+                    ScrollTo(Mathf.RoundToInt(currentScrollPosition), snap.Duration);
                 }
             }
             // If we have neither elaticity or friction, there shouldn't be any velocity.
@@ -230,7 +231,7 @@ public class ScrollPositionController : UIBehaviour, IBeginDragHandler, IEndDrag
             }
         }
 
-        if (!snapping && dragging && inertia)
+        if (!autoScrolling && dragging && inertia)
         {
             var newVelocity = (currentScrollPosition - prevScrollPosition) / deltaTime;
             velocity = Mathf.Lerp(velocity, newVelocity, deltaTime * 10f);
@@ -242,14 +243,15 @@ public class ScrollPositionController : UIBehaviour, IBeginDragHandler, IEndDrag
         }
     }
 
-    public void SnapTo(int index)
+    public void ScrollTo(int index, float duration)
     {
         velocity = 0;
-        snapping = true;
-        snapStartTime = Time.unscaledTime;
+        autoScrolling = true;
+        autoScrollDuration = duration;
+        autoScrollStartTime = Time.unscaledTime;
         dragStartScrollPosition = currentScrollPosition;
 
-        snapScrollPosition = movementType == MovementType.Unrestricted
+        autoScrollPosition = movementType == MovementType.Unrestricted
             ? CalculateClosestPosition(index)
             : index;
     }

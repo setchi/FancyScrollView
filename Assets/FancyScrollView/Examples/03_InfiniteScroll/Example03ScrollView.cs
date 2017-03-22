@@ -24,7 +24,7 @@ namespace FancyScrollViewExamples
 
         void OnPressedCell(Example03ScrollViewCell cell)
         {
-            scrollPositionController.SnapTo(cell.DataIndex);
+            scrollPositionController.ScrollTo(cell.DataIndex, 0.4f);
             context.SelectedIndex = cell.DataIndex;
             UpdateContents();
         }
