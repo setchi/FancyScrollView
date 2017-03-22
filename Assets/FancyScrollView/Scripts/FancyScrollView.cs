@@ -156,12 +156,12 @@ public class FancyScrollView<TData, TContext> : MonoBehaviour where TContext : c
         currentPosition = position;
 
         var visibleMinPosition = position - (cellOffset / cellInterval);
-        var cellStartPosition = (Mathf.Ceil(visibleMinPosition) - visibleMinPosition) * cellInterval;
+        var firstCellPosition = (Mathf.Ceil(visibleMinPosition) - visibleMinPosition) * cellInterval;
         var dataStartIndex = Mathf.CeilToInt(visibleMinPosition);
         var count = 0;
         var cellIndex = 0;
 
-        for (float pos = cellStartPosition; pos <= 1f; pos += cellInterval, count++)
+        for (float pos = firstCellPosition; pos <= 1f; pos += cellInterval, count++)
         {
             if (count >= cells.Count)
             {
@@ -171,7 +171,7 @@ public class FancyScrollView<TData, TContext> : MonoBehaviour where TContext : c
 
         count = 0;
 
-        for (float pos = cellStartPosition; pos <= 1f; count++, pos += cellInterval)
+        for (float pos = firstCellPosition; pos <= 1f; count++, pos += cellInterval)
         {
             var dataIndex = dataStartIndex + count;
             cellIndex = GetLoopIndex(dataIndex, cells.Count);
