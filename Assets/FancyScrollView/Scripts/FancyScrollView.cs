@@ -79,9 +79,10 @@ public class FancyScrollView<TData, TContext> : MonoBehaviour where TContext : c
         return cell;
     }
 
-#if UNITY_EDITOR
+    #if UNITY_EDITOR
     float prevCellInterval, prevCellOffset;
     bool prevLoop;
+
     void LateUpdate()
     {
         if (prevLoop != loop ||
@@ -95,7 +96,7 @@ public class FancyScrollView<TData, TContext> : MonoBehaviour where TContext : c
             prevCellInterval = cellInterval;
         }
     }
-#endif
+    #endif
 
     /// <summary>
     /// セルの内容を更新します
@@ -175,7 +176,10 @@ public class FancyScrollView<TData, TContext> : MonoBehaviour where TContext : c
         {
             var dataIndex = dataStartIndex + count;
             cellIndex = GetLoopIndex(dataIndex, cells.Count);
-            cells[cellIndex].UpdatePosition(pos);
+            if (cells[cellIndex].gameObject.activeSelf)
+            {
+                cells[cellIndex].UpdatePosition(pos);
+            }
             UpdateCellForIndex(cells[cellIndex], dataIndex);
         }
 
@@ -188,5 +192,12 @@ public class FancyScrollView<TData, TContext> : MonoBehaviour where TContext : c
     }
 }
 
-public sealed class FancyScrollViewNullContext { }
-public class FancyScrollView<TData> : FancyScrollView<TData, FancyScrollViewNullContext> { }
+public sealed class FancyScrollViewNullContext
+{
+
+}
+
+public class FancyScrollView<TData> : FancyScrollView<TData, FancyScrollViewNullContext>
+{
+
+}

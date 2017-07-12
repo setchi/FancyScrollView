@@ -12,17 +12,20 @@ public class ScrollPositionController : UIBehaviour, IBeginDragHandler, IEndDrag
         public float VelocityThreshold;
         public float Duration;
     }
+
     enum ScrollDirection
     {
         Vertical,
         Horizontal,
     }
+
     enum MovementType
     {
         Unrestricted = ScrollRect.MovementType.Unrestricted,
         Elastic = ScrollRect.MovementType.Elastic,
         Clamped = ScrollRect.MovementType.Clamped
     }
+
     [SerializeField]
     RectTransform viewport;
     [SerializeField]
@@ -81,19 +84,19 @@ public class ScrollPositionController : UIBehaviour, IBeginDragHandler, IEndDrag
 
         Vector2 localCursor;
         if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            viewport,
-            eventData.position,
-            eventData.pressEventCamera,
-            out localCursor))
+                viewport,
+                eventData.position,
+                eventData.pressEventCamera,
+                out localCursor))
         {
             return;
         }
 
         var pointerDelta = localCursor - pointerStartLocalPosition;
         var position = (directionOfRecognize == ScrollDirection.Horizontal ? -pointerDelta.x : pointerDelta.y)
-            / GetViewportSize()
-            * scrollSensitivity
-            + dragStartScrollPosition;
+                       / GetViewportSize()
+                       * scrollSensitivity
+                       + dragStartScrollPosition;
 
         var offset = CalculateOffset(position);
         position += offset;
@@ -259,7 +262,7 @@ public class ScrollPositionController : UIBehaviour, IBeginDragHandler, IEndDrag
     float CalculateClosestPosition(int index)
     {
         var diff = GetLoopPosition(index, dataCount)
-            - GetLoopPosition(currentScrollPosition, dataCount);
+                   - GetLoopPosition(currentScrollPosition, dataCount);
 
         if (Mathf.Abs(diff) > dataCount * 0.5f)
         {
@@ -283,10 +286,13 @@ public class ScrollPositionController : UIBehaviour, IBeginDragHandler, IEndDrag
 
     float EaseInOutCubic(float start, float end, float value)
     {
-        value /= .5f;
+        value /= 0.5f;
         end -= start;
-        if (value < 1) return end * 0.5f * value * value * value + start;
-        value -= 2;
-        return end * 0.5f * (value * value * value + 2) + start;
+        if (value < 1f)
+        {
+            return end * 0.5f * value * value * value + start;
+        }
+        value -= 2f;
+        return end * 0.5f * (value * value * value + 2f) + start;
     }
 }
