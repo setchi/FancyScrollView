@@ -1,7 +1,7 @@
 # FancyScrollView [![License](https://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat)](http://mit-license.org)
 セルの動きを自由に制御できる汎用 ScrollView コンポーネントです。[English](https://translate.google.com/translate?sl=ja&tl=en&u=https://github.com/setchi/FancyScrollView) (by Google Translate)
 
-![screencast](Document/screencast1.gif)
+![screencast](Document/screencast3.gif)
 
 ## 仕組み
 FancyScrollView はセルの位置を更新する際に、画面に見える範囲を正規化した値を各セルに渡します。セル側では 0.0 ~ 1.0 の値をもとにスクロール中の見た目を自由に制御してください。
@@ -105,10 +105,7 @@ public class MyScrollViewCell : FancyScrollViewCell<MyCellDto>
 
 #### セルで発生したイベントを受け取れる？
 セルで発生したあらゆるイベントをハンドリングできます。
-サンプルにセルで発生したイベントをハンドリングする実装を含めているので、それを参考に実装してください。
-
-[Examples/02_CellEventHandling](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples/02_CellEventHandling) のスクリーンキャスト
-![screencast](Document/screencast3.gif)
+サンプルにセルで発生したイベントをハンドリングする実装（[Examples/02_CellEventHandling](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples/02_CellEventHandling)）を含めているので、それを参考に実装してください。
 
 #### セルをLoop(無限スクロール)させたいんだけど？
 - ScrollView の「Loop」をオンにすると、セルをループして配置します。
