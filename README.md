@@ -1,5 +1,4 @@
-# FancyScrollView [![License](https://img.shields.io/github/license/setchi/FancyScrollView.svg?style=flat-square)](LICENSE)
-
+# FancyScrollView [![License](https://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat)](http://mit-license.org)
 セルの動きを自由に制御できる汎用 ScrollView コンポーネントです。[English](https://translate.google.com/translate?sl=ja&tl=en&u=https://github.com/setchi/FancyScrollView) (by Google Translate)
 
 ![screencast](Document/screencast1.gif)
