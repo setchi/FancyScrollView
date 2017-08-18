@@ -1,7 +1,9 @@
 # FancyScrollView [![License](https://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat)](http://mit-license.org)
 セルの動きを自由に制御できる汎用 ScrollView コンポーネントです。[English](https://translate.google.com/translate?sl=ja&tl=en&u=https://github.com/setchi/FancyScrollView) (by Google Translate)
 
-![screencast](Document/screencast3.gif)
+![screencast](Documents/screencast3.gif)
+![screencast](Documents/screencast2.gif)
+![screencast](Documents/screencast1.gif)
 
 ## 仕組み
 FancyScrollView はセルの位置を更新する際に、画面に見える範囲を正規化した値を各セルに渡します。セル側では 0.0 ~ 1.0 の値をもとにスクロール中の見た目を自由に制御してください。
@@ -70,7 +72,7 @@ public class MyScrollViewCell : FancyScrollViewCell<MyCellDto>
 }
 ```
 ### インスペクタ上の設定
-![screencast](Document/inspector.png)
+![screencast](Documents/inspector.png)
 #### My Scroll View
 | プロパティ | 説明 |
 |:-----------|:------------|
@@ -111,7 +113,7 @@ public class MyScrollViewCell : FancyScrollViewCell<MyCellDto>
 - ScrollView の「Loop」をオンにすると、セルをループして配置します。
 - サンプルで使用している ScrollPositionController を使う場合は、「Movement Type」を「Unrestricted」にするとスクロール範囲が無制限になります。
 
-![screencast](Document/infiniteScrollSettings.png)
+![screencast](Documents/infiniteScrollSettings.png)
 
 ## 開発環境
 Unity 2017.1.0f3
