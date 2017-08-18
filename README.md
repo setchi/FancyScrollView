@@ -1,12 +1,12 @@
 # FancyScrollView [![License](https://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat)](http://mit-license.org)
-セルの動きを自由に制御できる汎用 ScrollView コンポーネントです。[English](https://translate.google.com/translate?sl=ja&tl=en&u=https://github.com/setchi/FancyScrollView) (by Google Translate)
+自由度の高いアニメーションを実装できる汎用 ScrollView コンポーネントです。[English](https://translate.google.com/translate?sl=ja&tl=en&u=https://github.com/setchi/FancyScrollView) (by Google Translate)
 
 ![screencast](Documents/screencast3.gif)
 ![screencast](Documents/screencast2.gif)
 ![screencast](Documents/screencast1.gif)
 
 ## 仕組み
-FancyScrollView はセルの位置を更新する際に、画面に見える範囲を正規化した値を各セルに渡します。セル側では 0.0 ~ 1.0 の値をもとにスクロール中の見た目を自由に制御してください。
+FancyScrollView はセルの位置を更新する際に、画面に見える範囲を正規化した値を各セルに渡します。セル側では 0.0 ~ 1.0 の値をもとにスクロール中の見た目を自由に制御できます。
 
 ## 使い方
 もっともシンプルな構成では、
@@ -100,18 +100,19 @@ public class MyScrollViewCell : FancyScrollViewCell<MyCellDto>
 
 #### データ件数が多くてもパフォーマンスは大丈夫？
 セルは表示に必要な数のみ生成するので、データ件数がパフォーマンスに与える影響は小さいです。
-データ件数よりも、セルの間隔（同時に存在するセルの数）やセルの演出の方がパフォーマンスに与える影響が大きいです。
+データ件数よりも、セル同士の間隔（同時に存在するセルの数）やセルの演出の方が、パフォーマンスに与える影響は大きいです。
 
 #### 自分でスクロール位置を制御したいんだけど？
-スクロール位置は自分で好きなように制御できます。サンプルで使用している ScrollPositionController は独自の実装に置き換えられます。
+スクロール位置は自由に制御できます。サンプルで使用している ScrollPositionController は独自の実装に置き換えることができます。
 
 #### セルで発生したイベントを受け取れる？
 セルで発生したあらゆるイベントをハンドリングできます。
-サンプルにセルで発生したイベントをハンドリングする実装（[Examples/02_CellEventHandling](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples/02_CellEventHandling)）を含めているので、それを参考に実装してください。
+セルで発生したイベントをハンドリングする実装例（[Examples/02_CellEventHandling](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples/02_CellEventHandling)）を含めているので、これを参考に実装してください。
 
-#### セルをLoop(無限スクロール)させたいんだけど？
-- ScrollView の「Loop」をオンにすると、セルをループして配置します。
-- サンプルで使用している ScrollPositionController を使う場合は、「Movement Type」を「Unrestricted」にするとスクロール範囲が無制限になります。
+#### セルを無限スクロール（ループ）させたいんだけど？
+無限スクロールに対応しています。実装手順は下記の通りです。
+1. ScrollView の「Loop」をオンにすると、セルがループ状に配置されます。
+1. サンプルで使用している ScrollPositionController を使う場合は、「Movement Type」を「Unrestricted」に設定することで、スクロール範囲が無制限になります。
 
 ![screencast](Documents/infiniteScrollSettings.png)
 
