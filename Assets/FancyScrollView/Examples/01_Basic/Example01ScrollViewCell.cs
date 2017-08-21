@@ -10,7 +10,7 @@ namespace FancyScrollViewExamples
         [SerializeField]
         Text message;
 
-        readonly int scrollTriggerHash = Animator.StringToHash("scroll");
+        static readonly int scrollTriggerHash = Animator.StringToHash("scroll");
 
         void Start()
         {

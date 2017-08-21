@@ -5,7 +5,6 @@ namespace FancyScrollViewExamples
 {
     public class Example01ScrollView : FancyScrollView<Example01CellDto>
     {
-
         [SerializeField]
         ScrollPositionController scrollPositionController;
 

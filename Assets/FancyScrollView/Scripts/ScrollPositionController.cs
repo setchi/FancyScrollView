@@ -142,7 +142,7 @@ public class ScrollPositionController : UIBehaviour, IBeginDragHandler, IEndDrag
         {
             return (dataCount - 1) - position;
         }
-        return 0f;
+        return 0;
     }
 
     void UpdatePosition(float position)
