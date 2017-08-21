@@ -5,11 +5,10 @@ namespace FancyScrollViewExamples
 {
     public class Example01ScrollView : FancyScrollView<Example01CellDto>
     {
-
         [SerializeField]
         ScrollPositionController scrollPositionController;
 
-        void Awake()
+        protected override void Awake()
         {
             base.Awake();
             scrollPositionController.OnUpdatePosition(UpdatePosition);

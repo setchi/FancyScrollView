@@ -15,7 +15,7 @@ namespace FancyScrollViewExamples
         [SerializeField]
         Button button;
 
-        readonly int scrollTriggerHash = Animator.StringToHash("scroll");
+        static readonly int scrollTriggerHash = Animator.StringToHash("scroll");
         Example02ScrollViewContext context;
 
         void Start()
@@ -65,7 +65,7 @@ namespace FancyScrollViewExamples
             animator.speed = 0;
         }
 
-        public void OnPressedCell()
+        void OnPressedCell()
         {
             if (context != null)
             {

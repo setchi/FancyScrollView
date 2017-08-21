@@ -19,7 +19,7 @@ public class FancyScrollView<TData, TContext> : MonoBehaviour where TContext : c
     protected TContext context;
     protected List<TData> cellData = new List<TData>();
 
-    protected void Awake()
+    protected virtual void Awake()
     {
         cellBase.SetActive(false);
     }
