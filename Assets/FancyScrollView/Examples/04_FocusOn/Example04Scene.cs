@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +14,8 @@ namespace FancyScrollViewExamples
         Button prevCellButton;
         [SerializeField]
         Button nextCellButton;
+        [SerializeField]
+        Text selectedItemInfo;
 
         List<Example04CellDto> cellData;
         Example04ScrollViewContext context;
@@ -35,6 +38,11 @@ namespace FancyScrollViewExamples
             }
         }
 
+        void HandleSelectedIndexChanged(int index)
+        {
+            selectedItemInfo.text = String.Format("Selected item info: index {0}", index);
+        }
+
         void Awake()
         {
             prevCellButton.onClick.AddListener(HandlePrevButton);
@@ -46,7 +54,9 @@ namespace FancyScrollViewExamples
             cellData = Enumerable.Range(0, 20)
                 .Select(i => new Example04CellDto { Message = "Cell " + i })
                 .ToList();
-            context = new Example04ScrollViewContext(){ SelectedIndex = 0 };
+            context = new Example04ScrollViewContext();
+            context.OnSelectedIndexChanged = HandleSelectedIndexChanged;
+            context.SelectedIndex = 0;
 
             scrollView.UpdateData(cellData, context);
             scrollView.UpdateSelection(context.SelectedIndex);

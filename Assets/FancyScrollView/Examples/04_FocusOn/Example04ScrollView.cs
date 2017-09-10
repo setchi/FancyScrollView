@@ -13,6 +13,7 @@ namespace FancyScrollViewExamples
         protected override void Awake()
         {
             scrollPositionController.OnUpdatePosition(UpdatePosition);
+            scrollPositionController.OnItemSelected(HandleItemSelected);
             base.Awake();
         }
 
@@ -30,6 +31,12 @@ namespace FancyScrollViewExamples
         {
             scrollPositionController.ScrollTo(selectedCellIndex, scrollToDuration);
             context.SelectedIndex = selectedCellIndex;
+            UpdateContents();
+        }
+
+        void HandleItemSelected(int selectedItemIndex)
+        {
+            context.SelectedIndex = selectedItemIndex;
             UpdateContents();
         }
 
