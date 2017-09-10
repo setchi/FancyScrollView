@@ -201,7 +201,7 @@ public class ScrollPositionController : UIBehaviour, IBeginDragHandler, IEndDrag
 
                 if (onItemSelected != null)
                 {
-                    onItemSelected.Invoke(Mathf.RoundToInt(GetLoopPosition(autoScrollPosition, dataCount)));
+                    onItemSelected(Mathf.RoundToInt(GetLoopPosition(autoScrollPosition, dataCount)));
                 }
             }
         }
