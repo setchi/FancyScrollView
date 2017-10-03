@@ -87,7 +87,6 @@ public class MyScrollViewCell : FancyScrollViewCell<MyCellDto>
 |Viewport|ビューポートとなる RectTransform を指定します。ここで指定された RectTransform の範囲内でジェスチャーの検出を行います。|
 |Direction Of Recognize|ジェスチャーを認識する方向を Vertical か Horizontal で指定します。|
 |Movement Type|コンテンツがスクロール範囲を越えて移動するときに使用する挙動を指定します。|
-|Elasticity|コンテンツがスクロール範囲を越えて移動するときに使用する弾力性の量を指定します。|
 |Scroll Sensitivity|スクロールの感度を指定します。|
 |Inertia|慣性のオン/オフを指定します。|
 |Deceleration Rate|Inertia がオンの場合のみ有効です。減速率を指定します。|

@@ -33,8 +33,6 @@ public class ScrollPositionController : UIBehaviour, IBeginDragHandler, IEndDrag
     [SerializeField]
     MovementType movementType = MovementType.Elastic;
     [SerializeField]
-    float elasticity = 0.1f;
-    [SerializeField]
     float scrollSensitivity = 1f;
     [SerializeField]
     bool inertia = true;
@@ -179,29 +177,34 @@ public class ScrollPositionController : UIBehaviour, IBeginDragHandler, IEndDrag
     float velocity;
     float prevScrollPosition;
 
-    bool autoScrolling;
-    float autoScrollDuration;
-    float autoScrollStartTime;
-    float autoScrollPosition;
+    class AutoScrollState
+    {
+        public bool Enable;
+        public float Duration;
+        public float StartTime;
+        public float EndScrollPosition;
+    }
+
+    readonly AutoScrollState autoScrollState = new AutoScrollState();
 
     void Update()
     {
         var deltaTime = Time.unscaledDeltaTime;
         var offset = CalculateOffset(currentScrollPosition);
 
-        if (autoScrolling)
+        if (autoScrollState.Enable)
         {
-            var alpha = Mathf.Clamp01((Time.unscaledTime - autoScrollStartTime) / Mathf.Max(autoScrollDuration, float.Epsilon));
-            var position = Mathf.Lerp(dragStartScrollPosition, autoScrollPosition, EaseInOutCubic(0, 1, alpha));
+            var alpha = Mathf.Clamp01((Time.unscaledTime - autoScrollState.StartTime) / Mathf.Max(autoScrollState.Duration, float.Epsilon));
+            var position = Mathf.Lerp(dragStartScrollPosition, autoScrollState.EndScrollPosition, EaseInOutCubic(0, 1, alpha));
             UpdatePosition(position);
 
             if (Mathf.Approximately(alpha, 1f))
             {
-                autoScrolling = false;
+                autoScrollState.Enable = false;
 
                 if (onItemSelected != null)
                 {
-                    onItemSelected(Mathf.RoundToInt(GetLoopPosition(autoScrollPosition, dataCount)));
+                    onItemSelected(Mathf.RoundToInt(GetLoopPosition(autoScrollState.EndScrollPosition, dataCount)));
                 }
             }
         }
@@ -211,9 +214,7 @@ public class ScrollPositionController : UIBehaviour, IBeginDragHandler, IEndDrag
             // Apply spring physics if movement is elastic and content has an offset from the view.
             if (movementType == MovementType.Elastic && offset != 0)
             {
-                var speed = velocity;
-                position = Mathf.SmoothDamp(currentScrollPosition, currentScrollPosition + offset, ref speed, elasticity, Mathf.Infinity, deltaTime);
-                velocity = speed;
+                ScrollTo(Mathf.RoundToInt(position + offset), 0.35f);
             }
             // Else move content according to velocity with deceleration applied.
             else if (inertia)
@@ -245,7 +246,7 @@ public class ScrollPositionController : UIBehaviour, IBeginDragHandler, IEndDrag
             }
         }
 
-        if (!autoScrolling && dragging && inertia)
+        if (!autoScrollState.Enable && dragging && inertia)
         {
             var newVelocity = (currentScrollPosition - prevScrollPosition) / deltaTime;
             velocity = Mathf.Lerp(velocity, newVelocity, deltaTime * 10f);
@@ -260,12 +261,12 @@ public class ScrollPositionController : UIBehaviour, IBeginDragHandler, IEndDrag
     public void ScrollTo(int index, float duration)
     {
         velocity = 0;
-        autoScrolling = true;
-        autoScrollDuration = duration;
-        autoScrollStartTime = Time.unscaledTime;
         dragStartScrollPosition = currentScrollPosition;
 
-        autoScrollPosition = movementType == MovementType.Unrestricted
+        autoScrollState.Enable = true;
+        autoScrollState.Duration = duration;
+        autoScrollState.StartTime = Time.unscaledTime;
+        autoScrollState.EndScrollPosition = movementType == MovementType.Unrestricted
             ? CalculateClosestPosition(index)
             : index;
     }
