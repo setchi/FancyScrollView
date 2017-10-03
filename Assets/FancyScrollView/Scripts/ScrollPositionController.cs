@@ -46,6 +46,7 @@ public class ScrollPositionController : UIBehaviour, IBeginDragHandler, IEndDrag
     int dataCount;
 
     Action<float> onUpdatePosition;
+    Action<int> onItemSelected;
 
     Vector2 pointerStartLocalPosition;
     float dragStartScrollPosition;
@@ -165,6 +166,11 @@ public class ScrollPositionController : UIBehaviour, IBeginDragHandler, IEndDrag
         this.onUpdatePosition = onUpdatePosition;
     }
 
+    public void OnItemSelected(Action<int> onItemSelected)
+    {
+        this.onItemSelected = onItemSelected;
+    }
+
     public void SetDataCount(int dataCont)
     {
         this.dataCount = dataCont;
@@ -192,6 +198,11 @@ public class ScrollPositionController : UIBehaviour, IBeginDragHandler, IEndDrag
             if (Mathf.Approximately(alpha, 1f))
             {
                 autoScrolling = false;
+
+                if (onItemSelected != null)
+                {
+                    onItemSelected(Mathf.RoundToInt(GetLoopPosition(autoScrollPosition, dataCount)));
+                }
             }
         }
         else if (!dragging && (offset != 0 || velocity != 0))
