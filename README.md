@@ -1,6 +1,8 @@
 # FancyScrollView [![License](https://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat)](http://mit-license.org)
-自由度の高いアニメーションを実装できる汎用 ScrollView コンポーネントです。[English](https://translate.google.com/translate?sl=ja&tl=en&u=https://github.com/setchi/FancyScrollView) (by Google Translate)
+高度に柔軟なアニメーションを実装できる汎用のScrollViewコンポーネントです。 無限スクロールも対応しています。[English](https://translate.google.com/translate?sl=ja&tl=en&u=https://github.com/setchi/FancyScrollView) (by Google Translate)
 
+
+![screencast](Documents/logo.png)
 ![screencast](Documents/screencast3.gif)
 ![screencast](Documents/screencast2.gif)
 ![screencast](Documents/screencast1.gif)
