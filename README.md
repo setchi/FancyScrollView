@@ -3,9 +3,8 @@
 
 
 ![screencast](Documents/logo.png)
-![screencast](Documents/screencast3.gif)
-![screencast](Documents/screencast2.gif)
 ![screencast](Documents/screencast1.gif)
+![screencast](Documents/screencast2.gif)
 
 ## 仕組み
 FancyScrollView はセルの位置を更新する際に、画面に見える範囲を正規化した値を各セルに渡します。セル側では 0.0 ~ 1.0 の値をもとにスクロール中の見た目を自由に制御できます。
