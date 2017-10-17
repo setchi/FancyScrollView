@@ -81,7 +81,8 @@ public class MyScrollViewCell : FancyScrollViewCell<MyCellDto>
 |Cell Interval|セル同士の間隔を float.Epsilon ~ 1.0 の間で指定します。|
 |Cell Offset|セルのオフセットを指定します。例えば 0.5 を指定して、スクロール位置が 0 の場合、最初のセルの位置が 0.5 になります。|
 |Loop|オンにすると、セルをループして配置します。無限スクロールさせたい場合はオンにします。|
-|Cell Base|セルのもととなる GameObject を指定します。|
+|Cell Base|セルの Prefab を指定します。|
+|Cell Container| セルの親要素となるTransformを指定します。 |
 
 #### Scroll Position Controller
 | プロパティ | 説明 |
