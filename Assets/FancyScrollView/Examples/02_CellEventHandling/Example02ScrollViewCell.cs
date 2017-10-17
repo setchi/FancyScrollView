@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace FancyScrollViewExamples
+namespace FancyScrollView
 {
     public class Example02ScrollViewCell
         : FancyScrollViewCell<Example02CellDto, Example02ScrollViewContext>

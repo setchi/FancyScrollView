@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FancyScrollViewExamples
+namespace FancyScrollView
 {
     public class Example04ScrollViewContext
     {

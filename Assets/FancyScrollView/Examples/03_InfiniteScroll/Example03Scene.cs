@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using UnityEngine;
 
-namespace FancyScrollViewExamples
+namespace FancyScrollView
 {
     public class Example03Scene : MonoBehaviour
     {

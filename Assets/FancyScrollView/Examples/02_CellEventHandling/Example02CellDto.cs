@@ -1,4 +1,4 @@
-﻿namespace FancyScrollViewExamples
+﻿namespace FancyScrollView
 {
     public class Example02CellDto
     {
