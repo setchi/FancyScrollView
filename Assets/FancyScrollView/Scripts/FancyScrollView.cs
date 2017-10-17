@@ -13,6 +13,8 @@ namespace FancyScrollView
         bool loop;
         [SerializeField]
         GameObject cellBase;
+        [SerializeField]
+        Transform cellContainer;
 
         float currentPosition;
         readonly List<FancyScrollViewCell<TData, TContext>> cells =
@@ -20,11 +22,6 @@ namespace FancyScrollView
 
         protected TContext context;
         protected List<TData> cellData = new List<TData>();
-
-        protected virtual void Awake()
-        {
-            cellBase.SetActive(false);
-        }
 
         /// <summary>
         /// コンテキストを設定します
@@ -65,7 +62,7 @@ namespace FancyScrollView
                 offsetMax = cellRectTransform.offsetMax;
             }
 
-            cell.transform.SetParent(cellBase.transform.parent);
+            cell.transform.SetParent(cellContainer);
 
             cell.transform.localScale = scale;
             if (cellRectTransform)

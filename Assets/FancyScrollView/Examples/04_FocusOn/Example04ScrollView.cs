@@ -10,11 +10,10 @@ namespace FancyScrollView
         [SerializeField]
         float scrollToDuration = 0.4f;
 
-        protected override void Awake()
+        protected void Awake()
         {
             scrollPositionController.OnUpdatePosition(UpdatePosition);
             scrollPositionController.OnItemSelected(HandleItemSelected);
-            base.Awake();
         }
 
         public void UpdateData(List<Example04CellDto> data, Example04ScrollViewContext context)

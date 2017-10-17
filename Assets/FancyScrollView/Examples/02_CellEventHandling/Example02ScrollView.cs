@@ -8,11 +8,10 @@ namespace FancyScrollView
         [SerializeField]
         ScrollPositionController scrollPositionController;
 
-        protected override void Awake()
+        protected void Awake()
         {
             scrollPositionController.OnUpdatePosition(UpdatePosition);
             SetContext(new Example02ScrollViewContext { OnPressedCell = OnPressedCell });
-            base.Awake();
         }
 
         public void UpdateData(List<Example02CellDto> data)
