@@ -118,7 +118,7 @@ public class MyScrollViewCell : FancyScrollViewCell<MyCellDto>
 ![screencast](Documents/infiniteScrollSettings.png)
 
 ## 開発環境
-Unity 2017.1.1p3
+Unity 2017.2.0f3
 
 ## LICENSE
 MIT
