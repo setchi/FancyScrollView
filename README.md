@@ -115,9 +115,9 @@ public class MyScrollViewCell : FancyScrollViewCell<MyCellDto>
 1. ScrollView の「Loop」をオンにすると、セルがループ状に配置されます。
 1. サンプルで使用している ScrollPositionController を使う場合は、「Movement Type」を「Unrestricted」に設定することで、スクロール範囲が無制限になります。
 
-実装例（[Examples/03_InfiniteScroll](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples/03_InfiniteScroll)）を含めているのでこちらも参考にしてください。
-
 ![screencast](Documents/infiniteScrollSettings.png)
+
+実装例（[Examples/03_InfiniteScroll](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples/03_InfiniteScroll)）を含めているのでこちらも参考にしてください。
 
 ## 開発環境
 Unity 2017.2.0f3
