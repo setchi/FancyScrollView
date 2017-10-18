@@ -10,7 +10,7 @@ namespace FancyScrollView
         [SerializeField]
         float scrollToDuration = 0.4f;
 
-        protected void Awake()
+        void Awake()
         {
             scrollPositionController.OnUpdatePosition(UpdatePosition);
             scrollPositionController.OnItemSelected(HandleItemSelected);

@@ -39,8 +39,6 @@ public class MyScrollView : FancyScrollView<MyCellDto>
 
     void Awake()
     {
-        base.Awake();
-
         base.cellData = Enumerable.Range(0, 50)
             .Select(i => new MyCellDto { Message = "Cell " + i })
             .ToList();
