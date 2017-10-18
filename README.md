@@ -31,6 +31,7 @@ FancyScrollView を継承して自分のスクロールビューを実装しま�
 ```csharp
 using UnityEngine;
 using System.Linq;
+using FancyScrollView;
 
 public class MyScrollView : FancyScrollView<MyCellDto>
 {
@@ -52,6 +53,7 @@ FancyScrollViewCell を継承して自分のセルを実装します
 ```csharp
 using UnityEngine;
 using UnityEngine.UI;
+using FancyScrollView;
 
 public class MyScrollViewCell : FancyScrollViewCell<MyCellDto>
 {
