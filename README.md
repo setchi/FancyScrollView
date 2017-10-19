@@ -68,7 +68,7 @@ public class MyScrollViewCell : FancyScrollViewCell<MyCellDto>
     public override void UpdatePosition(float position)
     {
         // position は 0.0 ~ 1.0 の値です
-        // position をもとに、セルの見た目を自由に制御してください
+        // position をもとに、セルの見た目を自由に制御できます
     }
 }
 ```
