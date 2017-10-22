@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-
 //For manteinance, every new [SerializeField] variable in ScrollPositionController must be declared here
 
 namespace FancyScrollView
@@ -21,9 +20,8 @@ namespace FancyScrollView
         private SerializedProperty snap;
         private SerializedProperty snapEnable;
         private SerializedProperty snapVelocityThreshold;
-        private SerializedProperty snapDuration; 
+        private SerializedProperty snapDuration;
         private SerializedProperty dataCount;
-      
 
         private void OnEnable()
         {
@@ -51,9 +49,7 @@ namespace FancyScrollView
             DrawInertiaRelatedValues(); 
             EditorGUILayout.PropertyField(dataCount);
             serializedObject.ApplyModifiedProperties(); 
-            
         }
-
 
         private void DrawInertiaRelatedValues()
         {
@@ -63,7 +59,6 @@ namespace FancyScrollView
                 EditorGUILayout.PropertyField(snap);
                 DrawSnapRelatedValues(); 
                 EditorGUI.indentLevel = 0;
-
             }
         }
 
@@ -80,13 +75,5 @@ namespace FancyScrollView
                 }
             }
         }
-
-    
-
-
-
     }
-
-    
-
 }
