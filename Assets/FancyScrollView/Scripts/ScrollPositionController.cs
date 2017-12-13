@@ -217,7 +217,7 @@ namespace FancyScrollView
                 {
                     ScrollTo(Mathf.RoundToInt(position + offset), 0.35f);
                 }
-            else if (inertia)
+                else if (inertia)
                 {
                     velocity *= Mathf.Pow(decelerationRate, deltaTime);
                     if (Mathf.Abs(velocity) < 0.001f)
@@ -229,8 +229,8 @@ namespace FancyScrollView
                         ScrollTo(Mathf.RoundToInt(currentScrollPosition), snap.Duration);
                     }
                 }
-            // If we have neither elaticity or friction, there shouldn't be any velocity.
-            else
+                // If we have neither elaticity or friction, there shouldn't be any velocity.
+                else
                 {
                     velocity = 0;
                 }
