@@ -213,12 +213,10 @@ namespace FancyScrollView
             else if (!dragging && (offset != 0 || velocity != 0))
             {
                 var position = currentScrollPosition;
-                // Apply spring physics if movement is elastic and content has an offset from the view.
                 if (movementType == MovementType.Elastic && offset != 0)
                 {
                     ScrollTo(Mathf.RoundToInt(position + offset), 0.35f);
                 }
-            // Else move content according to velocity with deceleration applied.
             else if (inertia)
                 {
                     velocity *= Mathf.Pow(decelerationRate, deltaTime);
