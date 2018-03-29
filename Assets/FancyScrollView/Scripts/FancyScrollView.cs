@@ -78,7 +78,6 @@ namespace FancyScrollView
             return cell;
         }
 
-        #if UNITY_EDITOR
         float prevCellInterval, prevCellOffset;
         bool prevLoop;
 
@@ -95,7 +94,6 @@ namespace FancyScrollView
                 prevCellInterval = cellInterval;
             }
         }
-        #endif
 
         /// <summary>
         /// セルの内容を更新します
