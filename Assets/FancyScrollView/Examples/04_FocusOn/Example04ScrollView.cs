@@ -23,6 +23,7 @@ namespace FancyScrollView
 
             cellData = data;
             scrollPositionController.SetDataCount(cellData.Count);
+            RefreshCells();
             UpdateContents();
         }
 
