@@ -370,7 +370,7 @@ MonoBehaviour:
   cellInterval: 0.15
   cellOffset: 0.5
   loop: 0
-  cellBase: 01Cell
+  cellBase: Assets/FancyScrollView/Examples/Resources/01Cell.prefab
   cellContainer: {fileID: 1492537696}
   scrollPositionController: {fileID: 1492537699}
 --- !u!114 &1492537701

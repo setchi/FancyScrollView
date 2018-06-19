@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using System.Reflection;
+using System;
 
 //For manteinance, every new [SerializeField] variable in ScrollPositionController must be declared here
 
@@ -22,6 +24,9 @@ namespace FancyScrollView
         private SerializedProperty snapVelocityThreshold;
         private SerializedProperty snapDuration;
         private SerializedProperty dataCount;
+
+        private FieldInfo field;
+        private IList list;
 
         private void OnEnable()
         {
@@ -46,8 +51,52 @@ namespace FancyScrollView
             EditorGUILayout.PropertyField(movementType);
             EditorGUILayout.PropertyField(scrollSensitivity);
             EditorGUILayout.PropertyField(inertia);
-            DrawInertiaRelatedValues(); 
-            EditorGUILayout.PropertyField(dataCount);
+            DrawInertiaRelatedValues();
+
+            EditorGUILayout.BeginHorizontal();
+            int newvalue = EditorGUILayout.IntField("dataCount", dataCount.intValue);
+            if( newvalue != dataCount.intValue  )
+            {
+                dataCount.intValue = newvalue;
+            }
+
+            if (Application.isPlaying && GUILayout.Button("Sure"))
+            {
+                ScrollPositionController controller = target as ScrollPositionController;
+                BaseFancyScrollView view = controller.GetComponent<BaseFancyScrollView>();
+
+                controller.SetDataCount(newvalue);
+
+                if (view != null)
+                {
+                    if (field == null)
+                    {
+                        field = view.GetType().GetField("cellData", BindingFlags.Instance | BindingFlags.NonPublic);
+                        list = (IList)field.GetValue(view);
+                    }
+                    int datacnt = controller.GetDataCount();
+                    if (datacnt < list.Count)
+                    {
+                        for (int i = list.Count - 1; i >= datacnt; --i)
+                        {
+                            list.RemoveAt(i);
+                        }
+                    }
+                    else
+                    {
+                        Type ListElementType = list.GetType().GetGenericArguments()[0];
+                        for (int i = list.Count; i < datacnt; ++i)
+                        {
+                            list.Add(Activator.CreateInstance(ListElementType));
+                        }
+                    }
+
+                    view.RefreshCells();
+                }
+            }
+
+            EditorGUILayout.EndHorizontal();
+
             serializedObject.ApplyModifiedProperties(); 
         }
 

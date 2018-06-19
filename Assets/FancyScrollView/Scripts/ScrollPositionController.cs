@@ -234,6 +234,11 @@ namespace FancyScrollView
             this.onItemSelected = onItemSelected;
         }
 
+        public int GetDataCount()
+        {
+            return dataCount;
+        }
+
         public void SetDataCount(int dataCont)
         {
             this.dataCount = dataCont;

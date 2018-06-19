@@ -10,7 +10,7 @@ namespace FancyScrollView
         FilePathWithoutExtension,
     }
 
-    public class BaseFancyScrollView:MonoBehaviour
+    public abstract class BaseFancyScrollView:MonoBehaviour
     {
         [SerializeField]
         protected FancyScrollViewResName ResNameMode;
@@ -24,6 +24,8 @@ namespace FancyScrollView
         protected string cellBase;
         [SerializeField]
         protected Transform cellContainer;
+
+        public abstract void RefreshCells();
     }
 
     public class FancyScrollView<TData, TContext> : BaseFancyScrollView where TContext : class
@@ -98,6 +100,24 @@ namespace FancyScrollView
             }
         }
 
+        public override void RefreshCells()
+        {
+            int cellcnt = this.cells.Count;
+            int datacnt = this.cellData.Count;
+            if(datacnt < cellcnt)
+            {
+                for(int i= cellcnt -1; i >=0;--i)
+                {
+                    var cellui = cells[i];
+                    if(cellui.DataIndex >= datacnt)
+                    {
+                        pool.DeSpawn(cellBase, cellui.transform);
+                        cells.RemoveAt(i);
+                    }
+                }
+            }
+        }
+
         /// <summary>
         /// セルを生成して返します
         /// </summary>
@@ -108,6 +128,7 @@ namespace FancyScrollView
             if (cellObject == null)
                 throw new System.NullReferenceException(string.Format("create {0} failed", cellBase));
 
+            
             cellObject.gameObject.SetActive(true);
             var cell = cellObject.GetComponent<FancyScrollViewCell<TData, TContext>>();
 
@@ -125,9 +146,9 @@ namespace FancyScrollView
                 offsetMin = cellRectTransform.offsetMin;
                 offsetMax = cellRectTransform.offsetMax;
             }
-
             cellObject.SetParent(cellContainer);
-
+            cellObject.localRotation = Quaternion.identity;
+            cellObject.localPosition = Vector3.zero;
             cellObject.localScale = scale;
             if (cellRectTransform)
             {
@@ -179,6 +200,9 @@ namespace FancyScrollView
 
             cell.SetVisible(true);
             cell.DataIndex = dataIndex;
+#if UNITY_EDITOR
+            cell.name = dataIndex.ToString();
+#endif
             cell.UpdateContent(cellData[dataIndex]);
         }
 
