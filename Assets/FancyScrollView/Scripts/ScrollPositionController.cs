@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace FancyScrollView
 {
-    public class ScrollPositionController : UIBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
+    public class ScrollPositionController : UIBehaviour
     {
         [Serializable]
         struct Snap
@@ -51,75 +51,137 @@ namespace FancyScrollView
         Vector2 pointerStartLocalPosition;
         float dragStartScrollPosition;
         float currentScrollPosition;
-        bool dragging;
+        protected bool dragging;
+        protected bool hasEvents;
+        protected UILisenter listener;
 
-        void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
+        protected override void OnEnable()
         {
-            if (eventData.button != PointerEventData.InputButton.Left)
-            {
-                return;
-            }
-
-            pointerStartLocalPosition = Vector2.zero;
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                viewport,
-                eventData.position,
-                eventData.pressEventCamera,
-                out pointerStartLocalPosition);
-
-            dragStartScrollPosition = currentScrollPosition;
-            dragging = true;
+            base.OnEnable();
+            AddEvents();
         }
 
-        void IDragHandler.OnDrag(PointerEventData eventData)
+        protected override void OnDisable()
         {
-            if (eventData.button != PointerEventData.InputButton.Left)
-            {
-                return;
-            }
+            base.OnDisable();
+            RemoveEvents();
+        }
 
-            if (!dragging)
+        protected virtual void AddEvents()
+        {
+            if(!hasEvents)
             {
-                return;
-            }
+                hasEvents = true;
 
-            Vector2 localCursor;
-            if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                if(listener == null)
+                {
+                    listener = GetComponent<UILisenter>();
+                    if (listener == null)
+                        listener = gameObject.AddComponent<UILisenter>();
+                }
+
+                listener.onBeginDrag.Add(OnBeginDrag);
+                listener.onDrag.Add(OnDrag);
+                listener.onEndDrag.Add(OnEndDrag);
+            }
+        }
+
+        protected virtual void RemoveEvents()
+        {
+            if(hasEvents)
+            {
+                hasEvents = false;
+
+                if(listener != null)
+                {
+                    listener.onBeginDrag.Remove(OnBeginDrag);
+                    listener.onDrag.Remove(OnDrag);
+                    listener.onEndDrag.Remove(OnEndDrag);
+                }
+            }
+        }
+
+        protected virtual void OnBeginDrag(GameObject go, BaseEventData data)
+        {
+            PointerEventData eventData = data as PointerEventData;
+            if(eventData != null)
+            {
+                if (eventData.button != PointerEventData.InputButton.Left)
+                {
+                    return;
+                }
+
+                pointerStartLocalPosition = Vector2.zero;
+                RectTransformUtility.ScreenPointToLocalPointInRectangle(
                     viewport,
                     eventData.position,
                     eventData.pressEventCamera,
-                    out localCursor))
-            {
-                return;
+                    out pointerStartLocalPosition);
+
+                dragStartScrollPosition = currentScrollPosition;
+                dragging = true;
             }
 
-            var pointerDelta = localCursor - pointerStartLocalPosition;
-            var position = (directionOfRecognize == ScrollDirection.Horizontal ? -pointerDelta.x : pointerDelta.y)
-                           / GetViewportSize()
-                           * scrollSensitivity
-                           + dragStartScrollPosition;
-
-            var offset = CalculateOffset(position);
-            position += offset;
-
-            if (movementType == MovementType.Elastic)
-            {
-                if (offset != 0)
-                {
-                    position -= RubberDelta(offset, scrollSensitivity);
-                }
-            }
-            UpdatePosition(position);
         }
 
-        void IEndDragHandler.OnEndDrag(PointerEventData eventData)
+        protected virtual void OnDrag(GameObject go, BaseEventData data)
         {
-            if (eventData.button != PointerEventData.InputButton.Left)
+            PointerEventData eventData = data as PointerEventData;
+            if (eventData != null)
             {
-                return;
+                if (eventData.button != PointerEventData.InputButton.Left)
+                {
+                    return;
+                }
+
+                if (!dragging)
+                {
+                    return;
+                }
+
+                Vector2 localCursor;
+                if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                        viewport,
+                        eventData.position,
+                        eventData.pressEventCamera,
+                        out localCursor))
+                {
+                    return;
+                }
+
+                var pointerDelta = localCursor - pointerStartLocalPosition;
+                var position = (directionOfRecognize == ScrollDirection.Horizontal ? -pointerDelta.x : pointerDelta.y)
+                               / GetViewportSize()
+                               * scrollSensitivity
+                               + dragStartScrollPosition;
+
+                var offset = CalculateOffset(position);
+                position += offset;
+
+                if (movementType == MovementType.Elastic)
+                {
+                    if (offset != 0)
+                    {
+                        position -= RubberDelta(offset, scrollSensitivity);
+                    }
+                }
+                UpdatePosition(position);
+            }
+        }
+
+        protected virtual void OnEndDrag(GameObject go, BaseEventData data)
+        {
+            PointerEventData eventData = data as PointerEventData;
+            if (eventData != null)
+            {
+                if (eventData.button != PointerEventData.InputButton.Left)
+                {
+                    return;
+                }
+
+                dragging = false;
             }
 
-            dragging = false;
         }
 
         float GetViewportSize()
@@ -189,7 +251,7 @@ namespace FancyScrollView
 
         readonly AutoScrollState autoScrollState = new AutoScrollState();
 
-        void Update()
+        protected virtual void Update()
         {
             var deltaTime = Time.unscaledDeltaTime;
             var offset = CalculateOffset(currentScrollPosition);

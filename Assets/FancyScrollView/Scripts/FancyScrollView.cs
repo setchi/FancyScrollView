@@ -3,25 +3,80 @@ using UnityEngine;
 
 namespace FancyScrollView
 {
-    public class FancyScrollView<TData, TContext> : MonoBehaviour where TContext : class
+    public enum FancyScrollViewResName
     {
-        [SerializeField, Range(float.Epsilon, 1f)]
-        float cellInterval;
-        [SerializeField, Range(0f, 1f)]
-        float cellOffset;
-        [SerializeField]
-        bool loop;
-        [SerializeField]
-        GameObject cellBase;
-        [SerializeField]
-        Transform cellContainer;
+        FullName,
+        FilePath,
+        FilePathWithoutExtension,
+    }
 
+    public class BaseFancyScrollView:MonoBehaviour
+    {
+        [SerializeField]
+        protected FancyScrollViewResName ResNameMode;
+        [SerializeField]
+        protected float cellInterval;
+        [SerializeField]
+        protected float cellOffset;
+        [SerializeField]
+        protected bool loop;
+        [SerializeField]
+        protected string cellBase;
+        [SerializeField]
+        protected Transform cellContainer;
+    }
+
+    public class FancyScrollView<TData, TContext> : BaseFancyScrollView where TContext : class
+    {
         float currentPosition;
-        readonly List<FancyScrollViewCell<TData, TContext>> cells =
-            new List<FancyScrollViewCell<TData, TContext>>();
+        readonly List<FancyScrollViewCell<TData, TContext>> cells = ListPool<FancyScrollViewCell<TData, TContext>>.Get();
 
         protected TContext context;
-        protected List<TData> cellData = new List<TData>();
+        protected List<TData> cellData = ListPool<TData>.Get();
+
+        private static GameObjectPool<string> _pool;
+        /// <summary>
+        /// you can inherit this and set createfunc for your key
+        /// </summary>
+        protected static GameObjectPool<string> pool
+        {
+            get
+            {
+                if(_pool == null)
+                {
+                    _pool = new GameObjectPool<string>("FancyScrollViewPool", CreateInstance);
+                }
+                return _pool;
+            }
+        }
+
+        static Transform CreateInstance(string key)
+        {
+            string fixname = System.IO.Path.GetFileNameWithoutExtension(key);
+            Transform trans = Resources.Load<Transform>(fixname);
+            if(trans != null)
+            {
+                return Instantiate<Transform>(trans);
+            }
+            return null;
+        }
+
+        protected void OnDestroy()
+        {
+            ListPool<FancyScrollViewCell<TData, TContext>>.Release(cells);
+ 
+            ListPool<TData>.Release(cellData);
+            cellData = null;
+
+            if(cellContainer != null)
+            {
+                int childcnt = cellContainer.childCount;
+                for(int i =0; i < childcnt;++i)
+                {
+                    pool.DeSpawn(cellBase, cellContainer.GetChild(i));
+                }
+            }
+        }
 
         /// <summary>
         /// コンテキストを設定します
@@ -43,14 +98,17 @@ namespace FancyScrollView
         /// <returns></returns>
         FancyScrollViewCell<TData, TContext> CreateCell()
         {
-            var cellObject = Instantiate(cellBase);
-            cellObject.SetActive(true);
+            Transform cellObject = pool.Spawn(cellBase);
+            if (cellObject == null)
+                throw new System.NullReferenceException(string.Format("create {0} failed", cellBase));
+
+            cellObject.gameObject.SetActive(true);
             var cell = cellObject.GetComponent<FancyScrollViewCell<TData, TContext>>();
 
-            var cellRectTransform = cell.transform as RectTransform;
+            var cellRectTransform = cellObject as RectTransform;
 
             // 親要素の付け替えをおこなうとスケールやサイズが失われるため、変数に保持しておく
-            var scale = cell.transform.localScale;
+            var scale = cellObject.localScale;
             var sizeDelta = Vector2.zero;
             var offsetMin = Vector2.zero;
             var offsetMax = Vector2.zero;
@@ -62,9 +120,9 @@ namespace FancyScrollView
                 offsetMax = cellRectTransform.offsetMax;
             }
 
-            cell.transform.SetParent(cellContainer);
+            cellObject.SetParent(cellContainer);
 
-            cell.transform.localScale = scale;
+            cellObject.localScale = scale;
             if (cellRectTransform)
             {
                 cellRectTransform.sizeDelta = sizeDelta;
