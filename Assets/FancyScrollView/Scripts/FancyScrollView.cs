@@ -33,6 +33,7 @@ namespace FancyScrollView
 
         protected TContext context;
         protected List<TData> cellData = ListPool<TData>.Get();
+        private bool willquit;
 
         private static GameObjectPool<string> _pool;
         /// <summary>
@@ -61,6 +62,11 @@ namespace FancyScrollView
             return null;
         }
 
+        protected void OnApplicationQuit()
+        {
+            willquit = true;
+        }
+
         protected void OnDestroy()
         {
             ListPool<FancyScrollViewCell<TData, TContext>>.Release(cells);
@@ -68,7 +74,7 @@ namespace FancyScrollView
             ListPool<TData>.Release(cellData);
             cellData = null;
 
-            if(cellContainer != null)
+            if(cellContainer != null && !willquit)
             {
                 int childcnt = cellContainer.childCount;
                 for(int i =0; i < childcnt;++i)

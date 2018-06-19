@@ -41,6 +41,10 @@ namespace FancyScrollView
             DeFaultFunc = func;
         }
 
+        public bool HasPool()
+        {
+            return _pool != null;
+        }
 
         public bool Contains(Transform target)
         {

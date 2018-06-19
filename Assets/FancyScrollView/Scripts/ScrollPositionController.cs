@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 namespace FancyScrollView
 {
+    [RequireComponent(typeof(BaseFancyScrollView))]
     public class ScrollPositionController : UIBehaviour
     {
         [Serializable]
