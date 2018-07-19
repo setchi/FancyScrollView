@@ -11,6 +11,13 @@ namespace FancyScrollView
         float cellOffset;
         [SerializeField]
         bool loop;
+
+        /// <summary>
+        /// Loop and cycle
+        /// </summary>
+        [SerializeField]
+        bool cycle;
+
         [SerializeField]
         GameObject cellBase;
         [SerializeField]
@@ -102,7 +109,8 @@ namespace FancyScrollView
         /// <param name="dataIndex"></param>
         void UpdateCellForIndex(FancyScrollViewCell<TData, TContext> cell, int dataIndex)
         {
-            if (loop)
+            if (loop &&
+                cycle)
             {
                 dataIndex = GetLoopIndex(dataIndex, cellData.Count);
             }
