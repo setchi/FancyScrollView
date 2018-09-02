@@ -45,6 +45,5 @@ namespace FancyScrollView
 
     public class FancyScrollViewCell<TData> : FancyScrollViewCell<TData, FancyScrollViewNullContext>
     {
-
     }
 }

@@ -163,11 +163,9 @@ namespace FancyScrollView
 
     public sealed class FancyScrollViewNullContext
     {
-
     }
 
     public class FancyScrollView<TData> : FancyScrollView<TData, FancyScrollViewNullContext>
     {
-
     }
 }
