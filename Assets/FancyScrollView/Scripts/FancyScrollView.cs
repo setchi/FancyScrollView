@@ -43,38 +43,10 @@ namespace FancyScrollView
         /// <returns></returns>
         FancyScrollViewCell<TData, TContext> CreateCell()
         {
-            var cellObject = Instantiate(cellBase);
-            cellObject.SetActive(true);
+            var cellObject = Instantiate(cellBase, cellContainer);
             var cell = cellObject.GetComponent<FancyScrollViewCell<TData, TContext>>();
-
-            var cellRectTransform = cell.transform as RectTransform;
-
-            // 親要素の付け替えをおこなうとスケールやサイズが失われるため、変数に保持しておく
-            var scale = cell.transform.localScale;
-            var sizeDelta = Vector2.zero;
-            var offsetMin = Vector2.zero;
-            var offsetMax = Vector2.zero;
-
-            if (cellRectTransform)
-            {
-                sizeDelta = cellRectTransform.sizeDelta;
-                offsetMin = cellRectTransform.offsetMin;
-                offsetMax = cellRectTransform.offsetMax;
-            }
-
-            cell.transform.SetParent(cellContainer);
-
-            cell.transform.localScale = scale;
-            if (cellRectTransform)
-            {
-                cellRectTransform.sizeDelta = sizeDelta;
-                cellRectTransform.offsetMin = offsetMin;
-                cellRectTransform.offsetMax = offsetMax;
-            }
-
             cell.SetContext(context);
             cell.SetVisible(false);
-
             return cell;
         }
 
