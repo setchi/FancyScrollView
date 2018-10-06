@@ -106,6 +106,7 @@ namespace FancyScrollView
             {
                 index = index % length;
             }
+
             return index;
         }
 
@@ -145,11 +146,12 @@ namespace FancyScrollView
             {
                 var dataIndex = dataStartIndex + count;
                 cellIndex = GetLoopIndex(dataIndex, cells.Count);
+                UpdateCellForIndex(cells[cellIndex], dataIndex);
+
                 if (cells[cellIndex].gameObject.activeSelf)
                 {
                     cells[cellIndex].UpdatePosition(pos);
                 }
-                UpdateCellForIndex(cells[cellIndex], dataIndex);
             }
 
             cellIndex = GetLoopIndex(dataStartIndex + count, cells.Count);

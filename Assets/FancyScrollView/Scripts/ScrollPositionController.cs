@@ -280,6 +280,14 @@ namespace FancyScrollView
                 ? CalculateClosestPosition(index)
                 : index;
         }
+
+        public void JumpTo(int index)
+        {
+            velocity = 0;
+            dragging = false;
+            autoScrollState.Enable = false;
+
+            UpdatePosition(index);
         }
 
         float CalculateClosestPosition(int index)
