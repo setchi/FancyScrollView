@@ -19,7 +19,6 @@ namespace FancyScrollView
 
         void Start()
         {
-            UpdatePosition(0);
             button.onClick.AddListener(OnPressedCell);
         }
 

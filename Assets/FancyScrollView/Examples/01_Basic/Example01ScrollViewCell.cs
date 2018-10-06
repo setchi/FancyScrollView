@@ -12,11 +12,6 @@ namespace FancyScrollView
 
         static readonly int scrollTriggerHash = Animator.StringToHash("scroll");
 
-        void Start()
-        {
-            UpdatePosition(0);
-        }
-
         /// <summary>
         /// セルの内容を更新します
         /// </summary>

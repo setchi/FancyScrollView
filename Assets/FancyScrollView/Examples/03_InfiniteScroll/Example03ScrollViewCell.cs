@@ -24,7 +24,6 @@ namespace FancyScrollView
             rectTransform.anchorMin = Vector2.zero;
             rectTransform.anchoredPosition3D = Vector3.zero;
 
-            UpdatePosition(0);
             button.onClick.AddListener(OnPressedCell);
         }
 
