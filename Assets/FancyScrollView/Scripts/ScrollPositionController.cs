@@ -109,6 +109,7 @@ namespace FancyScrollView
                     position -= RubberDelta(offset, scrollSensitivity);
                 }
             }
+
             UpdatePosition(position);
         }
 
@@ -125,8 +126,8 @@ namespace FancyScrollView
         float GetViewportSize()
         {
             return directionOfRecognize == ScrollDirection.Horizontal
-            ? viewport.rect.size.x
-            : viewport.rect.size.y;
+                ? viewport.rect.size.x
+                : viewport.rect.size.y;
         }
 
         float CalculateOffset(float position)
@@ -135,15 +136,18 @@ namespace FancyScrollView
             {
                 return 0;
             }
+
             if (position < 0)
             {
                 return -position;
             }
-            if (position > dataCount - 1)
+
+            if (position < dataCount)
             {
-                return (dataCount - 1) - position;
+                return 0;
             }
-            return 0;
+
+            return dataCount - 1 - position;
         }
 
         void UpdatePosition(float position)
@@ -213,6 +217,7 @@ namespace FancyScrollView
             else if (!dragging && (offset != 0 || velocity != 0))
             {
                 var position = currentScrollPosition;
+
                 if (movementType == MovementType.Elastic && offset != 0)
                 {
                     ScrollTo(Mathf.RoundToInt(position + offset), 0.35f);
@@ -220,8 +225,12 @@ namespace FancyScrollView
                 else if (inertia)
                 {
                     velocity *= Mathf.Pow(decelerationRate, deltaTime);
+
                     if (Mathf.Abs(velocity) < 0.001f)
+                    {
                         velocity = 0;
+                    }
+
                     position += velocity * deltaTime;
 
                     if (snap.Enable && Mathf.Abs(velocity) < snap.VelocityThreshold)
@@ -242,6 +251,7 @@ namespace FancyScrollView
                         offset = CalculateOffset(position);
                         position += offset;
                     }
+
                     UpdatePosition(position);
                 }
             }
@@ -267,8 +277,9 @@ namespace FancyScrollView
             autoScrollState.Duration = duration;
             autoScrollState.StartTime = Time.unscaledTime;
             autoScrollState.EndScrollPosition = movementType == MovementType.Unrestricted
-            ? CalculateClosestPosition(index)
-            : index;
+                ? CalculateClosestPosition(index)
+                : index;
+        }
         }
 
         float CalculateClosestPosition(int index)
@@ -280,6 +291,7 @@ namespace FancyScrollView
             {
                 diff = Mathf.Sign(-diff) * (dataCount - Mathf.Abs(diff));
             }
+
             return diff + currentScrollPosition;
         }
 
@@ -293,6 +305,7 @@ namespace FancyScrollView
             {
                 position = position % length;
             }
+
             return position;
         }
 
@@ -300,10 +313,12 @@ namespace FancyScrollView
         {
             value /= 0.5f;
             end -= start;
+
             if (value < 1f)
             {
                 return end * 0.5f * value * value * value + start;
             }
+
             value -= 2f;
             return end * 0.5f * (value * value * value + 2f) + start;
         }

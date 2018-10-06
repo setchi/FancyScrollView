@@ -48,9 +48,9 @@ namespace FancyScrollView
             UpdateContents();
         }
 
-        public void OnSelectedIndexChanged(Action<int> callback)
+        public void OnSelectedIndexChanged(Action<int> onSelectedIndexChanged)
         {
-            onSelectedIndexChanged = callback;
+            this.onSelectedIndexChanged = onSelectedIndexChanged;
         }
 
         public void SelectNextCell()
