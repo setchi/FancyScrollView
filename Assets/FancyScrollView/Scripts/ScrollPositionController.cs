@@ -171,9 +171,9 @@ namespace FancyScrollView
             this.onItemSelected = onItemSelected;
         }
 
-        public void SetDataCount(int dataCont)
+        public void SetDataCount(int dataCount)
         {
-            this.dataCount = dataCont;
+            this.dataCount = dataCount;
         }
 
         float velocity;
