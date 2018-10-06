@@ -498,10 +498,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1492537696}
-  - component: {fileID: 1492537699}
   - component: {fileID: 1492537702}
-  - component: {fileID: 1492537701}
+  - component: {fileID: 1492537699}
   - component: {fileID: 1492537697}
+  - component: {fileID: 1492537701}
   m_Layer: 5
   m_Name: ScrollView
   m_TagString: Untagged
@@ -578,14 +578,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 0.3137255, g: 0.3137255, b: 0.3137255, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
