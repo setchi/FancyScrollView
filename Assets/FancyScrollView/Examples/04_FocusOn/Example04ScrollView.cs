@@ -16,17 +16,17 @@ namespace FancyScrollView
             scrollPositionController.OnUpdatePosition(UpdatePosition);
             scrollPositionController.OnItemSelected(HandleItemSelected);
 
-            var context = new Example04ScrollViewContext();
-            context.SelectedIndex = 0;
-            context.OnPressedCell = OnPressedCell;
-            context.OnSelectedIndexChanged = index =>
+            SetContext(new Example04ScrollViewContext
             {
-                if (onSelectedIndexChanged != null)
+                OnPressedCell = OnPressedCell,
+                OnSelectedIndexChanged = index =>
                 {
-                    onSelectedIndexChanged(index);
+                    if (onSelectedIndexChanged != null)
+                    {
+                        onSelectedIndexChanged(index);
+                    }
                 }
-            };
-            SetContext(context);
+            });
         }
 
         public void UpdateData(List<Example04CellDto> data)
