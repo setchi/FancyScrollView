@@ -16,21 +16,11 @@ namespace FancyScrollView
         Button button;
 
         static readonly int scrollTriggerHash = Animator.StringToHash("scroll");
-        Example02ScrollViewContext context;
 
         void Start()
         {
             UpdatePosition(0);
             button.onClick.AddListener(OnPressedCell);
-        }
-
-        /// <summary>
-        /// コンテキストを設定します
-        /// </summary>
-        /// <param name="context"></param>
-        public override void SetContext(Example02ScrollViewContext context)
-        {
-            this.context = context;
         }
 
         /// <summary>
@@ -41,9 +31,9 @@ namespace FancyScrollView
         {
             message.text = itemData.Message;
 
-            if (context != null)
+            if (Context != null)
             {
-                var isSelected = context.SelectedIndex == DataIndex;
+                var isSelected = Context.SelectedIndex == DataIndex;
                 image.color = isSelected
                     ? new Color32(0, 255, 255, 100)
                     : new Color32(255, 255, 255, 77);
@@ -71,9 +61,9 @@ namespace FancyScrollView
 
         void OnPressedCell()
         {
-            if (context != null)
+            if (Context != null)
             {
-                context.OnPressedCell(this);
+                Context.OnPressedCell(this);
             }
         }
     }

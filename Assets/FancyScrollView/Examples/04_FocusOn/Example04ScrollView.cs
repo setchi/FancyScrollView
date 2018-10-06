@@ -29,13 +29,13 @@ namespace FancyScrollView
         public void UpdateSelection(int selectedCellIndex)
         {
             scrollPositionController.ScrollTo(selectedCellIndex, scrollToDuration);
-            context.SelectedIndex = selectedCellIndex;
+            Context.SelectedIndex = selectedCellIndex;
             UpdateContents();
         }
 
         void HandleItemSelected(int selectedItemIndex)
         {
-            context.SelectedIndex = selectedItemIndex;
+            Context.SelectedIndex = selectedItemIndex;
             UpdateContents();
         }
 

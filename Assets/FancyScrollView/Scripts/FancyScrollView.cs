@@ -20,7 +20,7 @@ namespace FancyScrollView
         readonly List<FancyScrollViewCell<TData, TContext>> cells =
             new List<FancyScrollViewCell<TData, TContext>>();
 
-        protected TContext context;
+        protected TContext Context { get; private set; }
         protected List<TData> cellData = new List<TData>();
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace FancyScrollView
         /// <param name="context"></param>
         protected void SetContext(TContext context)
         {
-            this.context = context;
+            Context = context;
 
             for (int i = 0; i < cells.Count; i++)
             {
@@ -45,7 +45,7 @@ namespace FancyScrollView
         {
             var cellObject = Instantiate(cellBase, cellContainer);
             var cell = cellObject.GetComponent<FancyScrollViewCell<TData, TContext>>();
-            cell.SetContext(context);
+            cell.SetContext(Context);
             cell.SetVisible(false);
             return cell;
         }

@@ -4,12 +4,15 @@ namespace FancyScrollView
 {
     public class FancyScrollViewCell<TData, TContext> : MonoBehaviour where TContext : class
     {
+        protected TContext Context { get; private set; }
+
         /// <summary>
         /// コンテキストを設定します
         /// </summary>
         /// <param name="context"></param>
-        public virtual void SetContext(TContext context)
+        public void SetContext(TContext context)
         {
+            Context = context;
         }
 
         /// <summary>
