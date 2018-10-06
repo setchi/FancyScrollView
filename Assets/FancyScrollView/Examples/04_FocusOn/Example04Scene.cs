@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,49 +16,23 @@ namespace FancyScrollView
         [SerializeField]
         Text selectedItemInfo;
 
-        List<Example04CellDto> cellData;
-        Example04ScrollViewContext context;
-
-        void HandlePrevButton()
+        void Start()
         {
-            SelectCell(context.SelectedIndex - 1);
-        }
+            prevCellButton.onClick.AddListener(scrollView.SelectPrevCell);
+            nextCellButton.onClick.AddListener(scrollView.SelectNextCell);
+            scrollView.OnSelectedIndexChanged(HandleSelectedIndexChanged);
 
-        void HandleNextButton()
-        {
-            SelectCell(context.SelectedIndex + 1);
-        }
+            var cellData = Enumerable.Range(0, 20)
+                .Select(i => new Example04CellDto { Message = "Cell " + i })
+                .ToList();
 
-        void SelectCell(int index)
-        {
-            if (index >= 0 && index < cellData.Count)
-            {
-                scrollView.UpdateSelection(index);
-            }
+            scrollView.UpdateData(cellData);
+            scrollView.UpdateSelection(0);
         }
 
         void HandleSelectedIndexChanged(int index)
         {
             selectedItemInfo.text = String.Format("Selected item info: index {0}", index);
-        }
-
-        void Awake()
-        {
-            prevCellButton.onClick.AddListener(HandlePrevButton);
-            nextCellButton.onClick.AddListener(HandleNextButton);
-        }
-
-        void Start()
-        {
-            cellData = Enumerable.Range(0, 20)
-                .Select(i => new Example04CellDto { Message = "Cell " + i })
-                .ToList();
-            context = new Example04ScrollViewContext();
-            context.OnSelectedIndexChanged = HandleSelectedIndexChanged;
-            context.SelectedIndex = 0;
-
-            scrollView.UpdateData(cellData, context);
-            scrollView.UpdateSelection(context.SelectedIndex);
         }
     }
 }

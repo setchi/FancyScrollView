@@ -544,7 +544,6 @@ MonoBehaviour:
   cellBase: {fileID: 1901728338085442, guid: d432cd8a052c847b0a9234295575210d, type: 2}
   cellContainer: {fileID: 1492537696}
   scrollPositionController: {fileID: 1492537699}
-  scrollToDuration: 0.4
 --- !u!114 &1492537699
 MonoBehaviour:
   m_ObjectHideFlags: 0

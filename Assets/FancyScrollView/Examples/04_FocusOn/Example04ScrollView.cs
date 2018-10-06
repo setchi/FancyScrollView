@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace FancyScrollView
@@ -7,30 +8,59 @@ namespace FancyScrollView
     {
         [SerializeField]
         ScrollPositionController scrollPositionController;
-        [SerializeField]
-        float scrollToDuration = 0.4f;
+
+        Action<int> onSelectedIndexChanged;
 
         void Awake()
         {
             scrollPositionController.OnUpdatePosition(UpdatePosition);
             scrollPositionController.OnItemSelected(HandleItemSelected);
+
+            var context = new Example04ScrollViewContext();
+            context.SelectedIndex = 0;
+            context.OnPressedCell = OnPressedCell;
+            context.OnSelectedIndexChanged = index =>
+            {
+                if (onSelectedIndexChanged != null)
+                {
+                    onSelectedIndexChanged(index);
+                }
+            };
+            SetContext(context);
         }
 
-        public void UpdateData(List<Example04CellDto> data, Example04ScrollViewContext context)
+        public void UpdateData(List<Example04CellDto> data)
         {
-            context.OnPressedCell = OnPressedCell;
-            SetContext(context);
-
             cellData = data;
             scrollPositionController.SetDataCount(cellData.Count);
             UpdateContents();
         }
 
-        public void UpdateSelection(int selectedCellIndex)
+        public void UpdateSelection(int index)
         {
-            scrollPositionController.ScrollTo(selectedCellIndex, scrollToDuration);
-            Context.SelectedIndex = selectedCellIndex;
+            if (index < 0 || index >= cellData.Count)
+            {
+                return;
+            }
+
+            scrollPositionController.ScrollTo(index, 0.4f);
+            Context.SelectedIndex = index;
             UpdateContents();
+        }
+
+        public void OnSelectedIndexChanged(Action<int> callback)
+        {
+            onSelectedIndexChanged = callback;
+        }
+
+        public void SelectNextCell()
+        {
+            UpdateSelection(Context.SelectedIndex + 1);
+        }
+
+        public void SelectPrevCell()
+        {
+            UpdateSelection(Context.SelectedIndex - 1);
         }
 
         void HandleItemSelected(int selectedItemIndex)
