@@ -10,7 +10,7 @@ namespace FancyScrollView
 
         void Awake()
         {
-            scrollPositionController.OnUpdatePosition(UpdatePosition);
+            scrollPositionController.OnUpdatePosition(p => UpdatePosition(p));
         }
 
         public void UpdateData(List<Example01CellDto> data)

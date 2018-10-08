@@ -13,7 +13,7 @@ namespace FancyScrollView
 
         void Awake()
         {
-            scrollPositionController.OnUpdatePosition(UpdatePosition);
+            scrollPositionController.OnUpdatePosition(p => UpdatePosition(p));
             scrollPositionController.OnItemSelected(HandleItemSelected);
 
             SetContext(new Example04ScrollViewContext

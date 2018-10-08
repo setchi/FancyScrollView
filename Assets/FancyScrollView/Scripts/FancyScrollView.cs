@@ -47,6 +47,7 @@ namespace FancyScrollView
             var cell = cellObject.GetComponent<FancyScrollViewCell<TData, TContext>>();
             cell.SetContext(Context);
             cell.SetVisible(false);
+            cell.DataIndex = -1;
             return cell;
         }
 
@@ -72,7 +73,7 @@ namespace FancyScrollView
         /// </summary>
         /// <param name="cell"></param>
         /// <param name="dataIndex"></param>
-        void UpdateCellForIndex(FancyScrollViewCell<TData, TContext> cell, int dataIndex)
+        void UpdateCellForIndex(FancyScrollViewCell<TData, TContext> cell, int dataIndex, bool forceUpdateContents = false)
         {
             if (loop)
             {
@@ -86,6 +87,12 @@ namespace FancyScrollView
             }
 
             cell.SetVisible(true);
+
+            if (cell.DataIndex == dataIndex && !forceUpdateContents)
+            {
+                return;
+            }
+
             cell.DataIndex = dataIndex;
             cell.UpdateContent(cellData[dataIndex]);
         }
@@ -115,14 +122,14 @@ namespace FancyScrollView
         /// </summary>
         protected void UpdateContents()
         {
-            UpdatePosition(currentPosition);
+            UpdatePosition(currentPosition, true);
         }
 
         /// <summary>
         /// スクロール位置を更新します
         /// </summary>
         /// <param name="position"></param>
-        protected void UpdatePosition(float position)
+        protected void UpdatePosition(float position, bool forceUpdateContents = false)
         {
             currentPosition = position;
 
@@ -146,7 +153,8 @@ namespace FancyScrollView
             {
                 var dataIndex = dataStartIndex + count;
                 cellIndex = GetLoopIndex(dataIndex, cells.Count);
-                UpdateCellForIndex(cells[cellIndex], dataIndex);
+
+                UpdateCellForIndex(cells[cellIndex], dataIndex, forceUpdateContents);
 
                 if (cells[cellIndex].gameObject.activeSelf)
                 {
