@@ -134,10 +134,10 @@ namespace FancyScrollView
         {
             if (movementType == MovementType.Unrestricted)
             {
-                return 0;
+                return 0f;
             }
 
-            if (position < 0)
+            if (position < 0f)
             {
                 return -position;
             }
@@ -147,7 +147,7 @@ namespace FancyScrollView
                 return dataCount - 1 - position;
             }
 
-            return 0;
+            return 0f;
         }
 
         void UpdatePosition(float position)
@@ -157,6 +157,14 @@ namespace FancyScrollView
             if (onUpdatePosition != null)
             {
                 onUpdatePosition(currentScrollPosition);
+            }
+        }
+
+        void ItemSelected(int index)
+        {
+            if (onItemSelected != null)
+            {
+                onItemSelected(index);
             }
         }
 
@@ -202,23 +210,19 @@ namespace FancyScrollView
             {
                 var alpha = Mathf.Clamp01((Time.unscaledTime - autoScrollState.StartTime) / Mathf.Max(autoScrollState.Duration, float.Epsilon));
                 var position = Mathf.Lerp(dragStartScrollPosition, autoScrollState.EndScrollPosition, EaseInOutCubic(0, 1, alpha));
-                UpdatePosition(position);
 
                 if (Mathf.Approximately(alpha, 1f))
                 {
                     autoScrollState.Enable = false;
-
-                    if (onItemSelected != null)
-                    {
-                        onItemSelected(Mathf.RoundToInt(GetLoopPosition(autoScrollState.EndScrollPosition, dataCount)));
-                    }
                 }
+
+                UpdatePosition(position);
             }
-            else if (!dragging && (offset != 0 || velocity != 0))
+            else if (!dragging && (!Mathf.Approximately(offset, 0f) || !Mathf.Approximately(velocity, 0f)))
             {
                 var position = currentScrollPosition;
 
-                if (movementType == MovementType.Elastic && offset != 0)
+                if (movementType == MovementType.Elastic && !Mathf.Approximately(offset, 0f))
                 {
                     ScrollTo(Mathf.RoundToInt(position + offset), 0.35f);
                 }
@@ -228,7 +232,7 @@ namespace FancyScrollView
 
                     if (Mathf.Abs(velocity) < 0.001f)
                     {
-                        velocity = 0;
+                        velocity = 0f;
                     }
 
                     position += velocity * deltaTime;
@@ -241,15 +245,21 @@ namespace FancyScrollView
                 // If we have neither elaticity or friction, there shouldn't be any velocity.
                 else
                 {
-                    velocity = 0;
+                    velocity = 0f;
                 }
 
-                if (velocity != 0)
+                if (!Mathf.Approximately(velocity, 0f))
                 {
                     if (movementType == MovementType.Clamped)
                     {
                         offset = CalculateOffset(position);
                         position += offset;
+
+                        if (Mathf.Approximately(position, 0f) || Mathf.Approximately(position, dataCount - 1f))
+                        {
+                            velocity = 0f;
+                            ItemSelected(Mathf.RoundToInt(position));
+                        }
                     }
 
                     UpdatePosition(position);
@@ -270,27 +280,37 @@ namespace FancyScrollView
 
         public void ScrollTo(int index, float duration)
         {
-            velocity = 0;
+            velocity = 0f;
             dragStartScrollPosition = currentScrollPosition;
 
             autoScrollState.Enable = true;
             autoScrollState.Duration = duration;
             autoScrollState.StartTime = Time.unscaledTime;
-            autoScrollState.EndScrollPosition = movementType == MovementType.Unrestricted
-                ? CalculateClosestPosition(index)
-                : index;
+            autoScrollState.EndScrollPosition = CalculateDestinationIndex(index);
+
+            ItemSelected(Mathf.RoundToInt(GetLoopPosition(autoScrollState.EndScrollPosition, dataCount)));
         }
 
         public void JumpTo(int index)
         {
-            velocity = 0;
+            velocity = 0f;
             dragging = false;
             autoScrollState.Enable = false;
 
+            index = CalculateDestinationIndex(index);
+
+            ItemSelected(index);
             UpdatePosition(index);
         }
 
-        float CalculateClosestPosition(int index)
+        int CalculateDestinationIndex(int index)
+        {
+            return movementType == MovementType.Unrestricted
+                ? CalculateClosestIndex(index)
+                : Mathf.Clamp(index, 0, dataCount - 1);
+        }
+
+        int CalculateClosestIndex(int index)
         {
             var diff = GetLoopPosition(index, dataCount)
                        - GetLoopPosition(currentScrollPosition, dataCount);
@@ -300,18 +320,19 @@ namespace FancyScrollView
                 diff = Mathf.Sign(-diff) * (dataCount - Mathf.Abs(diff));
             }
 
-            return diff + currentScrollPosition;
+            return Mathf.RoundToInt(diff + currentScrollPosition);
         }
 
         float GetLoopPosition(float position, int length)
         {
             if (position < 0)
             {
-                position = (length - 1) + (position + 1) % length;
+                return length - 1 + (position + 1) % length;
             }
-            else if (position > length - 1)
+
+            if (position > length - 1)
             {
-                position = position % length;
+                return position % length;
             }
 
             return position;
