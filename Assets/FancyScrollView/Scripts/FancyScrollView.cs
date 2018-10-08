@@ -107,11 +107,12 @@ namespace FancyScrollView
         {
             if (index < 0)
             {
-                index = (length - 1) + (index + 1) % length;
+                return length - 1 + (index + 1) % length;
             }
-            else if (index > length - 1)
+
+            if (index > length - 1)
             {
-                index = index % length;
+                return index % length;
             }
 
             return index;

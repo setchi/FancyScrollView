@@ -144,7 +144,7 @@ namespace FancyScrollView
 
             if (position > dataCount - 1)
             {
-                return (dataCount - 1) - position;
+                return dataCount - 1 - position;
             }
 
             return 0;
