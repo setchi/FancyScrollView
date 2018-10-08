@@ -142,12 +142,12 @@ namespace FancyScrollView
                 return -position;
             }
 
-            if (position < dataCount)
+            if (position > dataCount - 1)
             {
-                return 0;
+                return (dataCount - 1) - position;
             }
 
-            return dataCount - 1 - position;
+            return 0;
         }
 
         void UpdatePosition(float position)
