@@ -10,7 +10,7 @@ namespace FancyScrollView
         /// コンテキストを設定します
         /// </summary>
         /// <param name="context"></param>
-        public void SetContext(TContext context)
+        public virtual void SetContext(TContext context)
         {
             Context = context;
         }
