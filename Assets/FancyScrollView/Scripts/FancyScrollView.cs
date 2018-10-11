@@ -77,7 +77,7 @@ namespace FancyScrollView
         {
             if (loop)
             {
-                dataIndex = GetLoopIndex(dataIndex, cellData.Count);
+                dataIndex = GetCircularIndex(dataIndex, cellData.Count);
             }
             else if (dataIndex < 0 || dataIndex > cellData.Count - 1)
             {
@@ -100,22 +100,12 @@ namespace FancyScrollView
         /// <summary>
         /// 円環構造の index を取得します
         /// </summary>
-        /// <param name="index"></param>
-        /// <param name="length"></param>
-        /// <returns></returns>
-        int GetLoopIndex(int index, int length)
+        /// <returns>The circular index.</returns>
+        /// <param name="index">Index</param>
+        /// <param name="maxSize">Max size</param>
+        int GetCircularIndex(int index, int maxSize)
         {
-            if (index < 0)
-            {
-                return length - 1 + (index + 1) % length;
-            }
-
-            if (index > length - 1)
-            {
-                return index % length;
-            }
-
-            return index;
+            return index < 0 ? maxSize - 1 + (index + 1) % maxSize : index % maxSize;
         }
 
         /// <summary>
@@ -138,9 +128,8 @@ namespace FancyScrollView
             var firstCellPosition = (Mathf.Ceil(visibleMinPosition) - visibleMinPosition) * cellInterval;
             var dataStartIndex = Mathf.CeilToInt(visibleMinPosition);
             var count = 0;
-            var cellIndex = 0;
 
-            for (float pos = firstCellPosition; pos <= 1f; pos += cellInterval, count++)
+            for (float p = firstCellPosition; p <= 1f; p += cellInterval, count++)
             {
                 if (count >= cells.Count)
                 {
@@ -150,24 +139,23 @@ namespace FancyScrollView
 
             count = 0;
 
-            for (float pos = firstCellPosition; pos <= 1f; count++, pos += cellInterval)
+            for (float p = firstCellPosition; p <= 1f; p += cellInterval, count++)
             {
                 var dataIndex = dataStartIndex + count;
-                cellIndex = GetLoopIndex(dataIndex, cells.Count);
+                var cell = cells[GetCircularIndex(dataIndex, cells.Count)];
 
-                UpdateCellForIndex(cells[cellIndex], dataIndex, forceUpdateContents);
+                UpdateCellForIndex(cell, dataIndex, forceUpdateContents);
 
-                if (cells[cellIndex].gameObject.activeSelf)
+                if (cell.gameObject.activeSelf)
                 {
-                    cells[cellIndex].UpdatePosition(pos);
+                    cell.UpdatePosition(p);
                 }
             }
 
-            cellIndex = GetLoopIndex(dataStartIndex + count, cells.Count);
-
-            for (; count < cells.Count; count++, cellIndex = GetLoopIndex(dataStartIndex + count, cells.Count))
+            while (count < cells.Count)
             {
-                cells[cellIndex].SetVisible(false);
+                cells[GetCircularIndex(dataStartIndex + count, cells.Count)].SetVisible(false);
+                count++;
             }
         }
     }
