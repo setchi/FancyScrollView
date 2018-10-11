@@ -54,20 +54,20 @@ namespace FancyScrollView
             animator.speed = 0;
         }
 
-        // GameObject が非アクティブになると Animator がリセットされてしまうため
-        // 現在位置を保持しておいて OnEnable のタイミングで現在位置を再設定します
-        float currentPosition = 0;
-        void OnEnable()
-        {
-            UpdatePosition(currentPosition);
-        }
-
         void OnPressedCell()
         {
             if (Context != null)
             {
                 Context.OnPressedCell(this);
             }
+        }
+
+        // GameObject が非アクティブになると Animator がリセットされてしまうため
+        // 現在位置を保持しておいて OnEnable のタイミングで現在位置を再設定します
+        float currentPosition = 0;
+        void OnEnable()
+        {
+            UpdatePosition(currentPosition);
         }
     }
 }

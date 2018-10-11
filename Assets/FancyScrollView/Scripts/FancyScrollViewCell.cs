@@ -4,6 +4,16 @@ namespace FancyScrollView
 {
     public class FancyScrollViewCell<TData, TContext> : MonoBehaviour where TContext : class
     {
+        /// <summary>
+        /// Gets or sets the index of the data.
+        /// </summary>
+        /// <value>The index of the data.</value>
+        public int DataIndex { get; set; }
+
+        /// <summary>
+        /// Gets the context.
+        /// </summary>
+        /// <value>The context.</value>
         protected TContext Context { get; private set; }
 
         /// <summary>
@@ -39,12 +49,6 @@ namespace FancyScrollView
         {
             gameObject.SetActive(visible);
         }
-
-        /// <summary>
-        /// Gets or sets the index of the data.
-        /// </summary>
-        /// <value>The index of the data.</value>
-        public int DataIndex { get; set; }
     }
 
     public class FancyScrollViewCell<TData> : FancyScrollViewCell<TData, FancyScrollViewNullContext>

@@ -16,11 +16,11 @@ namespace FancyScrollView
         [SerializeField]
         Transform cellContainer;
 
-        float currentPosition;
         readonly List<FancyScrollViewCell<TData, TContext>> cells = new List<FancyScrollViewCell<TData, TContext>>();
+        float currentPosition;
 
-        protected TContext Context { get; private set; }
         protected List<TData> cellData = new List<TData>();
+        protected TContext Context { get; private set; }
 
         /// <summary>
         /// Sets the context.
@@ -34,78 +34,6 @@ namespace FancyScrollView
             {
                 cells[i].SetContext(context);
             }
-        }
-
-        /// <summary>
-        /// Creates the cell.
-        /// </summary>
-        /// <returns>The cell.</returns>
-        FancyScrollViewCell<TData, TContext> CreateCell()
-        {
-            var cellObject = Instantiate(cellBase, cellContainer);
-            var cell = cellObject.GetComponent<FancyScrollViewCell<TData, TContext>>();
-            cell.SetContext(Context);
-            cell.SetVisible(false);
-            cell.DataIndex = -1;
-            return cell;
-        }
-
-#if UNITY_EDITOR
-        bool cachedLoop;
-        float cachedCellInterval, cachedCellOffset;
-
-        void LateUpdate()
-        {
-            if (cachedLoop != loop || cachedCellOffset != cellOffset || cachedCellInterval != cellInterval)
-            {
-                cachedLoop = loop;
-                cachedCellOffset = cellOffset;
-                cachedCellInterval = cellInterval;
-
-                UpdatePosition(currentPosition);
-            }
-        }
-#endif
-
-        /// <summary>
-        /// Updates the cell.
-        /// </summary>
-        /// <param name="cell">Cell.</param>
-        /// <param name="dataIndex">Data index.</param>
-        /// <param name="forceUpdateContents">If set to <c>true</c> force update contents.</param>
-        void UpdateCell(FancyScrollViewCell<TData, TContext> cell, int dataIndex, bool forceUpdateContents = false)
-        {
-            if (loop)
-            {
-                dataIndex = GetCircularIndex(dataIndex, cellData.Count);
-            }
-            else if (dataIndex < 0 || dataIndex > cellData.Count - 1)
-            {
-                // セルに対応するデータが存在しなければセルを表示しない
-                cell.SetVisible(false);
-                return;
-            }
-
-            cell.SetVisible(true);
-
-            if (cell.DataIndex == dataIndex && !forceUpdateContents)
-            {
-                return;
-            }
-
-            cell.DataIndex = dataIndex;
-            cell.UpdateContent(cellData[dataIndex]);
-        }
-
-        /// <summary>
-        /// Gets the circular index.
-        /// </summary>
-        /// <returns>The circular index.</returns>
-        /// <param name="index">Index.</param>
-        /// <param name="maxSize">Max size.</param>
-        int GetCircularIndex(int index, int maxSize)
-        {
-            return index < 0 ? maxSize - 1 + (index + 1) % maxSize : index % maxSize;
         }
 
         /// <summary>
@@ -159,6 +87,80 @@ namespace FancyScrollView
                 count++;
             }
         }
+
+        /// <summary>
+        /// Updates the cell.
+        /// </summary>
+        /// <param name="cell">Cell.</param>
+        /// <param name="dataIndex">Data index.</param>
+        /// <param name="forceUpdateContents">If set to <c>true</c> force update contents.</param>
+        void UpdateCell(FancyScrollViewCell<TData, TContext> cell, int dataIndex, bool forceUpdateContents = false)
+        {
+            if (loop)
+            {
+                dataIndex = GetCircularIndex(dataIndex, cellData.Count);
+            }
+            else if (dataIndex < 0 || dataIndex > cellData.Count - 1)
+            {
+                // セルに対応するデータが存在しなければセルを表示しない
+                cell.SetVisible(false);
+                return;
+            }
+
+            cell.SetVisible(true);
+
+            if (cell.DataIndex == dataIndex && !forceUpdateContents)
+            {
+                return;
+            }
+
+            cell.DataIndex = dataIndex;
+            cell.UpdateContent(cellData[dataIndex]);
+        }
+
+        /// <summary>
+        /// Creates the cell.
+        /// </summary>
+        /// <returns>The cell.</returns>
+        FancyScrollViewCell<TData, TContext> CreateCell()
+        {
+            var cellObject = Instantiate(cellBase, cellContainer);
+            var cell = cellObject.GetComponent<FancyScrollViewCell<TData, TContext>>();
+
+            cell.SetContext(Context);
+            cell.SetVisible(false);
+            cell.DataIndex = -1;
+
+            return cell;
+        }
+
+        /// <summary>
+        /// Gets the circular index.
+        /// </summary>
+        /// <returns>The circular index.</returns>
+        /// <param name="index">Index.</param>
+        /// <param name="maxSize">Max size.</param>
+        int GetCircularIndex(int index, int maxSize)
+        {
+            return index < 0 ? maxSize - 1 + (index + 1) % maxSize : index % maxSize;
+        }
+
+#if UNITY_EDITOR
+        bool cachedLoop;
+        float cachedCellInterval, cachedCellOffset;
+
+        void LateUpdate()
+        {
+            if (cachedLoop != loop || cachedCellOffset != cellOffset || cachedCellInterval != cellInterval)
+            {
+                cachedLoop = loop;
+                cachedCellOffset = cellOffset;
+                cachedCellInterval = cellInterval;
+
+                UpdatePosition(currentPosition);
+            }
+        }
+#endif
     }
 
     public sealed class FancyScrollViewNullContext

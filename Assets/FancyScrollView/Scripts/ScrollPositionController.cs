@@ -7,27 +7,6 @@ namespace FancyScrollView
 {
     public class ScrollPositionController : UIBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
     {
-        [Serializable]
-        struct Snap
-        {
-            public bool Enable;
-            public float VelocityThreshold;
-            public float Duration;
-        }
-
-        enum ScrollDirection
-        {
-            Vertical,
-            Horizontal,
-        }
-
-        enum MovementType
-        {
-            Unrestricted = ScrollRect.MovementType.Unrestricted,
-            Elastic = ScrollRect.MovementType.Elastic,
-            Clamped = ScrollRect.MovementType.Clamped
-        }
-
         [SerializeField]
         RectTransform viewport;
         [SerializeField]
@@ -45,13 +24,87 @@ namespace FancyScrollView
         [SerializeField]
         int dataCount;
 
+        readonly AutoScrollState autoScrollState = new AutoScrollState();
+
         Action<float> onUpdatePosition;
         Action<int> onItemSelected;
 
         Vector2 pointerStartLocalPosition;
         float dragStartScrollPosition;
+        float prevScrollPosition;
         float currentScrollPosition;
+
         bool dragging;
+        float velocity;
+
+        enum ScrollDirection
+        {
+            Vertical,
+            Horizontal,
+        }
+
+        enum MovementType
+        {
+            Unrestricted = ScrollRect.MovementType.Unrestricted,
+            Elastic = ScrollRect.MovementType.Elastic,
+            Clamped = ScrollRect.MovementType.Clamped
+        }
+
+        [Serializable]
+        struct Snap
+        {
+            public bool Enable;
+            public float VelocityThreshold;
+            public float Duration;
+        }
+
+        class AutoScrollState
+        {
+            public bool Enable;
+            public float Duration;
+            public float StartTime;
+            public float EndScrollPosition;
+        }
+
+        public void OnUpdatePosition(Action<float> onUpdatePosition)
+        {
+            this.onUpdatePosition = onUpdatePosition;
+        }
+
+        public void OnItemSelected(Action<int> onItemSelected)
+        {
+            this.onItemSelected = onItemSelected;
+        }
+
+        public void SetDataCount(int dataCount)
+        {
+            this.dataCount = dataCount;
+        }
+
+        public void ScrollTo(int index, float duration)
+        {
+            velocity = 0f;
+            dragStartScrollPosition = currentScrollPosition;
+
+            autoScrollState.Enable = true;
+            autoScrollState.Duration = duration;
+            autoScrollState.StartTime = Time.unscaledTime;
+            autoScrollState.EndScrollPosition = CalculateDestinationIndex(index);
+
+            ItemSelected(Mathf.RoundToInt(GetCircularPosition(autoScrollState.EndScrollPosition, dataCount)));
+        }
+
+        public void JumpTo(int index)
+        {
+            velocity = 0f;
+            dragging = false;
+            autoScrollState.Enable = false;
+
+            index = CalculateDestinationIndex(index);
+
+            ItemSelected(index);
+            UpdatePosition(index);
+        }
 
         void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
         {
@@ -173,34 +226,6 @@ namespace FancyScrollView
             return (1 - (1 / ((Mathf.Abs(overStretching) * 0.55f / viewSize) + 1))) * viewSize * Mathf.Sign(overStretching);
         }
 
-        public void OnUpdatePosition(Action<float> onUpdatePosition)
-        {
-            this.onUpdatePosition = onUpdatePosition;
-        }
-
-        public void OnItemSelected(Action<int> onItemSelected)
-        {
-            this.onItemSelected = onItemSelected;
-        }
-
-        public void SetDataCount(int dataCount)
-        {
-            this.dataCount = dataCount;
-        }
-
-        float velocity;
-        float prevScrollPosition;
-
-        class AutoScrollState
-        {
-            public bool Enable;
-            public float Duration;
-            public float StartTime;
-            public float EndScrollPosition;
-        }
-
-        readonly AutoScrollState autoScrollState = new AutoScrollState();
-
         void Update()
         {
             var deltaTime = Time.unscaledDeltaTime;
@@ -276,31 +301,6 @@ namespace FancyScrollView
             {
                 prevScrollPosition = currentScrollPosition;
             }
-        }
-
-        public void ScrollTo(int index, float duration)
-        {
-            velocity = 0f;
-            dragStartScrollPosition = currentScrollPosition;
-
-            autoScrollState.Enable = true;
-            autoScrollState.Duration = duration;
-            autoScrollState.StartTime = Time.unscaledTime;
-            autoScrollState.EndScrollPosition = CalculateDestinationIndex(index);
-
-            ItemSelected(Mathf.RoundToInt(GetCircularPosition(autoScrollState.EndScrollPosition, dataCount)));
-        }
-
-        public void JumpTo(int index)
-        {
-            velocity = 0f;
-            dragging = false;
-            autoScrollState.Enable = false;
-
-            index = CalculateDestinationIndex(index);
-
-            ItemSelected(index);
-            UpdatePosition(index);
         }
 
         int CalculateDestinationIndex(int index)
