@@ -17,8 +17,7 @@ namespace FancyScrollView
         Transform cellContainer;
 
         float currentPosition;
-        readonly List<FancyScrollViewCell<TData, TContext>> cells =
-            new List<FancyScrollViewCell<TData, TContext>>();
+        readonly List<FancyScrollViewCell<TData, TContext>> cells = new List<FancyScrollViewCell<TData, TContext>>();
 
         protected TContext Context { get; private set; }
         protected List<TData> cellData = new List<TData>();
@@ -51,22 +50,22 @@ namespace FancyScrollView
             return cell;
         }
 
-        float prevCellInterval, prevCellOffset;
-        bool prevLoop;
+#if UNITY_EDITOR
+        bool cachedLoop;
+        float cachedCellInterval, cachedCellOffset;
 
         void LateUpdate()
         {
-            if (prevLoop != loop ||
-                prevCellOffset != cellOffset ||
-                prevCellInterval != cellInterval)
+            if (cachedLoop != loop || cachedCellOffset != cellOffset || cachedCellInterval != cellInterval)
             {
-                UpdatePosition(currentPosition);
+                cachedLoop = loop;
+                cachedCellOffset = cellOffset;
+                cachedCellInterval = cellInterval;
 
-                prevLoop = loop;
-                prevCellOffset = cellOffset;
-                prevCellInterval = cellInterval;
+                UpdatePosition(currentPosition);
             }
         }
+#endif
 
         /// <summary>
         /// Updates the cell.

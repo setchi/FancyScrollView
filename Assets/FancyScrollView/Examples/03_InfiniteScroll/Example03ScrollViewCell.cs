@@ -3,8 +3,7 @@ using UnityEngine.UI;
 
 namespace FancyScrollView
 {
-    public class Example03ScrollViewCell
-        : FancyScrollViewCell<Example03CellDto, Example03ScrollViewContext>
+    public class Example03ScrollViewCell : FancyScrollViewCell<Example03CellDto, Example03ScrollViewContext>
     {
         [SerializeField]
         Animator animator;
