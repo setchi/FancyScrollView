@@ -24,9 +24,9 @@ namespace FancyScrollView
         protected List<TData> cellData = new List<TData>();
 
         /// <summary>
-        /// コンテキストを設定します
+        /// Sets the context.
         /// </summary>
-        /// <param name="context"></param>
+        /// <param name="context">Context.</param>
         protected void SetContext(TContext context)
         {
             Context = context;
@@ -38,9 +38,9 @@ namespace FancyScrollView
         }
 
         /// <summary>
-        /// セルを生成して返します
+        /// Creates the cell.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The cell.</returns>
         FancyScrollViewCell<TData, TContext> CreateCell()
         {
             var cellObject = Instantiate(cellBase, cellContainer);
@@ -69,11 +69,12 @@ namespace FancyScrollView
         }
 
         /// <summary>
-        /// セルの内容を更新します
+        /// Updates the cell.
         /// </summary>
-        /// <param name="cell"></param>
-        /// <param name="dataIndex"></param>
-        void UpdateCellForIndex(FancyScrollViewCell<TData, TContext> cell, int dataIndex, bool forceUpdateContents = false)
+        /// <param name="cell">Cell.</param>
+        /// <param name="dataIndex">Data index.</param>
+        /// <param name="forceUpdateContents">If set to <c>true</c> force update contents.</param>
+        void UpdateCell(FancyScrollViewCell<TData, TContext> cell, int dataIndex, bool forceUpdateContents = false)
         {
             if (loop)
             {
@@ -98,18 +99,18 @@ namespace FancyScrollView
         }
 
         /// <summary>
-        /// 円環構造の index を取得します
+        /// Gets the circular index.
         /// </summary>
         /// <returns>The circular index.</returns>
-        /// <param name="index">Index</param>
-        /// <param name="maxSize">Max size</param>
+        /// <param name="index">Index.</param>
+        /// <param name="maxSize">Max size.</param>
         int GetCircularIndex(int index, int maxSize)
         {
             return index < 0 ? maxSize - 1 + (index + 1) % maxSize : index % maxSize;
         }
 
         /// <summary>
-        /// 表示内容を更新します
+        /// Updates the contents.
         /// </summary>
         protected void UpdateContents()
         {
@@ -117,9 +118,10 @@ namespace FancyScrollView
         }
 
         /// <summary>
-        /// スクロール位置を更新します
+        /// Updates the scroll position.
         /// </summary>
-        /// <param name="position"></param>
+        /// <param name="position">Position.</param>
+        /// <param name="forceUpdateContents">If set to <c>true</c> force update contents.</param>
         protected void UpdatePosition(float position, bool forceUpdateContents = false)
         {
             currentPosition = position;
@@ -144,7 +146,7 @@ namespace FancyScrollView
                 var dataIndex = dataStartIndex + count;
                 var cell = cells[GetCircularIndex(dataIndex, cells.Count)];
 
-                UpdateCellForIndex(cell, dataIndex, forceUpdateContents);
+                UpdateCell(cell, dataIndex, forceUpdateContents);
 
                 if (cell.gameObject.activeSelf)
                 {

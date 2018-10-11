@@ -7,42 +7,43 @@ namespace FancyScrollView
         protected TContext Context { get; private set; }
 
         /// <summary>
-        /// コンテキストを設定します
+        /// Sets the context.
         /// </summary>
-        /// <param name="context"></param>
+        /// <param name="context">Context.</param>
         public virtual void SetContext(TContext context)
         {
             Context = context;
         }
 
         /// <summary>
-        /// セルの内容を更新します
+        /// Updates the content.
         /// </summary>
-        /// <param name="itemData"></param>
+        /// <param name="itemData">Item data.</param>
         public virtual void UpdateContent(TData itemData)
         {
         }
 
         /// <summary>
-        /// セルの位置を更新します
+        /// Updates the position.
         /// </summary>
-        /// <param name="position"></param>
+        /// <param name="position">Position.</param>
         public virtual void UpdatePosition(float position)
         {
         }
 
         /// <summary>
-        /// セルの表示/非表示を設定します
+        /// Sets the visible.
         /// </summary>
-        /// <param name="visible"></param>
+        /// <param name="visible">If set to <c>true</c> visible.</param>
         public virtual void SetVisible(bool visible)
         {
             gameObject.SetActive(visible);
         }
 
         /// <summary>
-        /// このセルで表示しているデータのインデックス
+        /// Gets or sets the index of the data.
         /// </summary>
+        /// <value>The index of the data.</value>
         public int DataIndex { get; set; }
     }
 
