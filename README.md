@@ -6,6 +6,16 @@
 ![screencast](Documents/screencast1.gif)
 ![screencast](Documents/screencast2.gif)
 
+## サンプル
+[FancyScrollView/Examples](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples/) を参照してください。
+
+| サンプル名 | 説明 |
+|:-----------|:------------|
+|01_Basic|最もシンプルな構成の実装例です。|
+|02_CellEventHandling|セルからのイベントをハンドリングする実装例です。|
+|03_InfiniteScroll|無限スクロールの実装例です。|
+|04_FocusOn|ボタンで左右のセルにフォーカスする実装例です。|
+
 ## 仕組み
 FancyScrollView はセルの位置を更新する際に、画面に見える範囲を正規化した値を各セルに渡します。セル側では 0.0 ~ 1.0 の値をもとにスクロール中の見た目を自由に制御できます。
 
