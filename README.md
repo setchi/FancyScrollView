@@ -7,6 +7,7 @@
 ![screencast](Documents/screencast2.gif)
 
 ## 導入
+Unity 2017.1.0 以降が必要です。  
 このリポジトリを Clone するか、 [Asset Store](https://assetstore.unity.com/packages/tools/gui/fancyscrollview-96530) からプロジェクトにインポートしてください。
 
 ## サンプル
@@ -133,7 +134,7 @@ public class MyScrollViewCell : FancyScrollViewCell<MyCellDto>
 実装例（[Examples/03_InfiniteScroll](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples/03_InfiniteScroll)）を含めているのでこちらも参考にしてください。
 
 ## 開発環境
-Unity 2017.2.0f3
+Unity 2018.2.11f1
 
 ## LICENSE
 MIT
