@@ -6,6 +6,9 @@
 ![screencast](Documents/screencast1.gif)
 ![screencast](Documents/screencast2.gif)
 
+## 導入
+このリポジトリを Clone するか、 [Asset Store](https://assetstore.unity.com/packages/tools/gui/fancyscrollview-96530) からプロジェクトにインポートしてください。
+
 ## サンプル
 [FancyScrollView/Examples](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples/) を参照してください。
 
