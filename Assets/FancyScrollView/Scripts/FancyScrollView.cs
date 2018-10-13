@@ -107,15 +107,12 @@ namespace FancyScrollView
                 return;
             }
 
-            cell.SetVisible(true);
-
-            if (cell.DataIndex == dataIndex && !forceUpdateContents)
+            if (forceUpdateContents || cell.DataIndex != dataIndex || !cell.IsVisible)
             {
-                return;
+                cell.DataIndex = dataIndex;
+                cell.SetVisible(true);
+                cell.UpdateContent(cellData[dataIndex]);
             }
-
-            cell.DataIndex = dataIndex;
-            cell.UpdateContent(cellData[dataIndex]);
         }
 
         /// <summary>
