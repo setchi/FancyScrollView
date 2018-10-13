@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace FancyScrollView
 {
-    public class FancyScrollView<TData, TContext> : MonoBehaviour where TContext : class
+    public abstract class FancyScrollView<TData, TContext> : MonoBehaviour where TContext : class
     {
         [SerializeField, Range(float.Epsilon, 1f)]
         float cellInterval;
@@ -164,7 +164,7 @@ namespace FancyScrollView
     {
     }
 
-    public class FancyScrollView<TData> : FancyScrollView<TData, FancyScrollViewNullContext>
+    public abstract class FancyScrollView<TData> : FancyScrollView<TData, FancyScrollViewNullContext>
     {
     }
 }

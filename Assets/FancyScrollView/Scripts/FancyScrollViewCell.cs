@@ -2,7 +2,7 @@
 
 namespace FancyScrollView
 {
-    public class FancyScrollViewCell<TData, TContext> : MonoBehaviour where TContext : class
+    public abstract class FancyScrollViewCell<TData, TContext> : MonoBehaviour where TContext : class
     {
         /// <summary>
         /// Gets or sets the index of the data.
@@ -57,7 +57,7 @@ namespace FancyScrollView
         }
     }
 
-    public class FancyScrollViewCell<TData> : FancyScrollViewCell<TData, FancyScrollViewNullContext>
+    public abstract class FancyScrollViewCell<TData> : FancyScrollViewCell<TData, FancyScrollViewNullContext>
     {
     }
 }
