@@ -121,6 +121,7 @@ namespace FancyScrollView
                 out pointerStartLocalPosition);
 
             dragStartScrollPosition = currentScrollPosition;
+            autoScrollState.Enable = false;
             dragging = true;
         }
 
