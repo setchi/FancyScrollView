@@ -14,6 +14,8 @@ namespace FancyScrollView
         [SerializeField]
         MovementType movementType = MovementType.Elastic;
         [SerializeField]
+        float elasticity = 0.1f;
+        [SerializeField]
         float scrollSensitivity = 1f;
         [SerializeField]
         bool inertia = true;
@@ -61,9 +63,19 @@ namespace FancyScrollView
         class AutoScrollState
         {
             public bool Enable;
+            public bool Elastic;
             public float Duration;
             public float StartTime;
             public float EndScrollPosition;
+
+            public void Reset()
+            {
+                Enable = false;
+                Elastic = false;
+                Duration = 0f;
+                StartTime = 0f;
+                EndScrollPosition = 0f;
+            }
         }
 
         public void OnUpdatePosition(Action<float> onUpdatePosition)
@@ -98,7 +110,7 @@ namespace FancyScrollView
         {
             velocity = 0f;
             dragging = false;
-            autoScrollState.Enable = false;
+            autoScrollState.Reset();
 
             index = CalculateDestinationIndex(index);
 
@@ -121,8 +133,8 @@ namespace FancyScrollView
                 out pointerStartLocalPosition);
 
             dragStartScrollPosition = currentScrollPosition;
-            autoScrollState.Enable = false;
             dragging = true;
+            autoScrollState.Reset();
         }
 
         void IDragHandler.OnDrag(PointerEventData eventData)
@@ -234,12 +246,30 @@ namespace FancyScrollView
 
             if (autoScrollState.Enable)
             {
-                var alpha = Mathf.Clamp01((Time.unscaledTime - autoScrollState.StartTime) / Mathf.Max(autoScrollState.Duration, float.Epsilon));
-                var position = Mathf.Lerp(dragStartScrollPosition, autoScrollState.EndScrollPosition, EaseInOutCubic(0, 1, alpha));
+                var position = 0f;
 
-                if (Mathf.Approximately(alpha, 1f))
+                if (autoScrollState.Elastic)
                 {
-                    autoScrollState.Enable = false;
+                    var speed = velocity;
+                    position = Mathf.SmoothDamp(currentScrollPosition, currentScrollPosition + offset, ref speed, elasticity, Mathf.Infinity, deltaTime);
+                    velocity = speed;
+
+                    if (Mathf.Abs(velocity) < 0.01f)
+                    {
+                        position = Mathf.Clamp(Mathf.RoundToInt(position), 0, dataCount - 1);
+                        velocity = 0f;
+                        autoScrollState.Reset();
+                    }
+                }
+                else
+                {
+                    var alpha = Mathf.Clamp01((Time.unscaledTime - autoScrollState.StartTime) / Mathf.Max(autoScrollState.Duration, float.Epsilon));
+                    position = Mathf.Lerp(dragStartScrollPosition, autoScrollState.EndScrollPosition, EaseInOutCubic(0, 1, alpha));
+
+                    if (Mathf.Approximately(alpha, 1f))
+                    {
+                        autoScrollState.Reset();
+                    }
                 }
 
                 UpdatePosition(position);
@@ -250,7 +280,10 @@ namespace FancyScrollView
 
                 if (movementType == MovementType.Elastic && !Mathf.Approximately(offset, 0f))
                 {
-                    ScrollTo(Mathf.RoundToInt(position + offset), 0.35f);
+                    autoScrollState.Enable = true;
+                    autoScrollState.Elastic = true;
+
+                    ItemSelected(Mathf.Clamp(Mathf.RoundToInt(position), 0, dataCount - 1));
                 }
                 else if (inertia)
                 {
@@ -268,7 +301,6 @@ namespace FancyScrollView
                         ScrollTo(Mathf.RoundToInt(currentScrollPosition), snap.Duration);
                     }
                 }
-                // If we have neither elaticity or friction, there shouldn't be any velocity.
                 else
                 {
                     velocity = 0f;

@@ -558,6 +558,7 @@ MonoBehaviour:
   viewport: {fileID: 1492537696}
   directionOfRecognize: 1
   movementType: 1
+  elasticity: 0.1
   scrollSensitivity: 6.6666665
   inertia: 1
   decelerationRate: 0.03

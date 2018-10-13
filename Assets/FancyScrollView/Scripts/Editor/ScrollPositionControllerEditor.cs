@@ -1,9 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEditor;
+﻿using UnityEditor;
 
-//For manteinance, every new [SerializeField] variable in ScrollPositionController must be declared here
+// For manteinance, every new [SerializeField] variable in ScrollPositionController must be declared here
 
 namespace FancyScrollView
 {
@@ -11,30 +8,32 @@ namespace FancyScrollView
     [CanEditMultipleObjects]
     public class ScrollPositionControllerEditor : Editor
     {
-        private SerializedProperty viewport;
-        private SerializedProperty directionOfRecognize;
-        private SerializedProperty movementType;
-        private SerializedProperty scrollSensitivity;
-        private SerializedProperty inertia;
-        private SerializedProperty decelerationRate;
-        private SerializedProperty snap;
-        private SerializedProperty snapEnable;
-        private SerializedProperty snapVelocityThreshold;
-        private SerializedProperty snapDuration;
-        private SerializedProperty dataCount;
+        SerializedProperty viewport;
+        SerializedProperty directionOfRecognize;
+        SerializedProperty movementType;
+        SerializedProperty elasticity;
+        SerializedProperty scrollSensitivity;
+        SerializedProperty inertia;
+        SerializedProperty decelerationRate;
+        SerializedProperty snap;
+        SerializedProperty snapEnable;
+        SerializedProperty snapVelocityThreshold;
+        SerializedProperty snapDuration;
+        SerializedProperty dataCount;
 
-        private void OnEnable()
+        void OnEnable()
         {
             viewport = serializedObject.FindProperty("viewport");
             directionOfRecognize = serializedObject.FindProperty("directionOfRecognize");
             movementType = serializedObject.FindProperty("movementType");
+            elasticity = serializedObject.FindProperty("elasticity");
             scrollSensitivity = serializedObject.FindProperty("scrollSensitivity");
             inertia = serializedObject.FindProperty("inertia");
             decelerationRate = serializedObject.FindProperty("decelerationRate");
             snap = serializedObject.FindProperty("snap");
             snapEnable = serializedObject.FindProperty("snap.Enable");
             snapVelocityThreshold = serializedObject.FindProperty("snap.VelocityThreshold");
-            snapDuration = serializedObject.FindProperty("snap.Duration"); 
+            snapDuration = serializedObject.FindProperty("snap.Duration");
             dataCount = serializedObject.FindProperty("dataCount");
         }
 
@@ -44,30 +43,34 @@ namespace FancyScrollView
             EditorGUILayout.PropertyField(viewport);
             EditorGUILayout.PropertyField(directionOfRecognize);
             EditorGUILayout.PropertyField(movementType);
+            EditorGUILayout.PropertyField(elasticity);
             EditorGUILayout.PropertyField(scrollSensitivity);
             EditorGUILayout.PropertyField(inertia);
-            DrawInertiaRelatedValues(); 
+            DrawInertiaRelatedValues();
             EditorGUILayout.PropertyField(dataCount);
-            serializedObject.ApplyModifiedProperties(); 
+            serializedObject.ApplyModifiedProperties();
         }
 
-        private void DrawInertiaRelatedValues()
+        void DrawInertiaRelatedValues()
         {
             if (inertia.boolValue)
             {
                 EditorGUILayout.PropertyField(decelerationRate);
                 EditorGUILayout.PropertyField(snap);
-                DrawSnapRelatedValues(); 
-                EditorGUI.indentLevel = 0;
+
+                using (new EditorGUI.IndentLevelScope())
+                {
+                    DrawSnapRelatedValues();
+                }
             }
         }
 
-        private void DrawSnapRelatedValues()
+        void DrawSnapRelatedValues()
         {
             if (snap.isExpanded)
             {
-                EditorGUI.indentLevel = 1;
                 EditorGUILayout.PropertyField(snapEnable);
+
                 if (snapEnable.boolValue)
                 {
                     EditorGUILayout.PropertyField(snapVelocityThreshold);
