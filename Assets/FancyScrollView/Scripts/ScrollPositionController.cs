@@ -95,22 +95,24 @@ namespace FancyScrollView
 
         public void ScrollTo(int index, float duration)
         {
-            velocity = 0f;
-            dragStartScrollPosition = currentScrollPosition;
-
+            autoScrollState.Reset();
             autoScrollState.Enable = true;
             autoScrollState.Duration = duration;
             autoScrollState.StartTime = Time.unscaledTime;
             autoScrollState.EndScrollPosition = CalculateDestinationIndex(index);
+
+            velocity = 0f;
+            dragStartScrollPosition = currentScrollPosition;
 
             ItemSelected(Mathf.RoundToInt(GetCircularPosition(autoScrollState.EndScrollPosition, dataCount)));
         }
 
         public void JumpTo(int index)
         {
+            autoScrollState.Reset();
+
             velocity = 0f;
             dragging = false;
-            autoScrollState.Reset();
 
             index = CalculateDestinationIndex(index);
 
@@ -170,7 +172,7 @@ namespace FancyScrollView
 
             if (movementType == MovementType.Elastic)
             {
-                if (offset != 0)
+                if (offset != 0f)
                 {
                     position -= RubberDelta(offset, scrollSensitivity);
                 }
@@ -280,6 +282,7 @@ namespace FancyScrollView
 
                 if (movementType == MovementType.Elastic && !Mathf.Approximately(offset, 0f))
                 {
+                    autoScrollState.Reset();
                     autoScrollState.Enable = true;
                     autoScrollState.Elastic = true;
 
