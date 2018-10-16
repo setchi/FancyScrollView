@@ -137,5 +137,8 @@ public class MyScrollViewCell : FancyScrollViewCell<MyCellDto>
 ## 開発環境
 Unity 2018.2.11f1
 
-## LICENSE
+## Author
+[setchi](https://github.com/setchi)
+
+## License
 MIT
