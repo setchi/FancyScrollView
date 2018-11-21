@@ -1,4 +1,4 @@
-# FancyScrollView [![License](https://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat)](http://mit-license.org)
+# FancyScrollView [![license](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square)](https://github.com/setchi/FancyScrollView/blob/master/LICENSE)
 高度に柔軟なアニメーションを実装できる汎用のScrollViewコンポーネントです。 無限スクロールも対応しています。[English](https://translate.google.com/translate?sl=ja&tl=en&u=https://github.com/setchi/FancyScrollView) (by Google Translate)
 
 
