@@ -49,16 +49,15 @@ using FancyScrollView;
 
 public class MyScrollView : FancyScrollView<MyCellDto>
 {
-    [SerializeField]
-    ScrollPositionController scrollPositionController;
+    [SerializeField] ScrollPositionController scrollPositionController;
 
     void Awake()
     {
-        base.cellData = Enumerable.Range(0, 50)
-            .Select(i => new MyCellDto { Message = "Cell " + i })
+        base.CellData = Enumerable.Range(0, 50)
+            .Select(i => new MyCellDto {Message = "Cell " + i})
             .ToList();
 
-        scrollPositionController.SetDataCount(base.cellData.Count);
+        scrollPositionController.SetDataCount(base.CellData.Count);
         scrollPositionController.OnUpdatePosition(base.UpdatePosition);
     }
 }
@@ -71,8 +70,7 @@ using FancyScrollView;
 
 public class MyScrollViewCell : FancyScrollViewCell<MyCellDto>
 {
-    [SerializeField]
-    Text message;
+    [SerializeField] Text message;
 
     public override void UpdateContent(MyCellDto itemData)
     {
