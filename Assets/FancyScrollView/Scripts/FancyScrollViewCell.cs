@@ -14,7 +14,10 @@ namespace FancyScrollView
         /// Gets a value indicating whether this <see cref="T:FancyScrollView.FancyScrollViewCell`2"/> is visible.
         /// </summary>
         /// <value><c>true</c> if is visible; otherwise, <c>false</c>.</value>
-        public virtual bool IsVisible { get { return gameObject.activeSelf; } }
+        public virtual bool IsVisible
+        {
+            get { return gameObject.activeSelf; }
+        }
 
         /// <summary>
         /// Gets the context.

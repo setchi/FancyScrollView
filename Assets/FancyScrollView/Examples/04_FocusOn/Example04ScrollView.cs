@@ -6,8 +6,7 @@ namespace FancyScrollView
 {
     public class Example04ScrollView : FancyScrollView<Example04CellDto, Example04ScrollViewContext>
     {
-        [SerializeField]
-        ScrollPositionController scrollPositionController;
+        [SerializeField] ScrollPositionController scrollPositionController;
 
         Action<int> onSelectedIndexChanged;
 
@@ -31,14 +30,14 @@ namespace FancyScrollView
 
         public void UpdateData(List<Example04CellDto> data)
         {
-            cellData = data;
-            scrollPositionController.SetDataCount(cellData.Count);
+            CellData = data;
+            scrollPositionController.SetDataCount(CellData.Count);
             UpdateContents();
         }
 
         public void UpdateSelection(int index)
         {
-            if (index < 0 || index >= cellData.Count)
+            if (index < 0 || index >= CellData.Count)
             {
                 return;
             }

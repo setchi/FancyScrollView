@@ -7,24 +7,20 @@ namespace FancyScrollView
 {
     public class ScrollPositionController : UIBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
     {
-        [SerializeField]
-        RectTransform viewport;
-        [SerializeField]
-        ScrollDirection directionOfRecognize = ScrollDirection.Vertical;
-        [SerializeField]
-        MovementType movementType = MovementType.Elastic;
-        [SerializeField]
-        float elasticity = 0.1f;
-        [SerializeField]
-        float scrollSensitivity = 1f;
-        [SerializeField]
-        bool inertia = true;
+        [SerializeField] RectTransform viewport;
+        [SerializeField] ScrollDirection directionOfRecognize = ScrollDirection.Vertical;
+        [SerializeField] MovementType movementType = MovementType.Elastic;
+        [SerializeField] float elasticity = 0.1f;
+        [SerializeField] float scrollSensitivity = 1f;
+        [SerializeField] bool inertia = true;
+
         [SerializeField, Tooltip("Only used when inertia is enabled")]
         float decelerationRate = 0.03f;
+
         [SerializeField, Tooltip("Only used when inertia is enabled")]
-        Snap snap = new Snap { Enable = true, VelocityThreshold = 0.5f, Duration = 0.3f };
-        [SerializeField]
-        int dataCount;
+        Snap snap = new Snap {Enable = true, VelocityThreshold = 0.5f, Duration = 0.3f};
+
+        [SerializeField] int dataCount;
 
         readonly AutoScrollState autoScrollState = new AutoScrollState();
 
@@ -153,10 +149,10 @@ namespace FancyScrollView
 
             Vector2 localCursor;
             if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                    viewport,
-                    eventData.position,
-                    eventData.pressEventCamera,
-                    out localCursor))
+                viewport,
+                eventData.position,
+                eventData.pressEventCamera,
+                out localCursor))
             {
                 return;
             }
@@ -238,7 +234,7 @@ namespace FancyScrollView
 
         float RubberDelta(float overStretching, float viewSize)
         {
-            return (1 - (1 / ((Mathf.Abs(overStretching) * 0.55f / viewSize) + 1))) * viewSize * Mathf.Sign(overStretching);
+            return (1 - 1 / (Mathf.Abs(overStretching) * 0.55f / viewSize + 1)) * viewSize * Mathf.Sign(overStretching);
         }
 
         void Update()
@@ -253,7 +249,8 @@ namespace FancyScrollView
                 if (autoScrollState.Elastic)
                 {
                     var speed = velocity;
-                    position = Mathf.SmoothDamp(currentScrollPosition, currentScrollPosition + offset, ref speed, elasticity, Mathf.Infinity, deltaTime);
+                    position = Mathf.SmoothDamp(currentScrollPosition, currentScrollPosition + offset, ref speed,
+                        elasticity, Mathf.Infinity, deltaTime);
                     velocity = speed;
 
                     if (Mathf.Abs(velocity) < 0.01f)
@@ -265,8 +262,10 @@ namespace FancyScrollView
                 }
                 else
                 {
-                    var alpha = Mathf.Clamp01((Time.unscaledTime - autoScrollState.StartTime) / Mathf.Max(autoScrollState.Duration, float.Epsilon));
-                    position = Mathf.Lerp(dragStartScrollPosition, autoScrollState.EndScrollPosition, EaseInOutCubic(0, 1, alpha));
+                    var alpha = Mathf.Clamp01((Time.unscaledTime - autoScrollState.StartTime) /
+                                              Mathf.Max(autoScrollState.Duration, float.Epsilon));
+                    position = Mathf.Lerp(dragStartScrollPosition, autoScrollState.EndScrollPosition,
+                        EaseInOutCubic(0, 1, alpha));
 
                     if (Mathf.Approximately(alpha, 1f))
                     {

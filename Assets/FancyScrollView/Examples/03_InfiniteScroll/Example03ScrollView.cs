@@ -5,19 +5,18 @@ namespace FancyScrollView
 {
     public class Example03ScrollView : FancyScrollView<Example03CellDto, Example03ScrollViewContext>
     {
-        [SerializeField]
-        ScrollPositionController scrollPositionController;
+        [SerializeField] ScrollPositionController scrollPositionController;
 
         void Awake()
         {
             scrollPositionController.OnUpdatePosition(p => UpdatePosition(p));
-            SetContext(new Example03ScrollViewContext { OnPressedCell = OnPressedCell });
+            SetContext(new Example03ScrollViewContext {OnPressedCell = OnPressedCell});
         }
 
         public void UpdateData(List<Example03CellDto> data)
         {
-            cellData = data;
-            scrollPositionController.SetDataCount(cellData.Count);
+            CellData = data;
+            scrollPositionController.SetDataCount(CellData.Count);
             UpdateContents();
         }
 

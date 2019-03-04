@@ -5,8 +5,7 @@ namespace FancyScrollView
 {
     public class Example01ScrollView : FancyScrollView<Example01CellDto>
     {
-        [SerializeField]
-        ScrollPositionController scrollPositionController;
+        [SerializeField] ScrollPositionController scrollPositionController;
 
         void Awake()
         {
@@ -15,8 +14,8 @@ namespace FancyScrollView
 
         public void UpdateData(List<Example01CellDto> data)
         {
-            cellData = data;
-            scrollPositionController.SetDataCount(cellData.Count);
+            CellData = data;
+            scrollPositionController.SetDataCount(CellData.Count);
             UpdateContents();
         }
     }

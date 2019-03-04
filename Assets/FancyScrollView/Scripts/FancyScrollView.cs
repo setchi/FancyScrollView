@@ -5,21 +5,16 @@ namespace FancyScrollView
 {
     public abstract class FancyScrollView<TData, TContext> : MonoBehaviour where TContext : class
     {
-        [SerializeField, Range(float.Epsilon, 1f)]
-        float cellInterval;
-        [SerializeField, Range(0f, 1f)]
-        float cellOffset;
-        [SerializeField]
-        bool loop;
-        [SerializeField]
-        GameObject cellBase;
-        [SerializeField]
-        Transform cellContainer;
+        [SerializeField, Range(float.Epsilon, 1f)] float cellInterval;
+        [SerializeField, Range(0f, 1f)] float cellOffset;
+        [SerializeField] bool loop;
+        [SerializeField] GameObject cellBase;
+        [SerializeField] Transform cellContainer;
 
         readonly List<FancyScrollViewCell<TData, TContext>> cells = new List<FancyScrollViewCell<TData, TContext>>();
         float currentPosition;
 
-        protected List<TData> cellData = new List<TData>();
+        protected List<TData> CellData = new List<TData>();
         protected TContext Context { get; private set; }
 
         /// <summary>
@@ -30,9 +25,9 @@ namespace FancyScrollView
         {
             Context = context;
 
-            for (int i = 0; i < cells.Count; i++)
+            foreach (var cell in cells)
             {
-                cells[i].SetContext(context);
+                cell.SetContext(context);
             }
         }
 
@@ -53,12 +48,12 @@ namespace FancyScrollView
         {
             currentPosition = position;
 
-            var visibleMinPosition = position - (cellOffset / cellInterval);
+            var visibleMinPosition = position - cellOffset / cellInterval;
             var firstCellPosition = (Mathf.Ceil(visibleMinPosition) - visibleMinPosition) * cellInterval;
             var dataStartIndex = Mathf.CeilToInt(visibleMinPosition);
             var count = 0;
 
-            for (float p = firstCellPosition; p <= 1f; p += cellInterval, count++)
+            for (var p = firstCellPosition; p <= 1f; p += cellInterval, count++)
             {
                 if (count >= cells.Count)
                 {
@@ -68,7 +63,7 @@ namespace FancyScrollView
 
             count = 0;
 
-            for (float p = firstCellPosition; p <= 1f; p += cellInterval, count++)
+            for (var p = firstCellPosition; p <= 1f; p += cellInterval, count++)
             {
                 var dataIndex = dataStartIndex + count;
                 var cell = cells[GetCircularIndex(dataIndex, cells.Count)];
@@ -98,21 +93,23 @@ namespace FancyScrollView
         {
             if (loop)
             {
-                dataIndex = GetCircularIndex(dataIndex, cellData.Count);
+                dataIndex = GetCircularIndex(dataIndex, CellData.Count);
             }
-            else if (dataIndex < 0 || dataIndex > cellData.Count - 1)
+            else if (dataIndex < 0 || dataIndex > CellData.Count - 1)
             {
                 // セルに対応するデータが存在しなければセルを表示しない
                 cell.SetVisible(false);
                 return;
             }
 
-            if (forceUpdateContents || cell.DataIndex != dataIndex || !cell.IsVisible)
+            if (!forceUpdateContents && cell.DataIndex == dataIndex && cell.IsVisible)
             {
-                cell.DataIndex = dataIndex;
-                cell.SetVisible(true);
-                cell.UpdateContent(cellData[dataIndex]);
+                return;
             }
+
+            cell.DataIndex = dataIndex;
+            cell.SetVisible(true);
+            cell.UpdateContent(CellData[dataIndex]);
         }
 
         /// <summary>
