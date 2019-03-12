@@ -55,7 +55,7 @@ public class MyScrollView : FancyScrollView<MyCellDto>
     {
         base.CellData = Enumerable.Range(0, 50)
             .Select(i => new MyCellDto {Message = "Cell " + i})
-            .ToList();
+            .ToArray();
 
         scrollPositionController.SetDataCount(base.CellData.Count);
         scrollPositionController.OnUpdatePosition(base.UpdatePosition);
