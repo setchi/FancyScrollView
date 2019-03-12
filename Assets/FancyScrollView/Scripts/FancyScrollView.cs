@@ -11,10 +11,10 @@ namespace FancyScrollView
         [SerializeField] GameObject cellBase;
         [SerializeField] Transform cellContainer;
 
-        readonly List<FancyScrollViewCell<TData, TContext>> cells = new List<FancyScrollViewCell<TData, TContext>>();
+        readonly IList<FancyScrollViewCell<TData, TContext>> cells = new List<FancyScrollViewCell<TData, TContext>>();
         float currentPosition;
 
-        protected List<TData> CellData = new List<TData>();
+        protected IList<TData> CellData = new List<TData>();
         protected TContext Context { get; private set; }
 
         /// <summary>

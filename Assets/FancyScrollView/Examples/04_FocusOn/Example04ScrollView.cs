@@ -28,7 +28,7 @@ namespace FancyScrollView
             });
         }
 
-        public void UpdateData(List<Example04CellDto> data)
+        public void UpdateData(IList<Example04CellDto> data)
         {
             CellData = data;
             scrollPositionController.SetDataCount(CellData.Count);

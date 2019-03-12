@@ -11,7 +11,7 @@ namespace FancyScrollView
         {
             var cellData = Enumerable.Range(0, 20)
                 .Select(i => new Example01CellDto {Message = "Cell " + i})
-                .ToList();
+                .ToArray();
 
             scrollView.UpdateData(cellData);
         }
