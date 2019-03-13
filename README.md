@@ -40,29 +40,6 @@ public class MyCellDto
     public string Message;
 }
 ```
-FancyScrollView を継承して自分のスクロールビューを実装します。
-
-```csharp
-using UnityEngine;
-using System.Linq;
-using FancyScrollView;
-
-public class MyScrollView : FancyScrollView<MyCellDto>
-{
-    [SerializeField] ScrollPositionController scrollPositionController;
-
-    void Start()
-    {
-        scrollPositionController.OnUpdatePosition(p => base.UpdatePosition(p));
-    }
-
-    public void UpdateData(IList<Example01CellDto> cellData)
-    {
-        base.UpdateContents(cellData);
-        scrollPositionController.SetDataCount(cellData.Count);
-    }
-}
-```
 FancyScrollViewCell を継承して自分のセルを実装します。
 ```csharp
 using UnityEngine;
@@ -82,6 +59,28 @@ public class MyScrollViewCell : FancyScrollViewCell<MyCellDto>
     {
         // position は 0.0 ~ 1.0 の値です
         // position をもとに、セルの見た目を自由に制御できます
+    }
+}
+```
+FancyScrollView を継承して自分のスクロールビューを実装します。
+```csharp
+using UnityEngine;
+using System.Linq;
+using FancyScrollView;
+
+public class MyScrollView : FancyScrollView<MyCellDto>
+{
+    [SerializeField] ScrollPositionController scrollPositionController;
+
+    void Start()
+    {
+        scrollPositionController.OnUpdatePosition(p => base.UpdatePosition(p));
+    }
+
+    public void UpdateData(IList<Example01CellDto> cellData)
+    {
+        base.UpdateContents(cellData);
+        scrollPositionController.SetDataCount(cellData.Count);
     }
 }
 ```
