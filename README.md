@@ -58,7 +58,8 @@ public class MyScrollView : FancyScrollView<MyCellDto>
             .ToArray();
 
         base.UpdateContents(cellData);
-        scrollPositionController.SetDataCount(base.CellData.Count);
+
+        scrollPositionController.SetDataCount(cellData.Length);
         scrollPositionController.OnUpdatePosition(p => UpdatePosition(p));
     }
 }
