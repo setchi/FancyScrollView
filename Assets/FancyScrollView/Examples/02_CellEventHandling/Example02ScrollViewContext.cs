@@ -4,7 +4,7 @@ namespace FancyScrollView
 {
     public class Example02ScrollViewContext
     {
-        public Action<Example02ScrollViewCell> OnPressedCell;
+        public Action<int> OnPressedCell;
         public int SelectedIndex;
     }
 }

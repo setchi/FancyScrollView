@@ -15,7 +15,7 @@ namespace FancyScrollView
         {
             prevCellButton.onClick.AddListener(scrollView.SelectPrevCell);
             nextCellButton.onClick.AddListener(scrollView.SelectNextCell);
-            scrollView.OnSelectedIndexChanged(HandleSelectedIndexChanged);
+            scrollView.OnSelectedIndexChanged(OnSelectedIndexChanged);
 
             var cellData = Enumerable.Range(0, 20)
                 .Select(i => new Example04CellData {Message = "Cell " + i})
@@ -25,7 +25,7 @@ namespace FancyScrollView
             scrollView.UpdateSelection(0);
         }
 
-        void HandleSelectedIndexChanged(int index)
+        void OnSelectedIndexChanged(int index)
         {
             selectedItemInfo.text = string.Format("Selected item info: index {0}", index);
         }

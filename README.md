@@ -50,9 +50,9 @@ public class MyScrollViewCell : FancyScrollViewCell<MyCellData>
 {
     [SerializeField] Text message;
 
-    public override void UpdateContent(MyCellData itemData)
+    public override void UpdateContent(MyCellData cellData)
     {
-        message.text = itemData.Message;
+        message.text = cellData.Message;
     }
 
     public override void UpdatePosition(float position)

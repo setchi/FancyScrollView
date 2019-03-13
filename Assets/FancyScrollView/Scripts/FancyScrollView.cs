@@ -107,7 +107,6 @@ namespace FancyScrollView
             }
             else if (dataIndex < 0 || dataIndex > CellData.Count - 1)
             {
-                // セルに対応するデータが存在しなければセルを表示しない
                 cell.SetVisible(false);
                 return;
             }

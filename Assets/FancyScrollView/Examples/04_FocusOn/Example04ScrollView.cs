@@ -28,7 +28,7 @@ namespace FancyScrollView
         void Start()
         {
             scrollPositionController.OnUpdatePosition(p => UpdatePosition(p));
-            scrollPositionController.OnItemSelected(HandleItemSelected);
+            scrollPositionController.OnItemSelected(OnItemSelected);
         }
 
         public void UpdateData(IList<Example04CellData> cellData)
@@ -64,15 +64,15 @@ namespace FancyScrollView
             UpdateSelection(Context.SelectedIndex - 1);
         }
 
-        void HandleItemSelected(int selectedItemIndex)
+        void OnItemSelected(int index)
         {
-            Context.SelectedIndex = selectedItemIndex;
+            Context.SelectedIndex = index;
             UpdateContents();
         }
 
-        void OnPressedCell(Example04ScrollViewCell cell)
+        void OnPressedCell(int index)
         {
-            UpdateSelection(cell.DataIndex);
+            UpdateSelection(index);
         }
     }
 }

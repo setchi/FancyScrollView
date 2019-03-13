@@ -25,7 +25,7 @@ namespace FancyScrollView
             }
         }
 
-        public Action<Example04ScrollViewCell> OnPressedCell;
+        public Action<int> OnPressedCell;
         public Action<int> OnSelectedIndexChanged;
     }
 }

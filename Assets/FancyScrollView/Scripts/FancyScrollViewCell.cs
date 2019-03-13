@@ -46,8 +46,8 @@ namespace FancyScrollView
         /// <summary>
         /// Updates the content.
         /// </summary>
-        /// <param name="itemData">Item data.</param>
-        public virtual void UpdateContent(TCellData itemData)
+        /// <param name="cellData">Cell data.</param>
+        public virtual void UpdateContent(TCellData cellData)
         {
         }
 

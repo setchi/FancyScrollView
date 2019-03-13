@@ -20,10 +20,10 @@ namespace FancyScrollView
         /// <summary>
         /// Updates the content.
         /// </summary>
-        /// <param name="itemData">Item data.</param>
-        public override void UpdateContent(Example04CellData itemData)
+        /// <param name="cellData">Cell data.</param>
+        public override void UpdateContent(Example04CellData cellData)
         {
-            message.text = itemData.Message;
+            message.text = cellData.Message;
 
             if (Context != null)
             {
@@ -49,7 +49,7 @@ namespace FancyScrollView
         {
             if (Context != null)
             {
-                Context.OnPressedCell(this);
+                Context.OnPressedCell(DataIndex);
             }
         }
 

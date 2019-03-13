@@ -13,10 +13,10 @@ namespace FancyScrollView
         /// <summary>
         /// Updates the content.
         /// </summary>
-        /// <param name="itemData">Item data.</param>
-        public override void UpdateContent(Example01CellData itemData)
+        /// <param name="cellData">Cell data.</param>
+        public override void UpdateContent(Example01CellData cellData)
         {
-            message.text = itemData.Message;
+            message.text = cellData.Message;
         }
 
         /// <summary>

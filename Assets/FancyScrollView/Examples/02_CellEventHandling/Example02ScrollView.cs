@@ -23,10 +23,10 @@ namespace FancyScrollView
             scrollPositionController.SetDataCount(cellData.Count);
         }
 
-        void OnPressedCell(Example02ScrollViewCell cell)
+        void OnPressedCell(int index)
         {
-            scrollPositionController.ScrollTo(cell.DataIndex, 0.4f);
-            Context.SelectedIndex = cell.DataIndex;
+            scrollPositionController.ScrollTo(index, 0.4f);
+            Context.SelectedIndex = index;
             UpdateContents();
         }
     }
