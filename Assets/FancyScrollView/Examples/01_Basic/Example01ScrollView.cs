@@ -7,7 +7,7 @@ namespace FancyScrollView
     {
         [SerializeField] ScrollPositionController scrollPositionController;
 
-        void Awake()
+        void Start()
         {
             scrollPositionController.OnUpdatePosition(p => UpdatePosition(p));
         }

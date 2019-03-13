@@ -9,8 +9,12 @@ namespace FancyScrollView
 
         void Awake()
         {
-            scrollPositionController.OnUpdatePosition(p => UpdatePosition(p));
             SetContext(new Example02ScrollViewContext {OnPressedCell = OnPressedCell});
+        }
+
+        void Start()
+        {
+            scrollPositionController.OnUpdatePosition(p => UpdatePosition(p));
         }
 
         public void UpdateData(IList<Example02CellDto> cellData)

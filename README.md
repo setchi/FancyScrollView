@@ -53,18 +53,17 @@ public class MyScrollView : FancyScrollView<MyCellDto>
 
     void Start()
     {
-        var cellData = Enumerable.Range(0, 50)
-            .Select(i => new MyCellDto {Message = "Cell " + i})
-            .ToArray();
+        scrollPositionController.OnUpdatePosition(p => base.UpdatePosition(p));
+    }
 
+    public void UpdateData(IList<Example01CellDto> cellData)
+    {
         base.UpdateContents(cellData);
-
-        scrollPositionController.SetDataCount(cellData.Length);
-        scrollPositionController.OnUpdatePosition(p => UpdatePosition(p));
+        scrollPositionController.SetDataCount(cellData.Count);
     }
 }
 ```
-FancyScrollViewCell を継承して自分のセルを実装します
+FancyScrollViewCell を継承して自分のセルを実装します。
 ```csharp
 using UnityEngine;
 using UnityEngine.UI;
@@ -86,6 +85,27 @@ public class MyScrollViewCell : FancyScrollViewCell<MyCellDto>
     }
 }
 ```
+スクロールビューにデータを流し込みます。
+```csharp
+using UnityEngine;
+using System.Linq;
+using FancyScrollView;
+
+public class EntryPoint : MonoBehaviour
+{
+    [SerializeField] MyScrollView scrollView;
+
+    void Start()
+    {
+        var cellData = Enumerable.Range(0, 50)
+            .Select(i => new MyCellDto {Message = "Cell " + i})
+            .ToArray();
+
+        scrollView.UpdateData(cellData);
+    }
+}
+```
+
 ### インスペクタ上の設定
 ![screencast](Documents/inspector.png)
 #### My Scroll View
