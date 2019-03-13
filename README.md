@@ -35,7 +35,7 @@ FancyScrollView はセルの位置を更新する際に、画面に見える範�
 ### スクリプトの実装
 セルにデータを渡すためのオブジェクトを定義します。
 ```csharp
-public class MyCellDto
+public class MyCellData
 {
     public string Message;
 }
@@ -46,11 +46,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using FancyScrollView;
 
-public class MyScrollViewCell : FancyScrollViewCell<MyCellDto>
+public class MyScrollViewCell : FancyScrollViewCell<MyCellData>
 {
     [SerializeField] Text message;
 
-    public override void UpdateContent(MyCellDto itemData)
+    public override void UpdateContent(MyCellData itemData)
     {
         message.text = itemData.Message;
     }
@@ -68,7 +68,7 @@ using UnityEngine;
 using System.Linq;
 using FancyScrollView;
 
-public class MyScrollView : FancyScrollView<MyCellDto>
+public class MyScrollView : FancyScrollView<MyCellData>
 {
     [SerializeField] ScrollPositionController scrollPositionController;
 
@@ -77,7 +77,7 @@ public class MyScrollView : FancyScrollView<MyCellDto>
         scrollPositionController.OnUpdatePosition(p => base.UpdatePosition(p));
     }
 
-    public void UpdateData(IList<Example01CellDto> cellData)
+    public void UpdateData(IList<MyCellData> cellData)
     {
         base.UpdateContents(cellData);
         scrollPositionController.SetDataCount(cellData.Count);
@@ -97,7 +97,7 @@ public class EntryPoint : MonoBehaviour
     void Start()
     {
         var cellData = Enumerable.Range(0, 50)
-            .Select(i => new MyCellDto {Message = "Cell " + i})
+            .Select(i => new MyCellData {Message = "Cell " + i})
             .ToArray();
 
         scrollView.UpdateData(cellData);
