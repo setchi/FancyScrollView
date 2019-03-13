@@ -13,10 +13,10 @@ namespace FancyScrollView
             SetContext(new Example03ScrollViewContext {OnPressedCell = OnPressedCell});
         }
 
-        public void UpdateData(IList<Example03CellDto> data)
+        public void UpdateData(IList<Example03CellDto> cellData)
         {
-            UpdateContents(data);
-            scrollPositionController.SetDataCount(CellData.Count);
+            UpdateContents(cellData);
+            scrollPositionController.SetDataCount(cellData.Count);
         }
 
         void OnPressedCell(Example03ScrollViewCell cell)

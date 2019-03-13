@@ -12,10 +12,10 @@ namespace FancyScrollView
             scrollPositionController.OnUpdatePosition(p => UpdatePosition(p));
         }
 
-        public void UpdateData(IList<Example01CellDto> data)
+        public void UpdateData(IList<Example01CellDto> cellData)
         {
-            UpdateContents(data);
-            scrollPositionController.SetDataCount(CellData.Count);
+            UpdateContents(cellData);
+            scrollPositionController.SetDataCount(cellData.Count);
         }
     }
 }
