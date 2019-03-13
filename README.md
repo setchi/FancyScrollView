@@ -11,7 +11,7 @@ Unity 2017.1.0 以降が必要です。
 このリポジトリを Clone するか、 [Asset Store](https://assetstore.unity.com/packages/tools/gui/fancyscrollview-96530) からプロジェクトにインポートしてください。
 
 ## サンプル
-[FancyScrollView/Examples](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples/) を参照してください。
+[FancyScrollView/Examples/Scenes](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples/Scenes/) を参照してください。
 
 | サンプル名 | 説明 |
 |:-----------|:------------|
