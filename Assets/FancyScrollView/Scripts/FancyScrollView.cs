@@ -34,6 +34,16 @@ namespace FancyScrollView
         /// <summary>
         /// Updates the contents.
         /// </summary>
+        /// <param name="cellData">Cell data.</param>
+        protected void UpdateContents(IList<TData> cellData) 
+        {
+            CellData = cellData;
+            UpdateContents();
+        }
+
+        /// <summary>
+        /// Updates the contents.
+        /// </summary>
         protected void UpdateContents()
         {
             UpdatePosition(currentPosition, true);
