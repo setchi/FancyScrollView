@@ -18,7 +18,7 @@ namespace FancyScrollView
             scrollView.OnSelectedIndexChanged(HandleSelectedIndexChanged);
 
             var cellData = Enumerable.Range(0, 20)
-                .Select(i => new Example04CellDto {Message = "Cell " + i})
+                .Select(i => new Example04CellData {Message = "Cell " + i})
                 .ToArray();
 
             scrollView.UpdateData(cellData);

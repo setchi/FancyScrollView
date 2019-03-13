@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace FancyScrollView
 {
-    public abstract class FancyScrollView<TData, TContext> : MonoBehaviour where TContext : class
+    public abstract class FancyScrollView<TCellData, TContext> : MonoBehaviour where TContext : class
     {
         [SerializeField, Range(float.Epsilon, 1f)] float cellInterval;
         [SerializeField, Range(0f, 1f)] float cellOffset;
@@ -11,10 +11,10 @@ namespace FancyScrollView
         [SerializeField] GameObject cellBase;
         [SerializeField] Transform cellContainer;
 
-        readonly IList<FancyScrollViewCell<TData, TContext>> cells = new List<FancyScrollViewCell<TData, TContext>>();
+        readonly IList<FancyScrollViewCell<TCellData, TContext>> cells = new List<FancyScrollViewCell<TCellData, TContext>>();
         float currentPosition;
 
-        protected IList<TData> CellData = new List<TData>();
+        protected IList<TCellData> CellData = new List<TCellData>();
         protected TContext Context { get; private set; }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace FancyScrollView
         /// Updates the contents.
         /// </summary>
         /// <param name="cellData">Cell data.</param>
-        protected void UpdateContents(IList<TData> cellData) 
+        protected void UpdateContents(IList<TCellData> cellData) 
         {
             CellData = cellData;
             UpdateContents();
@@ -99,7 +99,7 @@ namespace FancyScrollView
         /// <param name="cell">Cell.</param>
         /// <param name="dataIndex">Data index.</param>
         /// <param name="forceUpdateContents">If set to <c>true</c> force update contents.</param>
-        void UpdateCell(FancyScrollViewCell<TData, TContext> cell, int dataIndex, bool forceUpdateContents = false)
+        void UpdateCell(FancyScrollViewCell<TCellData, TContext> cell, int dataIndex, bool forceUpdateContents = false)
         {
             if (loop)
             {
@@ -126,10 +126,10 @@ namespace FancyScrollView
         /// Creates the cell.
         /// </summary>
         /// <returns>The cell.</returns>
-        FancyScrollViewCell<TData, TContext> CreateCell()
+        FancyScrollViewCell<TCellData, TContext> CreateCell()
         {
             var cellObject = Instantiate(cellBase, cellContainer);
-            var cell = cellObject.GetComponent<FancyScrollViewCell<TData, TContext>>();
+            var cell = cellObject.GetComponent<FancyScrollViewCell<TCellData, TContext>>();
 
             cell.SetContext(Context);
             cell.SetVisible(false);
@@ -171,7 +171,7 @@ namespace FancyScrollView
     {
     }
 
-    public abstract class FancyScrollView<TData> : FancyScrollView<TData, FancyScrollViewNullContext>
+    public abstract class FancyScrollView<TCellData> : FancyScrollView<TCellData, FancyScrollViewNullContext>
     {
     }
 }

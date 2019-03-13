@@ -1,6 +1,6 @@
 ﻿namespace FancyScrollView
 {
-    public class Example01CellDto
+    public class Example01CellData
     {
         public string Message;
     }

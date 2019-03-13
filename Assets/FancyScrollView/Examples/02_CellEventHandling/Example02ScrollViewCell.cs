@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace FancyScrollView
 {
-    public class Example02ScrollViewCell : FancyScrollViewCell<Example02CellDto, Example02ScrollViewContext>
+    public class Example02ScrollViewCell : FancyScrollViewCell<Example02CellData, Example02ScrollViewContext>
     {
         [SerializeField] Animator animator;
         [SerializeField] Text message;
@@ -21,7 +21,7 @@ namespace FancyScrollView
         /// Updates the content.
         /// </summary>
         /// <param name="itemData">Item data.</param>
-        public override void UpdateContent(Example02CellDto itemData)
+        public override void UpdateContent(Example02CellData itemData)
         {
             message.text = itemData.Message;
 
