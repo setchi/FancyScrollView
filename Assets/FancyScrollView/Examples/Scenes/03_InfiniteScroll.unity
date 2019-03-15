@@ -350,9 +350,9 @@ MonoBehaviour:
   cellInterval: 0.06666667
   cellOffset: 0.5
   loop: 1
-  cellBase: {fileID: 1221554162844996, guid: 9f335687a8637461084c79de7d4fa648, type: 2}
   cellContainer: {fileID: 1492537696}
   scrollPositionController: {fileID: 1492537699}
+  cellPrefab: {fileID: 1221554162844996, guid: 9f335687a8637461084c79de7d4fa648, type: 2}
 --- !u!114 &1492537699
 MonoBehaviour:
   m_ObjectHideFlags: 0

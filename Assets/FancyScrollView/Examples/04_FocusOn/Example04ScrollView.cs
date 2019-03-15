@@ -7,28 +7,18 @@ namespace FancyScrollView
     public class Example04ScrollView : FancyScrollView<Example04CellData, Example04ScrollViewContext>
     {
         [SerializeField] ScrollPositionController scrollPositionController;
+        [SerializeField] GameObject cellPrefab;
 
         Action<int> onSelectedIndexChanged;
 
-        void Awake()
-        {
-            SetContext(new Example04ScrollViewContext
-            {
-                OnPressedCell = OnPressedCell,
-                OnSelectedIndexChanged = index =>
-                {
-                    if (onSelectedIndexChanged != null)
-                    {
-                        onSelectedIndexChanged(index);
-                    }
-                }
-            });
-        }
+        protected override GameObject CellPrefab => cellPrefab;
+
+        void Awake() => SetContext(new Example04ScrollViewContext {OnCellClicked = UpdateSelection});
 
         void Start()
         {
             scrollPositionController.OnUpdatePosition(p => UpdatePosition(p));
-            scrollPositionController.OnItemSelected(OnItemSelected);
+            scrollPositionController.OnSelectedIndexChanged(index => UpdateSelection(index));
         }
 
         public void UpdateData(IList<Example04CellData> cellData)
@@ -37,42 +27,24 @@ namespace FancyScrollView
             scrollPositionController.SetDataCount(cellData.Count);
         }
 
+        public void OnSelectedIndexChanged(Action<int> callback) => onSelectedIndexChanged = callback;
+
+        public void SelectNextCell() => UpdateSelection(Context.SelectedIndex + 1);
+
+        public void SelectPrevCell() => UpdateSelection(Context.SelectedIndex - 1);
+
         public void UpdateSelection(int index)
         {
-            if (index < 0 || index >= CellData.Count)
+            if (index < 0 || index >= CellData.Count || index == Context.SelectedIndex)
             {
                 return;
             }
 
+            Context.SelectedIndex = index;
+            UpdateContents();
+
             scrollPositionController.ScrollTo(index, 0.4f);
-            Context.SelectedIndex = index;
-            UpdateContents();
-        }
-
-        public void OnSelectedIndexChanged(Action<int> onSelectedIndexChanged)
-        {
-            this.onSelectedIndexChanged = onSelectedIndexChanged;
-        }
-
-        public void SelectNextCell()
-        {
-            UpdateSelection(Context.SelectedIndex + 1);
-        }
-
-        public void SelectPrevCell()
-        {
-            UpdateSelection(Context.SelectedIndex - 1);
-        }
-
-        void OnItemSelected(int index)
-        {
-            Context.SelectedIndex = index;
-            UpdateContents();
-        }
-
-        void OnPressedCell(int index)
-        {
-            UpdateSelection(index);
+            onSelectedIndexChanged?.Invoke(index);
         }
     }
 }

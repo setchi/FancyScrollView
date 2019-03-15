@@ -19,7 +19,7 @@ namespace FancyScrollView
             rectTransform.anchorMin = Vector2.zero;
             rectTransform.anchoredPosition3D = Vector3.zero;
 
-            button.onClick.AddListener(OnPressedCell);
+            button.onClick.AddListener(() => Context?.OnCellClicked?.Invoke(DataIndex));
         }
 
         /// <summary>
@@ -30,13 +30,10 @@ namespace FancyScrollView
         {
             message.text = cellData.Message;
 
-            if (Context != null)
-            {
-                var isSelected = Context.SelectedIndex == DataIndex;
-                image.color = isSelected
-                    ? new Color32(0, 255, 255, 100)
-                    : new Color32(255, 255, 255, 77);
-            }
+            var isSelected = (Context?.SelectedIndex ?? -1) == DataIndex;
+            image.color = isSelected
+                ? new Color32(0, 255, 255, 100)
+                : new Color32(255, 255, 255, 77);
         }
 
         /// <summary>
@@ -50,21 +47,10 @@ namespace FancyScrollView
             animator.speed = 0;
         }
 
-        void OnPressedCell()
-        {
-            if (Context != null)
-            {
-                Context.OnPressedCell(DataIndex);
-            }
-        }
-
         // GameObject が非アクティブになると Animator がリセットされてしまうため
         // 現在位置を保持しておいて OnEnable のタイミングで現在位置を再設定します
         float currentPosition = 0;
 
-        void OnEnable()
-        {
-            UpdatePosition(currentPosition);
-        }
+        void OnEnable() => UpdatePosition(currentPosition);
     }
 }

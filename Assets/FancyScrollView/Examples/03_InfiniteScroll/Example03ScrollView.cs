@@ -6,16 +6,13 @@ namespace FancyScrollView
     public class Example03ScrollView : FancyScrollView<Example03CellData, Example03ScrollViewContext>
     {
         [SerializeField] ScrollPositionController scrollPositionController;
+        [SerializeField] GameObject cellPrefab;
 
-        void Awake()
-        {
-            SetContext(new Example03ScrollViewContext {OnPressedCell = OnPressedCell});
-        }
+        protected override GameObject CellPrefab => cellPrefab;
 
-        void Start()
-        {
-            scrollPositionController.OnUpdatePosition(p => UpdatePosition(p));
-        }
+        void Awake() => SetContext(new Example03ScrollViewContext {OnCellClicked = OnCellClicked});
+
+        void Start() => scrollPositionController.OnUpdatePosition(p => UpdatePosition(p));
 
         public void UpdateData(IList<Example03CellData> cellData)
         {
@@ -23,7 +20,7 @@ namespace FancyScrollView
             scrollPositionController.SetDataCount(cellData.Count);
         }
 
-        void OnPressedCell(int index)
+        void OnCellClicked(int index)
         {
             scrollPositionController.ScrollTo(index, 0.4f);
             Context.SelectedIndex = index;

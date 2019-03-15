@@ -6,11 +6,11 @@ namespace FancyScrollView
     public class Example01ScrollView : FancyScrollView<Example01CellData>
     {
         [SerializeField] ScrollPositionController scrollPositionController;
+        [SerializeField] GameObject cellPrefab;
 
-        void Start()
-        {
-            scrollPositionController.OnUpdatePosition(p => UpdatePosition(p));
-        }
+        protected override GameObject CellPrefab => cellPrefab;
+
+        void Start() => scrollPositionController.OnUpdatePosition(p => UpdatePosition(p));
 
         public void UpdateData(IList<Example01CellData> cellData)
         {

@@ -12,10 +12,7 @@ namespace FancyScrollView
 
         static readonly int ScrollTriggerHash = Animator.StringToHash("scroll");
 
-        void Start()
-        {
-            button.onClick.AddListener(OnPressedCell);
-        }
+        void Start() => button.onClick.AddListener(() => Context?.OnCellClicked?.Invoke(DataIndex));
 
         /// <summary>
         /// Updates the content.
@@ -25,13 +22,10 @@ namespace FancyScrollView
         {
             message.text = cellData.Message;
 
-            if (Context != null)
-            {
-                var isSelected = Context.SelectedIndex == DataIndex;
-                image.color = isSelected
-                    ? new Color32(0, 255, 255, 100)
-                    : new Color32(255, 255, 255, 77);
-            }
+            var isSelected = (Context?.SelectedIndex ?? -1) == DataIndex;
+            image.color = isSelected
+                ? new Color32(0, 255, 255, 100)
+                : new Color32(255, 255, 255, 77);
         }
 
         /// <summary>
@@ -45,21 +39,10 @@ namespace FancyScrollView
             animator.speed = 0;
         }
 
-        void OnPressedCell()
-        {
-            if (Context != null)
-            {
-                Context.OnPressedCell(DataIndex);
-            }
-        }
-
         // GameObject が非アクティブになると Animator がリセットされてしまうため
         // 現在位置を保持しておいて OnEnable のタイミングで現在位置を再設定します
         float currentPosition = 0;
 
-        void OnEnable()
-        {
-            UpdatePosition(currentPosition);
-        }
+        void OnEnable() => UpdatePosition(currentPosition);
     }
 }

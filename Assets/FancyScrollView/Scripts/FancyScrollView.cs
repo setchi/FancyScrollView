@@ -8,13 +8,13 @@ namespace FancyScrollView
         [SerializeField, Range(float.Epsilon, 1f)] float cellInterval;
         [SerializeField, Range(0f, 1f)] float cellOffset;
         [SerializeField] bool loop;
-        [SerializeField] GameObject cellBase;
         [SerializeField] Transform cellContainer;
 
         readonly IList<FancyScrollViewCell<TCellData, TContext>> cells = new List<FancyScrollViewCell<TCellData, TContext>>();
         float currentPosition;
 
-        protected IList<TCellData> CellData = new List<TCellData>();
+        protected abstract GameObject CellPrefab { get; }
+        protected IList<TCellData> CellData { get; set; } = new List<TCellData>();
         protected TContext Context { get; private set; }
 
         /// <summary>
@@ -44,10 +44,7 @@ namespace FancyScrollView
         /// <summary>
         /// Updates the contents.
         /// </summary>
-        protected void UpdateContents()
-        {
-            UpdatePosition(currentPosition, true);
-        }
+        protected void UpdateContents() => UpdatePosition(currentPosition, true);
 
         /// <summary>
         /// Updates the scroll position.
@@ -127,13 +124,11 @@ namespace FancyScrollView
         /// <returns>The cell.</returns>
         FancyScrollViewCell<TCellData, TContext> CreateCell()
         {
-            var cellObject = Instantiate(cellBase, cellContainer);
-            var cell = cellObject.GetComponent<FancyScrollViewCell<TCellData, TContext>>();
+            var cell = Instantiate(CellPrefab, cellContainer)
+                .GetComponent<FancyScrollViewCell<TCellData, TContext>>();
 
             cell.SetContext(Context);
             cell.SetVisible(false);
-            cell.DataIndex = -1;
-
             return cell;
         }
 
@@ -143,10 +138,8 @@ namespace FancyScrollView
         /// <returns>The circular index.</returns>
         /// <param name="index">Index.</param>
         /// <param name="maxSize">Max size.</param>
-        int GetCircularIndex(int index, int maxSize)
-        {
-            return index < 0 ? maxSize - 1 + (index + 1) % maxSize : index % maxSize;
-        }
+        int GetCircularIndex(int index, int maxSize) =>
+            index < 0 ? maxSize - 1 + (index + 1) % maxSize : index % maxSize;
 
 #if UNITY_EDITOR
         bool cachedLoop;

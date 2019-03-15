@@ -4,28 +4,7 @@ namespace FancyScrollView
 {
     public class Example04ScrollViewContext
     {
-        int selectedIndex = -1;
-
-        public int SelectedIndex
-        {
-            get { return selectedIndex; }
-            set
-            {
-                if (value == selectedIndex)
-                {
-                    return;
-                }
-
-                selectedIndex = value;
-
-                if (OnSelectedIndexChanged != null)
-                {
-                    OnSelectedIndexChanged(selectedIndex);
-                }
-            }
-        }
-
-        public Action<int> OnPressedCell;
-        public Action<int> OnSelectedIndexChanged;
+        public int SelectedIndex;
+        public Action<int> OnCellClicked;
     }
 }

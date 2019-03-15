@@ -25,7 +25,7 @@ namespace FancyScrollView
         readonly AutoScrollState autoScrollState = new AutoScrollState();
 
         Action<float> onUpdatePosition;
-        Action<int> onItemSelected;
+        Action<int> onSelectedIndexChanged;
 
         Vector2 pointerStartLocalPosition;
         float dragStartScrollPosition;
@@ -74,20 +74,11 @@ namespace FancyScrollView
             }
         }
 
-        public void OnUpdatePosition(Action<float> onUpdatePosition)
-        {
-            this.onUpdatePosition = onUpdatePosition;
-        }
-
-        public void OnItemSelected(Action<int> onItemSelected)
-        {
-            this.onItemSelected = onItemSelected;
-        }
-
-        public void SetDataCount(int dataCount)
-        {
-            this.dataCount = dataCount;
-        }
+        public void OnUpdatePosition(Action<float> callback) => onUpdatePosition = callback;
+        
+        public void OnSelectedIndexChanged(Action<int> callback) => onSelectedIndexChanged = callback;
+        
+        public void SetDataCount(int dataCount) => this.dataCount = dataCount;
 
         public void ScrollTo(int index, float duration)
         {
@@ -100,7 +91,7 @@ namespace FancyScrollView
             velocity = 0f;
             dragStartScrollPosition = currentScrollPosition;
 
-            ItemSelected(Mathf.RoundToInt(GetCircularPosition(autoScrollState.EndScrollPosition, dataCount)));
+            UpdateSelectedIndex(Mathf.RoundToInt(GetCircularPosition(autoScrollState.EndScrollPosition, dataCount)));
         }
 
         public void JumpTo(int index)
@@ -112,7 +103,7 @@ namespace FancyScrollView
 
             index = CalculateDestinationIndex(index);
 
-            ItemSelected(index);
+            UpdateSelectedIndex(index);
             UpdatePosition(index);
         }
 
@@ -159,7 +150,7 @@ namespace FancyScrollView
 
             var pointerDelta = localCursor - pointerStartLocalPosition;
             var position = (directionOfRecognize == ScrollDirection.Horizontal ? -pointerDelta.x : pointerDelta.y)
-                           / GetViewportSize()
+                           / ViewportSize
                            * scrollSensitivity
                            + dragStartScrollPosition;
 
@@ -187,12 +178,9 @@ namespace FancyScrollView
             dragging = false;
         }
 
-        float GetViewportSize()
-        {
-            return directionOfRecognize == ScrollDirection.Horizontal
+        float ViewportSize => directionOfRecognize == ScrollDirection.Horizontal
                 ? viewport.rect.size.x
                 : viewport.rect.size.y;
-        }
 
         float CalculateOffset(float position)
         {
@@ -217,25 +205,13 @@ namespace FancyScrollView
         void UpdatePosition(float position)
         {
             currentScrollPosition = position;
-
-            if (onUpdatePosition != null)
-            {
-                onUpdatePosition(currentScrollPosition);
-            }
+            onUpdatePosition?.Invoke(currentScrollPosition);
         }
 
-        void ItemSelected(int index)
-        {
-            if (onItemSelected != null)
-            {
-                onItemSelected(index);
-            }
-        }
+        void UpdateSelectedIndex(int index) => onSelectedIndexChanged?.Invoke(index);
 
-        float RubberDelta(float overStretching, float viewSize)
-        {
-            return (1 - 1 / (Mathf.Abs(overStretching) * 0.55f / viewSize + 1)) * viewSize * Mathf.Sign(overStretching);
-        }
+        float RubberDelta(float overStretching, float viewSize) =>
+            (1 - 1 / (Mathf.Abs(overStretching) * 0.55f / viewSize + 1)) * viewSize * Mathf.Sign(overStretching);
 
         void Update()
         {
@@ -248,10 +224,8 @@ namespace FancyScrollView
 
                 if (autoScrollState.Elastic)
                 {
-                    var speed = velocity;
-                    position = Mathf.SmoothDamp(currentScrollPosition, currentScrollPosition + offset, ref speed,
+                    position = Mathf.SmoothDamp(currentScrollPosition, currentScrollPosition + offset, ref velocity,
                         elasticity, Mathf.Infinity, deltaTime);
-                    velocity = speed;
 
                     if (Mathf.Abs(velocity) < 0.01f)
                     {
@@ -285,7 +259,7 @@ namespace FancyScrollView
                     autoScrollState.Enable = true;
                     autoScrollState.Elastic = true;
 
-                    ItemSelected(Mathf.Clamp(Mathf.RoundToInt(position), 0, dataCount - 1));
+                    UpdateSelectedIndex(Mathf.Clamp(Mathf.RoundToInt(position), 0, dataCount - 1));
                 }
                 else if (inertia)
                 {
@@ -318,7 +292,7 @@ namespace FancyScrollView
                         if (Mathf.Approximately(position, 0f) || Mathf.Approximately(position, dataCount - 1f))
                         {
                             velocity = 0f;
-                            ItemSelected(Mathf.RoundToInt(position));
+                            UpdateSelectedIndex(Mathf.RoundToInt(position));
                         }
                     }
 
@@ -332,18 +306,12 @@ namespace FancyScrollView
                 velocity = Mathf.Lerp(velocity, newVelocity, deltaTime * 10f);
             }
 
-            if (currentScrollPosition != prevScrollPosition)
-            {
-                prevScrollPosition = currentScrollPosition;
-            }
+            prevScrollPosition = currentScrollPosition;
         }
 
-        int CalculateDestinationIndex(int index)
-        {
-            return movementType == MovementType.Unrestricted
-                ? CalculateClosestIndex(index)
-                : Mathf.Clamp(index, 0, dataCount - 1);
-        }
+        int CalculateDestinationIndex(int index) => movementType == MovementType.Unrestricted
+            ? CalculateClosestIndex(index)
+            : Mathf.Clamp(index, 0, dataCount - 1);
 
         int CalculateClosestIndex(int index)
         {
@@ -358,10 +326,8 @@ namespace FancyScrollView
             return Mathf.RoundToInt(diff + currentScrollPosition);
         }
 
-        float GetCircularPosition(float position, int length)
-        {
-            return position < 0 ? length - 1 + (position + 1) % length : position % length;
-        }
+        float GetCircularPosition(float position, int length) =>
+            position < 0 ? length - 1 + (position + 1) % length : position % length;
 
         float EaseInOutCubic(float start, float end, float value)
         {

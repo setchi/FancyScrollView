@@ -8,16 +8,13 @@ namespace FancyScrollView
         /// Gets or sets the index of the data.
         /// </summary>
         /// <value>The index of the data.</value>
-        public int DataIndex { get; set; }
+        public int DataIndex { get; set; } = -1;
 
         /// <summary>
         /// Gets a value indicating whether this <see cref="T:FancyScrollView.FancyScrollViewCell`2"/> is visible.
         /// </summary>
         /// <value><c>true</c> if is visible; otherwise, <c>false</c>.</value>
-        public virtual bool IsVisible
-        {
-            get { return gameObject.activeSelf; }
-        }
+        public virtual bool IsVisible => gameObject.activeSelf;
 
         /// <summary>
         /// Gets the context.
@@ -29,35 +26,25 @@ namespace FancyScrollView
         /// Sets the context.
         /// </summary>
         /// <param name="context">Context.</param>
-        public virtual void SetContext(TContext context)
-        {
-            Context = context;
-        }
+        public virtual void SetContext(TContext context) => Context = context;
 
         /// <summary>
         /// Sets the visible.
         /// </summary>
         /// <param name="visible">If set to <c>true</c> visible.</param>
-        public virtual void SetVisible(bool visible)
-        {
-            gameObject.SetActive(visible);
-        }
+        public virtual void SetVisible(bool visible) => gameObject.SetActive(visible);
 
         /// <summary>
         /// Updates the content.
         /// </summary>
         /// <param name="cellData">Cell data.</param>
-        public virtual void UpdateContent(TCellData cellData)
-        {
-        }
+        public abstract void UpdateContent(TCellData cellData);
 
         /// <summary>
         /// Updates the position.
         /// </summary>
         /// <param name="position">Position.</param>
-        public virtual void UpdatePosition(float position)
-        {
-        }
+        public abstract void UpdatePosition(float position);
     }
 
     public abstract class FancyScrollViewCell<TCellData> : FancyScrollViewCell<TCellData, FancyScrollViewNullContext>

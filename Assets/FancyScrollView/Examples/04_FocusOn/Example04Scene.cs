@@ -18,16 +18,14 @@ namespace FancyScrollView
             scrollView.OnSelectedIndexChanged(OnSelectedIndexChanged);
 
             var cellData = Enumerable.Range(0, 20)
-                .Select(i => new Example04CellData {Message = "Cell " + i})
+                .Select(i => new Example04CellData {Message = $"Cell {i}"})
                 .ToArray();
 
             scrollView.UpdateData(cellData);
             scrollView.UpdateSelection(0);
         }
 
-        void OnSelectedIndexChanged(int index)
-        {
-            selectedItemInfo.text = string.Format("Selected item info: index {0}", index);
-        }
+        void OnSelectedIndexChanged(int index) =>
+            selectedItemInfo.text = $"Selected item info: index {index}";
     }
 }
