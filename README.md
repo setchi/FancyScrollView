@@ -7,7 +7,7 @@
 ![screencast](Documents/screencast2.gif)
 
 ## 導入
-Unity 2017.1.0 以降が必要です。  
+Unity 2017.1.0 (C# 6.0) 以降が必要です。
 このリポジトリを Clone するか、 [Asset Store](https://assetstore.unity.com/packages/tools/gui/fancyscrollview-96530) からプロジェクトにインポートしてください。
 
 ## サンプル
@@ -27,8 +27,8 @@ FancyScrollView はセルの位置を更新する際に、画面に見える範�
 もっともシンプルな構成では、
 
 - セルにデータを渡すためのオブジェクト
-- スクロールビュー
 - セル
+- スクロールビュー
 
 の実装が必要です。
 
@@ -71,6 +71,9 @@ using FancyScrollView;
 public class MyScrollView : FancyScrollView<MyCellData>
 {
     [SerializeField] ScrollPositionController scrollPositionController;
+    [SerializeField] GameObject cellPrefab;
+
+    protected override GameObject CellPrefab => cellPrefab;
 
     void Start()
     {
@@ -92,15 +95,15 @@ using FancyScrollView;
 
 public class EntryPoint : MonoBehaviour
 {
-    [SerializeField] MyScrollView scrollView;
+    [SerializeField] MyScrollView myScrollView;
 
     void Start()
     {
         var cellData = Enumerable.Range(0, 50)
-            .Select(i => new MyCellData {Message = "Cell " + i})
+            .Select(i => new MyCellData {Message = $"Cell {i}"})
             .ToArray();
 
-        scrollView.UpdateData(cellData);
+        myScrollView.UpdateData(cellData);
     }
 }
 ```
