@@ -10,9 +10,15 @@ namespace FancyScrollView
 
         protected override GameObject CellPrefab => cellPrefab;
 
-        void Awake() => Context.OnCellClicked = OnCellClicked;
+        void Awake()
+        {
+            Context.OnCellClicked = OnCellClicked;
+        }
 
-        void Start() => scrollPositionController.OnUpdatePosition(p => UpdatePosition(p));
+        void Start()
+        {
+            scrollPositionController.OnUpdatePosition(p => UpdatePosition(p));
+        }
 
         public void UpdateData(IList<Example02CellData> cellData)
         {

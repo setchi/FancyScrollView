@@ -13,7 +13,10 @@ namespace FancyScrollView
 
         protected override GameObject CellPrefab => cellPrefab;
 
-        void Awake() => Context.OnCellClicked = UpdateSelection;
+        void Awake()
+        {
+            Context.OnCellClicked = UpdateSelection;
+        }
 
         void Start()
         {
@@ -27,11 +30,20 @@ namespace FancyScrollView
             scrollPositionController.SetDataCount(cellData.Count);
         }
 
-        public void OnSelectedIndexChanged(Action<int> callback) => onSelectedIndexChanged = callback;
+        public void OnSelectedIndexChanged(Action<int> callback)
+        {
+            onSelectedIndexChanged = callback;
+        }
 
-        public void SelectNextCell() => UpdateSelection(Context.SelectedIndex + 1);
+        public void SelectNextCell()
+        {
+            UpdateSelection(Context.SelectedIndex + 1);
+        }
 
-        public void SelectPrevCell() => UpdateSelection(Context.SelectedIndex - 1);
+        public void SelectPrevCell()
+        {
+            UpdateSelection(Context.SelectedIndex - 1);
+        }
 
         public void UpdateSelection(int index)
         {

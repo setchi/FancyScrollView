@@ -25,7 +25,9 @@ namespace FancyScrollView
             scrollView.UpdateSelection(0);
         }
 
-        void OnSelectedIndexChanged(int index) =>
+        void OnSelectedIndexChanged(int index)
+        {
             selectedItemInfo.text = $"Selected item info: index {index}";
+        }
     }
 }

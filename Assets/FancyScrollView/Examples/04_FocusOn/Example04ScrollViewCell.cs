@@ -12,7 +12,10 @@ namespace FancyScrollView
 
         static readonly int ScrollTriggerHash = Animator.StringToHash("scroll");
 
-        void Start() => button.onClick.AddListener(() => Context.OnCellClicked?.Invoke(DataIndex));
+        void Start()
+        {
+            button.onClick.AddListener(() => Context.OnCellClicked?.Invoke(DataIndex));
+        }
 
         /// <summary>
         /// Updates the content.
