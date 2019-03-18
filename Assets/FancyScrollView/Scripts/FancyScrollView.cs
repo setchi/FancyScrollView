@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace FancyScrollView
 {
-    public abstract class FancyScrollView<TCellData, TContext> : MonoBehaviour where TContext : class
+    public abstract class FancyScrollView<TCellData, TContext> : MonoBehaviour where TContext : class, new()
     {
         [SerializeField, Range(float.Epsilon, 1f)] float cellInterval;
         [SerializeField, Range(0f, 1f)] float cellOffset;
@@ -15,21 +15,7 @@ namespace FancyScrollView
 
         protected abstract GameObject CellPrefab { get; }
         protected IList<TCellData> CellData { get; set; } = new List<TCellData>();
-        protected TContext Context { get; private set; }
-
-        /// <summary>
-        /// Sets the context.
-        /// </summary>
-        /// <param name="context">Context.</param>
-        protected void SetContext(TContext context)
-        {
-            Context = context;
-
-            foreach (var cell in cells)
-            {
-                cell.SetContext(context);
-            }
-        }
+        protected TContext Context { get; } = new TContext();
 
         /// <summary>
         /// Updates the contents.

@@ -10,7 +10,7 @@ namespace FancyScrollView
 
         protected override GameObject CellPrefab => cellPrefab;
 
-        void Awake() => SetContext(new Example02ScrollViewContext {OnCellClicked = OnCellClicked});
+        void Awake() => Context.OnCellClicked = OnCellClicked;
 
         void Start() => scrollPositionController.OnUpdatePosition(p => UpdatePosition(p));
 

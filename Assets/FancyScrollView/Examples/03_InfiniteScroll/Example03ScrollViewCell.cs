@@ -19,7 +19,7 @@ namespace FancyScrollView
             rectTransform.anchorMin = Vector2.zero;
             rectTransform.anchoredPosition3D = Vector3.zero;
 
-            button.onClick.AddListener(() => Context?.OnCellClicked?.Invoke(DataIndex));
+            button.onClick.AddListener(() => Context.OnCellClicked?.Invoke(DataIndex));
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace FancyScrollView
         {
             message.text = cellData.Message;
 
-            var isSelected = (Context?.SelectedIndex ?? -1) == DataIndex;
+            var isSelected = Context.SelectedIndex == DataIndex;
             image.color = isSelected
                 ? new Color32(0, 255, 255, 100)
                 : new Color32(255, 255, 255, 77);

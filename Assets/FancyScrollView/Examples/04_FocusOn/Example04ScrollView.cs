@@ -13,7 +13,7 @@ namespace FancyScrollView
 
         protected override GameObject CellPrefab => cellPrefab;
 
-        void Awake() => SetContext(new Example04ScrollViewContext {OnCellClicked = UpdateSelection});
+        void Awake() => Context.OnCellClicked = UpdateSelection;
 
         void Start()
         {
