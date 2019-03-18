@@ -40,7 +40,7 @@ public class MyCellData
     public string Message;
 }
 ```
-FancyScrollViewCell を継承して自分のセルを実装します。
+`FancyScrollViewCell<TCellData>` を継承して自分のセルを実装します。
 ```csharp
 using UnityEngine;
 using UnityEngine.UI;
@@ -62,7 +62,7 @@ public class MyScrollViewCell : FancyScrollViewCell<MyCellData>
     }
 }
 ```
-FancyScrollView を継承して自分のスクロールビューを実装します。
+`FancyScrollView<TCellData>` を継承して自分のスクロールビューを実装します。
 ```csharp
 using UnityEngine;
 using System.Linq;
