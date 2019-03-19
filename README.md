@@ -1,6 +1,5 @@
 # FancyScrollView [![license](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square)](https://github.com/setchi/FancyScrollView/blob/master/LICENSE)
-高度に柔軟なアニメーションを実装できる汎用のScrollViewコンポーネントです。 無限スクロールも対応しています。[English](https://translate.google.com/translate?sl=ja&tl=en&u=https://github.com/setchi/FancyScrollView) (by Google Translate)
-
+高度に柔軟なアニメーションを実装できる汎用のScrollViewコンポーネントです。 無限スクロールもサポートしています。[English](https://translate.google.com/translate?sl=ja&tl=en&u=https://github.com/setchi/FancyScrollView) (by Google Translate)
 
 ![screencast](Documents/logo.png)
 ![screencast](Documents/screencast1.gif)
@@ -16,12 +15,12 @@ Unity 2017.1.0 (C# 6.0) 以降が必要です。
 | サンプル名 | 説明 |
 |:-----------|:------------|
 |01_Basic|最もシンプルな構成の実装例です。|
-|02_CellEventHandling|セルからのイベントをハンドリングする実装例です。|
+|02_CellEventHandling|セル内で発生したイベントをハンドリングする実装例です。|
 |03_InfiniteScroll|無限スクロールの実装例です。|
 |04_FocusOn|ボタンで左右のセルにフォーカスする実装例です。|
 
 ## 仕組み
-FancyScrollView はセルの位置を更新する際に、画面に見える範囲を正規化した値を各セルに渡します。セル側では 0.0 ~ 1.0 の値をもとにスクロール中の見た目を自由に制御できます。
+FancyScrollView はセルの位置を更新するとき、可視領域の正規化された値を各セルに渡します。 セル側では、0.0 ~ 1.0 の値に基づいてスクロールの外観を自由に制御できます。
 
 ## 使い方
 もっともシンプルな構成では、
@@ -58,7 +57,7 @@ public class MyScrollViewCell : FancyScrollViewCell<MyCellData>
     public override void UpdatePosition(float position)
     {
         // position は 0.0 ~ 1.0 の値です
-        // position をもとに、セルの見た目を自由に制御できます
+        // position に基づいてスクロールの外観を自由に制御できます
     }
 }
 ```
@@ -113,10 +112,10 @@ public class EntryPoint : MonoBehaviour
 #### My Scroll View
 | プロパティ | 説明 |
 |:-----------|:------------|
-|Cell Interval|セル同士の間隔を float.Epsilon ~ 1.0 の間で指定します。|
-|Cell Offset|セルのオフセットを指定します。例えば 0.5 を指定して、スクロール位置が 0 の場合、最初のセルの位置が 0.5 になります。|
-|Loop|オンにすると、セルをループして配置します。無限スクロールさせたい場合はオンにします。|
-|Cell Base|セルの Prefab を指定します。|
+|Cell Spacing|セル同士の間隔を float.Epsilon ~ 1.0 の間で指定します。|
+|Scroll Offset|スクロールのオフセットを指定します。 たとえば、 0.5 を指定してスクロール位置が 0 の場合、最初のセルの位置は 0.5 になります。|
+|Loop|オンにするとセルが循環し、最初のセルの前に最後のセル、最後のセルの後に最初のセルが並ぶようになります。無限スクロールさせたい場合はオンにします。|
+|Cell Prefab|セルの Prefab を指定します。|
 |Cell Container| セルの親要素となる Transform を指定します。 |
 
 #### Scroll Position Controller
@@ -137,24 +136,29 @@ public class EntryPoint : MonoBehaviour
 ## Q&A
 
 #### データ件数が多くてもパフォーマンスは大丈夫？
-セルは表示に必要な数のみ生成するので、データ件数がパフォーマンスに与える影響は小さいです。
-データ件数よりも、セル同士の間隔（同時に存在するセルの数）やセルの演出の方が、パフォーマンスに与える影響は大きいです。
+表示に必要なセル数のみが生成されるため、データ件数がパフォーマンスに与える影響はわずかです。 セル間のスペース（同時に存在するセルの数）とセルの演出は、データ件数よりもパフォーマンスに大きな影響を与えます。
 
 #### 自分でスクロール位置を制御したいんだけど？
-スクロール位置は自由に制御できます。サンプルで使用している ScrollPositionController は独自の実装に置き換えることができます。
+`ScrollPositionController` の下記の API を使用できます。
+```csharp
+public void ScrollTo(int index, float duration)
+```
+```csharp
+public void JumpTo(int index)
+```
+また、サンプルで使われている `ScrollPositionController` を使わずにあなた自身の実装で全く違った振る舞いをさせることもできます。
 
 #### セルで発生したイベントを受け取れる？
-セルで発生したあらゆるイベントをハンドリングできます。
-セルで発生したイベントをハンドリングする実装例（[Examples/02_CellEventHandling](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples/02_CellEventHandling)）を含めているので、これを参考に実装してください。
+セル内で発生したあらゆるイベントをハンドリングできます。セル内で発生したイベントをハンドリングする実装例（[Examples/02_CellEventHandling](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples/02_CellEventHandling)）が含まれていますので、参考にして実装してください。
 
 #### セルを無限スクロール（ループ）させたいんだけど？
-無限スクロールに対応しています。実装手順は下記の通りです。
-1. ScrollView の「Loop」をオンにすると、セルがループ状に配置されます。
-1. サンプルで使用している ScrollPositionController を使う場合は、「Movement Type」を「Unrestricted」に設定することで、スクロール範囲が無制限になります。
+無限スクロールをサポートしています。実装手順は下記の通りです。
+1. `ScrollView` の `Loop` をオンにするとセルが循環し、最初のセルの前に最後のセル、最後のセルの後に最初のセルが並ぶようになります。
+1. サンプルで使用されている `ScrollPositionController` を使うときは、 `Movement Type` を `Unrestricted` に設定することで、スクロール範囲が無制限になります。 1. と組み合わせることで無限スクロールを実現できます。
+
+実装例（[Examples/03_InfiniteScroll](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples/03_InfiniteScroll)）が含まれていますので、こちらも参考にしてください。
 
 ![screencast](Documents/infiniteScrollSettings.png)
-
-実装例（[Examples/03_InfiniteScroll](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples/03_InfiniteScroll)）を含めているのでこちらも参考にしてください。
 
 ## 開発環境
 Unity 2018.2.11f1
