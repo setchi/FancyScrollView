@@ -10,7 +10,9 @@ namespace FancyScrollView
         [SerializeField] bool loop;
         [SerializeField] Transform cellContainer;
 
-        readonly IList<FancyScrollViewCell<TCellData, TContext>> cells = new List<FancyScrollViewCell<TCellData, TContext>>();
+        readonly IList<FancyScrollViewCell<TCellData, TContext>> cells =
+            new List<FancyScrollViewCell<TCellData, TContext>>();
+
         float currentPosition;
 
         protected abstract GameObject CellPrefab { get; }
@@ -49,43 +51,26 @@ namespace FancyScrollView
             UpdateCells(startPosition, startIndex, forceUpdateContents);
         }
 
-        /// <summary>
-        /// Creates the cells if needed.
-        /// </summary>
-        /// <param name="startPosition">Start position.</param>
         void CreateCellsIfNeeded(float startPosition)
         {
             var count = 0;
 
             for (var p = startPosition; p <= 1f; p += cellSpacing, count++)
             {
-                if (count >= cells.Count)
+                if (count < cells.Count)
                 {
-                    cells.Add(CreateCell());
+                    continue;
                 }
+
+                var cell = Instantiate(CellPrefab, cellContainer)
+                        .GetComponent<FancyScrollViewCell<TCellData, TContext>>();
+                cell.SetContext(Context);
+                cell.SetVisible(false);
+
+                cells.Add(cell);
             }
         }
 
-        /// <summary>
-        /// Creates the cell.
-        /// </summary>
-        /// <returns>The cell.</returns>
-        FancyScrollViewCell<TCellData, TContext> CreateCell()
-        {
-            var cell = Instantiate(CellPrefab, cellContainer)
-                .GetComponent<FancyScrollViewCell<TCellData, TContext>>();
-
-            cell.SetContext(Context);
-            cell.SetVisible(false);
-            return cell;
-        }
-
-        /// <summary>
-        /// Updates the cells.
-        /// </summary>
-        /// <param name="startPosition">Start position.</param>
-        /// <param name="startIndex">Start index.</param>
-        /// <param name="forceUpdateContents">If set to <c>true</c> force update contents.</param>
         void UpdateCells(float startPosition, int startIndex, bool forceUpdateContents)
         {
             var count = 0;
@@ -110,13 +95,7 @@ namespace FancyScrollView
             }
         }
 
-        /// <summary>
-        /// Updates the cell.
-        /// </summary>
-        /// <param name="cell">Cell.</param>
-        /// <param name="dataIndex">Data index.</param>
-        /// <param name="forceUpdateContents">If set to <c>true</c> force update contents.</param>
-        void UpdateCell(FancyScrollViewCell<TCellData, TContext> cell, int dataIndex, bool forceUpdateContents = false)
+        void UpdateCell(FancyScrollViewCell<TCellData, TContext> cell, int dataIndex, bool forceUpdateContents)
         {
             if (loop)
             {
@@ -138,12 +117,6 @@ namespace FancyScrollView
             cell.UpdateContent(CellData[dataIndex]);
         }
 
-        /// <summary>
-        /// Gets the circular index.
-        /// </summary>
-        /// <returns>The circular index.</returns>
-        /// <param name="index">Index.</param>
-        /// <param name="maxSize">Max size.</param>
         int GetCircularIndex(int index, int maxSize) =>
             index < 0 ? maxSize - 1 + (index + 1) % maxSize : index % maxSize;
 

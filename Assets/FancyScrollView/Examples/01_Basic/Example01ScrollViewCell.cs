@@ -10,19 +10,11 @@ namespace FancyScrollView
 
         static readonly int ScrollTriggerHash = Animator.StringToHash("scroll");
 
-        /// <summary>
-        /// Updates the content.
-        /// </summary>
-        /// <param name="cellData">Cell data.</param>
         public override void UpdateContent(Example01CellData cellData)
         {
             message.text = cellData.Message;
         }
 
-        /// <summary>
-        /// Updates the position.
-        /// </summary>
-        /// <param name="position">Position.</param>
         public override void UpdatePosition(float position)
         {
             currentPosition = position;

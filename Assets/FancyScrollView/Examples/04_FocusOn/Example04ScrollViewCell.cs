@@ -17,10 +17,6 @@ namespace FancyScrollView
             button.onClick.AddListener(() => Context.OnCellClicked?.Invoke(DataIndex));
         }
 
-        /// <summary>
-        /// Updates the content.
-        /// </summary>
-        /// <param name="cellData">Cell data.</param>
         public override void UpdateContent(Example04CellData cellData)
         {
             message.text = cellData.Message;
@@ -31,10 +27,6 @@ namespace FancyScrollView
                 : new Color32(255, 255, 255, 77);
         }
 
-        /// <summary>
-        /// Updates the position.
-        /// </summary>
-        /// <param name="position">Position.</param>
         public override void UpdatePosition(float position)
         {
             currentPosition = position;
