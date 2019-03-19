@@ -5,8 +5,8 @@ namespace FancyScrollView
 {
     public abstract class FancyScrollView<TCellData, TContext> : MonoBehaviour where TContext : class, new()
     {
-        [SerializeField, Range(float.Epsilon, 1f)] float cellInterval;
-        [SerializeField, Range(0f, 1f)] float cellOffset;
+        [SerializeField, Range(float.Epsilon, 1f)] float cellSpacing;
+        [SerializeField, Range(0f, 1f)] float scrollOffset;
         [SerializeField] bool loop;
         [SerializeField] Transform cellContainer;
 
@@ -41,24 +41,58 @@ namespace FancyScrollView
         {
             currentPosition = position;
 
-            var visibleMinPosition = position - cellOffset / cellInterval;
-            var firstCellPosition = (Mathf.Ceil(visibleMinPosition) - visibleMinPosition) * cellInterval;
-            var dataStartIndex = Mathf.CeilToInt(visibleMinPosition);
-            var count = 0;
+            var p = position - scrollOffset / cellSpacing;
+            var startPosition = (Mathf.Ceil(p) - p) * cellSpacing;
+            CreateCellsIfNeeded(startPosition);
 
-            for (var p = firstCellPosition; p <= 1f; p += cellInterval, count++)
+            var startIndex = Mathf.CeilToInt(p);
+            UpdateCells(startPosition, startIndex, forceUpdateContents);
+        }
+
+        /// <summary>
+        /// Creates the cells if needed.
+        /// </summary>
+        /// <param name="startPosition">Start position.</param>
+        void CreateCellsIfNeeded(float startPosition)
+        {
+            int count = 0;
+
+            for (var p = startPosition; p <= 1f; p += cellSpacing, count++)
             {
                 if (count >= cells.Count)
                 {
                     cells.Add(CreateCell());
                 }
             }
+        }
 
-            count = 0;
+        /// <summary>
+        /// Creates the cell.
+        /// </summary>
+        /// <returns>The cell.</returns>
+        FancyScrollViewCell<TCellData, TContext> CreateCell()
+        {
+            var cell = Instantiate(CellPrefab, cellContainer)
+                .GetComponent<FancyScrollViewCell<TCellData, TContext>>();
 
-            for (var p = firstCellPosition; p <= 1f; p += cellInterval, count++)
+            cell.SetContext(Context);
+            cell.SetVisible(false);
+            return cell;
+        }
+
+        /// <summary>
+        /// Updates the cells.
+        /// </summary>
+        /// <param name="startPosition">Start position.</param>
+        /// <param name="startIndex">Start index.</param>
+        /// <param name="forceUpdateContents">If set to <c>true</c> force update contents.</param>
+        void UpdateCells(float startPosition, int startIndex, bool forceUpdateContents)
+        {
+            int count = 0;
+
+            for (var p = startPosition; p <= 1f; p += cellSpacing, count++)
             {
-                var dataIndex = dataStartIndex + count;
+                var dataIndex = startIndex + count;
                 var cell = cells[GetCircularIndex(dataIndex, cells.Count)];
 
                 UpdateCell(cell, dataIndex, forceUpdateContents);
@@ -71,7 +105,7 @@ namespace FancyScrollView
 
             while (count < cells.Count)
             {
-                cells[GetCircularIndex(dataStartIndex + count, cells.Count)].SetVisible(false);
+                cells[GetCircularIndex(startIndex + count, cells.Count)].SetVisible(false);
                 count++;
             }
         }
@@ -105,20 +139,6 @@ namespace FancyScrollView
         }
 
         /// <summary>
-        /// Creates the cell.
-        /// </summary>
-        /// <returns>The cell.</returns>
-        FancyScrollViewCell<TCellData, TContext> CreateCell()
-        {
-            var cell = Instantiate(CellPrefab, cellContainer)
-                .GetComponent<FancyScrollViewCell<TCellData, TContext>>();
-
-            cell.SetContext(Context);
-            cell.SetVisible(false);
-            return cell;
-        }
-
-        /// <summary>
         /// Gets the circular index.
         /// </summary>
         /// <returns>The circular index.</returns>
@@ -129,15 +149,15 @@ namespace FancyScrollView
 
 #if UNITY_EDITOR
         bool cachedLoop;
-        float cachedCellInterval, cachedCellOffset;
+        float cachedCellSpacing, cachedScrollOffset;
 
         void LateUpdate()
         {
-            if (cachedLoop != loop || cachedCellOffset != cellOffset || cachedCellInterval != cellInterval)
+            if (cachedLoop != loop || cachedScrollOffset != scrollOffset || cachedCellSpacing != cellSpacing)
             {
                 cachedLoop = loop;
-                cachedCellOffset = cellOffset;
-                cachedCellInterval = cellInterval;
+                cachedScrollOffset = scrollOffset;
+                cachedCellSpacing = cellSpacing;
 
                 UpdatePosition(currentPosition);
             }
