@@ -38,8 +38,9 @@ namespace FancyScrollView
         /// Updates the scroll position.
         /// </summary>
         /// <param name="position">Position.</param>
-        /// <param name="forceUpdateContents">If set to <c>true</c> force update contents.</param>
-        protected void UpdatePosition(float position, bool forceUpdateContents = false)
+        protected void UpdatePosition(float position) => UpdatePosition(position, false);
+
+        void UpdatePosition(float position, bool forceUpdateContents)
         {
             currentPosition = position;
 

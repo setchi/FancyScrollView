@@ -17,7 +17,7 @@ namespace FancyScrollView
 
         void Start()
         {
-            scrollPositionController.OnUpdatePosition(p => UpdatePosition(p));
+            scrollPositionController.OnUpdatePosition(UpdatePosition);
         }
 
         public void UpdateData(IList<Example03CellData> cellData)

@@ -49,5 +49,6 @@ namespace FancyScrollView
 
     public abstract class FancyScrollViewCell<TCellData> : FancyScrollViewCell<TCellData, FancyScrollViewNullContext>
     {
+        public sealed override void SetContext(FancyScrollViewNullContext context) => base.SetContext(context);
     }
 }

@@ -20,8 +20,8 @@ namespace FancyScrollView
 
         void Start()
         {
-            scrollPositionController.OnUpdatePosition(p => UpdatePosition(p));
-            scrollPositionController.OnSelectedIndexChanged(index => UpdateSelection(index));
+            scrollPositionController.OnUpdatePosition(UpdatePosition);
+            scrollPositionController.OnSelectedIndexChanged(UpdateSelection);
         }
 
         public void UpdateData(IList<Example04CellData> cellData)
