@@ -20,7 +20,7 @@ Unity 2017.1.0 (C# 6.0) 以降が必要です。
 |04_FocusOn|ボタンで左右のセルにフォーカスする実装例です。|
 
 ## 仕組み
-FancyScrollView はセルの位置を更新するとき、可視領域の正規化された値を各セルに渡します。 セル側では、0.0 ~ 1.0 の値に基づいてスクロールの外観を自由に制御できます。
+FancyScrollView はセルの位置を更新するとき、可視領域の正規化された値を各セルに渡します。セル側では、0.0 ~ 1.0 の値に基づいてスクロールの外観を自由に制御できます。
 
 ## 使い方
 もっともシンプルな構成では、
@@ -76,7 +76,7 @@ public class MyScrollView : FancyScrollView<MyCellData>
 
     void Start()
     {
-        scrollPositionController.OnUpdatePosition(p => base.UpdatePosition(p));
+        scrollPositionController.OnUpdatePosition(base.UpdatePosition);
     }
 
     public void UpdateData(IList<MyCellData> cellData)
@@ -90,7 +90,6 @@ public class MyScrollView : FancyScrollView<MyCellData>
 ```csharp
 using UnityEngine;
 using System.Linq;
-using FancyScrollView;
 
 public class EntryPoint : MonoBehaviour
 {
@@ -113,10 +112,10 @@ public class EntryPoint : MonoBehaviour
 | プロパティ | 説明 |
 |:-----------|:------------|
 |Cell Spacing|セル同士の間隔を float.Epsilon ~ 1.0 の間で指定します。|
-|Scroll Offset|スクロールのオフセットを指定します。 たとえば、 0.5 を指定してスクロール位置が 0 の場合、最初のセルの位置は 0.5 になります。|
+|Scroll Offset|スクロールのオフセットを指定します。たとえば、 0.5 を指定してスクロール位置が 0 の場合、最初のセルの位置は 0.5 になります。|
 |Loop|オンにするとセルが循環し、最初のセルの前に最後のセル、最後のセルの後に最初のセルが並ぶようになります。無限スクロールさせたい場合はオンにします。|
 |Cell Prefab|セルの Prefab を指定します。|
-|Cell Container| セルの親要素となる Transform を指定します。 |
+|Cell Container|セルの親要素となる Transform を指定します。 |
 
 #### Scroll Position Controller
 | プロパティ | 説明 |
@@ -136,17 +135,24 @@ public class EntryPoint : MonoBehaviour
 ## Q&A
 
 #### データ件数が多くてもパフォーマンスは大丈夫？
-表示に必要なセル数のみが生成されるため、データ件数がパフォーマンスに与える影響はわずかです。 セル間のスペース（同時に存在するセルの数）とセルの演出は、データ件数よりもパフォーマンスに大きな影響を与えます。
+表示に必要なセル数のみが生成されるため、データ件数がパフォーマンスに与える影響はわずかです。セル間のスペース（同時に存在するセルの数）とセルの演出は、データ件数よりもパフォーマンスに大きな影響を与えます。
 
 #### 自分でスクロール位置を制御したいんだけど？
-`ScrollPositionController` の下記の API を使用できます。
+`FancyScrollView` の次の API を使用してスクロール位置を更新できます。
+```csharp
+protected void UpdatePosition(float position)
+```
+サンプルで使われている `ScrollPositionController` を使う場合は、次の API を使用して `FancyScrollView` のスクロール位置を更新できます。
 ```csharp
 public void ScrollTo(int index, float duration)
 ```
 ```csharp
 public void JumpTo(int index)
 ```
-また、サンプルで使われている `ScrollPositionController` を使わずにあなた自身の実装で全く違った振る舞いをさせることもできます。
+```csharp
+public void OnUpdatePosition(Action<float> callback)
+```
+`ScrollPositionController` を使わずにあなた自身の実装で全く違った振る舞いをさせることもできます。
 
 #### セルで発生したイベントを受け取れる？
 セル内で発生したあらゆるイベントをハンドリングできます。セル内で発生したイベントをハンドリングする実装例（[Examples/02_CellEventHandling](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples/02_CellEventHandling)）が含まれていますので、参考にして実装してください。
