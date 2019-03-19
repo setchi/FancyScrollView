@@ -45,18 +45,20 @@ namespace FancyScrollView
             currentPosition = position;
 
             var p = position - scrollOffset / cellSpacing;
-            var startPosition = (Mathf.Ceil(p) - p) * cellSpacing;
-            CreateCellsIfNeeded(startPosition);
+            var firstPosition = (Mathf.Ceil(p) - p) * cellSpacing;
+            var firstDataIndex = Mathf.CeilToInt(p);
 
-            var startIndex = Mathf.CeilToInt(p);
-            UpdateCells(startPosition, startIndex, forceUpdateContents);
+            if (firstPosition + cells.Count * cellSpacing <= 1f)
+            {
+                FillCells(firstPosition);
+            }
+
+            UpdateCells(firstPosition, firstDataIndex, forceUpdateContents);
         }
 
-        void CreateCellsIfNeeded(float startPosition)
+        void FillCells(float firstPosition)
         {
-            var count = 0;
-
-            for (var p = startPosition; p <= 1f; p += cellSpacing, count++)
+            for (var (count, p) = (0, firstPosition); p <= 1f; p += cellSpacing, count++)
             {
                 if (count < cells.Count)
                 {
@@ -72,13 +74,13 @@ namespace FancyScrollView
             }
         }
 
-        void UpdateCells(float startPosition, int startIndex, bool forceUpdateContents)
+        void UpdateCells(float firstPosition, int firstDataIndex, bool forceUpdateContents)
         {
             var count = 0;
 
-            for (var p = startPosition; p <= 1f; p += cellSpacing, count++)
+            for (var p = firstPosition; p <= 1f; p += cellSpacing, count++)
             {
-                var dataIndex = startIndex + count;
+                var dataIndex = firstDataIndex + count;
                 var cell = cells[GetCircularIndex(dataIndex, cells.Count)];
 
                 UpdateCell(cell, dataIndex, forceUpdateContents);
@@ -91,7 +93,7 @@ namespace FancyScrollView
 
             while (count < cells.Count)
             {
-                cells[GetCircularIndex(startIndex + count, cells.Count)].SetVisible(false);
+                cells[GetCircularIndex(firstDataIndex + count, cells.Count)].SetVisible(false);
                 count++;
             }
         }
@@ -127,12 +129,9 @@ namespace FancyScrollView
 
         void LateUpdate()
         {
-            if (cachedLoop != loop || cachedScrollOffset != scrollOffset || cachedCellSpacing != cellSpacing)
+            if ((cachedLoop, cachedScrollOffset, cachedCellSpacing) != (loop, scrollOffset, cellSpacing))
             {
-                cachedLoop = loop;
-                cachedScrollOffset = scrollOffset;
-                cachedCellSpacing = cellSpacing;
-
+                (cachedLoop, cachedScrollOffset, cachedCellSpacing) = (loop, scrollOffset, cellSpacing);
                 UpdatePosition(currentPosition);
             }
         }
