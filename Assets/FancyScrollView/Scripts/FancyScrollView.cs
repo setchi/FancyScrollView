@@ -55,7 +55,7 @@ namespace FancyScrollView
         /// <param name="startPosition">Start position.</param>
         void CreateCellsIfNeeded(float startPosition)
         {
-            int count = 0;
+            var count = 0;
 
             for (var p = startPosition; p <= 1f; p += cellSpacing, count++)
             {
@@ -88,7 +88,7 @@ namespace FancyScrollView
         /// <param name="forceUpdateContents">If set to <c>true</c> force update contents.</param>
         void UpdateCells(float startPosition, int startIndex, bool forceUpdateContents)
         {
-            int count = 0;
+            var count = 0;
 
             for (var p = startPosition; p <= 1f; p += cellSpacing, count++)
             {
