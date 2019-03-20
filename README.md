@@ -167,7 +167,7 @@ public void OnUpdatePosition(Action<float> callback)
 ![screencast](Documents/infiniteScrollSettings.png)
 
 ## 開発環境
-Unity 2018.2.11f1
+Unity 2018.3.6f1
 
 ## Author
 [setchi](https://github.com/setchi)
