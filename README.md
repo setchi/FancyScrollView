@@ -6,7 +6,7 @@
 ![screencast](Documents/screencast2.gif)
 
 ## 導入
-Unity 2017.1.0 (C# 6.0) 以降が必要です。
+Unity 2018.3 (C# 7.3) 以降が必要です。
 このリポジトリを Clone するか、 [Asset Store](https://assetstore.unity.com/packages/tools/gui/fancyscrollview-96530) からプロジェクトにインポートしてください。
 
 ## サンプル
