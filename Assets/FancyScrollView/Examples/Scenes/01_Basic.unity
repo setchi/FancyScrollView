@@ -378,7 +378,6 @@ MonoBehaviour:
     Enable: 1
     VelocityThreshold: 0.5
     Duration: 0.25
-  dataCount: 0
 --- !u!114 &1492537700
 MonoBehaviour:
   m_ObjectHideFlags: 0

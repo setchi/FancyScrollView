@@ -1,4 +1,5 @@
 ﻿using UnityEditor;
+using UnityEditor.AnimatedValues;
 
 // For manteinance, every new [SerializeField] variable in ScrollPositionController must be declared here
 
@@ -19,7 +20,10 @@ namespace FancyScrollView
         SerializedProperty snapEnable;
         SerializedProperty snapVelocityThreshold;
         SerializedProperty snapDuration;
-        SerializedProperty dataCount;
+
+        AnimBool showElasticity;
+        AnimBool showInertiaRelatedValues;
+        AnimBool showSnapEnableRelatedValues;
 
         void OnEnable()
         {
@@ -34,33 +38,88 @@ namespace FancyScrollView
             snapEnable = serializedObject.FindProperty("snap.Enable");
             snapVelocityThreshold = serializedObject.FindProperty("snap.VelocityThreshold");
             snapDuration = serializedObject.FindProperty("snap.Duration");
-            dataCount = serializedObject.FindProperty("dataCount");
+
+            showElasticity = new AnimBool(Repaint);
+            showInertiaRelatedValues = new AnimBool(Repaint);
+            showSnapEnableRelatedValues = new AnimBool(Repaint);
+            SetAnimBools(true);
+        }
+
+        void OnDisable()
+        {
+            showElasticity.valueChanged.RemoveListener(Repaint);
+            showInertiaRelatedValues.valueChanged.RemoveListener(Repaint);
+            showSnapEnableRelatedValues.valueChanged.RemoveListener(Repaint);
+        }
+
+        void SetAnimBools(bool instant)
+        {
+            SetAnimBool(showElasticity, !movementType.hasMultipleDifferentValues && movementType.enumValueIndex == (int)ScrollPositionController.MovementType.Elastic, instant);
+            SetAnimBool(showInertiaRelatedValues, !inertia.hasMultipleDifferentValues && inertia.boolValue, instant);
+            SetAnimBool(showSnapEnableRelatedValues, !snapEnable.hasMultipleDifferentValues && snapEnable.boolValue, instant);
+        }
+
+        void SetAnimBool(AnimBool a, bool value, bool instant)
+        {
+            if (instant)
+            {
+                a.value = value;
+            }
+            else
+            {
+                a.target = value;
+            }
         }
 
         public override void OnInspectorGUI()
         {
+            SetAnimBools(false);
+
             serializedObject.Update();
             EditorGUILayout.PropertyField(viewport);
             EditorGUILayout.PropertyField(directionOfRecognize);
             EditorGUILayout.PropertyField(movementType);
-            EditorGUILayout.PropertyField(elasticity);
+            DrawMovementTypeRelatedValue();
             EditorGUILayout.PropertyField(scrollSensitivity);
             EditorGUILayout.PropertyField(inertia);
             DrawInertiaRelatedValues();
-            EditorGUILayout.PropertyField(dataCount);
             serializedObject.ApplyModifiedProperties();
+        }
+
+        void DrawMovementTypeRelatedValue()
+        {
+            using (var group = new EditorGUILayout.FadeGroupScope(showElasticity.faded))
+            {
+                if (!group.visible)
+                {
+                    return;
+                }
+
+                using (new EditorGUI.IndentLevelScope())
+                {
+                    EditorGUILayout.PropertyField(elasticity);
+                }
+            }
         }
 
         void DrawInertiaRelatedValues()
         {
-            if (inertia.boolValue)
+            using (var group = new EditorGUILayout.FadeGroupScope(showInertiaRelatedValues.faded))
             {
-                EditorGUILayout.PropertyField(decelerationRate);
-                EditorGUILayout.PropertyField(snap);
+                if (!group.visible) 
+                {
+                    return;
+                }
 
                 using (new EditorGUI.IndentLevelScope())
                 {
-                    DrawSnapRelatedValues();
+                    EditorGUILayout.PropertyField(decelerationRate);
+                    EditorGUILayout.PropertyField(snap);
+
+                    using (new EditorGUI.IndentLevelScope())
+                    {
+                        DrawSnapRelatedValues();
+                    }
                 }
             }
         }
@@ -71,10 +130,18 @@ namespace FancyScrollView
             {
                 EditorGUILayout.PropertyField(snapEnable);
 
-                if (snapEnable.boolValue)
+                using (var group = new EditorGUILayout.FadeGroupScope(showSnapEnableRelatedValues.faded))
                 {
-                    EditorGUILayout.PropertyField(snapVelocityThreshold);
-                    EditorGUILayout.PropertyField(snapDuration);
+                    if (!group.visible)
+                    {
+                        return;
+                    }
+
+                    using (new EditorGUI.IndentLevelScope())
+                    {
+                        EditorGUILayout.PropertyField(snapVelocityThreshold);
+                        EditorGUILayout.PropertyField(snapDuration);
+                    }
                 }
             }
         }

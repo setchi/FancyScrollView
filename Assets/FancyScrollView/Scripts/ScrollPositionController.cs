@@ -13,14 +13,8 @@ namespace FancyScrollView
         [SerializeField] float elasticity = 0.1f;
         [SerializeField] float scrollSensitivity = 1f;
         [SerializeField] bool inertia = true;
-
-        [SerializeField, Tooltip("Only used when inertia is enabled")]
-        float decelerationRate = 0.03f;
-
-        [SerializeField, Tooltip("Only used when inertia is enabled")]
-        Snap snap = new Snap {Enable = true, VelocityThreshold = 0.5f, Duration = 0.3f};
-
-        [SerializeField] int dataCount;
+        [SerializeField] float decelerationRate = 0.03f;
+        [SerializeField] Snap snap = new Snap {Enable = true, VelocityThreshold = 0.5f, Duration = 0.3f};
 
         readonly AutoScrollState autoScrollState = new AutoScrollState();
 
@@ -32,6 +26,8 @@ namespace FancyScrollView
         float prevScrollPosition;
         float currentScrollPosition;
 
+        int dataCount;
+
         bool dragging;
         float velocity;
 
@@ -41,7 +37,7 @@ namespace FancyScrollView
             Horizontal,
         }
 
-        enum MovementType
+        public enum MovementType
         {
             Unrestricted = ScrollRect.MovementType.Unrestricted,
             Elastic = ScrollRect.MovementType.Elastic,
@@ -49,7 +45,7 @@ namespace FancyScrollView
         }
 
         [Serializable]
-        struct Snap
+        class Snap
         {
             public bool Enable;
             public float VelocityThreshold;
