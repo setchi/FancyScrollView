@@ -107,7 +107,6 @@ public class EntryPoint : MonoBehaviour
 ```
 
 ### インスペクタ上の設定
-![screencast](Documents/inspector.png)
 #### My Scroll View
 | プロパティ | 説明 |
 |:-----------|:------------|
@@ -130,7 +129,6 @@ public class EntryPoint : MonoBehaviour
 |Snap - Enable|Snap を有効にする場合オンにします。|
 |Snap - Velocity Threshold|Snap がはじまる閾値となる速度を指定します。|
 |Snap - Duration|Snap 時の移動時間を秒数で指定します。|
-|Data Count|アイテムのデータ件数の総数です。基本的にスクリプトから設定します。|
 
 ## Q&A
 
@@ -163,8 +161,6 @@ public void OnUpdatePosition(Action<float> callback)
 1. サンプルで使用されている `ScrollPositionController` を使うときは、 `Movement Type` を `Unrestricted` に設定することで、スクロール範囲が無制限になります。 1. と組み合わせることで無限スクロールを実現できます。
 
 実装例（[Examples/03_InfiniteScroll](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples/03_InfiniteScroll)）が含まれていますので、こちらも参考にしてください。
-
-![screencast](Documents/infiniteScrollSettings.png)
 
 ## 開発環境
 Unity 2018.3.6f1
