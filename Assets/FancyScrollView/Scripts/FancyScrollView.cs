@@ -58,6 +58,16 @@ namespace FancyScrollView
 
         void FillCells(float firstPosition)
         {
+            if (CellPrefab == null)
+            {
+                throw new System.NullReferenceException(nameof(CellPrefab));
+            }
+
+            if (cellContainer == null)
+            {
+                throw new System.NullReferenceException(nameof(cellContainer));
+            }
+
             for (var (count, p) = (0, firstPosition); p <= 1f; p += cellSpacing, count++)
             {
                 if (count < cells.Count)
@@ -67,9 +77,16 @@ namespace FancyScrollView
 
                 var cell = Instantiate(CellPrefab, cellContainer)
                         .GetComponent<FancyScrollViewCell<TCellData, TContext>>();
+
+                if (cell == null)
+                {
+                    throw new MissingComponentException(
+                        $"FancyScrollViewCell<{typeof(TCellData).FullName}, {typeof(TContext).FullName}> " +
+                        $"component not found in {CellPrefab.name}.");
+                }
+
                 cell.SetContext(Context);
                 cell.SetVisible(false);
-
                 cells.Add(cell);
             }
         }
