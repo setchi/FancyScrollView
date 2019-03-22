@@ -53,7 +53,7 @@ namespace FancyScrollView
             }
 
             Context.SelectedIndex = index;
-            UpdateContents();
+            Refresh();
 
             scrollPositionController.ScrollTo(index, 0.4f);
             onSelectedIndexChanged?.Invoke(index);

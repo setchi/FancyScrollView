@@ -30,7 +30,7 @@ namespace FancyScrollView
         {
             scrollPositionController.ScrollTo(index, 0.4f);
             Context.SelectedIndex = index;
-            UpdateContents();
+            Refresh();
         }
     }
 }

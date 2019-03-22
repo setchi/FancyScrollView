@@ -26,13 +26,13 @@ namespace FancyScrollView
         protected void UpdateContents(IList<TCellData> cellData) 
         {
             CellData = cellData;
-            UpdateContents();
+            Refresh();
         }
 
         /// <summary>
-        /// Updates the contents.
+        /// Refresh the cells.
         /// </summary>
-        protected void UpdateContents() => UpdatePosition(currentPosition, true);
+        protected void Refresh() => UpdatePosition(currentPosition, true);
 
         /// <summary>
         /// Updates the scroll position.
@@ -40,7 +40,7 @@ namespace FancyScrollView
         /// <param name="position">Position.</param>
         protected void UpdatePosition(float position) => UpdatePosition(position, false);
 
-        void UpdatePosition(float position, bool forceUpdateContents)
+        void UpdatePosition(float position, bool forceRefresh)
         {
             currentPosition = position;
 
@@ -53,7 +53,7 @@ namespace FancyScrollView
                 FillCells(firstPosition);
             }
 
-            UpdateCells(firstPosition, firstDataIndex, forceUpdateContents);
+            UpdateCells(firstPosition, firstDataIndex, forceRefresh);
         }
 
         void FillCells(float firstPosition)
@@ -74,7 +74,7 @@ namespace FancyScrollView
             }
         }
 
-        void UpdateCells(float firstPosition, int firstDataIndex, bool forceUpdateContents)
+        void UpdateCells(float firstPosition, int firstDataIndex, bool forceRefresh)
         {
             var count = 0;
 
@@ -83,7 +83,7 @@ namespace FancyScrollView
                 var dataIndex = firstDataIndex + count;
                 var cell = cells[GetCircularIndex(dataIndex, cells.Count)];
 
-                UpdateCell(cell, dataIndex, forceUpdateContents);
+                UpdateCell(cell, dataIndex, forceRefresh);
 
                 if (cell.gameObject.activeSelf)
                 {
@@ -98,7 +98,7 @@ namespace FancyScrollView
             }
         }
 
-        void UpdateCell(FancyScrollViewCell<TCellData, TContext> cell, int dataIndex, bool forceUpdateContents)
+        void UpdateCell(FancyScrollViewCell<TCellData, TContext> cell, int dataIndex, bool forceRefresh)
         {
             if (loop)
             {
@@ -110,7 +110,7 @@ namespace FancyScrollView
                 return;
             }
 
-            if (!forceUpdateContents && cell.DataIndex == dataIndex && cell.IsVisible)
+            if (!forceRefresh && cell.DataIndex == dataIndex && cell.IsVisible)
             {
                 return;
             }
