@@ -137,11 +137,8 @@ namespace FancyScrollView
                         return;
                     }
 
-                    using (new EditorGUI.IndentLevelScope())
-                    {
-                        EditorGUILayout.PropertyField(snapVelocityThreshold);
-                        EditorGUILayout.PropertyField(snapDuration);
-                    }
+                    EditorGUILayout.PropertyField(snapVelocityThreshold);
+                    EditorGUILayout.PropertyField(snapDuration);
                 }
             }
         }
