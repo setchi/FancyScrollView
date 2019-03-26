@@ -4,7 +4,7 @@ namespace FancyScrollView
 {
     public class Example03ScrollViewContext
     {
-        public int SelectedIndex;
+        public int SelectedIndex = -1;
         public Action<int> OnCellClicked;
     }
 }
