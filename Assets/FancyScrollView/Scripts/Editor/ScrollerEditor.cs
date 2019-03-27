@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEditor.AnimatedValues;
 
-// For manteinance, every new [SerializeField] variable in ScrollPositionController must be declared here
+// For manteinance, every new [SerializeField] variable in Scroller must be declared here
 
 namespace FancyScrollView
 {
