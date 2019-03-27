@@ -10,7 +10,10 @@ namespace FancyScrollView
         [SerializeField] Image image;
         [SerializeField] Button button;
 
-        static readonly int ScrollTriggerHash = Animator.StringToHash("scroll");
+        static class AnimatorHash
+        {
+            internal static readonly int Scroll = Animator.StringToHash("scroll");
+        }
 
         void Start()
         {
@@ -35,7 +38,7 @@ namespace FancyScrollView
         public override void UpdatePosition(float position)
         {
             currentPosition = position;
-            animator.Play(ScrollTriggerHash, -1, position);
+            animator.Play(AnimatorHash.Scroll, -1, position);
             animator.speed = 0;
         }
 

@@ -5,9 +5,9 @@ using UnityEditor.AnimatedValues;
 
 namespace FancyScrollView
 {
-    [CustomEditor(typeof(ScrollPositionController))]
+    [CustomEditor(typeof(Scroller))]
     [CanEditMultipleObjects]
-    public class ScrollPositionControllerEditor : Editor
+    public class ScrollerEditor : Editor
     {
         SerializedProperty viewport;
         SerializedProperty directionOfRecognize;
@@ -54,7 +54,7 @@ namespace FancyScrollView
 
         void SetAnimBools(bool instant)
         {
-            SetAnimBool(showElasticity, !movementType.hasMultipleDifferentValues && movementType.enumValueIndex == (int)ScrollPositionController.MovementType.Elastic, instant);
+            SetAnimBool(showElasticity, !movementType.hasMultipleDifferentValues && movementType.enumValueIndex == (int)Scroller.MovementType.Elastic, instant);
             SetAnimBool(showInertiaRelatedValues, !inertia.hasMultipleDifferentValues && inertia.boolValue, instant);
             SetAnimBool(showSnapEnableRelatedValues, !snapEnable.hasMultipleDifferentValues && snapEnable.boolValue, instant);
         }

@@ -5,20 +5,20 @@ namespace FancyScrollView
 {
     public class Example01ScrollView : FancyScrollView<Example01CellData>
     {
-        [SerializeField] ScrollPositionController scrollPositionController;
+        [SerializeField] Scroller scroller;
         [SerializeField] GameObject cellPrefab;
 
         protected override GameObject CellPrefab => cellPrefab;
 
         void Start()
         {
-            scrollPositionController.OnUpdatePosition(UpdatePosition);
+            scroller.OnUpdatePosition(UpdatePosition);
         }
 
         public void UpdateData(IList<Example01CellData> cellData)
         {
             UpdateContents(cellData);
-            scrollPositionController.SetDataCount(cellData.Count);
+            scroller.SetDataCount(cellData.Count);
         }
     }
 }

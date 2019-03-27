@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace FancyScrollView
 {
-    public class ScrollPositionController : UIBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
+    public class Scroller : UIBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
     {
         [SerializeField] RectTransform viewport;
         [SerializeField] ScrollDirection directionOfRecognize = ScrollDirection.Vertical;

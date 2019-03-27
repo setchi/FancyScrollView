@@ -8,7 +8,10 @@ namespace FancyScrollView
         [SerializeField] Animator animator;
         [SerializeField] Text message;
 
-        static readonly int ScrollTriggerHash = Animator.StringToHash("scroll");
+        static class AnimatorHash
+        {
+            internal static readonly int Scroll = Animator.StringToHash("scroll");
+        }
 
         public override void UpdateContent(Example01CellData cellData)
         {
@@ -18,7 +21,7 @@ namespace FancyScrollView
         public override void UpdatePosition(float position)
         {
             currentPosition = position;
-            animator.Play(ScrollTriggerHash, -1, position);
+            animator.Play(AnimatorHash.Scroll, -1, position);
             animator.speed = 0;
         }
 

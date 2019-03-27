@@ -6,7 +6,7 @@ namespace FancyScrollView
 {
     public class Example04ScrollView : FancyScrollView<Example04CellData, Example04ScrollViewContext>
     {
-        [SerializeField] ScrollPositionController scrollPositionController;
+        [SerializeField] Scroller scroller;
         [SerializeField] GameObject cellPrefab;
 
         Action<int> onSelectedIndexChanged;
@@ -20,14 +20,14 @@ namespace FancyScrollView
 
         void Start()
         {
-            scrollPositionController.OnUpdatePosition(UpdatePosition);
-            scrollPositionController.OnSelectedIndexChanged(UpdateSelection);
+            scroller.OnUpdatePosition(UpdatePosition);
+            scroller.OnSelectedIndexChanged(UpdateSelection);
         }
 
         public void UpdateData(IList<Example04CellData> cellData)
         {
             UpdateContents(cellData);
-            scrollPositionController.SetDataCount(cellData.Count);
+            scroller.SetDataCount(cellData.Count);
         }
 
         public void OnSelectedIndexChanged(Action<int> callback)
@@ -55,7 +55,7 @@ namespace FancyScrollView
             Context.SelectedIndex = index;
             Refresh();
 
-            scrollPositionController.ScrollTo(index, 0.4f);
+            scroller.ScrollTo(index, 0.4f);
             onSelectedIndexChanged?.Invoke(index);
         }
     }

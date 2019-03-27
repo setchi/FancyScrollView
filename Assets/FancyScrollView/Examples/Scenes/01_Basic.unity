@@ -394,7 +394,7 @@ MonoBehaviour:
   scrollOffset: 0.5
   loop: 0
   cellContainer: {fileID: 1492537696}
-  scrollPositionController: {fileID: 1492537699}
+  scroller: {fileID: 1492537699}
   cellPrefab: {fileID: 1090456633889264, guid: b211dcb1c69c24ebdb530112c34a0e4d, type: 3}
 --- !u!114 &1492537701
 MonoBehaviour:

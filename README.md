@@ -69,20 +69,20 @@ using FancyScrollView;
 
 public class MyScrollView : FancyScrollView<MyCellData>
 {
-    [SerializeField] ScrollPositionController scrollPositionController;
+    [SerializeField] Scroller scroller;
     [SerializeField] GameObject cellPrefab;
 
     protected override GameObject CellPrefab => cellPrefab;
 
     void Start()
     {
-        scrollPositionController.OnUpdatePosition(base.UpdatePosition);
+        scroller.OnUpdatePosition(base.UpdatePosition);
     }
 
     public void UpdateData(IList<MyCellData> cellData)
     {
         base.UpdateContents(cellData);
-        scrollPositionController.SetDataCount(cellData.Count);
+        scroller.SetDataCount(cellData.Count);
     }
 }
 ```
@@ -116,7 +116,7 @@ public class EntryPoint : MonoBehaviour
 |Cell Prefab|セルの Prefab を指定します。|
 |Cell Container|セルの親要素となる Transform を指定します。 |
 
-#### Scroll Position Controller
+#### Scroller
 | プロパティ | 説明 |
 |:-----------|:------------|
 |Viewport|ビューポートとなる RectTransform を指定します。ここで指定された RectTransform の範囲内でジェスチャーの検出を行います。|
@@ -130,7 +130,7 @@ public class EntryPoint : MonoBehaviour
 |Snap - Velocity Threshold|Snap がはじまる閾値となる速度を指定します。|
 |Snap - Duration|Snap 時の移動時間を秒数で指定します。|
 
-## Q&A
+## FAQ
 
 #### データ件数が多くてもパフォーマンスは大丈夫？
 表示に必要なセル数のみが生成されるため、データ件数がパフォーマンスに与える影響はわずかです。セル間のスペース（同時に存在するセルの数）とセルの演出は、データ件数よりもパフォーマンスに大きな影響を与えます。
@@ -140,7 +140,7 @@ public class EntryPoint : MonoBehaviour
 ```csharp
 protected void UpdatePosition(float position)
 ```
-サンプルで使われている `ScrollPositionController` を使う場合は、次の API を使用して `FancyScrollView` のスクロール位置を更新できます。
+サンプルで使われている `Scroller` を使う場合は、次の API を使用して `FancyScrollView` のスクロール位置を更新できます。
 ```csharp
 public void ScrollTo(int index, float duration)
 ```
@@ -150,7 +150,7 @@ public void JumpTo(int index)
 ```csharp
 public void OnUpdatePosition(Action<float> callback)
 ```
-`ScrollPositionController` を使わずにあなた自身の実装で全く違った振る舞いをさせることもできます。
+`Scroller` を使わずにあなた自身の実装で全く違った振る舞いをさせることもできます。
 
 #### セルで発生したイベントを受け取れる？
 セル内で発生したあらゆるイベントをハンドリングできます。セル内で発生したイベントをハンドリングする実装例（[Examples/02_CellEventHandling](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples/02_CellEventHandling)）が含まれていますので、参考にして実装してください。
@@ -158,7 +158,7 @@ public void OnUpdatePosition(Action<float> callback)
 #### セルを無限スクロール（ループ）させたいんだけど？
 無限スクロールをサポートしています。実装手順は下記の通りです。
 1. `ScrollView` の `Loop` をオンにするとセルが循環し、最初のセルの前に最後のセル、最後のセルの後に最初のセルが並ぶようになります。
-1. サンプルで使用されている `ScrollPositionController` を使うときは、 `Movement Type` を `Unrestricted` に設定することで、スクロール範囲が無制限になります。 1. と組み合わせることで無限スクロールを実現できます。
+1. サンプルで使用されている `Scroller` を使うときは、 `Movement Type` を `Unrestricted` に設定することで、スクロール範囲が無制限になります。 1. と組み合わせることで無限スクロールを実現できます。
 
 実装例（[Examples/03_InfiniteScroll](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples/03_InfiniteScroll)）が含まれていますので、こちらも参考にしてください。
 
