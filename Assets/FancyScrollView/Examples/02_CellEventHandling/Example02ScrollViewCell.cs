@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace FancyScrollView
 {
-    public class Example02ScrollViewCell : FancyScrollViewCell<Example02CellData, Example02ScrollViewContext>
+    public class Example02ScrollViewCell : FancyScrollViewCell<Example02ItemData, Example02ScrollViewContext>
     {
         [SerializeField] Animator animator;
         [SerializeField] Text message;
@@ -17,15 +17,15 @@ namespace FancyScrollView
 
         void Start()
         {
-            button.onClick.AddListener(() => Context.OnCellClicked?.Invoke(DataIndex));
+            button.onClick.AddListener(() => Context.OnCellClicked?.Invoke(ItemIndex));
         }
 
-        public override void UpdateContent(Example02CellData cellData)
+        public override void UpdateContent(Example02ItemData itemData)
         {
-            message.text = cellData.Message;
+            message.text = itemData.Message;
 
-            var isSelected = Context.SelectedIndex == DataIndex;
-            image.color = isSelected
+            var selected = Context.SelectedIndex == ItemIndex;
+            image.color = selected
                 ? new Color32(0, 255, 255, 100)
                 : new Color32(255, 255, 255, 77);
         }

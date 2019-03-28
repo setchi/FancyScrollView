@@ -34,24 +34,24 @@ FancyScrollView はセルの位置を更新するとき、可視領域の正規�
 ### スクリプトの実装
 セルにデータを渡すためのオブジェクトを定義します。
 ```csharp
-public class MyCellData
+public class ItemData
 {
     public string Message;
 }
 ```
-`FancyScrollViewCell<TCellData>` を継承して自分のセルを実装します。
+`FancyScrollViewCell<TItemData>` を継承して自分のセルを実装します。
 ```csharp
 using UnityEngine;
 using UnityEngine.UI;
 using FancyScrollView;
 
-public class MyScrollViewCell : FancyScrollViewCell<MyCellData>
+public class MyScrollViewCell : FancyScrollViewCell<ItemData>
 {
     [SerializeField] Text message;
 
-    public override void UpdateContent(MyCellData cellData)
+    public override void UpdateContent(ItemData itemData)
     {
-        message.text = cellData.Message;
+        message.text = itemData.Message;
     }
 
     public override void UpdatePosition(float position)
@@ -61,13 +61,13 @@ public class MyScrollViewCell : FancyScrollViewCell<MyCellData>
     }
 }
 ```
-`FancyScrollView<TCellData>` を継承して自分のスクロールビューを実装します。
+`FancyScrollView<TItemData>` を継承して自分のスクロールビューを実装します。
 ```csharp
 using UnityEngine;
 using System.Linq;
 using FancyScrollView;
 
-public class MyScrollView : FancyScrollView<MyCellData>
+public class MyScrollView : FancyScrollView<ItemData>
 {
     [SerializeField] Scroller scroller;
     [SerializeField] GameObject cellPrefab;
@@ -76,13 +76,13 @@ public class MyScrollView : FancyScrollView<MyCellData>
 
     void Start()
     {
-        scroller.OnUpdatePosition(base.UpdatePosition);
+        scroller.OnValueChanged(base.UpdatePosition);
     }
 
-    public void UpdateData(IList<MyCellData> cellData)
+    public void UpdateData(IList<ItemData> items)
     {
-        base.UpdateContents(cellData);
-        scroller.SetDataCount(cellData.Count);
+        base.UpdateContents(items);
+        scroller.SetItemCount(items.Count);
     }
 }
 ```
@@ -97,11 +97,11 @@ public class EntryPoint : MonoBehaviour
 
     void Start()
     {
-        var cellData = Enumerable.Range(0, 50)
-            .Select(i => new MyCellData {Message = $"Cell {i}"})
+        var items = Enumerable.Range(0, 50)
+            .Select(i => new ItemData {Message = $"Cell {i}"})
             .ToArray();
 
-        myScrollView.UpdateData(cellData);
+        myScrollView.UpdateData(items);
     }
 }
 ```
@@ -148,7 +148,7 @@ public void ScrollTo(int index, float duration)
 public void JumpTo(int index)
 ```
 ```csharp
-public void OnUpdatePosition(Action<float> callback)
+public void OnValueChanged(Action<float> callback)
 ```
 `Scroller` を使わずにあなた自身の実装で全く違った振る舞いをさせることもできます。
 

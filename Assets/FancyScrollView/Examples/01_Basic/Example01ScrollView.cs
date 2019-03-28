@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FancyScrollView
 {
-    public class Example01ScrollView : FancyScrollView<Example01CellData>
+    public class Example01ScrollView : FancyScrollView<Example01ItemData>
     {
         [SerializeField] Scroller scroller;
         [SerializeField] GameObject cellPrefab;
@@ -12,13 +12,13 @@ namespace FancyScrollView
 
         void Start()
         {
-            scroller.OnUpdatePosition(UpdatePosition);
+            scroller.OnValueChanged(UpdatePosition);
         }
 
-        public void UpdateData(IList<Example01CellData> cellData)
+        public void UpdateData(IList<Example01ItemData> items)
         {
-            UpdateContents(cellData);
-            scroller.SetDataCount(cellData.Count);
+            UpdateContents(items);
+            scroller.SetTotalCount(items.Count);
         }
     }
 }

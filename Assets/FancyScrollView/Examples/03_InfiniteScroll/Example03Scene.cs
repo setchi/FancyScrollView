@@ -9,11 +9,11 @@ namespace FancyScrollView
 
         void Start()
         {
-            var cellData = Enumerable.Range(0, 20)
-                .Select(i => new Example03CellData {Message = $"Cell {i}"})
+            var items = Enumerable.Range(0, 20)
+                .Select(i => new Example03ItemData {Message = $"Cell {i}"})
                 .ToArray();
 
-            scrollView.UpdateData(cellData);
+            scrollView.UpdateData(items);
         }
     }
 }

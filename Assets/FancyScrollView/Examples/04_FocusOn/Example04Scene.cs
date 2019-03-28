@@ -15,17 +15,17 @@ namespace FancyScrollView
         {
             prevCellButton.onClick.AddListener(scrollView.SelectPrevCell);
             nextCellButton.onClick.AddListener(scrollView.SelectNextCell);
-            scrollView.OnSelectedIndexChanged(OnSelectedIndexChanged);
+            scrollView.OnSelectionChanged(OnSelectionChanged);
 
-            var cellData = Enumerable.Range(0, 20)
-                .Select(i => new Example04CellData {Message = $"Cell {i}"})
+            var items = Enumerable.Range(0, 20)
+                .Select(i => new Example04ItemData {Message = $"Cell {i}"})
                 .ToArray();
 
-            scrollView.UpdateData(cellData);
+            scrollView.UpdateData(items);
             scrollView.UpdateSelection(0);
         }
 
-        void OnSelectedIndexChanged(int index)
+        void OnSelectionChanged(int index)
         {
             selectedItemInfo.text = $"Selected item info: index {index}";
         }

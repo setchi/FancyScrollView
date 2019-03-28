@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace FancyScrollView
 {
-    public class Example02ScrollView : FancyScrollView<Example02CellData, Example02ScrollViewContext>
+    public class Example02ScrollView : FancyScrollView<Example02ItemData, Example02ScrollViewContext>
     {
         [SerializeField] Scroller scroller;
         [SerializeField] GameObject cellPrefab;
@@ -17,13 +17,13 @@ namespace FancyScrollView
 
         void Start()
         {
-            scroller.OnUpdatePosition(UpdatePosition);
+            scroller.OnValueChanged(UpdatePosition);
         }
 
-        public void UpdateData(IList<Example02CellData> cellData)
+        public void UpdateData(IList<Example02ItemData> items)
         {
-            UpdateContents(cellData);
-            scroller.SetDataCount(cellData.Count);
+            UpdateContents(items);
+            scroller.SetTotalCount(items.Count);
         }
 
         void OnCellClicked(int index)

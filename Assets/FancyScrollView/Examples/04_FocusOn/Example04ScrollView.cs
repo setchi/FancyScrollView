@@ -4,12 +4,12 @@ using UnityEngine;
 
 namespace FancyScrollView
 {
-    public class Example04ScrollView : FancyScrollView<Example04CellData, Example04ScrollViewContext>
+    public class Example04ScrollView : FancyScrollView<Example04ItemData, Example04ScrollViewContext>
     {
         [SerializeField] Scroller scroller;
         [SerializeField] GameObject cellPrefab;
 
-        Action<int> onSelectedIndexChanged;
+        Action<int> onSelectionChanged;
 
         protected override GameObject CellPrefab => cellPrefab;
 
@@ -20,19 +20,19 @@ namespace FancyScrollView
 
         void Start()
         {
-            scroller.OnUpdatePosition(UpdatePosition);
-            scroller.OnSelectedIndexChanged(UpdateSelection);
+            scroller.OnValueChanged(UpdatePosition);
+            scroller.OnSelectionChanged(UpdateSelection);
         }
 
-        public void UpdateData(IList<Example04CellData> cellData)
+        public void UpdateData(IList<Example04ItemData> items)
         {
-            UpdateContents(cellData);
-            scroller.SetDataCount(cellData.Count);
+            UpdateContents(items);
+            scroller.SetTotalCount(items.Count);
         }
 
-        public void OnSelectedIndexChanged(Action<int> callback)
+        public void OnSelectionChanged(Action<int> callback)
         {
-            onSelectedIndexChanged = callback;
+            onSelectionChanged = callback;
         }
 
         public void SelectNextCell()
@@ -47,7 +47,7 @@ namespace FancyScrollView
 
         public void UpdateSelection(int index)
         {
-            if (index < 0 || index >= CellData.Count || index == Context.SelectedIndex)
+            if (index < 0 || index >= ItemsSource.Count || index == Context.SelectedIndex)
             {
                 return;
             }
@@ -56,7 +56,7 @@ namespace FancyScrollView
             Refresh();
 
             scroller.ScrollTo(index, 0.4f);
-            onSelectedIndexChanged?.Invoke(index);
+            onSelectionChanged?.Invoke(index);
         }
     }
 }

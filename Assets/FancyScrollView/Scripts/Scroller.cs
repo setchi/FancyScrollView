@@ -18,15 +18,15 @@ namespace FancyScrollView
 
         readonly AutoScrollState autoScrollState = new AutoScrollState();
 
-        Action<float> onUpdatePosition;
-        Action<int> onSelectedIndexChanged;
+        Action<float> onValueChanged;
+        Action<int> onSelectionChanged;
 
         Vector2 pointerStartLocalPosition;
         float dragStartScrollPosition;
         float prevScrollPosition;
         float currentScrollPosition;
 
-        int dataCount;
+        int totalCount;
 
         bool dragging;
         float velocity;
@@ -70,14 +70,20 @@ namespace FancyScrollView
             }
         }
 
-        public void OnUpdatePosition(Action<float> callback) => onUpdatePosition = callback;
-        
-        public void OnSelectedIndexChanged(Action<int> callback) => onSelectedIndexChanged = callback;
-        
-        public void SetDataCount(int dataCount) => this.dataCount = dataCount;
+        public void OnValueChanged(Action<float> callback) => onValueChanged = callback;
+
+        public void OnSelectionChanged(Action<int> callback) => onSelectionChanged = callback;
+
+        public void SetTotalCount(int totalCount) => this.totalCount = totalCount;
 
         public void ScrollTo(int index, float duration)
         {
+            if (duration <= 0f)
+            {
+                JumpTo(index);
+                return;
+            }
+
             autoScrollState.Reset();
             autoScrollState.Enable = true;
             autoScrollState.Duration = duration;
@@ -87,7 +93,7 @@ namespace FancyScrollView
             velocity = 0f;
             dragStartScrollPosition = currentScrollPosition;
 
-            UpdateSelectedIndex(Mathf.RoundToInt(GetCircularPosition(autoScrollState.EndScrollPosition, dataCount)));
+            UpdateSelection(Mathf.RoundToInt(GetCircularPosition(autoScrollState.EndScrollPosition, totalCount)));
         }
 
         public void JumpTo(int index)
@@ -99,7 +105,7 @@ namespace FancyScrollView
 
             index = CalculateDestinationIndex(index);
 
-            UpdateSelectedIndex(index);
+            UpdateSelection(index);
             UpdatePosition(index);
         }
 
@@ -175,8 +181,8 @@ namespace FancyScrollView
         }
 
         float ViewportSize => directionOfRecognize == ScrollDirection.Horizontal
-                ? viewport.rect.size.x
-                : viewport.rect.size.y;
+            ? viewport.rect.size.x
+            : viewport.rect.size.y;
 
         float CalculateOffset(float position)
         {
@@ -190,9 +196,9 @@ namespace FancyScrollView
                 return -position;
             }
 
-            if (position > dataCount - 1)
+            if (position > totalCount - 1)
             {
-                return dataCount - 1 - position;
+                return totalCount - 1 - position;
             }
 
             return 0f;
@@ -201,10 +207,10 @@ namespace FancyScrollView
         void UpdatePosition(float position)
         {
             currentScrollPosition = position;
-            onUpdatePosition?.Invoke(currentScrollPosition);
+            onValueChanged?.Invoke(currentScrollPosition);
         }
 
-        void UpdateSelectedIndex(int index) => onSelectedIndexChanged?.Invoke(index);
+        void UpdateSelection(int index) => onSelectionChanged?.Invoke(index);
 
         float RubberDelta(float overStretching, float viewSize) =>
             (1 - 1 / (Mathf.Abs(overStretching) * 0.55f / viewSize + 1)) * viewSize * Mathf.Sign(overStretching);
@@ -225,7 +231,7 @@ namespace FancyScrollView
 
                     if (Mathf.Abs(velocity) < 0.01f)
                     {
-                        position = Mathf.Clamp(Mathf.RoundToInt(position), 0, dataCount - 1);
+                        position = Mathf.Clamp(Mathf.RoundToInt(position), 0, totalCount - 1);
                         velocity = 0f;
                         autoScrollState.Reset();
                     }
@@ -255,7 +261,7 @@ namespace FancyScrollView
                     autoScrollState.Enable = true;
                     autoScrollState.Elastic = true;
 
-                    UpdateSelectedIndex(Mathf.Clamp(Mathf.RoundToInt(position), 0, dataCount - 1));
+                    UpdateSelection(Mathf.Clamp(Mathf.RoundToInt(position), 0, totalCount - 1));
                 }
                 else if (inertia)
                 {
@@ -285,10 +291,10 @@ namespace FancyScrollView
                         offset = CalculateOffset(position);
                         position += offset;
 
-                        if (Mathf.Approximately(position, 0f) || Mathf.Approximately(position, dataCount - 1f))
+                        if (Mathf.Approximately(position, 0f) || Mathf.Approximately(position, totalCount - 1f))
                         {
                             velocity = 0f;
-                            UpdateSelectedIndex(Mathf.RoundToInt(position));
+                            UpdateSelection(Mathf.RoundToInt(position));
                         }
                     }
 
@@ -307,16 +313,16 @@ namespace FancyScrollView
 
         int CalculateDestinationIndex(int index) => movementType == MovementType.Unrestricted
             ? CalculateClosestIndex(index)
-            : Mathf.Clamp(index, 0, dataCount - 1);
+            : Mathf.Clamp(index, 0, totalCount - 1);
 
         int CalculateClosestIndex(int index)
         {
-            var diff = GetCircularPosition(index, dataCount)
-                       - GetCircularPosition(currentScrollPosition, dataCount);
+            var diff = GetCircularPosition(index, totalCount)
+                       - GetCircularPosition(currentScrollPosition, totalCount);
 
-            if (Mathf.Abs(diff) > dataCount * 0.5f)
+            if (Mathf.Abs(diff) > totalCount * 0.5f)
             {
-                diff = Mathf.Sign(-diff) * (dataCount - Mathf.Abs(diff));
+                diff = Mathf.Sign(-diff) * (totalCount - Mathf.Abs(diff));
             }
 
             return Mathf.RoundToInt(diff + currentScrollPosition);
