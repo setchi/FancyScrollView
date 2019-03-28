@@ -22,14 +22,14 @@ namespace FancyScrollView
             rectTransform.anchorMin = Vector2.zero;
             rectTransform.anchoredPosition3D = Vector3.zero;
 
-            button.onClick.AddListener(() => Context.OnCellClicked?.Invoke(ItemIndex));
+            button.onClick.AddListener(() => Context.OnCellClicked?.Invoke(Index));
         }
 
         public override void UpdateContent(Example03ItemData itemData)
         {
             message.text = itemData.Message;
 
-            var selected = Context.SelectedIndex == ItemIndex;
+            var selected = Context.SelectedIndex == Index;
             image.color = selected
                 ? new Color32(0, 255, 255, 100)
                 : new Color32(255, 255, 255, 77);

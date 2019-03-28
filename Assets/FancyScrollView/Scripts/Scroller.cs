@@ -93,7 +93,7 @@ namespace FancyScrollView
             velocity = 0f;
             dragStartScrollPosition = currentScrollPosition;
 
-            UpdateSelection(Mathf.RoundToInt(GetCircularPosition(autoScrollState.EndScrollPosition, totalCount)));
+            UpdateSelection(Mathf.RoundToInt(CircularPosition(autoScrollState.EndScrollPosition, totalCount)));
         }
 
         public void JumpTo(int index)
@@ -317,8 +317,8 @@ namespace FancyScrollView
 
         int CalculateClosestIndex(int index)
         {
-            var diff = GetCircularPosition(index, totalCount)
-                       - GetCircularPosition(currentScrollPosition, totalCount);
+            var diff = CircularPosition(index, totalCount)
+                       - CircularPosition(currentScrollPosition, totalCount);
 
             if (Mathf.Abs(diff) > totalCount * 0.5f)
             {
@@ -328,8 +328,7 @@ namespace FancyScrollView
             return Mathf.RoundToInt(diff + currentScrollPosition);
         }
 
-        float GetCircularPosition(float position, int length) =>
-            position < 0 ? length - 1 + (position + 1) % length : position % length;
+        float CircularPosition(float p, int size) => p < 0 ? size - 1 + (p + 1) % size : p % size;
 
         float EaseInOutCubic(float start, float end, float value)
         {

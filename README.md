@@ -82,7 +82,7 @@ public class MyScrollView : FancyScrollView<ItemData>
     public void UpdateData(IList<ItemData> items)
     {
         base.UpdateContents(items);
-        scroller.SetItemCount(items.Count);
+        scroller.SetTotalCount(items.Count);
     }
 }
 ```

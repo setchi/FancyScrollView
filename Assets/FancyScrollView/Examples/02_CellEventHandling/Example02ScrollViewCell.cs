@@ -17,14 +17,14 @@ namespace FancyScrollView
 
         void Start()
         {
-            button.onClick.AddListener(() => Context.OnCellClicked?.Invoke(ItemIndex));
+            button.onClick.AddListener(() => Context.OnCellClicked?.Invoke(Index));
         }
 
         public override void UpdateContent(Example02ItemData itemData)
         {
             message.text = itemData.Message;
 
-            var selected = Context.SelectedIndex == ItemIndex;
+            var selected = Context.SelectedIndex == Index;
             image.color = selected
                 ? new Color32(0, 255, 255, 100)
                 : new Color32(255, 255, 255, 77);

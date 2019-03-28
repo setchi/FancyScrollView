@@ -5,10 +5,10 @@ namespace FancyScrollView
     public abstract class FancyScrollViewCell<TItemData, TContext> : MonoBehaviour where TContext : class, new()
     {
         /// <summary>
-        /// Gets or sets the index of the item.
+        /// Gets or sets the index of the data.
         /// </summary>
         /// <value>The index of the data.</value>
-        public int ItemIndex { get; set; } = -1;
+        public int Index { get; set; } = -1;
 
         /// <summary>
         /// Gets a value indicating whether this <see cref="T:FancyScrollView.FancyScrollViewCell`2"/> is visible.
