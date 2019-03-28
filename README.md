@@ -1,45 +1,48 @@
 # FancyScrollView [![license](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square)](https://github.com/setchi/FancyScrollView/blob/master/LICENSE)
-高度に柔軟なアニメーションを実装できる汎用のScrollViewコンポーネントです。 無限スクロールもサポートしています。[English](https://translate.google.com/translate?sl=ja&tl=en&u=https://github.com/setchi/FancyScrollView) (by Google Translate)
+A generic ScrollView component that can implement highly flexible animations. It also supports infinite scrolling.
 
 ![screencast](Documents/logo.png)
 ![screencast](Documents/screencast1.gif)
 ![screencast](Documents/screencast2.gif)
 
-## 導入
-Unity 2018.3 (C# 7.3) 以降が必要です。
-このリポジトリを Clone するか、 [Asset Store](https://assetstore.unity.com/packages/tools/gui/fancyscrollview-96530) からプロジェクトにインポートしてください。
+## Introduction
+Requires Unity 2018.3 (C # 7.3) or later. Clone this repository 
+or import it from the [Asset Store](https://assetstore.unity.com/packages/tools/gui/fancyscrollview-96530) into the project.
 
-## サンプル
+## sample
 [FancyScrollView/Examples/Scenes](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples/Scenes/) を参照してください。
 
-| サンプル名 | 説明 |
+| Sample name | 	Description |
 |:-----------|:------------|
-|01_Basic|最もシンプルな構成の実装例です。|
-|02_CellEventHandling|セル内で発生したイベントをハンドリングする実装例です。|
-|03_InfiniteScroll|無限スクロールの実装例です。|
-|04_FocusOn|ボタンで左右のセルにフォーカスする実装例です。|
+|01_Basic|This is an example of the simplest configuration.|
+|02_CellEventHandling|This is an implementation example of handling an event that occurred in a cell.|
+|03_InfiniteScroll|It is an implementation example of infinite scroll.|
+|04_FocusOn|This is an implementation example that focuses on the left and right cells with a button.。|
 
-## 仕組み
-FancyScrollView はセルの位置を更新するとき、可視領域の正規化された値を各セルに渡します。セル側では、0.0 ~ 1.0 の値に基づいてスクロールの外観を自由に制御できます。
+## How it works
+When updating the position of a cell, FancyScrollView passes 
+the normalized value of the visible area to each cell. On the 
+cell side, you have complete control over the appearance of 
+the scroll based on values ​​between 0.0 and 1.0.
 
-## 使い方
-もっともシンプルな構成では、
+## How to use
+In the simplest configuration,
 
-- セルにデータを渡すためのオブジェクト
-- セル
-- スクロールビュー
+- An object for passing data to a cell
+- cell
+- Scroll view
 
-の実装が必要です。
+Implementation is required.
 
-### スクリプトの実装
-セルにデータを渡すためのオブジェクトを定義します。
+### Script implementation
+Defines an object for passing data to cells.
 ```csharp
 public class ItemData
 {
     public string Message;
 }
 ```
-`FancyScrollViewCell<TItemData>` を継承して自分のセルを実装します。
+Implement your own cell by inheriting `FancyScrollViewCell<TItemData>`.
 ```csharp
 using UnityEngine;
 using UnityEngine.UI;
@@ -61,7 +64,7 @@ public class MyScrollViewCell : FancyScrollViewCell<ItemData>
     }
 }
 ```
-`FancyScrollView<TItemData>` を継承して自分のスクロールビューを実装します。
+Implement your own scroll view by inheriting `FancyScrollView<TItemData>`.
 ```csharp
 using UnityEngine;
 using System.Linq;
@@ -86,7 +89,8 @@ public class MyScrollView : FancyScrollView<ItemData>
     }
 }
 ```
-スクロールビューにデータを流し込みます。
+
+Flow data into the scroll view.
 ```csharp
 using UnityEngine;
 using System.Linq;
@@ -106,41 +110,46 @@ public class EntryPoint : MonoBehaviour
 }
 ```
 
-### インスペクタ上の設定
+### Settings on the inspector
 #### My Scroll View
-| プロパティ | 説明 |
+| Property | Description |
 |:-----------|:------------|
-|Cell Spacing|セル同士の間隔を float.Epsilon ~ 1.0 の間で指定します。|
-|Scroll Offset|スクロールのオフセットを指定します。たとえば、 0.5 を指定してスクロール位置が 0 の場合、最初のセルの位置は 0.5 になります。|
-|Loop|オンにするとセルが循環し、最初のセルの前に最後のセル、最後のセルの後に最初のセルが並ぶようになります。無限スクロールさせたい場合はオンにします。|
-|Cell Prefab|セルの Prefab を指定します。|
-|Cell Container|セルの親要素となる Transform を指定します。 |
+|Cell Spacing|Specify the spacing between cells between float.Epsilon ~ 1.0.|
+|Scroll Offset|Specifies the scroll offset. For example, if you specify 0.5 and the scroll position is 0, then the position of the first cell is 0.5.|
+|Loop|When turned on, the cells will cycle, with the last cell before the first cell and the first cell after the last cell. Turn on if you want to scroll infinitely.|
+|Cell Prefab|Specifies the cell's Prefab.|
+|Cell Container|Specifies the Transform that is the parent element of the cell.|
 
 #### Scroller
-| プロパティ | 説明 |
+| Property | Description |
 |:-----------|:------------|
-|Viewport|ビューポートとなる RectTransform を指定します。ここで指定された RectTransform の範囲内でジェスチャーの検出を行います。|
-|Direction Of Recognize|ジェスチャーを認識する方向を Vertical か Horizontal で指定します。|
-|Movement Type|コンテンツがスクロール範囲を越えて移動するときに使用する挙動を指定します。|
-|Elasticity|コンテンツがスクロール範囲を越えて移動するときに使用する弾力性の量を指定します。|
-|Scroll Sensitivity|スクロールの感度を指定します。|
-|Inertia|慣性のオン/オフを指定します。|
-|Deceleration Rate|Inertia がオンの場合のみ有効です。減速率を指定します。|
-|Snap - Enable|Snap を有効にする場合オンにします。|
-|Snap - Velocity Threshold|Snap がはじまる閾値となる速度を指定します。|
-|Snap - Duration|Snap 時の移動時間を秒数で指定します。|
+|Viewport|Specifies a RectTransform to be a viewport. Gesture detection is performed within the range of RectTransform specified here.|
+|Direction Of Recognize|Specify the direction to recognize gesture as Vertical or Horizontal.|
+|Movement Type|	Specifies the behavior to use when content moves beyond the scroll range.|
+|Elasticity|Specifies the amount of elasticity to use when content moves beyond the scroll range.|
+|Scroll Sensitivity|Specifies the scroll sensitivity.|
+|Inertia|Specifies inertia on / off.|
+|Deceleration Rate|Valid only when Inertia is on. Specifies the deceleration rate.|
+|Snap - Enable|Turn on Snap to enable.|
+|Snap - Velocity Threshold|Specifies the threshold speed at which Snap starts.|
+|Snap - Duration|Specify the move time for Snap in seconds.|
 
 ## FAQ
 
-#### データ件数が多くてもパフォーマンスは大丈夫？
-表示に必要なセル数のみが生成されるため、データ件数がパフォーマンスに与える影響はわずかです。セル間のスペース（同時に存在するセルの数）とセルの演出は、データ件数よりもパフォーマンスに大きな影響を与えます。
+#### Is performance OK even if the number of data is large?
+Because only the number of cells needed to display is generated, 
+the impact of data count on performance is minimal. The space 
+between cells (the number of simultaneously existing cells) and 
+the representation of cells have a greater effect on performance 
+than the number of data.
 
-#### 自分でスクロール位置を制御したいんだけど？
-`FancyScrollView` の次の API を使用してスクロール位置を更新できます。
+#### You want to control the scroll position yourself?
+You can update the scroll position using the following APIs of `FancyScrollView`.
 ```csharp
 protected void UpdatePosition(float position)
 ```
-サンプルで使われている `Scroller` を使う場合は、次の API を使用して `FancyScrollView` のスクロール位置を更新できます。
+If you use the `Scroller` used in the sample, you can use 
+the following API to update the scroll position of `FancyScrollView`.
 ```csharp
 public void ScrollTo(int index, float duration)
 ```
@@ -150,19 +159,28 @@ public void JumpTo(int index)
 ```csharp
 public void OnValueChanged(Action<float> callback)
 ```
-`Scroller` を使わずにあなた自身の実装で全く違った振る舞いをさせることもできます。
+You can even make your own implementation behave completely 
+differently without using `Scroller`.
 
-#### セルで発生したイベントを受け取れる？
-セル内で発生したあらゆるイベントをハンドリングできます。セル内で発生したイベントをハンドリングする実装例（[Examples/02_CellEventHandling](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples/02_CellEventHandling)）が含まれていますので、参考にして実装してください。
+#### Can I get an event that occurred in a cell?
+It can handle any event that occurred in the cell. An 
+implementation example ([Examples/02_CellEventHandling](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples/02_CellEventHandling)) 
+for handling events generated in a cell is included. Please 
+refer to the implementation.
 
-#### セルを無限スクロール（ループ）させたいんだけど？
-無限スクロールをサポートしています。実装手順は下記の通りです。
-1. `ScrollView` の `Loop` をオンにするとセルが循環し、最初のセルの前に最後のセル、最後のセルの後に最初のセルが並ぶようになります。
-1. サンプルで使用されている `Scroller` を使うときは、 `Movement Type` を `Unrestricted` に設定することで、スクロール範囲が無制限になります。 1. と組み合わせることで無限スクロールを実現できます。
+#### I want to scroll the cell infinitely (loop).
+Supports infinite scrolling. The mounting procedure is as follows.
+1. `ScrollView` you turn on `Loop` the cells will cycle, so the 
+last cell before the first cell and the first cell after the 
+last cell.
+1. When using the `Scroller` used in the sample, setting the 
+`Movement Type` to  `Unrestricted` makes the scroll range 
+unlimited. You can achieve infinite scrolling by combining with 1.
 
-実装例（[Examples/03_InfiniteScroll](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples/03_InfiniteScroll)）が含まれていますので、こちらも参考にしてください。
+An implementation example ([Examples/03_InfiniteScroll](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples/03_InfiniteScroll)) 
+is included, so please refer to this as well.
 
-## 開発環境
+## Development environment
 Unity 2018.3.6f1
 
 ## Author
