@@ -328,7 +328,7 @@ namespace FancyScrollView
             return Mathf.RoundToInt(diff + currentScrollPosition);
         }
 
-        float CircularPosition(float p, int size) => p < 0 ? size - 1 + (p + 1) % size : p % size;
+        float CircularPosition(float p, int size) => size < 1 ? 0 : p < 0 ? size - 1 + (p + 1) % size : p % size;
 
         float EaseInOutCubic(float start, float end, float value)
         {
