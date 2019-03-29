@@ -86,11 +86,12 @@ namespace FancyScrollView
             }
         }
 
-        void UpdateCells(float position, int firstIndex, bool forceRefresh)
+        void UpdateCells(float firstPosition, int firstIndex, bool forceRefresh)
         {
-            for (var i = 0; i < pool.Count; i++, position += cellSpacing)
+            for (var i = 0; i < pool.Count; i++)
             {
                 var index = firstIndex + i;
+                var position = firstPosition + i * cellSpacing;
                 var cell = pool[CircularIndex(index, pool.Count)];
 
                 index = loop ? CircularIndex(index, ItemsSource.Count) : index;
