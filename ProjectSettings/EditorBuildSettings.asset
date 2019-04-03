@@ -4,4 +4,14 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/FancyScrollView/Examples/01_Basic.unity
+    guid: f5666b6c719a9b544ab322e1066aef5f
+  - enabled: 1
+    path: Assets/FancyScrollView/Examples/02_FocusOn.unity
+    guid: ff644be2cb161904ba6ec037baf31ad1
+  - enabled: 1
+    path: Assets/FancyScrollView/Examples/03_InfiniteScroll.unity
+    guid: 22d1be941599faf45b04ab4c6a2def09
+  m_configObjects: {}
