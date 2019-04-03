@@ -6,7 +6,7 @@
 ![screencast](Documents/screencast2.gif)
 
 ## 導入
-Unity 2018.3 ([.NET 4.X Scripting Runtime](https://docs.unity3d.com/Manual/ScriptingRuntimeUpgrade.html)) 以降が必要です。
+Unity 2018.3 ([.NET 4.x Scripting Runtime](https://docs.unity3d.com/Manual/ScriptingRuntimeUpgrade.html)) 以降が必要です。
 このリポジトリを Clone するか、 [Asset Store](https://assetstore.unity.com/packages/tools/gui/fancyscrollview-96530) からプロジェクトにインポートしてください。
 
 ## サンプル
