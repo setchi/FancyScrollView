@@ -6,18 +6,17 @@
 ![screencast](Documents/screencast2.gif)
 
 ## 導入
-Unity 2018.3 (C# 7.3) 以降が必要です。
+Unity 2018.3 ([.NET 4.X Scripting Runtime](https://docs.unity3d.com/Manual/ScriptingRuntimeUpgrade.html)) 以降が必要です。
 このリポジトリを Clone するか、 [Asset Store](https://assetstore.unity.com/packages/tools/gui/fancyscrollview-96530) からプロジェクトにインポートしてください。
 
 ## サンプル
-[FancyScrollView/Examples/Scenes](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples/Scenes/) を参照してください。
+[FancyScrollView/Examples](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples) を参照してください。
 
 | サンプル名 | 説明 |
 |:-----------|:------------|
 |01_Basic|最もシンプルな構成の実装例です。|
-|02_CellEventHandling|セル内で発生したイベントをハンドリングする実装例です。|
+|02_FocusOn|ボタンで左右のセルにフォーカスする実装例です。|
 |03_InfiniteScroll|無限スクロールの実装例です。|
-|04_FocusOn|ボタンで左右のセルにフォーカスする実装例です。|
 
 ## 仕組み
 FancyScrollView はセルの位置を更新するとき、可視領域の正規化された値を各セルに渡します。セル側では、0.0 ~ 1.0 の値に基づいてスクロールの外観を自由に制御できます。
@@ -97,7 +96,7 @@ public class EntryPoint : MonoBehaviour
 
     void Start()
     {
-        var items = Enumerable.Range(0, 50)
+        var items = Enumerable.Range(0, 20)
             .Select(i => new ItemData {Message = $"Cell {i}"})
             .ToArray();
 
@@ -153,14 +152,14 @@ public void OnValueChanged(Action<float> callback)
 `Scroller` を使わずにあなた自身の実装で全く違った振る舞いをさせることもできます。
 
 #### セルで発生したイベントを受け取れる？
-セル内で発生したあらゆるイベントをハンドリングできます。セル内で発生したイベントをハンドリングする実装例（[Examples/02_CellEventHandling](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples/02_CellEventHandling)）が含まれていますので、参考にして実装してください。
+セル内で発生したあらゆるイベントをハンドリングできます。セル内で発生したイベントをハンドリングする実装例（[Examples/02_FocusOn](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples/Source/02_FocusOn)）が含まれていますので、参考にして実装してください。
 
 #### セルを無限スクロール（ループ）させたいんだけど？
 無限スクロールをサポートしています。実装手順は下記の通りです。
 1. `ScrollView` の `Loop` をオンにするとセルが循環し、最初のセルの前に最後のセル、最後のセルの後に最初のセルが並ぶようになります。
 1. サンプルで使用されている `Scroller` を使うときは、 `Movement Type` を `Unrestricted` に設定することで、スクロール範囲が無制限になります。 1. と組み合わせることで無限スクロールを実現できます。
 
-実装例（[Examples/03_InfiniteScroll](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples/03_InfiniteScroll)）が含まれていますので、こちらも参考にしてください。
+実装例（[Examples/03_InfiniteScroll](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples)）が含まれていますので、こちらも参考にしてください。
 
 ## 開発環境
 Unity 2018.3.6f1
