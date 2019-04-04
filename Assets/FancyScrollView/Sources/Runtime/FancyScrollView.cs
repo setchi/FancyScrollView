@@ -5,9 +5,9 @@ namespace FancyScrollView
 {
     public abstract class FancyScrollView<TItemData, TContext> : MonoBehaviour where TContext : class, new()
     {
-        [SerializeField, Range(float.Epsilon, 1f)] float cellSpacing = default;
-        [SerializeField, Range(0f, 1f)] float scrollOffset = default;
-        [SerializeField] bool loop = default;
+        [SerializeField, Range(float.Epsilon, 1f)] float cellSpacing = 0.2f;
+        [SerializeField, Range(0f, 1f)] float scrollOffset = 0.5f;
+        [SerializeField] bool loop = false;
         [SerializeField] Transform cellContainer = default;
 
         readonly IList<FancyScrollViewCell<TItemData, TContext>> pool =
