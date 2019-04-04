@@ -12,7 +12,7 @@ namespace FancyScrollView.Example02
 
         static class AnimatorHash
         {
-            internal static readonly int Scroll = Animator.StringToHash("scroll");
+            public static readonly int Scroll = Animator.StringToHash("scroll");
         }
 
         void Start()
