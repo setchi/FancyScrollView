@@ -6,10 +6,10 @@ namespace FancyScrollView.Example02
 {
     public class Example02 : MonoBehaviour
     {
-        [SerializeField] ScrollView scrollView;
-        [SerializeField] Button prevCellButton;
-        [SerializeField] Button nextCellButton;
-        [SerializeField] Text selectedItemInfo;
+        [SerializeField] ScrollView scrollView = default;
+        [SerializeField] Button prevCellButton = default;
+        [SerializeField] Button nextCellButton = default;
+        [SerializeField] Text selectedItemInfo = default;
 
         void Start()
         {

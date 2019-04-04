@@ -5,8 +5,8 @@ namespace FancyScrollView.Example01
 {
     public class ScrollView : FancyScrollView<ItemData>
     {
-        [SerializeField] Scroller scroller;
-        [SerializeField] GameObject cellPrefab;
+        [SerializeField] Scroller scroller = default;
+        [SerializeField] GameObject cellPrefab = default;
 
         protected override GameObject CellPrefab => cellPrefab;
 

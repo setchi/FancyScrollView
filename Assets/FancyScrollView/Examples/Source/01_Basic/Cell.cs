@@ -5,8 +5,8 @@ namespace FancyScrollView.Example01
 {
     public class Cell : FancyScrollViewCell<ItemData>
     {
-        [SerializeField] Animator animator;
-        [SerializeField] Text message;
+        [SerializeField] Animator animator = default;
+        [SerializeField] Text message = default;
 
         static class AnimatorHash
         {

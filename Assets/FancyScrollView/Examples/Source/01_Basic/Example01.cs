@@ -5,7 +5,7 @@ namespace FancyScrollView.Example01
 {
     public class Example01 : MonoBehaviour
     {
-        [SerializeField] ScrollView scrollView;
+        [SerializeField] ScrollView scrollView = default;
 
         void Start()
         {

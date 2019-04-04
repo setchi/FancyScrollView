@@ -6,8 +6,8 @@ namespace FancyScrollView.Example02
 {
     public class ScrollView : FancyScrollView<ItemData, Context>
     {
-        [SerializeField] Scroller scroller;
-        [SerializeField] GameObject cellPrefab;
+        [SerializeField] Scroller scroller = default;
+        [SerializeField] GameObject cellPrefab = default;
 
         Action<int> onSelectionChanged;
 

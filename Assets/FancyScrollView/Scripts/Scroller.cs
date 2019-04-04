@@ -7,7 +7,7 @@ namespace FancyScrollView
 {
     public class Scroller : UIBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
     {
-        [SerializeField] RectTransform viewport;
+        [SerializeField] RectTransform viewport = default;
         [SerializeField] ScrollDirection directionOfRecognize = ScrollDirection.Vertical;
         [SerializeField] MovementType movementType = MovementType.Elastic;
         [SerializeField] float elasticity = 0.1f;

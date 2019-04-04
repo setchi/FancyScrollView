@@ -10,7 +10,7 @@ namespace FancyScrollView
     [RequireComponent(typeof(Dropdown))]
     public class ScenesDropdown : MonoBehaviour
     {
-        [SerializeField] int defaultScene;
+        [SerializeField] int defaultScene = default;
 
         Dropdown dropdown;
 

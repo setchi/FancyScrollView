@@ -5,12 +5,12 @@ namespace FancyScrollView.Example03
 {
     public class Cell : FancyScrollViewCell<ItemData, Context>
     {
-        [SerializeField] Animator animator;
-        [SerializeField] Text message;
-        [SerializeField] Text messageLarge;
-        [SerializeField] Image image;
-        [SerializeField] Image imageLarge;
-        [SerializeField] Button button;
+        [SerializeField] Animator animator = default;
+        [SerializeField] Text message = default;
+        [SerializeField] Text messageLarge = default;
+        [SerializeField] Image image = default;
+        [SerializeField] Image imageLarge = default;
+        [SerializeField] Button button = default;
 
         static class AnimatorHash
         {
