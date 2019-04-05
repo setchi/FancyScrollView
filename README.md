@@ -5,23 +5,41 @@
 ![screencast](Documents/screencast1.gif)
 ![screencast](Documents/screencast2.gif)
 
-## 導入
-Unity 2018.3 ([.NET 4.x Scripting Runtime](https://docs.unity3d.com/Manual/ScriptingRuntimeUpgrade.html)) 以降が必要です。
-このリポジトリを Clone するか、 [Asset Store](https://assetstore.unity.com/packages/tools/gui/fancyscrollview-96530) からプロジェクトにインポートしてください。
+## Requirements
+- Unity 2018.3 or later.
+- [.NET 4.x Scripting Runtime](https://docs.unity3d.com/Manual/ScriptingRuntimeUpgrade.html)
 
-## サンプル
+## Installation
+### Unity Asset Store
+Install the package in your project using the [Asset Store](https://assetstore.unity.com/packages/tools/gui/fancyscrollview-96530) page.
+
+### Unity Package Manager *(Example scenes not included)*
+Add a reference to the repository in the [`Packages\manifest.json`](https://docs.unity3d.com/Packages/com.unity.package-manager-ui@1.8/manual/index.html#project-manifests) file in your project directory:
+
+```json
+{
+  "dependencies": {
+    "jp.setchi.fancyscrollview": "https://github.com/setchi/FancyScrollView.git#upm"
+  }
+}
+```
+
+### Manual
+Clone or download this repository.
+
+## Examples
 [FancyScrollView/Examples](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples) を参照してください。
 
-| サンプル名 | 説明 |
+| Name | Description |
 |:-----------|:------------|
 |01_Basic|最もシンプルな構成の実装例です。|
 |02_FocusOn|ボタンで左右のセルにフォーカスする実装例です。|
 |03_InfiniteScroll|無限スクロールの実装例です。|
 
-## 仕組み
+## How it works
 FancyScrollView はセルの位置を更新するとき、可視領域の正規化された値を各セルに渡します。セル側では、0.0 ~ 1.0 の値に基づいてスクロールの外観を自由に制御できます。
 
-## 使い方
+## How to use
 もっともシンプルな構成では、
 
 - セルにデータを渡すためのオブジェクト
@@ -30,7 +48,7 @@ FancyScrollView はセルの位置を更新するとき、可視領域の正規�
 
 の実装が必要です。
 
-### スクリプトの実装
+### Implementation
 セルにデータを渡すためのオブジェクトを定義します。
 ```csharp
 public class ItemData
@@ -105,7 +123,7 @@ public class EntryPoint : MonoBehaviour
 }
 ```
 
-### インスペクタ上の設定
+### Settings on the Inspector
 #### My Scroll View
 | プロパティ | 説明 |
 |:-----------|:------------|
@@ -160,9 +178,6 @@ public void OnValueChanged(Action<float> callback)
 1. サンプルで使用されている `Scroller` を使うときは、 `Movement Type` を `Unrestricted` に設定することで、スクロール範囲が無制限になります。 1. と組み合わせることで無限スクロールを実現できます。
 
 実装例（[Examples/03_InfiniteScroll](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples)）が含まれていますので、こちらも参考にしてください。
-
-## 開発環境
-Unity 2018.3.6f1
 
 ## Author
 [setchi](https://github.com/setchi)
