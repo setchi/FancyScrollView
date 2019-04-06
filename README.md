@@ -39,7 +39,7 @@ Clone or download this repository.
 ## How it works
 FancyScrollView はセルの位置を更新するとき、可視領域の正規化された値を各セルに渡します。セル側では、0.0 ~ 1.0 の値に基づいてスクロールの外観を自由に制御できます。
 
-## How to use
+## Usage
 もっともシンプルな構成では、
 
 - セルにデータを渡すためのオブジェクト
