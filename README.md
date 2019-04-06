@@ -146,6 +146,7 @@ public class EntryPoint : MonoBehaviour
 |Snap - Enable|Snap を有効にする場合オンにします。|
 |Snap - Velocity Threshold|Snap がはじまる閾値となる速度を指定します。|
 |Snap - Duration|Snap 時の移動時間を秒数で指定します。|
+|Snap - Easing|Snap 時の Easing を指定します。|
 
 ## FAQ
 
