@@ -64,7 +64,7 @@ using FancyScrollView;
 
 public class MyScrollViewCell : FancyScrollViewCell<ItemData>
 {
-    [SerializeField] Text message;
+    [SerializeField] Text message = default;
 
     public override void UpdateContent(ItemData itemData)
     {
@@ -86,8 +86,8 @@ using FancyScrollView;
 
 public class MyScrollView : FancyScrollView<ItemData>
 {
-    [SerializeField] Scroller scroller;
-    [SerializeField] GameObject cellPrefab;
+    [SerializeField] Scroller scroller = default;
+    [SerializeField] GameObject cellPrefab = default;
 
     protected override GameObject CellPrefab => cellPrefab;
 
@@ -110,7 +110,7 @@ using System.Linq;
 
 public class EntryPoint : MonoBehaviour
 {
-    [SerializeField] MyScrollView myScrollView;
+    [SerializeField] MyScrollView myScrollView = default;
 
     void Start()
     {
