@@ -238,8 +238,8 @@ namespace FancyScrollView
                 return 8f * t * t * t * t;
             }
 
-			float f = (t - 1);
-			return -8 * f * f * f * f + 1;
+            float f = (t - 1);
+            return -8 * f * f * f * f + 1;
         }
 
         static float InQuint(float t)
