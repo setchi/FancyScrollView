@@ -14,7 +14,12 @@ namespace FancyScrollView
         [SerializeField] float scrollSensitivity = 1f;
         [SerializeField] bool inertia = true;
         [SerializeField] float decelerationRate = 0.03f;
-        [SerializeField] Snap snap = new Snap {Enable = true, VelocityThreshold = 0.5f, Duration = 0.3f};
+        [SerializeField] Snap snap = new Snap {
+            Enable = true,
+            VelocityThreshold = 0.5f,
+            Duration = 0.3f,
+            Easing = Easing.InOutCubic
+        };
 
         readonly AutoScrollState autoScrollState = new AutoScrollState();
 
@@ -50,13 +55,17 @@ namespace FancyScrollView
             public bool Enable;
             public float VelocityThreshold;
             public float Duration;
+            public Easing Easing;
         }
+
+        readonly static Func<float, float> defaultEasingFunction = EasingFunction.Get(Easing.OutCubic);
 
         class AutoScrollState
         {
             public bool Enable;
             public bool Elastic;
             public float Duration;
+            public Func<float, float> EasingFunction;
             public float StartTime;
             public float EndScrollPosition;
 
@@ -66,6 +75,7 @@ namespace FancyScrollView
                 Elastic = false;
                 Duration = 0f;
                 StartTime = 0f;
+                EasingFunction = defaultEasingFunction;
                 EndScrollPosition = 0f;
             }
         }
@@ -76,7 +86,11 @@ namespace FancyScrollView
 
         public void SetTotalCount(int totalCount) => this.totalCount = totalCount;
 
-        public void ScrollTo(int index, float duration)
+        public void ScrollTo(int index, float duration) => ScrollTo(index, duration, Easing.OutCubic);
+
+        public void ScrollTo(int index, float duration, Easing easing) => ScrollTo(index, duration, EasingFunction.Get(easing));
+
+        public void ScrollTo(int index, float duration, Func<float, float> easingFunction)
         {
             if (duration <= 0f)
             {
@@ -87,6 +101,7 @@ namespace FancyScrollView
             autoScrollState.Reset();
             autoScrollState.Enable = true;
             autoScrollState.Duration = duration;
+            autoScrollState.EasingFunction = easingFunction ?? defaultEasingFunction;
             autoScrollState.StartTime = Time.unscaledTime;
             autoScrollState.EndScrollPosition = CalculateDestinationIndex(index);
 
@@ -240,8 +255,8 @@ namespace FancyScrollView
                 {
                     var alpha = Mathf.Clamp01((Time.unscaledTime - autoScrollState.StartTime) /
                                               Mathf.Max(autoScrollState.Duration, float.Epsilon));
-                    position = Mathf.Lerp(dragStartScrollPosition, autoScrollState.EndScrollPosition,
-                        EaseInOutCubic(0, 1, alpha));
+                    position = Mathf.LerpUnclamped(dragStartScrollPosition, autoScrollState.EndScrollPosition,
+                        autoScrollState.EasingFunction(alpha));
 
                     if (Mathf.Approximately(alpha, 1f))
                     {
@@ -276,7 +291,7 @@ namespace FancyScrollView
 
                     if (snap.Enable && Mathf.Abs(velocity) < snap.VelocityThreshold)
                     {
-                        ScrollTo(Mathf.RoundToInt(currentScrollPosition), snap.Duration);
+                        ScrollTo(Mathf.RoundToInt(currentScrollPosition), snap.Duration, snap.Easing);
                     }
                 }
                 else
@@ -329,19 +344,5 @@ namespace FancyScrollView
         }
 
         float CircularPosition(float p, int size) => size < 1 ? 0 : p < 0 ? size - 1 + (p + 1) % size : p % size;
-
-        float EaseInOutCubic(float start, float end, float value)
-        {
-            value /= 0.5f;
-            end -= start;
-
-            if (value < 1f)
-            {
-                return end * 0.5f * value * value * value + start;
-            }
-
-            value -= 2f;
-            return end * 0.5f * (value * value * value + 2f) + start;
-        }
     }
 }

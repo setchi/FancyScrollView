@@ -159,10 +159,13 @@ protected void UpdatePosition(float position)
 ```
 サンプルで使われている `Scroller` を使う場合は、次の API を使用して `FancyScrollView` のスクロール位置を更新できます。
 ```csharp
+public void JumpTo(int index)
+```
+```csharp
 public void ScrollTo(int index, float duration)
 ```
 ```csharp
-public void JumpTo(int index)
+public void ScrollTo(int index, float duration, Easing easing)
 ```
 ```csharp
 public void OnValueChanged(Action<float> callback)
