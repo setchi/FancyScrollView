@@ -22,7 +22,7 @@ namespace FancyScrollView.Example02
                 .ToArray();
 
             scrollView.UpdateData(items);
-            scrollView.UpdateSelection(0);
+            scrollView.SelectCell(0);
         }
 
         void OnSelectionChanged(int index)

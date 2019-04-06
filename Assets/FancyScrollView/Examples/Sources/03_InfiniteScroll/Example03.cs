@@ -15,7 +15,7 @@ namespace FancyScrollView.Example03
                 .ToArray();
 
             scrollView.UpdateData(items);
-            scrollView.UpdateSelection(0);
+            scrollView.SelectCell(0);
         }
     }
 }

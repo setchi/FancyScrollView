@@ -15,13 +15,26 @@ namespace FancyScrollView.Example02
 
         void Awake()
         {
-            Context.OnCellClicked = FocusTo;
+            Context.OnCellClicked = SelectCell;
         }
 
         void Start()
         {
             scroller.OnValueChanged(UpdatePosition);
             scroller.OnSelectionChanged(UpdateSelection);
+        }
+
+        void UpdateSelection(int index)
+        {
+            if (Context.SelectedIndex == index)
+            {
+                return;
+            }
+
+            Context.SelectedIndex = index;
+            Refresh();
+
+            onSelectionChanged?.Invoke(index);
         }
 
         public void UpdateData(IList<ItemData> items)
@@ -37,31 +50,23 @@ namespace FancyScrollView.Example02
 
         public void SelectNextCell()
         {
-            FocusTo(Context.SelectedIndex + 1);
+            SelectCell(Context.SelectedIndex + 1);
         }
 
         public void SelectPrevCell()
         {
-            FocusTo(Context.SelectedIndex - 1);
+            SelectCell(Context.SelectedIndex - 1);
         }
 
-        public void FocusTo(int index)
-        {
-            UpdateSelection(index);
-            scroller.ScrollTo(index, 0.35f, Easing.OutCubic);
-        }
-
-        public void UpdateSelection(int index)
+        public void SelectCell(int index)
         {
             if (index < 0 || index >= ItemsSource.Count || index == Context.SelectedIndex)
             {
                 return;
             }
 
-            Context.SelectedIndex = index;
-            Refresh();
-
-            onSelectionChanged?.Invoke(index);
+            UpdateSelection(index);
+            scroller.ScrollTo(index, 0.35f, Easing.OutCubic);
         }
     }
 }

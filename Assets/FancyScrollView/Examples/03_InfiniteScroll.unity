@@ -660,7 +660,7 @@ MonoBehaviour:
   snap:
     Enable: 1
     VelocityThreshold: 0.5
-    Duration: 0.4
+    Duration: 0.35
     Easing: 24
 --- !u!114 &1492537701
 MonoBehaviour:
