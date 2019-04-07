@@ -1,4 +1,7 @@
-﻿// The MIT License (MIT)
+﻿// 
+// Setchi.Easings - https://github.com/setchi/Easings
+// 
+// The MIT License (MIT)
 // 
 // Copyright (c) 2019 setchi
 // 
