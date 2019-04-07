@@ -44,38 +44,38 @@ namespace FancyScrollView
         {
             switch (ease)
             {
-                case Easing.Linear: return EasingFunction.Linear;
-                case Easing.InBack: return EasingFunction.InBack;
-                case Easing.InBounce: return EasingFunction.InBounce;
-                case Easing.InCirc: return EasingFunction.InCirc;
-                case Easing.InCubic: return EasingFunction.InCubic;
-                case Easing.InElastic: return EasingFunction.InElastic;
-                case Easing.InExpo: return EasingFunction.InExpo;
-                case Easing.InQuad: return EasingFunction.InQuad;
-                case Easing.InQuart: return EasingFunction.InQuart;
-                case Easing.InQuint: return EasingFunction.InQuint;
-                case Easing.InSine: return EasingFunction.InSine;
-                case Easing.OutBack: return EasingFunction.OutBack;
-                case Easing.OutBounce: return EasingFunction.OutBounce;
-                case Easing.OutCirc: return EasingFunction.OutCirc;
-                case Easing.OutCubic: return EasingFunction.OutCubic;
-                case Easing.OutElastic: return EasingFunction.OutElastic;
-                case Easing.OutExpo: return EasingFunction.OutExpo;
-                case Easing.OutQuad: return EasingFunction.OutQuad;
-                case Easing.OutQuart: return EasingFunction.OutQuart;
-                case Easing.OutQuint: return EasingFunction.OutQuint;
-                case Easing.OutSine: return EasingFunction.OutSine;
-                case Easing.InOutBack: return EasingFunction.InOutBack;
-                case Easing.InOutBounce: return EasingFunction.InOutBounce;
-                case Easing.InOutCirc: return EasingFunction.InOutCirc;
-                case Easing.InOutCubic: return EasingFunction.InOutCubic;
-                case Easing.InOutElastic: return EasingFunction.InOutElastic;
-                case Easing.InOutExpo: return EasingFunction.InOutExpo;
-                case Easing.InOutQuad: return EasingFunction.InOutQuad;
-                case Easing.InOutQuart: return EasingFunction.InOutQuart;
-                case Easing.InOutQuint: return EasingFunction.InOutQuint;
-                case Easing.InOutSine: return EasingFunction.InOutSine;
-                default: return EasingFunction.Linear;
+                case Easing.Linear: return Linear;
+                case Easing.InBack: return InBack;
+                case Easing.InBounce: return InBounce;
+                case Easing.InCirc: return InCirc;
+                case Easing.InCubic: return InCubic;
+                case Easing.InElastic: return InElastic;
+                case Easing.InExpo: return InExpo;
+                case Easing.InQuad: return InQuad;
+                case Easing.InQuart: return InQuart;
+                case Easing.InQuint: return InQuint;
+                case Easing.InSine: return InSine;
+                case Easing.OutBack: return OutBack;
+                case Easing.OutBounce: return OutBounce;
+                case Easing.OutCirc: return OutCirc;
+                case Easing.OutCubic: return OutCubic;
+                case Easing.OutElastic: return OutElastic;
+                case Easing.OutExpo: return OutExpo;
+                case Easing.OutQuad: return OutQuad;
+                case Easing.OutQuart: return OutQuart;
+                case Easing.OutQuint: return OutQuint;
+                case Easing.OutSine: return OutSine;
+                case Easing.InOutBack: return InOutBack;
+                case Easing.InOutBounce: return InOutBounce;
+                case Easing.InOutCirc: return InOutCirc;
+                case Easing.InOutCubic: return InOutCubic;
+                case Easing.InOutElastic: return InOutElastic;
+                case Easing.InOutExpo: return InOutExpo;
+                case Easing.InOutQuad: return InOutQuad;
+                case Easing.InOutQuart: return InOutQuart;
+                case Easing.InOutQuint: return InOutQuint;
+                case Easing.InOutSine: return InOutSine;
+                default: return Linear;
             }
         }
 
