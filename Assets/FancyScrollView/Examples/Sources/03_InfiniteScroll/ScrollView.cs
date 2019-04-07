@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using EaseCore;
+using EasingCore;
 
 namespace FancyScrollView.Example03
 {

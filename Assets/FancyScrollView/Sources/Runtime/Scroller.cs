@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using EaseCore;
+using EasingCore;
 
 namespace FancyScrollView
 {
