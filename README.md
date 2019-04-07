@@ -166,7 +166,7 @@ public void JumpTo(int index)
 public void ScrollTo(int index, float duration)
 ```
 ```csharp
-public void ScrollTo(int index, float duration, Easing easing)
+public void ScrollTo(int index, float duration, Ease easing)
 ```
 ```csharp
 public void OnValueChanged(Action<float> callback)
