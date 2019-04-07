@@ -1,5 +1,5 @@
 ﻿// 
-// Setchi.Easings - https://github.com/setchi/Easings
+// EaseCore - https://github.com/setchi/EaseCore
 // 
 // The MIT License (MIT)
 // 
@@ -26,7 +26,7 @@
 using System;
 using UnityEngine;
 
-namespace Setchi.Easings
+namespace EaseCore
 {
     public enum Ease
     {
