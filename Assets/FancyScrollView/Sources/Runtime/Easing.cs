@@ -40,9 +40,9 @@ namespace FancyScrollView
 
     public static class EasingFunction
     {
-        public static Func<float, float> Get(Easing ease)
+        public static Func<float, float> Get(Easing easing)
         {
-            switch (ease)
+            switch (easing)
             {
                 case Easing.Linear: return Linear;
                 case Easing.InBack: return InBack;
@@ -97,8 +97,8 @@ namespace FancyScrollView
         static float InOutBack(float t)
         {
             return t < 0.5f
-                ? 0.5f * InBack(t * 2f)
-                : 0.5f * OutBack(t * 2f);
+                ? 0.5f * InBack(2f * t)
+                : 0.5f * OutBack(2f * t - 1f) + 0.5f;
         }
 
         static float InBounce(float t)
@@ -108,29 +108,21 @@ namespace FancyScrollView
 
         static float OutBounce(float t)
         {
-            if (t < 4f / 11.0f)
-            {
-                return (121f * t * t) / 16.0f;
-            }
-
-            if (t < 8f / 11.0f)
-            {
-                return (363f / 40.0f * t * t) - (99f / 10.0f * t) + 17f / 5.0f;
-            }
-
-            if (t < 9f / 10.0f)
-            {
-                return (4356f / 361.0f * t * t) - (35442f / 1805.0f * t) + 16061f / 1805.0f;
-            }
-
-            return (54f / 5.0f * t * t) - (513f / 25.0f * t) + 268f / 25.0f;
+            return
+                t < 4f / 11.0f ?
+                    (121f * t * t) / 16.0f :
+                t < 8f / 11.0f ?
+                    (363f / 40.0f * t * t) - (99f / 10.0f * t) + 17f / 5.0f :
+                t < 9f / 10.0f ?
+                    (4356f / 361.0f * t * t) - (35442f / 1805.0f * t) + 16061f / 1805.0f :
+                    (54f / 5.0f * t * t) - (513f / 25.0f * t) + 268f / 25.0f;
         }
 
         static float InOutBounce(float t)
         {
             return t < 0.5f
-                ? 0.5f * InBounce(t * 2f)
-                : 0.5f * OutBounce(t * 2f - 1f) + 0.5f;
+                ? 0.5f * InBounce(2f * t)
+                : 0.5f * OutBounce(2f * t - 1f) + 0.5f;
         }
 
         static float InCirc(float t)
@@ -164,7 +156,7 @@ namespace FancyScrollView
         {
             return t < 0.5f
                 ? 4f * t * t * t
-                : 0.5f * InCubic(t * 2f - 2f) + 1f;
+                : 0.5f * InCubic(2f * t - 2f) + 1f;
         }
 
         static float InElastic(float t)
@@ -210,7 +202,7 @@ namespace FancyScrollView
 
         static float OutQuad(float t)
         {
-            return -(t * (t - 2f));
+            return -t * (t - 2f);
         }
 
         static float InOutQuad(float t)
@@ -233,13 +225,9 @@ namespace FancyScrollView
 
         static float InOutQuart(float t)
         {
-            if (t < 0.5f)
-            {
-                return 8f * t * t * t * t;
-            }
-
-            float f = (t - 1);
-            return -8 * f * f * f * f + 1;
+            return t < 0.5f
+                ? 8f * InQuart(t)
+                : -8f * InQuart(t - 1f) + 1f;
         }
 
         static float InQuint(float t)
@@ -249,19 +237,14 @@ namespace FancyScrollView
 
         static float OutQuint(float t)
         {
-            var f = t - 1f;
-            return f * f * f * f * f + 1f;
+            return InQuint(t - 1f) + 1f;
         }
 
         static float InOutQuint(float t)
         {
-            if (t < 0.5f)
-            {
-                return 16f * t * t * t * t * t;
-            }
-
-            var f = ((2f * t) - 2f);
-            return 0.5f * f * f * f * f * f + 1f;
+            return t < 0.5f
+                ? 16f * InQuint(t)
+                : 0.5f * InQuint(2f * t - 2f) + 1f;
         }
 
         static float InSine(float t)
