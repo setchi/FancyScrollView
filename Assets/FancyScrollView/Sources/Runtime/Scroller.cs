@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Setchi.Easings;
 
 namespace FancyScrollView
 {
@@ -18,7 +19,7 @@ namespace FancyScrollView
             Enable = true,
             VelocityThreshold = 0.5f,
             Duration = 0.3f,
-            Easing = Easing.InOutCubic
+            Easing = Ease.InOutCubic
         };
 
         readonly AutoScrollState autoScrollState = new AutoScrollState();
@@ -55,10 +56,10 @@ namespace FancyScrollView
             public bool Enable;
             public float VelocityThreshold;
             public float Duration;
-            public Easing Easing;
+            public Ease Easing;
         }
 
-        readonly static Func<float, float> defaultEasingFunction = EasingFunction.Get(Easing.OutCubic);
+        readonly static Func<float, float> defaultEasingFunction = EasingFunction.Get(Ease.OutCubic);
 
         class AutoScrollState
         {
@@ -86,9 +87,9 @@ namespace FancyScrollView
 
         public void SetTotalCount(int totalCount) => this.totalCount = totalCount;
 
-        public void ScrollTo(int index, float duration) => ScrollTo(index, duration, Easing.OutCubic);
+        public void ScrollTo(int index, float duration) => ScrollTo(index, duration, Ease.OutCubic);
 
-        public void ScrollTo(int index, float duration, Easing easing) => ScrollTo(index, duration, EasingFunction.Get(easing));
+        public void ScrollTo(int index, float duration, Ease easing) => ScrollTo(index, duration, EasingFunction.Get(easing));
 
         public void ScrollTo(int index, float duration, Func<float, float> easingFunction)
         {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Setchi.Easings;
 
 namespace FancyScrollView.Example02
 {
@@ -66,7 +67,7 @@ namespace FancyScrollView.Example02
             }
 
             UpdateSelection(index);
-            scroller.ScrollTo(index, 0.35f, Easing.OutCubic);
+            scroller.ScrollTo(index, 0.35f, Ease.OutCubic);
         }
     }
 }
