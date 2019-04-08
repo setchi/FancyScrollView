@@ -123,13 +123,14 @@ public class EntryPoint : MonoBehaviour
 }
 ```
 
-## `FancyScrollView<TItemData, TContext>`
+## API
+### `FancyScrollView<TItemData, TContext>`
 ```csharp
 public abstract class FancyScrollView<TItemData, TContext>
     : MonoBehaviour where TContext : class, new()
 ```
 
-### Inspector
+#### Inspector
 | Type | Name | Summary |
 |:-----------|:------------|:------------|
 |`float`|Cell Spacing|セル同士の間隔を float.Epsilon ~ 1.0 の間で指定します.|
@@ -138,34 +139,34 @@ public abstract class FancyScrollView<TItemData, TContext>
 |`GameObject`|Cell Prefab|セルの Prefab を指定します.|
 |`Transform`|Cell Container|セルの親要素となる Transform を指定します. |
 
-### Properties
+#### Properties
 | Type | Name | Summary |
 |:-----------|:------------|:------------|
 |`GameObject`|CellPrefab|Cell prefab.|
 |`IList<TItemData>`|ItemsSource|Items source.|
 |`TContext`|Context|Context.|
 
-### Methods
+#### Methods
 | Type | Name | Summary |
 |:-----------|:------------|:------------|
 |`void`|UpdateContents(`IList<TItemData>` itemsSource)|Updates the contents.|
 |`void`|Refresh()|Refreshes the cells.|
 |`void`|UpdatePosition(`float` position)|Updates the scroll position.|
 
-## `FancyScrollViewCell<TItemData, TContext>`
+### `FancyScrollViewCell<TItemData, TContext>`
 ```csharp
 public abstract class FancyScrollViewCell<TItemData, TContext>
     : MonoBehaviour where TContext : class, new()
 ```
 
-### Properties
+#### Properties
 | Type | Name | Summary |
 |:-----------|:------------|:------------|
-|`int`|Index|Gets or sets the index of the data..|
+|`int`|Index|Gets or sets the index of the data.|
 |`bool`|IsVisible|Gets a value indicating whether this cell is visible.|
 |`TContext`|Context|Context.|
 
-### Methods
+#### Methods
 | Type | Name | Summary |
 |:-----------|:------------|:------------|
 |`void`|SetupContext(`TContext` context)|Setup the context.|
@@ -173,14 +174,13 @@ public abstract class FancyScrollViewCell<TItemData, TContext>
 |`void`|UpdateContent(`TItemData` itemData)|Updates the content.|
 |`void`|UpdatePosition(`float` position)|Updates the position.|
 
-
-## `Scroller`
+### `Scroller`
 ```csharp
 public class Scroller
     : UIBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
 ```
 
-### Inspector
+#### Inspector
 | Type | Name | Summary |
 |:-----------|:------------|:------------|
 |`RectTransform`|Viewport|ビューポートとなる RectTransform を指定します.ここで指定された RectTransform の範囲内でジェスチャーの検出を行います.|
@@ -195,7 +195,7 @@ public class Scroller
 |`float`|Snap.Duration|Snap 時の移動時間を秒数で指定します.|
 |`Ease`|Snap.Easing|Snap 時の Easing を指定します.|
 
-### Methods
+#### Methods
 | Type | Name | Summary |
 |:-----------|:------------|:------------|
 |`void`|OnValueChanged(`Action<float>` callback)|スクロール位置が更新された時に呼び出されるコールバックを設定します.|
