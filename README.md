@@ -14,10 +14,10 @@ FancyScrollView はセルの位置を更新するとき、可視領域の正規�
 
 ## Installation
 ### Unity Asset Store
-- Install the package in your project using the [Asset Store](https://assetstore.unity.com/packages/tools/gui/fancyscrollview-96530) page.
+Install the package in your project using the [Asset Store](https://assetstore.unity.com/packages/tools/gui/fancyscrollview-96530) page.
 
 ### Unity Package Manager *(Example scenes not included)*
-- Add a reference to the repository in the [`Packages\manifest.json`](https://docs.unity3d.com/Packages/com.unity.package-manager-ui@1.8/manual/index.html#project-manifests) file in your project directory:
+Add a reference to the repository in the [`Packages\manifest.json`](https://docs.unity3d.com/Packages/com.unity.package-manager-ui@1.8/manual/index.html#project-manifests) file in your project directory:
 
 ```json
 {
@@ -28,7 +28,7 @@ FancyScrollView はセルの位置を更新するとき、可視領域の正規�
 ```
 
 ### Manual
-- Clone or download this repository.
+Clone or download this repository.
 
 ## Examples
 [FancyScrollView/Examples](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples) を参照してください。
@@ -43,23 +43,23 @@ FancyScrollView はセルの位置を更新するとき、可視領域の正規�
 
 > データ件数がパフォーマンスに与える影響は？
 
-- セルはリサイクルされ、表示に必要なセル数のみが生成されるため、データ件数がパフォーマンスに与える影響はわずかです。セル間のスペース（同時に存在するセルの数）とセルの演出は、データ件数よりもパフォーマンスに大きな影響を与えます。
+セルはリサイクルされ、表示に必要なセル数のみが生成されるため、データ件数がパフォーマンスに与える影響はわずかです。セル間のスペース（同時に存在するセルの数）とセルの演出は、データ件数よりもパフォーマンスに大きな影響を与えます。
 
 > 自分でスクロール位置を制御できる？
 
-- スクロール位置は自由に制御できます。サンプルで使用されている `Scroller` を使わずにあなた自身の実装で全く違った振る舞いをさせることもできます。
+スクロール位置は自由に制御できます。サンプルで使用されている `Scroller` を使わずにあなた自身の実装で全く違った振る舞いをさせることもできます。
 
 > セル内で発火したイベントを受け取れる？
 
-- セル内で発生したあらゆるイベントをハンドリングできます。 `Context` を使用してセル - スクロールビュー間でメッセージのやり取りをする実装例（[Examples/02_FocusOn](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples/Source/02_FocusOn)）が含まれていますので、参考にして実装してください。
+セル内で発生したあらゆるイベントをハンドリングできます。 `Context` を使用してセル - スクロールビュー間でメッセージのやり取りをする実装例（[Examples/02_FocusOn](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples/Source/02_FocusOn)）が含まれていますので、参考にして実装してください。
 
 > セルを無限スクロール（ループ）できる？
 
-- 無限スクロールをサポートしています。Inspector 上での設定が必要です。
-    1. `FancyScrollView` の `Loop` をオンにするとセルが循環し、最初のセルの前に最後のセル、最後のセルの後に最初のセルが並ぶようになります。
-    1. サンプルで使用されている `Scroller` を使うときは、 `Movement Type` を `Unrestricted` に設定することで、スクロール範囲が無制限になります。 1. と組み合わせることで無限スクロールを実現できます。
+無限スクロールをサポートしています。Inspector 上での設定が必要です。
+1. `FancyScrollView` の `Loop` をオンにするとセルが循環し、最初のセルの前に最後のセル、最後のセルの後に最初のセルが並ぶようになります。
+1. サンプルで使用されている `Scroller` を使うときは、 `Movement Type` を `Unrestricted` に設定することで、スクロール範囲が無制限になります。 1. と組み合わせることで無限スクロールを実現できます。
 
-    実装例（[Examples/03_InfiniteScroll](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples)）が含まれていますので、こちらも参考にしてください。
+実装例（[Examples/03_InfiniteScroll](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples)）が含まれていますので、こちらも参考にしてください。
 
 ## Usage
 もっともシンプルな構成では、
@@ -145,7 +145,9 @@ public class EntryPoint : MonoBehaviour
 }
 ```
 
-## API
+---
+
+## API Reference
 ### `FancyScrollView<TItemData, TContext>`
 セルを制御するスクロールビューの基底クラスです。
 ```csharp
@@ -240,6 +242,8 @@ public class Scroller
 |`void`|`ScrollTo(int index, float duration)`|指定したセルまでスクロールします.|
 |`void`|`ScrollTo(int index, float duration, Ease easing)`|指定したセルまでスクロールします.|
 |`void`|`ScrollTo(int index, float duration, Func<float, float> easingFunction)`|指定したセルまでスクロールします.|
+
+---
 
 ## Author
 [setchi](https://github.com/setchi)
