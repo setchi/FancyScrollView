@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace FancyScrollView
@@ -48,7 +49,7 @@ namespace FancyScrollView
             var firstIndex = Mathf.CeilToInt(p);
             var firstPosition = (Mathf.Ceil(p) - p) * cellSpacing;
 
-            if (firstPosition + pool.Count * cellSpacing <= 1f)
+            if (firstPosition + pool.Count * cellSpacing < 1f)
             {
                 ResizePool(firstPosition);
             }
@@ -60,7 +61,7 @@ namespace FancyScrollView
         {
             if (CellPrefab == null)
             {
-                throw new System.NullReferenceException(nameof(CellPrefab));
+                throw new NullReferenceException(nameof(CellPrefab));
             }
 
             if (cellContainer == null)
@@ -71,8 +72,7 @@ namespace FancyScrollView
             var addCount = Mathf.CeilToInt((1f - firstPosition) / cellSpacing) - pool.Count;
             for (var i = 0; i < addCount; i++)
             {
-                var cell = Instantiate(CellPrefab, cellContainer)
-                    .GetComponent<FancyScrollViewCell<TItemData, TContext>>();
+                var cell = Instantiate(CellPrefab, cellContainer).GetComponent<FancyScrollViewCell<TItemData, TContext>>();
                 if (cell == null)
                 {
                     throw new MissingComponentException(
@@ -94,7 +94,11 @@ namespace FancyScrollView
                 var position = firstPosition + i * cellSpacing;
                 var cell = pool[CircularIndex(index, pool.Count)];
 
-                index = loop ? CircularIndex(index, ItemsSource.Count) : index;
+                if (loop)
+                {
+                    index = CircularIndex(index, ItemsSource.Count);
+                }
+
                 if (index < 0 || index >= ItemsSource.Count || position > 1f)
                 {
                     cell.SetVisible(false);
@@ -108,10 +112,7 @@ namespace FancyScrollView
                     cell.UpdateContent(ItemsSource[index]);
                 }
 
-                if (cell.gameObject.activeSelf)
-                {
-                    cell.UpdatePosition(position);
-                }
+                cell.UpdatePosition(position);
             }
         }
 
