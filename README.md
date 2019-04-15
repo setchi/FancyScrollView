@@ -1,12 +1,12 @@
 # FancyScrollView [![license](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square)](https://github.com/setchi/FancyScrollView/blob/master/LICENSE)
-高度に柔軟なアニメーションを実装できる汎用のScrollViewコンポーネントです。 無限スクロールもサポートしています。[English](https://translate.google.com/translate?sl=ja&tl=en&u=https://github.com/setchi/FancyScrollView) (by Google Translate)
+
+[English](https://translate.google.com/translate?sl=ja&tl=en&u=https://github.com/setchi/FancyScrollView) (by Google Translate)
+
+高度に柔軟なアニメーションを実装できる汎用の ScrollView コンポーネントです。 無限スクロールもサポートしています。
 
 ![screencast](Documents/logo.png)
 ![screencast](Documents/screencast1.gif)
 ![screencast](Documents/screencast2.gif)
-
-## How it works
-FancyScrollView はセルの位置を更新するとき、可視領域の正規化された値を各セルに渡します。セル側では、0.0 ~ 1.0 の値に基づいてスクロールの外観を自由に制御できます。
 
 ## Requirements
 - Unity 2018.3 or later.
@@ -14,10 +14,10 @@ FancyScrollView はセルの位置を更新するとき、可視領域の正規�
 
 ## Installation
 ### Unity Asset Store
-Install the package in your project using the [Asset Store](https://assetstore.unity.com/packages/tools/gui/fancyscrollview-96530) page.
+[Asset Store](https://assetstore.unity.com/packages/tools/gui/fancyscrollview-96530) からパッケージをプロジェクトにインストールします。
 
 ### Unity Package Manager *(Example scenes not included)*
-Add a reference to the repository in the [`Packages\manifest.json`](https://docs.unity3d.com/Packages/com.unity.package-manager-ui@1.8/manual/index.html#project-manifests) file in your project directory:
+プロジェクトディレクトリの [`Packages/manifest.json`](https://docs.unity3d.com/Packages/com.unity.package-manager-ui@1.8/manual/index.html#project-manifests) ファイルにリポジトリへの参照を追加します。
 
 ```json
 {
@@ -28,7 +28,33 @@ Add a reference to the repository in the [`Packages\manifest.json`](https://docs
 ```
 
 ### Manual
-Clone or download this repository.
+このリポジトリを Clone または Download します。
+
+## Features
+### 自由にスクロールアニメーションを実装できます
+FancyScrollView はセルの位置を更新するとき、可視領域の正規化された値を各セルに渡します。セル側では、0.0 ~ 1.0 の値に基づいてスクロールの外観を自由に制御できます。サンプルでは Animator を使用してセルの動きを制御しています。
+
+### データ件数が多くても軽快に動作します
+表示に必要なセル数のみが生成され、セルは再利用されます。
+
+### セルとスクロールビュー間で自由にメッセージのやりとりができます
+`Context` 経由で、セルがクリックされたことをスクロールビューで検知したり、スクロールビューからセルに指示を出す処理がシンプルに実装できます。実装例（[Examples/02_FocusOn](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples/Sources/02_FocusOn)）が含まれていますので、参考にしてください。
+
+### 特定のセルにスクロールやジャンプができます
+移動にかける秒数や Easing の指定もできます。詳しくは API Reference の [Scroller - Methods](https://github.com/setchi/FancyScrollView/blob/master/README.md#methods-2) を参照してください。
+
+### スクロールの挙動を細かく設定できます
+慣性の有無、減速率などスクロールに関する挙動の設定ができます。詳しくは API Reference の [Scroller - Inspector](https://github.com/setchi/FancyScrollView/blob/master/README.md#inspector-1) を参照してください。
+
+### スナップをサポートしています
+スナップを有効にすると、スクロールが止まる直前に最寄りのセルへ移動します。スナップがはじまる速度のしきい値、移動にかける秒数、 Easing を指定できます。
+
+### 無限スクロールをサポートしています
+Inspector で下記の設定をすることで無限スクロールを実装できます。
+1. `FancyScrollView` の `Loop` をオンにするとセルが循環し、先頭のセルの前に末尾のセル、末尾のセルの後に先頭のセルが並ぶようになります。
+1. サンプルで使用されている `Scroller` を使うときは、 `Movement Type` を `Unrestricted` に設定することで、スクロール範囲が無制限になります。 1. と組み合わせることで無限スクロールを実現できます。
+
+実装例（[Examples/03_InfiniteScroll](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples)）が含まれていますので、こちらも参考にしてください。
 
 ## Examples
 [FancyScrollView/Examples](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples) を参照してください。
@@ -38,28 +64,6 @@ Clone or download this repository.
 |01_Basic|最もシンプルな構成の実装例です。|
 |02_FocusOn|ボタンで左右のセルにフォーカスする実装例です。|
 |03_InfiniteScroll|無限スクロールの実装例です。|
-
-## FAQ
-
-> データ件数がパフォーマンスに与える影響は？
-
-セルはリサイクルされ、表示に必要なセル数のみが生成されるため、データ件数がパフォーマンスに与える影響はわずかです。セル間のスペース（同時に存在するセルの数）とセルの演出は、データ件数よりもパフォーマンスに大きな影響を与えます。
-
-> 自分でスクロール位置を制御できる？
-
-スクロール位置は自由に制御できます。サンプルで使用されている `Scroller` を使わずにあなた自身の実装で全く違った振る舞いをさせることもできます。
-
-> セル内で発火したイベントを受け取れる？
-
-セル内で発生したあらゆるイベントをハンドリングできます。 `Context` を使用してセル - スクロールビュー間でメッセージのやり取りをする実装例（[Examples/02_FocusOn](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples/Source/02_FocusOn)）が含まれていますので、参考にして実装してください。
-
-> セルを無限スクロール（ループ）できる？
-
-無限スクロールをサポートしています。Inspector 上での設定が必要です。
-1. `FancyScrollView` の `Loop` をオンにするとセルが循環し、最初のセルの前に最後のセル、最後のセルの後に最初のセルが並ぶようになります。
-1. サンプルで使用されている `Scroller` を使うときは、 `Movement Type` を `Unrestricted` に設定することで、スクロール範囲が無制限になります。 1. と組み合わせることで無限スクロールを実現できます。
-
-実装例（[Examples/03_InfiniteScroll](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples)）が含まれていますので、こちらも参考にしてください。
 
 ## Usage
 もっともシンプルな構成では、
@@ -149,7 +153,7 @@ public class EntryPoint : MonoBehaviour
 
 ## API Reference
 ### `FancyScrollView<TItemData, TContext>`
-セルを制御するスクロールビューの基底クラスです。
+セルを制御するスクロールビューの抽象基底クラスです。
 ```csharp
 public abstract class FancyScrollView<TItemData, TContext>
     : MonoBehaviour where TContext : class, new()
@@ -184,7 +188,7 @@ public abstract class FancyScrollView<TItemData>
 
 ---
 ### `FancyScrollViewCell<TItemData, TContext>`
-セルの基底クラスです。
+セルの抽象基底クラスです。
 ```csharp
 public abstract class FancyScrollViewCell<TItemData, TContext>
     : MonoBehaviour where TContext : class, new()
