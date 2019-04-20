@@ -240,12 +240,13 @@ public class Scroller
 #### Methods
 | Type | Name | Summary |
 |:-----------|:------------|:------------|
-|`void`|`OnValueChanged(Action<float> callback)`|スクロール位置が変化したときに呼び出されるコールバックを設定します.|
-|`void`|`OnSelectionChanged(Action<int> callback)`|選択セルが変化したときに呼び出されるコールバックを設定します.|
+|`void`|`OnValueChanged(Action<float> callback)`|スクロール位置が変化したときのコールバックを設定します.|
+|`void`|`OnSelectionChanged(Action<int> callback)`|選択セルが変化したときのコールバックを設定します.|
 |`void`|`JumpTo(int index)`|指定したセルまでジャンプします.|
 |`void`|`ScrollTo(int index, float duration)`|指定したセルまでスクロールします.|
 |`void`|`ScrollTo(int index, float duration, Ease easing)`|指定したセルまでスクロールします.|
 |`void`|`ScrollTo(int index, float duration, Func<float, float> easingFunction)`|指定したセルまでスクロールします.|
+|`void`|`SetTotalCount(int totalCount)`|アイテムの総数を設定します. ( index: 0 ~ totalCount - 1 )|
 
 ---
 
