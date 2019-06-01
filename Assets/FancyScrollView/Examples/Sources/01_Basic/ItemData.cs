@@ -2,6 +2,11 @@
 {
     public class ItemData
     {
-        public string Message;
+        public string Message { get; }
+
+        public ItemData(string message)
+        {
+            Message = message;
+        }
     }
 }
