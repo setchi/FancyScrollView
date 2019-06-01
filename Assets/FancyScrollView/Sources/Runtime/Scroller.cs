@@ -70,6 +70,8 @@ namespace FancyScrollView
             public float StartTime;
             public float EndScrollPosition;
 
+            public Action OnComplete;
+
             public void Reset()
             {
                 Enable = false;
@@ -78,6 +80,13 @@ namespace FancyScrollView
                 StartTime = 0f;
                 EasingFunction = defaultEasingFunction;
                 EndScrollPosition = 0f;
+                OnComplete = null;
+            }
+
+            public void Complete()
+            {
+                OnComplete?.Invoke();
+                Reset();
             }
         }
 
@@ -87,11 +96,11 @@ namespace FancyScrollView
 
         public void SetTotalCount(int totalCount) => this.totalCount = totalCount;
 
-        public void ScrollTo(int index, float duration) => ScrollTo(index, duration, Ease.OutCubic);
+        public void ScrollTo(int index, float duration, Action onComplete = null) => ScrollTo(index, duration, Ease.OutCubic, onComplete);
 
-        public void ScrollTo(int index, float duration, Ease easing) => ScrollTo(index, duration, EasingFunction.Get(easing));
+        public void ScrollTo(int index, float duration, Ease easing, Action onComplete = null) => ScrollTo(index, duration, EasingFunction.Get(easing), onComplete);
 
-        public void ScrollTo(int index, float duration, Func<float, float> easingFunction)
+        public void ScrollTo(int index, float duration, Func<float, float> easingFunction, Action onComplete = null)
         {
             if (duration <= 0f)
             {
@@ -105,6 +114,7 @@ namespace FancyScrollView
             autoScrollState.EasingFunction = easingFunction ?? defaultEasingFunction;
             autoScrollState.StartTime = Time.unscaledTime;
             autoScrollState.EndScrollPosition = CalculateDestinationIndex(index);
+            autoScrollState.OnComplete = onComplete;
 
             velocity = 0f;
             dragStartScrollPosition = currentScrollPosition;
@@ -249,7 +259,7 @@ namespace FancyScrollView
                     {
                         position = Mathf.Clamp(Mathf.RoundToInt(position), 0, totalCount - 1);
                         velocity = 0f;
-                        autoScrollState.Reset();
+                        autoScrollState.Complete();
                     }
                 }
                 else
@@ -261,7 +271,7 @@ namespace FancyScrollView
 
                     if (Mathf.Approximately(alpha, 1f))
                     {
-                        autoScrollState.Reset();
+                        autoScrollState.Complete();
                     }
                 }
 
