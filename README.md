@@ -79,7 +79,12 @@ Inspector で下記の設定をすることで無限スクロールを実装で�
 ```csharp
 public class ItemData
 {
-    public string Message;
+    public string Message { get; }
+
+    public ItemData(string message)
+    {
+        Message = message;
+    }
 }
 ```
 `FancyScrollViewCell<TItemData>` を継承して自分のセルを実装します。
@@ -141,7 +146,7 @@ public class EntryPoint : MonoBehaviour
     void Start()
     {
         var items = Enumerable.Range(0, 20)
-            .Select(i => new ItemData {Message = $"Cell {i}"})
+            .Select(i => new ItemData($"Cell {i}"))
             .ToArray();
 
         myScrollView.UpdateData(items);
