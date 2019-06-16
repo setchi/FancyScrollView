@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/FancyScrollView/Examples/03_InfiniteScroll.unity
     guid: 22d1be941599faf45b04ab4c6a2def09
+  - enabled: 1
+    path: Assets/FancyScrollView/Examples/04_Metaball.unity
+    guid: 4f0f25a90e2674f75a24f6ea541c0a6c
+  - enabled: 1
+    path: Assets/FancyScrollView/Examples/05_Voronoi.unity
+    guid: 9f4081131e0754ae184f905e3d995a98
   m_configObjects: {}

@@ -18,6 +18,8 @@ namespace FancyScrollView
             "01_Basic",
             "02_FocusOn",
             "03_InfiniteScroll",
+            "04_Metaball",
+            "05_Voronoi",
         };
 
         void Awake() => dropdown = GetComponent<Dropdown>();

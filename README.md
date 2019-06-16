@@ -4,9 +4,11 @@
 
 高度に柔軟なアニメーションを実装できる汎用の ScrollView コンポーネントです。 無限スクロールもサポートしています。
 
-![screencast](Documents/logo.png)
-![screencast](Documents/screencast1.gif)
-![screencast](Documents/screencast2.gif)
+![screencast](https://user-images.githubusercontent.com/8326814/59548501-5fae5f00-8f8b-11e9-9740-c98afd9aa785.png)
+<img src="https://user-images.githubusercontent.com/8326814/59548448-a3549900-8f8a-11e9-9a27-b04f1410a7b5.gif" width="320">
+<img src="https://user-images.githubusercontent.com/8326814/59548462-b8c9c300-8f8a-11e9-8985-5f1c2e610309.gif" width="320">
+<img src="https://user-images.githubusercontent.com/8326814/59550410-7f528100-8fa5-11e9-8f1b-41e59b645571.gif" width="320">
+<img src="https://user-images.githubusercontent.com/8326814/59550411-7f528100-8fa5-11e9-8bfb-bd42da47f7a0.gif" width="320">
 
 ## Requirements
 - Unity 2018.3 or later.
