@@ -40,7 +40,7 @@ float linework(float2 st)
 {
     float a = atan2(st.y, st.x);
     float d = noise(float2(a * 120, 0)) + (smoothstep(300, 50, length(st)));
-    return saturate(d);
+    return 1. - saturate(d);
 }
 
 float4 voronoi(float2 st)
@@ -75,10 +75,8 @@ float4 voronoi(float2 st)
     float3 color = 1;
     float dataIndex = _CellState[cellIndex].z;
     color = hue_to_rgb(dataIndex * 0.1) + 0.1;
-    color = lerp(color, lerp(0, color, linework(st - cellPos)), _CellState[cellIndex].w);
-    color = lerp(color,
-                 hue_to_rgb(cellIndex * 0.1) * 0.6,
-                 step(CELL_COUNT, cellIndex));
+    color = lerp(color, 0, linework(st - cellPos) * _CellState[cellIndex].w);
+    color = lerp(color, hue_to_rgb(cellIndex * 0.1) * 0.6, step(CELL_COUNT, cellIndex));
 
     float border = smoothstep(0, 13, dist);
     color = lerp(0.1, color, smoothstep(0.8 - 0.07, 0.8, border));
