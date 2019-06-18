@@ -16,13 +16,13 @@ namespace FancyScrollView.Example05
         // xy = cell position, z = data index, w = select animation
         public Vector4[] CellState = new Vector4[1];
 
-        public void SetCellState(int cellIndex, int dataIndex, Vector2 position, float selectAnimation)
+        public void SetCellState(int cellIndex, int dataIndex, float x, float y, float selectAnimation)
         {
             var size = cellIndex + 1;
             ResizeIfNeeded(ref CellState, size);
 
-            CellState[cellIndex].x = position.x;
-            CellState[cellIndex].y = position.y;
+            CellState[cellIndex].x = x;
+            CellState[cellIndex].y = y;
             CellState[cellIndex].z = dataIndex;
             CellState[cellIndex].w = selectAnimation;
         }

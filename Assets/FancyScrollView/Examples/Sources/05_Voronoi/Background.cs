@@ -25,23 +25,16 @@ namespace FancyScrollView.Example05
 
         void LateUpdate()
         {
-            background.material.SetVector(ShaderID.Resolution, rectTransform.rect.size);
-            background.material.SetVectorArray(
-                ShaderID.CellState,
-                scrollView.GetCellState().Concat(GetCorners()).ToArray()
-            );
-        }
-
-        Vector4[] GetCorners()
-        {
             var rect = rectTransform.rect.size * 0.5f;
-            return new[]
-            {
-                new Vector4( rect.x, -rect.y * 1.3f, -1, 0),
-                new Vector4(-rect.x,  rect.y * 1.3f, -1, 0),
-                new Vector4(-rect.x, -rect.y * 1.3f, -1, 0),
-                new Vector4( rect.x,  rect.y * 1.3f, -1, 0),
-            };
+            var offset = scrollView.CellInstanceCount;
+
+            scrollView.SetCellState(offset + 0, -1,  rect.x, -rect.y * 1.3f, 0f);
+            scrollView.SetCellState(offset + 1, -1, -rect.x,  rect.y * 1.3f, 0f);
+            scrollView.SetCellState(offset + 2, -1, -rect.x, -rect.y * 1.3f, 0f);
+            scrollView.SetCellState(offset + 3, -1,  rect.x,  rect.y * 1.3f, 0f);
+
+            background.material.SetVector(ShaderID.Resolution, rectTransform.rect.size);
+            background.material.SetVectorArray(ShaderID.CellState, scrollView.GetCellState());
         }
 
         void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
@@ -59,7 +52,6 @@ namespace FancyScrollView.Example05
             );
 
             var cellState = scrollView.GetCellState()
-                .Concat(GetCorners())
                 .Select((s, i) => (
                     index: i,
                     dataIndex: Mathf.RoundToInt(s.z),

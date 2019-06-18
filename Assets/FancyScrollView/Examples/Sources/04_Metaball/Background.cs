@@ -26,19 +26,13 @@ namespace FancyScrollView.Example04
 
         void LateUpdate()
         {
-            background.material.SetVector(ShaderID.Resolution, rectTransform.rect.size);
-            background.material.SetVectorArray(
-                ShaderID.CellState,
-                scrollView.GetCellState().Concat(GetObjects()).ToArray());
-        }
+            var offset = scrollView.CellInstanceCount;
 
-        Vector4[] GetObjects()
-        {
-            return new[]
-            {
-                new Vector4( 500, -330 + Mathf.Sin(Time.time) * 60, -1, 2.5f),
-                new Vector4(-500, -330 + Mathf.Sin(Time.time) * 60, -1, 2.5f)
-            };
+            scrollView.SetCellState(offset + 0, -1,  500, -330 + Mathf.Sin(Time.time) * 60, 2.5f);
+            scrollView.SetCellState(offset + 1, -1, -500, -330 + Mathf.Sin(Time.time) * 60, 2.5f);
+
+            background.material.SetVector(ShaderID.Resolution, rectTransform.rect.size);
+            background.material.SetVectorArray(ShaderID.CellState, scrollView.GetCellState());
         }
 
         bool MetaballContains(Vector2 p, IEnumerable<Vector4> cellState)
@@ -65,12 +59,13 @@ namespace FancyScrollView.Example04
             );
 
             var cellState = scrollView.GetCellState();
-            if (!MetaballContains(clickPosition, cellState.Concat(GetObjects())))
+            if (!MetaballContains(clickPosition, cellState))
             {
                 return;
             }
 
             var dataIndex = cellState
+                .Take(scrollView.CellInstanceCount)
                 .Select(s => (
                     index: Mathf.RoundToInt(s.z),
                     distance: (new Vector2(s.x, s.y) - clickPosition).sqrMagnitude

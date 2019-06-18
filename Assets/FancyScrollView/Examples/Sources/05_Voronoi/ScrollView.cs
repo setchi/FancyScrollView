@@ -14,6 +14,8 @@ namespace FancyScrollView.Example05
 
         protected override GameObject CellPrefab => cellPrefab;
 
+        public int CellInstanceCount => Mathf.CeilToInt(1f / Mathf.Max(cellSpacing, 1e-3f));
+
         void Awake()
         {
             Context.OnCellClicked = SelectCell;
@@ -74,6 +76,11 @@ namespace FancyScrollView.Example05
         {
             Context.UpdateCellState?.Invoke();
             return Context.CellState;
+        }
+
+        public void SetCellState(int cellIndex, int dataIndex, float x, float y, float selectAnimation)
+        {
+            Context.SetCellState(cellIndex, dataIndex, x, y, selectAnimation);
         }
     }
 }

@@ -56,7 +56,7 @@ namespace FancyScrollView.Example05
                     ? this.position + GetFluctuation()
                     : Vector3.left * rectTransform.rect.size.x * 10f;
 
-                Context.SetCellState(siblingIndex, Index, position, selectAnimation);
+                Context.SetCellState(siblingIndex, Index, position.x, position.y, selectAnimation);
             };
         }
 
