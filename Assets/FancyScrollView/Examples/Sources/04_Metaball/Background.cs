@@ -35,7 +35,7 @@ namespace FancyScrollView.Example04
             background.material.SetVectorArray(ShaderID.CellState, scrollView.GetCellState());
         }
 
-        bool MetaballContains(Vector2 p, IEnumerable<Vector4> cellState)
+        bool MetaballContains(Vector2 p, Vector4[] cellState)
         {
             float f(Vector2 v) => 1f / (v.x * v.x + v.y * v.y + 0.0001f);
 
