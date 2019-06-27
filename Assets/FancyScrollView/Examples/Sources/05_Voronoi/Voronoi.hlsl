@@ -39,7 +39,7 @@ float noise(float2 st)
 float linework(float2 st)
 {
     float a = atan2(st.y, st.x);
-    float d = noise(float2(a * 120, 0)) + (smoothstep(300, 50, length(st)));
+    float d = noise(float2(a * 120, 0)) + smoothstep(300, 50, length(st));
     return 1. - saturate(d);
 }
 
