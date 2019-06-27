@@ -1,7 +1,7 @@
 ﻿#ifndef GALLERY_VORONOI_HLSL_INCLUDED
 #define GALLERY_VORONOI_HLSL_INCLUDED
 
-#define CELL_COUNT  7 // CeilToInt(1f / cellSpacing)
+#define CELL_COUNT  7 // CeilToInt(1f / cellInterval)
 #define DATA_COUNT 11 // CELL_COUNT + 4(four corners)
 
 // xy = cell position, z = data index, w = select animation

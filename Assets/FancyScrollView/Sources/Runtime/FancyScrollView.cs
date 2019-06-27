@@ -6,7 +6,7 @@ namespace FancyScrollView
 {
     public abstract class FancyScrollView<TItemData, TContext> : MonoBehaviour where TContext : class, new()
     {
-        [SerializeField, Range(float.Epsilon, 1f)] protected float cellSpacing = 0.2f;
+        [SerializeField, Range(float.Epsilon, 1f)] protected float cellInterval = 0.2f;
         [SerializeField, Range(0f, 1f)] protected float scrollOffset = 0.5f;
         [SerializeField] protected bool loop = false;
         [SerializeField] protected Transform cellContainer = default;
@@ -45,11 +45,11 @@ namespace FancyScrollView
         {
             currentPosition = position;
 
-            var p = position - scrollOffset / cellSpacing;
+            var p = position - scrollOffset / cellInterval;
             var firstIndex = Mathf.CeilToInt(p);
-            var firstPosition = (Mathf.Ceil(p) - p) * cellSpacing;
+            var firstPosition = (Mathf.Ceil(p) - p) * cellInterval;
 
-            if (firstPosition + pool.Count * cellSpacing < 1f)
+            if (firstPosition + pool.Count * cellInterval < 1f)
             {
                 ResizePool(firstPosition);
             }
@@ -69,7 +69,7 @@ namespace FancyScrollView
                 throw new MissingComponentException(nameof(cellContainer));
             }
 
-            var addCount = Mathf.CeilToInt((1f - firstPosition) / cellSpacing) - pool.Count;
+            var addCount = Mathf.CeilToInt((1f - firstPosition) / cellInterval) - pool.Count;
             for (var i = 0; i < addCount; i++)
             {
                 var cell = Instantiate(CellPrefab, cellContainer).GetComponent<FancyScrollViewCell<TItemData, TContext>>();
@@ -91,7 +91,7 @@ namespace FancyScrollView
             for (var i = 0; i < pool.Count; i++)
             {
                 var index = firstIndex + i;
-                var position = firstPosition + i * cellSpacing;
+                var position = firstPosition + i * cellInterval;
                 var cell = pool[CircularIndex(index, pool.Count)];
 
                 if (loop)
@@ -120,14 +120,14 @@ namespace FancyScrollView
 
 #if UNITY_EDITOR
         bool cachedLoop;
-        float cachedCellSpacing, cachedScrollOffset;
+        float cachedCellInterval, cachedScrollOffset;
 
         void LateUpdate()
         {
-            if (cachedLoop != loop || cachedCellSpacing != cellSpacing || cachedScrollOffset != scrollOffset)
+            if (cachedLoop != loop || cachedCellInterval != cellInterval || cachedScrollOffset != scrollOffset)
             {
                 cachedLoop = loop;
-                cachedCellSpacing = cellSpacing;
+                cachedCellInterval = cellInterval;
                 cachedScrollOffset = scrollOffset;
 
                 UpdatePosition(currentPosition);

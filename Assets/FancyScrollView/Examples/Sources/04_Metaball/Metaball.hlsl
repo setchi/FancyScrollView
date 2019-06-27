@@ -1,7 +1,7 @@
 ﻿#ifndef GALLERY_METABALL_HLSL_INCLUDED
 #define GALLERY_METABALL_HLSL_INCLUDED
 
-#define CELL_COUNT 5 // CeilToInt(1f / cellSpacing)
+#define CELL_COUNT 5 // CeilToInt(1f / cellInterval)
 #define DATA_COUNT 7 // CELL_COUNT + 2(objects)
 
 // xy = cell position, z = data index, w = scale

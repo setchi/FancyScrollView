@@ -1066,7 +1066,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecf1dd47e5dc54816aa66115c058c29a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cellSpacing: 0.16
+  cellInterval: 0.16
   scrollOffset: 0.5
   loop: 0
   cellContainer: {fileID: 1165118227}

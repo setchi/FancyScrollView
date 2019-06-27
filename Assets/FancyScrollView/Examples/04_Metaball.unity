@@ -433,7 +433,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6ff2d05912944525b9c4a38adcd8111, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cellSpacing: 0.2
+  cellInterval: 0.2
   scrollOffset: 0.5
   loop: 0
   cellContainer: {fileID: 2041162027}

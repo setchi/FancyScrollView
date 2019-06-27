@@ -174,7 +174,7 @@ public abstract class FancyScrollView<TItemData>
 #### Inspector
 | Type | Name | Summary |
 |:-----------|:------------|:------------|
-|`float`|`Cell Spacing`|セル同士の間隔を float.Epsilon ~ 1.0 の間で指定します.|
+|`float`|`Cell Interval`|セル同士の間隔を float.Epsilon ~ 1.0 の間で指定します.|
 |`float`|`Scroll Offset`|スクロールのオフセットを指定します.たとえば、 0.5 を指定してスクロール位置が 0 の場合、最初のセルの位置は 0.5 になります.|
 |`bool`|`Loop`|オンにするとセルが循環し、最初のセルの前に最後のセル、最後のセルの後に最初のセルが並ぶようになります.無限スクロールさせたい場合はオンにします.|
 |`Transform`|`Cell Container`|セルの親要素となる Transform を指定します. |
