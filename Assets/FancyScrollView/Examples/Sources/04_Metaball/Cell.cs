@@ -23,10 +23,14 @@ namespace FancyScrollView.Example04
 
         float hash;
         bool currentSelection;
+        float currentPosition;
 
         void Start()
         {
             hash = Random.value * 100f;
+            scrollAnimator.keepAnimatorControllerStateOnDisable = true;
+            selectAnimator.keepAnimatorControllerStateOnDisable = true;
+
             button.onClick.AddListener(() => Context.OnCellClicked?.Invoke(Index));
         }
 
@@ -81,11 +85,5 @@ namespace FancyScrollView.Example04
             currentSelection = selected;
             selectAnimator.SetTrigger(selected ? AnimatorHash.In : AnimatorHash.Out);
         }
-
-        // GameObject が非アクティブになると Animator がリセットされてしまうため
-        // 現在位置を保持しておいて OnEnable のタイミングで現在位置を再設定します
-        float currentPosition = 0;
-
-        void OnEnable() => UpdatePosition(currentPosition);
     }
 }

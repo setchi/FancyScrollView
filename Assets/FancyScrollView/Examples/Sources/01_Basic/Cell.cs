@@ -13,6 +13,11 @@ namespace FancyScrollView.Example01
             public static readonly int Scroll = Animator.StringToHash("scroll");
         }
 
+        void Start()
+        {
+            animator.keepAnimatorControllerStateOnDisable = true;
+        }
+
         public override void UpdateContent(ItemData itemData)
         {
             message.text = itemData.Message;
@@ -20,15 +25,8 @@ namespace FancyScrollView.Example01
 
         public override void UpdatePosition(float position)
         {
-            currentPosition = position;
             animator.Play(AnimatorHash.Scroll, -1, position);
             animator.speed = 0;
         }
-
-        // GameObject が非アクティブになると Animator がリセットされてしまうため
-        // 現在位置を保持しておいて OnEnable のタイミングで現在位置を再設定します
-        float currentPosition = 0;
-
-        void OnEnable() => UpdatePosition(currentPosition);
     }
 }
