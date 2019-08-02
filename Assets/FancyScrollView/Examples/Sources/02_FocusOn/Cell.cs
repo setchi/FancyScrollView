@@ -17,7 +17,6 @@ namespace FancyScrollView.Example02
 
         void Start()
         {
-            animator.keepAnimatorControllerStateOnDisable = true;
             button.onClick.AddListener(() => Context.OnCellClicked?.Invoke(Index));
         }
 
@@ -33,8 +32,15 @@ namespace FancyScrollView.Example02
 
         public override void UpdatePosition(float position)
         {
+            currentPosition = position;
             animator.Play(AnimatorHash.Scroll, -1, position);
             animator.speed = 0;
         }
+
+        // GameObject が非アクティブになると Animator がリセットされてしまうため
+        // 現在位置を保持しておいて OnEnable のタイミングで現在位置を再設定します
+        float currentPosition = 0;
+
+        void OnEnable() => UpdatePosition(currentPosition);
     }
 }

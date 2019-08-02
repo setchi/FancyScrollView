@@ -264,7 +264,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &7944036280670936764
 MonoBehaviour:
   m_ObjectHideFlags: 0
