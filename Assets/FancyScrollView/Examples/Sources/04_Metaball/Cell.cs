@@ -52,7 +52,7 @@ namespace FancyScrollView.Example04
                 var scale = Mathf.Min(1f, 10 * (0.5f - Mathf.Abs(currentPosition - 0.5f)));
                 var position = IsVisible
                     ? this.position + GetFluctuation()
-                    : Vector3.left * rectTransform.rect.size.x * 10f;
+                    : rectTransform.rect.size.x * 10f * Vector3.left;
 
                 Context.SetCellState(siblingIndex, Index, position.x, position.y, scale);
             };

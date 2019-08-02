@@ -12,7 +12,7 @@ namespace FancyScrollView
 
         Dropdown dropdown;
 
-        readonly string[] scenes = new[] {
+        readonly string[] scenes = {
             "01_Basic",
             "02_FocusOn",
             "03_InfiniteScroll",

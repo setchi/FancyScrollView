@@ -12,7 +12,7 @@ namespace FancyScrollView.Example05
 
         RectTransform rectTransform;
 
-        static class ShaderID
+        static class ShaderId
         {
             public static readonly int Resolution = Shader.PropertyToID("_Resolution");
             public static readonly int CellState = Shader.PropertyToID("_CellState");
@@ -33,8 +33,8 @@ namespace FancyScrollView.Example05
             scrollView.SetCellState(offset + 2, -1, -rect.x, -rect.y * 1.3f, 0f);
             scrollView.SetCellState(offset + 3, -1,  rect.x,  rect.y * 1.3f, 0f);
 
-            background.material.SetVector(ShaderID.Resolution, rectTransform.rect.size);
-            background.material.SetVectorArray(ShaderID.CellState, scrollView.GetCellState());
+            background.material.SetVector(ShaderId.Resolution, rectTransform.rect.size);
+            background.material.SetVectorArray(ShaderId.CellState, scrollView.GetCellState());
         }
 
         void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
@@ -69,8 +69,8 @@ namespace FancyScrollView.Example05
                     (target.position - x.position).normalized
                 ));
 
-            const float BorderWidth = 9;
-            if (distance < BorderWidth)
+            const float borderWidth = 9;
+            if (distance < borderWidth)
             {
                 return;
             }

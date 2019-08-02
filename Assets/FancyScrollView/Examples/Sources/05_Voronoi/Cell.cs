@@ -54,7 +54,7 @@ namespace FancyScrollView.Example05
                 var selectAnimation = currentSelection ? t : 1f - t;
                 var position = IsVisible
                     ? this.position + GetFluctuation()
-                    : Vector3.left * rectTransform.rect.size.x * 10f;
+                    : rectTransform.rect.size.x * 10f * Vector3.left;
 
                 Context.SetCellState(siblingIndex, Index, position.x, position.y, selectAnimation);
             };

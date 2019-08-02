@@ -59,7 +59,7 @@ namespace FancyScrollView
             public Ease Easing;
         }
 
-        readonly static Func<float, float> defaultEasingFunction = EasingFunction.Get(Ease.OutCubic);
+        static readonly Func<float, float> DefaultEasingFunction = EasingFunction.Get(Ease.OutCubic);
 
         class AutoScrollState
         {
@@ -78,7 +78,7 @@ namespace FancyScrollView
                 Elastic = false;
                 Duration = 0f;
                 StartTime = 0f;
-                EasingFunction = defaultEasingFunction;
+                EasingFunction = DefaultEasingFunction;
                 EndScrollPosition = 0f;
                 OnComplete = null;
             }
@@ -111,7 +111,7 @@ namespace FancyScrollView
             autoScrollState.Reset();
             autoScrollState.Enable = true;
             autoScrollState.Duration = duration;
-            autoScrollState.EasingFunction = easingFunction ?? defaultEasingFunction;
+            autoScrollState.EasingFunction = easingFunction ?? DefaultEasingFunction;
             autoScrollState.StartTime = Time.unscaledTime;
             autoScrollState.EndScrollPosition = CalculateDestinationIndex(index);
             autoScrollState.OnComplete = onComplete;
@@ -166,12 +166,11 @@ namespace FancyScrollView
                 return;
             }
 
-            Vector2 localCursor;
             if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(
                 viewport,
                 eventData.position,
                 eventData.pressEventCamera,
-                out localCursor))
+                out var localCursor))
             {
                 return;
             }

@@ -13,7 +13,7 @@ float3 hue_to_rgb(float h)
     return saturate(float3(abs(h - 1) - 1, 2 - abs(h), 2 - abs(h - 2)));
 }
 
-float hash12(float2 st)
+float hash(float2 st)
 {
     float3 p3  = frac(float3(st.xyx) * .1031);
     p3 += dot(p3, p3.yzx + 19.19);
@@ -25,10 +25,10 @@ float noise(float2 st)
     float2 i = floor(st);
     float2 f = frac(st);
 
-    float a = hash12(i);
-    float b = hash12(i + float2(1.0, 0.0));
-    float c = hash12(i + float2(0.0, 1.0));
-    float d = hash12(i + float2(1.0, 1.0));
+    float a = hash(i);
+    float b = hash(i + float2(1.0, 0.0));
+    float c = hash(i + float2(0.0, 1.0));
+    float d = hash(i + float2(1.0, 1.0));
 
     float2 u = f * f * (3.0 - 2.0 * f);
     return lerp(a, b, u.x) +
