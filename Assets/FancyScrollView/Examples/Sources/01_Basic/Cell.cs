@@ -21,7 +21,12 @@ namespace FancyScrollView.Example01
         public override void UpdatePosition(float position)
         {
             currentPosition = position;
-            animator.Play(AnimatorHash.Scroll, -1, position);
+
+            if (animator.isActiveAndEnabled)
+            {
+                animator.Play(AnimatorHash.Scroll, -1, position);
+            }
+
             animator.speed = 0;
         }
 

@@ -67,7 +67,12 @@ namespace FancyScrollView.Example04
         public override void UpdatePosition(float position)
         {
             currentPosition = position;
-            scrollAnimator.Play(AnimatorHash.Scroll, -1, position);
+
+            if (scrollAnimator.isActiveAndEnabled)
+            {
+                scrollAnimator.Play(AnimatorHash.Scroll, -1, position);
+            }
+
             scrollAnimator.speed = 0;
         }
 
