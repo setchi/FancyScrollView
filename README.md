@@ -11,11 +11,11 @@
 <img src="https://user-images.githubusercontent.com/8326814/59550411-7f528100-8fa5-11e9-8bfb-bd42da47f7a0.gif" width="320">
 
 ## Demo
-https://setchi.jp/lab/scrollview/
+https://setchi.jp/FancyScrollView/
 
 ## Requirements
 - Unity 2018.3 or later.
-- [.NET 4.x Scripting Runtime](https://docs.unity3d.com/Manual/ScriptingRuntimeUpgrade.html)
+- [.NET 4.x Scripting Runtime](https://docs.unity3d.com/2018.3/Documentation/Manual/ScriptingRuntimeUpgrade.html)
 
 ## Installation
 ### Unity Asset Store
