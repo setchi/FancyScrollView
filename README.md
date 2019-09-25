@@ -263,7 +263,5 @@ public class Scroller
 ## Author
 [setchi](https://github.com/setchi)
 
-[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/setchi)
-
 ## License
 MIT
