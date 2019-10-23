@@ -21,6 +21,7 @@ namespace FancyScrollView
         SerializedProperty snapVelocityThreshold;
         SerializedProperty snapDuration;
         SerializedProperty snapEasing;
+        SerializedProperty draggable;
 
         AnimBool showElasticity;
         AnimBool showInertiaRelatedValues;
@@ -40,7 +41,8 @@ namespace FancyScrollView
             snapVelocityThreshold = serializedObject.FindProperty("snap.VelocityThreshold");
             snapDuration = serializedObject.FindProperty("snap.Duration");
             snapEasing = serializedObject.FindProperty("snap.Easing");
-
+            draggable = serializedObject.FindProperty("draggable");
+            
             showElasticity = new AnimBool(Repaint);
             showInertiaRelatedValues = new AnimBool(Repaint);
             showSnapEnableRelatedValues = new AnimBool(Repaint);
@@ -85,6 +87,7 @@ namespace FancyScrollView
             EditorGUILayout.PropertyField(scrollSensitivity);
             EditorGUILayout.PropertyField(inertia);
             DrawInertiaRelatedValues();
+            EditorGUILayout.PropertyField(draggable);
             serializedObject.ApplyModifiedProperties();
         }
 
