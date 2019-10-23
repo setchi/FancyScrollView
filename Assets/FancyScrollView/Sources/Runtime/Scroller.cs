@@ -102,6 +102,11 @@ namespace FancyScrollView
 
         public void ScrollTo(int index, float duration, Func<float, float> easingFunction, Action onComplete = null)
         {
+            if (index < 0 || index > totalCount - 1)
+            {
+                throw new ArgumentOutOfRangeException(nameof(index));
+            }
+
             if (duration <= 0f)
             {
                 JumpTo(index);
@@ -124,12 +129,15 @@ namespace FancyScrollView
 
         public void JumpTo(int index)
         {
+            if (index < 0 || index > totalCount - 1)
+            {
+                throw new ArgumentOutOfRangeException(nameof(index));
+            }
+
             autoScrollState.Reset();
 
             velocity = 0f;
             dragging = false;
-
-            index = CalculateDestinationIndex(index);
 
             UpdateSelection(index);
             UpdatePosition(index);
