@@ -11,8 +11,7 @@ namespace FancyScrollView.Example06
         {
             if (inAnim != null)
             {
-                inAnim.Direction = direction;
-                inAnim.Animate();
+                inAnim.Animate(direction);
             }
         }
 
@@ -20,8 +19,7 @@ namespace FancyScrollView.Example06
         {
             if (outAnim != null)
             {
-                outAnim.Direction = direction;
-                outAnim.Animate();
+                outAnim.Animate(direction);
             }
         }
     }

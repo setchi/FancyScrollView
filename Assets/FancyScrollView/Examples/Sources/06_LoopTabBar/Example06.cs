@@ -16,7 +16,7 @@ namespace FancyScrollView.Example06
         {
             scrollView.OnSelectionChanged(OnSelectionChanged);
 
-            var items = Enumerable.Range(0, 3)
+            var items = Enumerable.Range(0, windows.Length)
                 .Select(i => new ItemData($"Tab {i}"))
                 .ToList();
 

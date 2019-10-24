@@ -7,24 +7,18 @@ namespace FancyScrollView.Example06
 {
     public class SlideScreenTransition : MonoBehaviour
     {
-        [SerializeField] private Scroller.MovementDirection direction = Scroller.MovementDirection.Left;
         [SerializeField] protected bool isOutAnimation;
         [SerializeField] private RectTransform targetTransform = default;
         [SerializeField] private GraphicRaycaster graphicRaycaster = default;
 
-        private const float Duration = 0.3f; // example purpose, a fixed number, the same with scroll view
+        private const float Duration = 0.3f; // example purpose, a fixed number, the same with scroll view duration
         
         private bool _shouldAnimate;
         private float _timer = 0f;
         private float _startX;
         private float _endX;
-        
-        public Scroller.MovementDirection Direction {
-            get { return direction; }
-            set { direction = value; }
-        }
 
-        public void Animate() {
+        public void Animate(Scroller.MovementDirection direction) {
             if (_shouldAnimate)
             {
                 return;
@@ -39,6 +33,9 @@ namespace FancyScrollView.Example06
                     break;
                 case Scroller.MovementDirection.Right:
                     _endX = targetTransform.rect.width;
+                    break;
+                default:
+                    Debug.LogWarning("example only support horizontal direction");
                     break;
             }
 
