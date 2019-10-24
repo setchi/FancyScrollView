@@ -22,6 +22,8 @@ namespace FancyScrollView
             Easing = Ease.InOutCubic
         };
 
+        [SerializeField] private bool draggable = true;
+
         readonly AutoScrollState autoScrollState = new AutoScrollState();
 
         Action<float> onValueChanged;
@@ -48,6 +50,14 @@ namespace FancyScrollView
             Unrestricted = ScrollRect.MovementType.Unrestricted,
             Elastic = ScrollRect.MovementType.Elastic,
             Clamped = ScrollRect.MovementType.Clamped
+        }
+        
+        public enum MovementDirection
+        {
+            Left = 0,
+            Right = 1,
+            Up = 2,
+            Down = 3,
         }
 
         [Serializable]
@@ -142,9 +152,29 @@ namespace FancyScrollView
             UpdateSelection(index);
             UpdatePosition(index);
         }
+        
+        public MovementDirection GetMovementDirection()
+        {
+            if (directionOfRecognize == ScrollDirection.Horizontal)
+            {
+                return autoScrollState.EndScrollPosition > currentScrollPosition
+                    ? MovementDirection.Left
+                    : MovementDirection.Right;
+            }
+            else
+            {
+                return autoScrollState.EndScrollPosition > currentScrollPosition
+                    ? MovementDirection.Down
+                    : MovementDirection.Up;
+            }
+        }
 
         void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
         {
+            if (!draggable)
+            {
+                return;
+            }
             if (eventData.button != PointerEventData.InputButton.Left)
             {
                 return;
@@ -164,6 +194,10 @@ namespace FancyScrollView
 
         void IDragHandler.OnDrag(PointerEventData eventData)
         {
+            if (!draggable)
+            {
+                return;
+            }
             if (eventData.button != PointerEventData.InputButton.Left)
             {
                 return;
@@ -205,6 +239,10 @@ namespace FancyScrollView
 
         void IEndDragHandler.OnEndDrag(PointerEventData eventData)
         {
+            if (!draggable)
+            {
+                return;
+            }
             if (eventData.button != PointerEventData.InputButton.Left)
             {
                 return;
