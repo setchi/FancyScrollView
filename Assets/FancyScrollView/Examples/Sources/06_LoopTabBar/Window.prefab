@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -180,7 +180,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04f89a56080d4bca97a174370126fca4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  origin: 1
   isOutAnimation: 0
   targetTransform: {fileID: 6748594459359164585}
   graphicRaycaster: {fileID: 0}
@@ -196,7 +195,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04f89a56080d4bca97a174370126fca4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  origin: 1
   isOutAnimation: 1
   targetTransform: {fileID: 6748594459359164585}
   graphicRaycaster: {fileID: 0}
