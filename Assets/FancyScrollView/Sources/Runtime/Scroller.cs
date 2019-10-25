@@ -22,7 +22,7 @@ namespace FancyScrollView
             Easing = Ease.InOutCubic
         };
 
-        [SerializeField] private bool draggable = true;
+        [SerializeField] bool draggable = true;
 
         readonly AutoScrollState autoScrollState = new AutoScrollState();
 

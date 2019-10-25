@@ -8,10 +8,10 @@ namespace FancyScrollView.Example06
     {
         [SerializeField] ScrollView scrollView = default;
         [SerializeField] Text selectedItemInfo = default;
-        [SerializeField] private Window[] windows = default;
+        [SerializeField] Window[] windows = default;
 
-        private Window _currentWindow;
-        
+        Window currentWindow;
+
         void Start()
         {
             scrollView.OnSelectionChanged(OnSelectionChanged);
@@ -28,16 +28,17 @@ namespace FancyScrollView.Example06
         {
             selectedItemInfo.text = $"Selected tab info: index {index}";
             var direction = scrollView.GetMovementDirection();
-            if (_currentWindow != null)
+
+            if (currentWindow != null)
             {
-                _currentWindow.HideWindow(direction);
-                _currentWindow = null;
+                currentWindow.HideWindow(direction);
+                currentWindow = null;
             }
 
             if (index >= 0 && index < windows.Length)
             {
-                _currentWindow = windows[index];
-                _currentWindow.OpenWindow(direction);
+                currentWindow = windows[index];
+                currentWindow.OpenWindow(direction);
             }
         }
     }
