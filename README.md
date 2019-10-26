@@ -14,7 +14,7 @@
 https://setchi.jp/FancyScrollView/
 
 ## Requirements
-- Unity 2018.3 or later.
+- Unity 2019.2 or later.
 - [.NET 4.x Scripting Runtime](https://docs.unity3d.com/2018.3/Documentation/Manual/ScriptingRuntimeUpgrade.html)
 
 ## Installation
