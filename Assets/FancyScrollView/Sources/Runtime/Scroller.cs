@@ -112,23 +112,19 @@ namespace FancyScrollView
 
         public void ScrollTo(int index, float duration, Func<float, float> easingFunction, Action onComplete = null)
         {
-            if (index < 0 || index > totalCount - 1)
-            {
-                throw new ArgumentOutOfRangeException(nameof(index));
-            }
-
             if (duration <= 0f)
             {
-                JumpTo(index);
+                JumpTo(CircularIndex(index, totalCount));
                 return;
             }
+
 
             autoScrollState.Reset();
             autoScrollState.Enable = true;
             autoScrollState.Duration = duration;
             autoScrollState.EasingFunction = easingFunction ?? DefaultEasingFunction;
             autoScrollState.StartTime = Time.unscaledTime;
-            autoScrollState.EndScrollPosition = CalculateDestinationIndex(index);
+            autoScrollState.EndScrollPosition = CalculateDestinationPosition(index);
             autoScrollState.OnComplete = onComplete;
 
             velocity = 0f;
@@ -382,11 +378,11 @@ namespace FancyScrollView
             prevScrollPosition = currentScrollPosition;
         }
 
-        int CalculateDestinationIndex(int index) => movementType == MovementType.Unrestricted
-            ? CalculateClosestIndex(index)
+        int CalculateDestinationPosition(int index) => movementType == MovementType.Unrestricted
+            ? CalculateClosestPosition(index)
             : Mathf.Clamp(index, 0, totalCount - 1);
 
-        int CalculateClosestIndex(int index)
+        int CalculateClosestPosition(int index)
         {
             var diff = CircularPosition(index, totalCount)
                        - CircularPosition(currentScrollPosition, totalCount);
@@ -400,5 +396,7 @@ namespace FancyScrollView
         }
 
         float CircularPosition(float p, int size) => size < 1 ? 0 : p < 0 ? size - 1 + (p + 1) % size : p % size;
+
+        int CircularIndex(int i, int size) => size < 1 ? 0 : i < 0 ? size - 1 + (i + 1) % size : i % size;
     }
 }
