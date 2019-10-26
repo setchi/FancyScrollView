@@ -22,6 +22,8 @@ namespace FancyScrollView
             Easing = Ease.InOutCubic
         };
 
+        [SerializeField] bool draggable = true;
+
         readonly AutoScrollState autoScrollState = new AutoScrollState();
 
         Action<float> onValueChanged;
@@ -48,6 +50,14 @@ namespace FancyScrollView
             Unrestricted = ScrollRect.MovementType.Unrestricted,
             Elastic = ScrollRect.MovementType.Elastic,
             Clamped = ScrollRect.MovementType.Clamped
+        }
+        
+        public enum MovementDirection
+        {
+            Left = 0,
+            Right = 1,
+            Up = 2,
+            Down = 3,
         }
 
         [Serializable]
@@ -102,14 +112,9 @@ namespace FancyScrollView
 
         public void ScrollTo(int index, float duration, Func<float, float> easingFunction, Action onComplete = null)
         {
-            if (index < 0 || index > totalCount - 1)
-            {
-                throw new ArgumentOutOfRangeException(nameof(index));
-            }
-
             if (duration <= 0f)
             {
-                JumpTo(index);
+                JumpTo(CircularIndex(index, totalCount));
                 return;
             }
 
@@ -118,7 +123,7 @@ namespace FancyScrollView
             autoScrollState.Duration = duration;
             autoScrollState.EasingFunction = easingFunction ?? DefaultEasingFunction;
             autoScrollState.StartTime = Time.unscaledTime;
-            autoScrollState.EndScrollPosition = CalculateDestinationIndex(index);
+            autoScrollState.EndScrollPosition = Mathf.RoundToInt(currentScrollPosition + CalculateMovementAmount(currentScrollPosition, index));
             autoScrollState.OnComplete = onComplete;
 
             velocity = 0f;
@@ -143,8 +148,25 @@ namespace FancyScrollView
             UpdatePosition(index);
         }
 
+        public MovementDirection GetMovementDirection(int sourceIndex, int destIndex)
+        {
+            var movementAmount = CalculateMovementAmount(sourceIndex, destIndex);
+            return directionOfRecognize == ScrollDirection.Horizontal
+                ? movementAmount > 0
+                    ? MovementDirection.Left
+                    : MovementDirection.Right
+                : movementAmount > 0
+                    ? MovementDirection.Up
+                    : MovementDirection.Down;
+        }
+
         void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
         {
+            if (!draggable)
+            {
+                return;
+            }
+
             if (eventData.button != PointerEventData.InputButton.Left)
             {
                 return;
@@ -164,6 +186,11 @@ namespace FancyScrollView
 
         void IDragHandler.OnDrag(PointerEventData eventData)
         {
+            if (!draggable)
+            {
+                return;
+            }
+
             if (eventData.button != PointerEventData.InputButton.Left)
             {
                 return;
@@ -205,6 +232,11 @@ namespace FancyScrollView
 
         void IEndDragHandler.OnEndDrag(PointerEventData eventData)
         {
+            if (!draggable)
+            {
+                return;
+            }
+
             if (eventData.button != PointerEventData.InputButton.Left)
             {
                 return;
@@ -344,23 +376,25 @@ namespace FancyScrollView
             prevScrollPosition = currentScrollPosition;
         }
 
-        int CalculateDestinationIndex(int index) => movementType == MovementType.Unrestricted
-            ? CalculateClosestIndex(index)
-            : Mathf.Clamp(index, 0, totalCount - 1);
-
-        int CalculateClosestIndex(int index)
+        float CalculateMovementAmount(float sourcePosition, float destPosition)
         {
-            var diff = CircularPosition(index, totalCount)
-                       - CircularPosition(currentScrollPosition, totalCount);
-
-            if (Mathf.Abs(diff) > totalCount * 0.5f)
+            if (movementType != MovementType.Unrestricted)
             {
-                diff = Mathf.Sign(-diff) * (totalCount - Mathf.Abs(diff));
+                return Mathf.Clamp(destPosition, 0, totalCount - 1) - sourcePosition;
             }
 
-            return Mathf.RoundToInt(diff + currentScrollPosition);
+            var movementAmount = CircularPosition(destPosition, totalCount) - CircularPosition(sourcePosition, totalCount);
+
+            if (Mathf.Abs(movementAmount) > totalCount * 0.5f)
+            {
+                movementAmount = Mathf.Sign(-movementAmount) * (totalCount - Mathf.Abs(movementAmount));
+            }
+
+            return movementAmount;
         }
 
         float CircularPosition(float p, int size) => size < 1 ? 0 : p < 0 ? size - 1 + (p + 1) % size : p % size;
+
+        int CircularIndex(int i, int size) => size < 1 ? 0 : i < 0 ? size - 1 + (i + 1) % size : i % size;
     }
 }
