@@ -10,7 +10,7 @@ namespace FancyScrollView.Example06
         [SerializeField] Scroller scroller = default;
         [SerializeField] GameObject cellPrefab = default;
 
-        Action<int> onSelectionChanged;
+        Action<int, Scroller.MovementDirection> onSelectionChanged;
 
         protected override GameObject CellPrefab => cellPrefab;
 
@@ -28,10 +28,12 @@ namespace FancyScrollView.Example06
                 return;
             }
 
+            var direction = scroller.GetMovementDirection(Context.SelectedIndex, index);
+
             Context.SelectedIndex = index;
             Refresh();
 
-            onSelectionChanged?.Invoke(index);
+            onSelectionChanged?.Invoke(index, direction);
         }
 
         public void UpdateData(IList<ItemData> items)
@@ -40,7 +42,7 @@ namespace FancyScrollView.Example06
             scroller.SetTotalCount(items.Count);
         }
 
-        public void OnSelectionChanged(Action<int> callback)
+        public void OnSelectionChanged(Action<int, Scroller.MovementDirection> callback)
         {
             onSelectionChanged = callback;
         }
@@ -63,11 +65,6 @@ namespace FancyScrollView.Example06
             }
 
             scroller.ScrollTo(index, 0.35f, Ease.OutCubic);
-        }
-
-        public Scroller.MovementDirection GetMovementDirection()
-        {
-            return scroller.GetMovementDirection();
         }
     }
 }

@@ -118,13 +118,12 @@ namespace FancyScrollView
                 return;
             }
 
-
             autoScrollState.Reset();
             autoScrollState.Enable = true;
             autoScrollState.Duration = duration;
             autoScrollState.EasingFunction = easingFunction ?? DefaultEasingFunction;
             autoScrollState.StartTime = Time.unscaledTime;
-            autoScrollState.EndScrollPosition = CalculateDestinationPosition(index);
+            autoScrollState.EndScrollPosition = Mathf.RoundToInt(currentScrollPosition + CalculateMovementAmount(currentScrollPosition, index));
             autoScrollState.OnComplete = onComplete;
 
             velocity = 0f;
@@ -149,14 +148,17 @@ namespace FancyScrollView
             UpdatePosition(index);
         }
 
-        public MovementDirection GetMovementDirection() =>
-            directionOfRecognize == ScrollDirection.Horizontal
-                ? autoScrollState.EndScrollPosition > currentScrollPosition
+        public MovementDirection GetMovementDirection(int sourceIndex, int destIndex)
+        {
+            var movementAmount = CalculateMovementAmount(sourceIndex, destIndex);
+            return directionOfRecognize == ScrollDirection.Horizontal
+                ? movementAmount > 0
                     ? MovementDirection.Left
                     : MovementDirection.Right
-                : autoScrollState.EndScrollPosition > currentScrollPosition
+                : movementAmount > 0
                     ? MovementDirection.Down
                     : MovementDirection.Up;
+        }
 
         void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
         {
@@ -374,21 +376,21 @@ namespace FancyScrollView
             prevScrollPosition = currentScrollPosition;
         }
 
-        int CalculateDestinationPosition(int index) => movementType == MovementType.Unrestricted
-            ? CalculateClosestPosition(index)
-            : Mathf.Clamp(index, 0, totalCount - 1);
-
-        int CalculateClosestPosition(int index)
+        float CalculateMovementAmount(float sourcePosition, float destPosition)
         {
-            var diff = CircularPosition(index, totalCount)
-                       - CircularPosition(currentScrollPosition, totalCount);
-
-            if (Mathf.Abs(diff) > totalCount * 0.5f)
+            if (movementType != MovementType.Unrestricted)
             {
-                diff = Mathf.Sign(-diff) * (totalCount - Mathf.Abs(diff));
+                return Mathf.Clamp(destPosition, 0, totalCount - 1) - sourcePosition;
             }
 
-            return Mathf.RoundToInt(diff + currentScrollPosition);
+            var movementAmount = CircularPosition(destPosition, totalCount) - CircularPosition(sourcePosition, totalCount);
+
+            if (Mathf.Abs(movementAmount) > totalCount * 0.5f)
+            {
+                movementAmount = Mathf.Sign(-movementAmount) * (totalCount - Mathf.Abs(movementAmount));
+            }
+
+            return movementAmount;
         }
 
         float CircularPosition(float p, int size) => size < 1 ? 0 : p < 0 ? size - 1 + (p + 1) % size : p % size;
