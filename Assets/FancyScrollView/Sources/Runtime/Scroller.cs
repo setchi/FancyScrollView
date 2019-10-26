@@ -148,22 +148,15 @@ namespace FancyScrollView
             UpdateSelection(index);
             UpdatePosition(index);
         }
-        
-        public MovementDirection GetMovementDirection()
-        {
-            if (directionOfRecognize == ScrollDirection.Horizontal)
-            {
-                return autoScrollState.EndScrollPosition > currentScrollPosition
+
+        public MovementDirection GetMovementDirection() =>
+            directionOfRecognize == ScrollDirection.Horizontal
+                ? autoScrollState.EndScrollPosition > currentScrollPosition
                     ? MovementDirection.Left
-                    : MovementDirection.Right;
-            }
-            else
-            {
-                return autoScrollState.EndScrollPosition > currentScrollPosition
+                    : MovementDirection.Right
+                : autoScrollState.EndScrollPosition > currentScrollPosition
                     ? MovementDirection.Down
                     : MovementDirection.Up;
-            }
-        }
 
         void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
         {
@@ -171,6 +164,7 @@ namespace FancyScrollView
             {
                 return;
             }
+
             if (eventData.button != PointerEventData.InputButton.Left)
             {
                 return;
@@ -194,6 +188,7 @@ namespace FancyScrollView
             {
                 return;
             }
+
             if (eventData.button != PointerEventData.InputButton.Left)
             {
                 return;
@@ -239,6 +234,7 @@ namespace FancyScrollView
             {
                 return;
             }
+
             if (eventData.button != PointerEventData.InputButton.Left)
             {
                 return;

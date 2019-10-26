@@ -31,14 +31,14 @@ namespace FancyScrollView.Example06
 
             if (currentWindow != null)
             {
-                currentWindow.HideWindow(direction);
+                currentWindow.Out(direction);
                 currentWindow = null;
             }
 
             if (index >= 0 && index < windows.Length)
             {
                 currentWindow = windows[index];
-                currentWindow.OpenWindow(direction);
+                currentWindow.In(direction);
             }
         }
     }

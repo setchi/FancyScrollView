@@ -4,22 +4,21 @@ namespace FancyScrollView.Example06
 {
     public class Window : MonoBehaviour
     {
-        [SerializeField] SlideScreenTransition inAnim = default;
-        [SerializeField] SlideScreenTransition outAnim = default;
+        [SerializeField] SlideScreenTransition transition = default;
 
-        public void OpenWindow(Scroller.MovementDirection direction)
+        public void In(Scroller.MovementDirection direction)
         {
-            if (inAnim != null)
+            if (transition != null)
             {
-                inAnim.Animate(direction);
+                transition.In(direction);
             }
         }
 
-        public void HideWindow(Scroller.MovementDirection direction)
+        public void Out(Scroller.MovementDirection direction)
         {
-            if (outAnim != null)
+            if (transition != null)
             {
-                outAnim.Animate(direction);
+                transition.Out(direction);
             }
         }
     }

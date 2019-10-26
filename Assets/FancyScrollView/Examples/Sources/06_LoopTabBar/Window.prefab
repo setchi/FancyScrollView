@@ -90,7 +90,6 @@ GameObject:
   - component: {fileID: 4535311759604895107}
   - component: {fileID: 2361120015274253186}
   - component: {fileID: 6766568021456841001}
-  - component: {fileID: 4622212885601797420}
   m_Layer: 5
   m_Name: Window
   m_TagString: Untagged
@@ -166,8 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e8d9723b6de4a9581027e8d8c10b353, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inAnim: {fileID: 6766568021456841001}
-  outAnim: {fileID: 4622212885601797420}
+  transition: {fileID: 6766568021456841001}
 --- !u!114 &6766568021456841001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,21 +178,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04f89a56080d4bca97a174370126fca4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isOutAnimation: 0
-  targetTransform: {fileID: 6748594459359164585}
-  graphicRaycaster: {fileID: 0}
---- !u!114 &4622212885601797420
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8026611260721418881}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04f89a56080d4bca97a174370126fca4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isOutAnimation: 1
   targetTransform: {fileID: 6748594459359164585}
   graphicRaycaster: {fileID: 0}
