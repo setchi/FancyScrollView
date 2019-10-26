@@ -156,8 +156,8 @@ namespace FancyScrollView
                     ? MovementDirection.Left
                     : MovementDirection.Right
                 : movementAmount > 0
-                    ? MovementDirection.Down
-                    : MovementDirection.Up;
+                    ? MovementDirection.Up
+                    : MovementDirection.Down;
         }
 
         void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
