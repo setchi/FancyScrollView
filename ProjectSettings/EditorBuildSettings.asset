@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/FancyScrollView/Examples/05_Voronoi.unity
     guid: 9f4081131e0754ae184f905e3d995a98
+  - enabled: 1
+    path: Assets/FancyScrollView/Examples/06_LoopTabBar.unity
+    guid: 58528ac4d9c36415ea90597e1199f2e4
   m_configObjects: {}
