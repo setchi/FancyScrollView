@@ -19,24 +19,15 @@ namespace FancyScrollView.Example04
         public void SetCellState(int cellIndex, int dataIndex, float x, float y, float scale)
         {
             var size = cellIndex + 1;
-            ResizeIfNeeded(ref CellState, size);
+            if (size > CellState.Length)
+            {
+                Array.Resize(ref CellState, size);
+            }
 
             CellState[cellIndex].x = x;
             CellState[cellIndex].y = y;
             CellState[cellIndex].z = dataIndex;
             CellState[cellIndex].w = scale;
-        }
-
-        void ResizeIfNeeded<T>(ref T[] array, int size)
-        {
-            if (size <= array.Length)
-            {
-                return;
-            }
-
-            var tmp = array;
-            array = new T[size];
-            Array.Copy(tmp, array, tmp.Length);
         }
     }
 }
