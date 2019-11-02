@@ -24,7 +24,7 @@ namespace FancyScrollView.Example06
             scrollView.SelectCell(0);
         }
 
-        void OnSelectionChanged(int index, Scroller.MovementDirection direction)
+        void OnSelectionChanged(int index, MovementDirection direction)
         {
             selectedItemInfo.text = $"Selected tab info: index {index}";
 

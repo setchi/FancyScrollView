@@ -13,11 +13,11 @@ namespace FancyScrollView.Example06
         bool shouldAnimate, isOutAnimation;
         float timer, startX, endX;
 
-        public void In(Scroller.MovementDirection direction) => Animate(direction, false);
+        public void In(MovementDirection direction) => Animate(direction, false);
 
-        public void Out(Scroller.MovementDirection direction) => Animate(direction, true);
+        public void Out(MovementDirection direction) => Animate(direction, true);
 
-        void Animate(Scroller.MovementDirection direction, bool isOut)
+        void Animate(MovementDirection direction, bool isOut)
         {
             if (shouldAnimate)
             {
@@ -36,11 +36,11 @@ namespace FancyScrollView.Example06
 
             switch (direction)
             {
-                case Scroller.MovementDirection.Left:
+                case MovementDirection.Left:
                     endX = -targetTransform.rect.width;
                     break;
 
-                case Scroller.MovementDirection.Right:
+                case MovementDirection.Right:
                     endX = targetTransform.rect.width;
                     break;
 

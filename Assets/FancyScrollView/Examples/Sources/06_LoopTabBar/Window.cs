@@ -6,7 +6,7 @@ namespace FancyScrollView.Example06
     {
         [SerializeField] SlideScreenTransition transition = default;
 
-        public void In(Scroller.MovementDirection direction)
+        public void In(MovementDirection direction)
         {
             if (transition != null)
             {
@@ -14,7 +14,7 @@ namespace FancyScrollView.Example06
             }
         }
 
-        public void Out(Scroller.MovementDirection direction)
+        public void Out(MovementDirection direction)
         {
             if (transition != null)
             {

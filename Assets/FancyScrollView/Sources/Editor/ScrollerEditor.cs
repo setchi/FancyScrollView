@@ -58,7 +58,7 @@ namespace FancyScrollView
 
         void SetAnimBools(bool instant)
         {
-            SetAnimBool(showElasticity, !movementType.hasMultipleDifferentValues && movementType.enumValueIndex == (int)Scroller.MovementType.Elastic, instant);
+            SetAnimBool(showElasticity, !movementType.hasMultipleDifferentValues && movementType.enumValueIndex == (int)MovementType.Elastic, instant);
             SetAnimBool(showInertiaRelatedValues, !inertia.hasMultipleDifferentValues && inertia.boolValue, instant);
             SetAnimBool(showSnapEnableRelatedValues, !snapEnable.hasMultipleDifferentValues && snapEnable.boolValue, instant);
         }

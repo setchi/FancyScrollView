@@ -10,7 +10,7 @@ namespace FancyScrollView.Example06
         [SerializeField] Scroller scroller = default;
         [SerializeField] GameObject cellPrefab = default;
 
-        Action<int, Scroller.MovementDirection> onSelectionChanged;
+        Action<int, MovementDirection> onSelectionChanged;
 
         protected override GameObject CellPrefab => cellPrefab;
 
@@ -42,7 +42,7 @@ namespace FancyScrollView.Example06
             scroller.SetTotalCount(items.Count);
         }
 
-        public void OnSelectionChanged(Action<int, Scroller.MovementDirection> callback)
+        public void OnSelectionChanged(Action<int, MovementDirection> callback)
         {
             onSelectionChanged = callback;
         }

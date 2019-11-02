@@ -38,27 +38,6 @@ namespace FancyScrollView
         bool dragging;
         float velocity;
 
-        enum ScrollDirection
-        {
-            Vertical,
-            Horizontal,
-        }
-
-        public enum MovementDirection
-        {
-            Left = 0,
-            Right = 1,
-            Up = 2,
-            Down = 3,
-        }
-
-        public enum MovementType
-        {
-            Unrestricted = ScrollRect.MovementType.Unrestricted,
-            Elastic = ScrollRect.MovementType.Elastic,
-            Clamped = ScrollRect.MovementType.Clamped
-        }
-
         [Serializable]
         class Snap
         {
