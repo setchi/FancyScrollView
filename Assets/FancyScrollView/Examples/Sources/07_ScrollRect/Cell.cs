@@ -21,9 +21,12 @@ namespace FancyScrollView.Example07
         public override void UpdatePosition(float position)
         {
             var viewportSize = Context.GetViewportSize();
-            var offset = 0.5f * (viewportSize + viewportSize / (Context.GetVisibleCellCount() + 1f));
+
+            var startY = 0.5f * (viewportSize + viewportSize / (Context.GetVisibleCellCount() + 1f));
+            var endY = -startY;
+
             var x = Mathf.Sin(position * Mathf.PI * 2) * 50;
-            var y = Mathf.Lerp(offset, -offset, position);
+            var y = Mathf.Lerp(startY, endY, position);
 
             (transform as RectTransform).anchoredPosition = new Vector2(x, y);
         }

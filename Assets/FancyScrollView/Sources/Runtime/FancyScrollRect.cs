@@ -10,9 +10,11 @@ namespace FancyScrollView
     {
         [SerializeField] protected ScrollDirection scrollDirection = default;
 
-        protected abstract float ViewportSize { get; }
         protected virtual float VisibleCellCount => 1f / Mathf.Max(cellInterval, 1e-2f) - 1f;
         protected virtual float MaxScrollPosition => ItemsSource.Count - VisibleCellCount;
+        protected virtual float ViewportSize => scrollDirection == ScrollDirection.Horizontal
+            ? (transform as RectTransform).rect.size.x
+            : (transform as RectTransform).rect.size.y;
         protected virtual bool ScrollEnabled => MaxScrollPosition > 0f;
 
         ScrollRect scroller;
@@ -66,16 +68,6 @@ namespace FancyScrollView
             }
         }
 
-        protected virtual float GetScrollDirectionAmount(Vector2 position)
-        {
-            switch (scrollDirection)
-            {
-                case ScrollDirection.Horizontal: return position.x;
-                case ScrollDirection.Vertical: return position.y;
-                default: return 0f;
-            }
-        }
-
         protected virtual float GetAlignment(Alignment alignment)
         {
             switch (alignment)
@@ -90,7 +82,9 @@ namespace FancyScrollView
 
         protected virtual float ToFancyScrollViewPosition(Vector2 scrollRectPosition)
         {
-            return ToFancyScrollViewPosition(GetScrollDirectionAmount(scrollRectPosition));
+            return ToFancyScrollViewPosition(scrollDirection == ScrollDirection.Horizontal
+                ? scrollRectPosition.x
+                : scrollRectPosition.y);
         }
 
         protected virtual float ToFancyScrollViewPosition(float scrollRectNormalizedPosition)

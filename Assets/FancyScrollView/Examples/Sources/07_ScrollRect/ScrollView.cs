@@ -8,7 +8,6 @@ namespace FancyScrollView.Example07
         [SerializeField] GameObject cellPrefab = default;
 
         protected override GameObject CellPrefab => cellPrefab;
-        protected override float ViewportSize => (transform as RectTransform).rect.size.y;
 
         public int DataCount => ItemsSource.Count;
 
