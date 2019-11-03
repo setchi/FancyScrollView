@@ -74,7 +74,7 @@ namespace FancyScrollView
             }
         }
 
-        protected virtual float GetAlignment(Alignment alignment)
+        protected virtual float GetAnchore(Alignment alignment)
         {
             switch (alignment)
             {
@@ -82,7 +82,7 @@ namespace FancyScrollView
                 case Alignment.Center: return 0.5f;
                 case Alignment.Tail: return 1.0f;
                 default:
-                    return GetAlignment(Alignment.Center);
+                    return GetAnchore(Alignment.Center);
             }
         }
 
@@ -100,10 +100,12 @@ namespace FancyScrollView
 
         protected virtual float ToScrollRectNormalizedPosition(float position, Alignment alignment = Alignment.Center)
         {
-            var offset = (ItemsSource.Count - 1 - MaxScrollPosition) * GetAlignment(alignment);
+            var offset = (ItemsSource.Count - 1 - MaxScrollPosition) * GetAnchore(alignment);
             return Mathf.Clamp01(1f - (position - offset) / MaxScrollPosition);
         }
 
         protected virtual void Update() => scrollOffset = cellInterval;
     }
+
+    public abstract class FancyScrollRect<TItemData> : FancyScrollRect<TItemData, FancyScrollRectContext> { }
 }

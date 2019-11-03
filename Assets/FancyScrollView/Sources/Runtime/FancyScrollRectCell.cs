@@ -18,4 +18,9 @@ namespace FancyScrollView
 
         protected virtual void UpdatePosition(float position, float viewportPosition) { }
     }
+
+    public abstract class FancyScrollRectCell<TItemData> : FancyScrollRectCell<TItemData, FancyScrollRectContext>
+    {
+        public sealed override void SetupContext(FancyScrollRectContext context) => base.SetupContext(context);
+    }
 }
