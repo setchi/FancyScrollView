@@ -6,12 +6,12 @@ namespace FancyScrollView
 {
     [RequireComponent(typeof(ScrollRect))]
     public abstract class FancyScrollRect<TItemData, TContext>
-        : FancyScrollView<TItemData, TContext> where TContext : class, new()
+        : FancyScrollView<TItemData, TContext> where TContext : class, IFancyScrollRectContext, new()
     {
         [SerializeField] protected ScrollDirection scrollDirection = default;
 
-        protected virtual float VisibleCellCount => 1f / Mathf.Max(cellInterval, 1e-2f) - 1f;
-        protected virtual float MaxScrollPosition => ItemsSource.Count - VisibleCellCount;
+        protected virtual float MaxScrollPosition => ItemsSource.Count - FancyScrollViewportSize;
+        protected virtual float FancyScrollViewportSize => 1f / Mathf.Max(cellInterval, 1e-2f) - 1f;
         protected virtual float ViewportSize => scrollDirection == ScrollDirection.Horizontal
             ? (transform as RectTransform).rect.size.x
             : (transform as RectTransform).rect.size.y;
@@ -19,6 +19,12 @@ namespace FancyScrollView
 
         ScrollRect scroller;
         protected ScrollRect Scroller => scroller ?? (scroller = GetComponent<ScrollRect>());
+
+        protected virtual void Awake()
+        {
+            Context.GetViewportSize = () => ViewportSize;
+            Context.GetFancyScrollViewportSize = () => FancyScrollViewportSize;
+        }
 
         protected virtual void Start()
         {
@@ -51,7 +57,7 @@ namespace FancyScrollView
 
         protected virtual void AdjustContentSize()
         {
-            var cellSize = ViewportSize / VisibleCellCount;
+            var cellSize = ViewportSize / FancyScrollViewportSize;
             var contentSize = cellSize * ItemsSource.Count;
 
             switch (scrollDirection)

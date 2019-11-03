@@ -1,11 +1,7 @@
-﻿using System;
-
-namespace FancyScrollView.Example07
+﻿namespace FancyScrollView.Example07
 {
-    public class Context
+    public class Context : FancyScrollRectContext
     {
         public int SelectedIndex = -1;
-        public Func<float> GetVisibleCellCount;
-        public Func<float> GetViewportSize;
     }
 }

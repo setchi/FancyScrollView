@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace FancyScrollView.Example07
 {
-    public class Cell : FancyScrollViewCell<ItemData, Context>
+    public class Cell : FancyScrollRectCell<ItemData, Context>
     {
         [SerializeField] Text message = default;
         [SerializeField] Image image = default;
@@ -18,15 +18,10 @@ namespace FancyScrollView.Example07
                 : new Color32(255, 255, 255, 77);
         }
 
-        public override void UpdatePosition(float position)
+        protected override void UpdatePosition(float position, float viewportPosition)
         {
-            var viewportSize = Context.GetViewportSize();
-
-            var startY = 0.5f * (viewportSize + viewportSize / (Context.GetVisibleCellCount() + 1f));
-            var endY = -startY;
-
             var x = Mathf.Sin(position * Mathf.PI * 2) * 50;
-            var y = Mathf.Lerp(startY, endY, position);
+            var y = viewportPosition;
 
             (transform as RectTransform).anchoredPosition = new Vector2(x, y);
         }

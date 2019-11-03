@@ -11,12 +11,6 @@ namespace FancyScrollView.Example07
 
         public int DataCount => ItemsSource.Count;
 
-        void Awake()
-        {
-            Context.GetViewportSize = () => ViewportSize;
-            Context.GetVisibleCellCount = () => VisibleCellCount;
-        }
-
         public void UpdateData(IList<ItemData> items)
         {
             UpdateContents(items);
