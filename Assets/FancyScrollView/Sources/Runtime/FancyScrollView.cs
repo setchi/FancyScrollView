@@ -14,7 +14,7 @@ namespace FancyScrollView
         readonly IList<FancyScrollViewCell<TItemData, TContext>> pool =
             new List<FancyScrollViewCell<TItemData, TContext>>();
 
-        float currentPosition;
+        protected float currentPosition;
 
         protected abstract GameObject CellPrefab { get; }
         protected IList<TItemData> ItemsSource { get; set; } = new List<TItemData>();
@@ -24,7 +24,7 @@ namespace FancyScrollView
         /// Updates the contents.
         /// </summary>
         /// <param name="itemsSource">Items source.</param>
-        protected void UpdateContents(IList<TItemData> itemsSource)
+        protected virtual void UpdateContents(IList<TItemData> itemsSource)
         {
             ItemsSource = itemsSource;
             Refresh();
@@ -33,15 +33,15 @@ namespace FancyScrollView
         /// <summary>
         /// Refreshes the cells.
         /// </summary>
-        protected void Refresh() => UpdatePosition(currentPosition, true);
+        protected virtual void Refresh() => UpdatePosition(currentPosition, true);
 
         /// <summary>
         /// Updates the scroll position.
         /// </summary>
         /// <param name="position">Position.</param>
-        protected void UpdatePosition(float position) => UpdatePosition(position, false);
+        protected virtual void UpdatePosition(float position) => UpdatePosition(position, false);
 
-        void UpdatePosition(float position, bool forceRefresh)
+        protected virtual void UpdatePosition(float position, bool forceRefresh)
         {
             currentPosition = position;
 
