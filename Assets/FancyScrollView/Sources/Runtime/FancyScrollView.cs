@@ -41,7 +41,7 @@ namespace FancyScrollView
         /// <param name="position">Position.</param>
         protected virtual void UpdatePosition(float position) => UpdatePosition(position, false);
 
-        protected virtual void UpdatePosition(float position, bool forceRefresh)
+        protected void UpdatePosition(float position, bool forceRefresh)
         {
             currentPosition = position;
 
