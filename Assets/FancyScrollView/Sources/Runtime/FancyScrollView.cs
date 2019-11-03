@@ -136,11 +136,7 @@ namespace FancyScrollView
 #endif
     }
 
-    public sealed class FancyScrollViewNullContext
-    {
-    }
+    public sealed class FancyScrollViewNullContext { }
 
-    public abstract class FancyScrollView<TItemData> : FancyScrollView<TItemData, FancyScrollViewNullContext>
-    {
-    }
+    public abstract class FancyScrollView<TItemData> : FancyScrollView<TItemData, FancyScrollViewNullContext> { }
 }
