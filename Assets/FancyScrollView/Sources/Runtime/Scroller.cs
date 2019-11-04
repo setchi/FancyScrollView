@@ -270,7 +270,7 @@ namespace FancyScrollView
         {
             onValueChanged?.Invoke(currentPosition = position);
 
-            if (updateScrollbar && scrollbar)
+            if (scrollbar && updateScrollbar)
             {
                 scrollbar.value = Mathf.Clamp01(position / Mathf.Max(totalCount - 1f, 1e-4f));
             }
