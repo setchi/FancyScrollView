@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace FancyScrollView
 {
-    [RequireComponent(typeof(Scroller)), ExecuteInEditMode]
+    [RequireComponent(typeof(Scroller))]
     public abstract class FancyScrollRect<TItemData, TContext>
         : FancyScrollView<TItemData, TContext> where TContext : class, IFancyScrollRectContext, new()
     {
@@ -25,6 +25,8 @@ namespace FancyScrollView
         protected virtual void Start()
         {
             Scroller.Snap.Enable = false;
+            scrollOffset = cellInterval;
+
             Scroller.OnValueChanged(p =>
                 base.UpdatePosition(ScrollEnabled ? ToFancyScrollViewPosition(p) : 0f));
         }
