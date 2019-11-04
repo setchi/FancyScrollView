@@ -24,7 +24,7 @@ namespace FancyScrollView
 
         protected virtual void Start()
         {
-            Scroller.Snap.Enable = false;
+            Scroller.SnapEnabled = false;
             scrollOffset = cellInterval;
 
             Scroller.OnValueChanged(p =>
@@ -34,21 +34,21 @@ namespace FancyScrollView
         protected new void UpdatePosition(float position) => UpdatePosition(position, Alignment.Center);
 
         protected virtual void UpdatePosition(float position, Alignment alignment) =>
-            scroller.UpdatePosition(ToScrollerPosition(position, alignment));
+            Scroller.UpdatePosition(ToScrollerPosition(position, alignment));
 
         protected override void UpdateContents(IList<TItemData> items)
         {
             base.UpdateContents(items);
 
-            scroller.SetTotalCount(items.Count);
-            scroller.Draggable = ScrollEnabled;
+            Scroller.SetTotalCount(items.Count);
+            Scroller.Draggable = ScrollEnabled;
             Scroller.ScrollSensitivity = FancyScrollViewportSize * ((ItemsSource.Count - 1f) / MaxScrollPosition);
-            scroller.UpdatePosition(currentPosition / MaxScrollPosition * (ItemsSource.Count - 1f));
+            Scroller.UpdatePosition(currentPosition / MaxScrollPosition * (ItemsSource.Count - 1f));
 
-            if (scroller.Scrollbar)
+            if (Scroller.Scrollbar)
             {
-                scroller.Scrollbar.gameObject.SetActive(ScrollEnabled);
-                scroller.Scrollbar.size = ScrollEnabled
+                Scroller.Scrollbar.gameObject.SetActive(ScrollEnabled);
+                Scroller.Scrollbar.size = ScrollEnabled
                     ? Mathf.Clamp01(FancyScrollViewportSize / Mathf.Max(ItemsSource.Count, 1-2f))
                     : 1f;
             }
@@ -81,7 +81,7 @@ namespace FancyScrollView
         protected virtual void Update()
         {
 #if UNITY_EDITOR
-            Scroller.Snap.Enable = false;
+            Scroller.SnapEnabled = false;
             scrollOffset = cellInterval;
 #endif
         }

@@ -15,7 +15,7 @@ namespace FancyScrollView
         [SerializeField] float scrollSensitivity = 1f;
         [SerializeField] bool inertia = true;
         [SerializeField] float decelerationRate = 0.03f;
-        [SerializeField] SnapData snap = new SnapData {
+        [SerializeField] Snap snap = new Snap {
             Enable = true,
             VelocityThreshold = 0.5f,
             Duration = 0.3f,
@@ -26,10 +26,10 @@ namespace FancyScrollView
 
         public ScrollDirection ScrollDirection => scrollDirection;
         public RectTransform Viewport => viewport;
-        public SnapData Snap
+        public bool SnapEnabled
         {
-            get => snap;
-            set => snap = value;
+            get => snap.Enable;
+            set => snap.Enable = value;
         }
         public float ScrollSensitivity
         {
@@ -59,7 +59,7 @@ namespace FancyScrollView
         float velocity;
 
         [Serializable]
-        public class SnapData
+        class Snap
         {
             public bool Enable;
             public float VelocityThreshold;
