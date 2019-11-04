@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace FancyScrollView.Example07
 {
-    public class ScrollView : FancyScrollRect<ItemData, Context>
+    public class FancyScrollRect : FancyScrollRect<ItemData, Context>
     {
         [SerializeField] GameObject cellPrefab = default;
 

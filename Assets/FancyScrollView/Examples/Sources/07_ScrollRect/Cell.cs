@@ -20,7 +20,7 @@ namespace FancyScrollView.Example07
 
         protected override void UpdatePosition(float position, float viewportPosition)
         {
-            var x = Mathf.Sin(position * Mathf.PI * 2) * 50;
+            var x = Mathf.Sin(position * Mathf.PI * 2) * 65;
             var y = viewportPosition;
 
             (transform as RectTransform).anchoredPosition = new Vector2(x, y);

@@ -7,7 +7,7 @@ namespace FancyScrollView.Example07
 {
     public class Example07 : MonoBehaviour
     {
-        [SerializeField] ScrollView scrollView = default;
+        [SerializeField] FancyScrollRect scrollView = default;
         [SerializeField] Dropdown alignmentDropdown = default;
         [SerializeField] InputField dataCountInputField = default;
         [SerializeField] InputField selectIndexInputField = default;
@@ -53,6 +53,7 @@ namespace FancyScrollView.Example07
                 .ToArray();
 
             scrollView.UpdateData(items);
+            SelectCell();
         }
     }
 }

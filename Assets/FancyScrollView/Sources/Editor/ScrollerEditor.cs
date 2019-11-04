@@ -10,7 +10,7 @@ namespace FancyScrollView
     public class ScrollerEditor : Editor
     {
         SerializedProperty viewport;
-        SerializedProperty directionOfRecognize;
+        SerializedProperty scrollDirection;
         SerializedProperty movementType;
         SerializedProperty elasticity;
         SerializedProperty scrollSensitivity;
@@ -22,6 +22,7 @@ namespace FancyScrollView
         SerializedProperty snapDuration;
         SerializedProperty snapEasing;
         SerializedProperty draggable;
+        SerializedProperty scrollbar;
 
         AnimBool showElasticity;
         AnimBool showInertiaRelatedValues;
@@ -30,7 +31,7 @@ namespace FancyScrollView
         void OnEnable()
         {
             viewport = serializedObject.FindProperty("viewport");
-            directionOfRecognize = serializedObject.FindProperty("directionOfRecognize");
+            scrollDirection = serializedObject.FindProperty("scrollDirection");
             movementType = serializedObject.FindProperty("movementType");
             elasticity = serializedObject.FindProperty("elasticity");
             scrollSensitivity = serializedObject.FindProperty("scrollSensitivity");
@@ -42,6 +43,7 @@ namespace FancyScrollView
             snapDuration = serializedObject.FindProperty("snap.Duration");
             snapEasing = serializedObject.FindProperty("snap.Easing");
             draggable = serializedObject.FindProperty("draggable");
+            scrollbar = serializedObject.FindProperty("scrollbar");
             
             showElasticity = new AnimBool(Repaint);
             showInertiaRelatedValues = new AnimBool(Repaint);
@@ -81,13 +83,14 @@ namespace FancyScrollView
 
             serializedObject.Update();
             EditorGUILayout.PropertyField(viewport);
-            EditorGUILayout.PropertyField(directionOfRecognize);
+            EditorGUILayout.PropertyField(scrollDirection);
             EditorGUILayout.PropertyField(movementType);
             DrawMovementTypeRelatedValue();
             EditorGUILayout.PropertyField(scrollSensitivity);
             EditorGUILayout.PropertyField(inertia);
             DrawInertiaRelatedValues();
             EditorGUILayout.PropertyField(draggable);
+            EditorGUILayout.PropertyField(scrollbar);
             serializedObject.ApplyModifiedProperties();
         }
 
