@@ -483,7 +483,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewport: {fileID: 144042858196395473}
-  directionOfRecognize: 1
+  scrollDirection: 1
   movementType: 1
   elasticity: 0.1
   scrollSensitivity: 4
@@ -495,6 +495,7 @@ MonoBehaviour:
     Duration: 0.35
     Easing: 24
   draggable: 1
+  scrollbar: {fileID: 0}
 --- !u!114 &144042858196395476
 MonoBehaviour:
   m_ObjectHideFlags: 0

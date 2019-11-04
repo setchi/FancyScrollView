@@ -617,6 +617,7 @@ GameObject:
   - component: {fileID: 1708390401}
   - component: {fileID: 1708390400}
   - component: {fileID: 1708390399}
+  - component: {fileID: 1708390403}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -707,6 +708,24 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1708390403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1708390398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79da7ab10086c4b8ebec47fb74b71541, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollView: {fileID: 2133201409}
+  selectedItemInfo: {fileID: 411544766}
+  windows:
+  - {fileID: 1810998693}
+  - {fileID: 1386051760838235367}
+  - {fileID: 131862625}
 --- !u!1001 &1810998691
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -977,7 +996,6 @@ GameObject:
   - component: {fileID: 2133201411}
   - component: {fileID: 2133201410}
   - component: {fileID: 2133201409}
-  - component: {fileID: 2133201408}
   - component: {fileID: 2133201407}
   m_Layer: 5
   m_Name: Tabs
@@ -1019,7 +1037,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewport: {fileID: 2133201406}
-  directionOfRecognize: 1
+  scrollDirection: 1
   movementType: 0
   elasticity: 0.1
   scrollSensitivity: 1
@@ -1031,24 +1049,7 @@ MonoBehaviour:
     Duration: 0.3
     Easing: 24
   draggable: 0
---- !u!114 &2133201408
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2133201405}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79da7ab10086c4b8ebec47fb74b71541, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scrollView: {fileID: 2133201409}
-  selectedItemInfo: {fileID: 411544766}
-  windows:
-  - {fileID: 1810998693}
-  - {fileID: 1386051760838235367}
-  - {fileID: 131862625}
+  scrollbar: {fileID: 0}
 --- !u!114 &2133201409
 MonoBehaviour:
   m_ObjectHideFlags: 0
