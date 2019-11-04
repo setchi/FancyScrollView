@@ -272,7 +272,7 @@ namespace FancyScrollView
 
             if (updateScrollbar && scrollbar)
             {
-                scrollbar.value = position / Mathf.Max(totalCount - 1f, 1e-4f);
+                scrollbar.value = Mathf.Clamp01(position / Mathf.Max(totalCount - 1f, 1e-4f));
             }
         }
 

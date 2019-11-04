@@ -47,7 +47,7 @@ namespace FancyScrollView
             {
                 scroller.Scrollbar.gameObject.SetActive(ScrollEnabled);
                 scroller.Scrollbar.size = ScrollEnabled
-                    ? FancyScrollViewportSize / Mathf.Max(ItemsSource.Count, 1-3f)
+                    ? Mathf.Clamp01(FancyScrollViewportSize / Mathf.Max(ItemsSource.Count, 1-2f))
                     : 1f;
             }
         }

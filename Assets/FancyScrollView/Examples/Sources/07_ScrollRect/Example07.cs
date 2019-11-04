@@ -27,7 +27,8 @@ namespace FancyScrollView.Example07
 
         void SelectCell()
         {
-            if (!int.TryParse(selectIndexInputField.text, out int index))
+            if (scrollView.DataCount == 0 ||
+                !int.TryParse(selectIndexInputField.text, out int index))
             {
                 return;
             }
@@ -45,6 +46,12 @@ namespace FancyScrollView.Example07
         {
             if (!int.TryParse(dataCountInputField.text, out int dataCount))
             {
+                return;
+            }
+
+            if (dataCount < 0)
+            {
+                dataCountInputField.text = "1";
                 return;
             }
 
