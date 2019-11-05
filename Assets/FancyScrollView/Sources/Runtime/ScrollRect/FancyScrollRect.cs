@@ -34,7 +34,7 @@ namespace FancyScrollView
         protected new void UpdatePosition(float position) => UpdatePosition(position, Alignment.Center);
 
         protected virtual void UpdatePosition(float position, Alignment alignment) =>
-            Scroller.UpdatePosition(ToScrollerPosition(position, alignment));
+            Scroller.Position = ToScrollerPosition(position, alignment);
 
         protected override void UpdateContents(IList<TItemData> items)
         {
@@ -43,7 +43,7 @@ namespace FancyScrollView
             Scroller.SetTotalCount(items.Count);
             Scroller.Draggable = ScrollEnabled;
             Scroller.ScrollSensitivity = FancyScrollViewportSize * ((ItemsSource.Count - 1f) / MaxScrollPosition);
-            Scroller.UpdatePosition(currentPosition / MaxScrollPosition * (ItemsSource.Count - 1f));
+            Scroller.Position = currentPosition / MaxScrollPosition * (ItemsSource.Count - 1f);
 
             if (Scroller.Scrollbar)
             {

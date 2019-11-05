@@ -43,6 +43,18 @@ namespace FancyScrollView
         }
         public Scrollbar Scrollbar => scrollbar;
 
+        public float Position
+        {
+            get => currentPosition;
+            set {
+                autoScrollState.Reset();
+                velocity = 0f;
+                dragging = false;
+
+                UpdatePosition(value);
+            }
+        }
+
         readonly AutoScrollState autoScrollState = new AutoScrollState();
 
         Action<float> onValueChanged;
@@ -104,7 +116,7 @@ namespace FancyScrollView
 
             if (scrollbar)
             {
-                scrollbar.onValueChanged.AddListener(x => ValueChanged(x * (totalCount - 1f), false));
+                scrollbar.onValueChanged.AddListener(x => UpdatePosition(x * (totalCount - 1f), false));
             }
         }
 
@@ -137,7 +149,7 @@ namespace FancyScrollView
             velocity = 0f;
             scrollStartPosition = currentPosition;
 
-            SelectionChanged(Mathf.RoundToInt(CircularPosition(autoScrollState.EndPosition, totalCount)));
+            UpdateSelection(Mathf.RoundToInt(CircularPosition(autoScrollState.EndPosition, totalCount)));
         }
 
         public void JumpTo(int index)
@@ -152,18 +164,8 @@ namespace FancyScrollView
             velocity = 0f;
             dragging = false;
 
-            SelectionChanged(index);
-            ValueChanged(index);
-        }
-
-        public void UpdatePosition(float position)
-        {
-            autoScrollState.Reset();
-
-            velocity = 0f;
-            dragging = false;
-
-            ValueChanged(position);
+            UpdateSelection(index);
+            UpdatePosition(index);
         }
 
         public MovementDirection GetMovementDirection(int sourceIndex, int destIndex)
@@ -229,7 +231,7 @@ namespace FancyScrollView
                 }
             }
 
-            ValueChanged(position);
+            UpdatePosition(position);
         }
 
         void IEndDragHandler.OnEndDrag(PointerEventData eventData)
@@ -266,7 +268,7 @@ namespace FancyScrollView
             return 0f;
         }
 
-        void ValueChanged(float position, bool updateScrollbar = true)
+        void UpdatePosition(float position, bool updateScrollbar = true)
         {
             onValueChanged?.Invoke(currentPosition = position);
 
@@ -276,7 +278,7 @@ namespace FancyScrollView
             }
         }
 
-        void SelectionChanged(int index) => onSelectionChanged?.Invoke(index);
+        void UpdateSelection(int index) => onSelectionChanged?.Invoke(index);
 
         float RubberDelta(float overStretching, float viewSize) =>
             (1 - 1 / (Mathf.Abs(overStretching) * 0.55f / viewSize + 1)) * viewSize * Mathf.Sign(overStretching);
@@ -315,7 +317,7 @@ namespace FancyScrollView
                     }
                 }
 
-                ValueChanged(position);
+                UpdatePosition(position);
             }
             else if (!dragging && (!Mathf.Approximately(offset, 0f) || !Mathf.Approximately(velocity, 0f)))
             {
@@ -327,7 +329,7 @@ namespace FancyScrollView
                     autoScrollState.Enable = true;
                     autoScrollState.Elastic = true;
 
-                    SelectionChanged(Mathf.Clamp(Mathf.RoundToInt(position), 0, totalCount - 1));
+                    UpdateSelection(Mathf.Clamp(Mathf.RoundToInt(position), 0, totalCount - 1));
                 }
                 else if (inertia)
                 {
@@ -360,11 +362,11 @@ namespace FancyScrollView
                         if (Mathf.Approximately(position, 0f) || Mathf.Approximately(position, totalCount - 1f))
                         {
                             velocity = 0f;
-                            SelectionChanged(Mathf.RoundToInt(position));
+                            UpdateSelection(Mathf.RoundToInt(position));
                         }
                     }
 
-                    ValueChanged(position);
+                    UpdatePosition(position);
                 }
             }
 
