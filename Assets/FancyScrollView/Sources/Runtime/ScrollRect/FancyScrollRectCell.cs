@@ -7,8 +7,13 @@ namespace FancyScrollView
     {
         public override void UpdatePosition(float position)
         {
+            var cellInterval = Context.GetCellInterval();
             var viewportSize = Context.GetViewportSize();
-            var scrollSize = viewportSize + viewportSize * Context.GetCellInterval();
+            var fancyScrollViewportSize = 1f / Mathf.Max(cellInterval, 1e-3f);
+
+            var scale = fancyScrollViewportSize / Mathf.Max(fancyScrollViewportSize - 1f, 1e-3f);
+            var margin = viewportSize * scale * cellInterval;
+            var scrollSize = viewportSize + margin;
 
             var start = 0.5f * scrollSize;
             var end = -start;
