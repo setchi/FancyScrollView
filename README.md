@@ -4,8 +4,7 @@
 
 高度に柔軟なアニメーションを実装できる汎用の ScrollView コンポーネントです。 無限スクロールもサポートしています。
 
-![screencast](https://user-images.githubusercontent.com/8326814/59548501-5fae5f00-8f8b-11e9-9740-c98afd9aa785.png)
-<img src="https://user-images.githubusercontent.com/8326814/59548448-a3549900-8f8a-11e9-9a27-b04f1410a7b5.gif" width="320"><img src="https://user-images.githubusercontent.com/8326814/59548462-b8c9c300-8f8a-11e9-8985-5f1c2e610309.gif" width="320"><img src="https://user-images.githubusercontent.com/8326814/59550410-7f528100-8fa5-11e9-8f1b-41e59b645571.gif" width="320"><img src="https://user-images.githubusercontent.com/8326814/59550411-7f528100-8fa5-11e9-8bfb-bd42da47f7a0.gif" width="320"><img src="https://user-images.githubusercontent.com/8326814/68111725-30e15700-ff33-11e9-9fce-c8b1f11e7d4e.gif" width="320"><img src="https://user-images.githubusercontent.com/8326814/68111506-997c0400-ff32-11e9-8d6c-06ccf1c2d0e5.gif" width="320">
+<img src="https://user-images.githubusercontent.com/8326814/68111506-997c0400-ff32-11e9-8d6c-06ccf1c2d0e5.gif" width="640"><img src="https://user-images.githubusercontent.com/8326814/59548448-a3549900-8f8a-11e9-9a27-b04f1410a7b5.gif" width="320"><img src="https://user-images.githubusercontent.com/8326814/59548462-b8c9c300-8f8a-11e9-8985-5f1c2e610309.gif" width="320"><img src="https://user-images.githubusercontent.com/8326814/59550410-7f528100-8fa5-11e9-8f1b-41e59b645571.gif" width="320"><img src="https://user-images.githubusercontent.com/8326814/59550411-7f528100-8fa5-11e9-8bfb-bd42da47f7a0.gif" width="320">
 
 ## Demo
 https://setchi.jp/FancyScrollView/
@@ -178,7 +177,7 @@ public abstract class FancyScrollView<TItemData>
 #### Inspector
 | Type | Name | Summary |
 |:-----------|:------------|:------------|
-|`float`|`Cell Interval`|セル同士の間隔を float.Epsilon ~ 1.0 の間で指定します.|
+|`float`|`Cell Interval`|セル同士の間隔を 0.01 ~ 1.0 の間で指定します.|
 |`float`|`Scroll Offset`|スクロールのオフセットを指定します.たとえば、 0.5 を指定してスクロール位置が 0 の場合、最初のセルの位置は 0.5 になります.|
 |`bool`|`Loop`|オンにするとセルが循環し、最初のセルの前に最後のセル、最後のセルの後に最初のセルが並ぶようになります.無限スクロールさせたい場合はオンにします.|
 |`Transform`|`Cell Container`|セルの親要素となる Transform を指定します. |
@@ -237,7 +236,7 @@ public class Scroller
 | Type | Name | Summary |
 |:-----------|:------------|:------------|
 |`RectTransform`|`Viewport`|ビューポートとなる RectTransform を指定します.ここで指定された RectTransform の範囲内でジェスチャーの検出を行います.|
-|`ScrollDirection`|`Direction Of Recognize`|ジェスチャーを認識する方向を Vertical か Horizontal で指定します.|
+|`ScrollDirection`|`ScrollDirection`|ジェスチャーを認識する方向を Vertical か Horizontal で指定します.|
 |`MovementType`|`Movement Type`|コンテンツがスクロール範囲を越えて移動するときに使用する挙動を指定します.|
 |`float`|`Elasticity`|コンテンツがスクロール範囲を越えて移動するときに使用する弾力性の量を指定します.|
 |`float`|`Scroll Sensitivity`|スクロールの感度を指定します.|
@@ -247,6 +246,8 @@ public class Scroller
 |`float`|`Snap.Velocity Threshold`|Snap がはじまる閾値となる速度を指定します.|
 |`float`|`Snap.Duration`|Snap 時の移動時間を秒数で指定します.|
 |`Ease`|`Snap.Easing`|Snap 時の Easing を指定します.|
+|`bool`|`Draggable`|ドラッグ入力を受付けるかどうかを指定します.|
+|`Scrollbar`|`Scrollbar`|Scrollbar を指定します.|
 
 #### Methods
 | Type | Name | Summary |
@@ -265,4 +266,4 @@ public class Scroller
 [setchi](https://github.com/setchi)
 
 ## License
-MIT
+[MIT](https://github.com/setchi/FancyScrollView/blob/master/LICENSE)
