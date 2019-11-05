@@ -7,8 +7,8 @@ namespace FancyScrollView
     public abstract class FancyScrollRect<TItemData, TContext>
         : FancyScrollView<TItemData, TContext> where TContext : class, IFancyScrollRectContext, new()
     {
-        protected virtual float FancyScrollViewportSize => 1f / Mathf.Max(cellInterval, 1e-2f);
-        protected virtual float MaxScrollPosition => ItemsSource.Count - 1f - FancyScrollViewportSize;
+        protected virtual float FancyScrollViewportSize => 1f / Mathf.Max(cellInterval, 1e-2f) - 1f;
+        protected virtual float MaxScrollPosition => ItemsSource.Count - FancyScrollViewportSize;
         protected virtual bool ScrollEnabled => MaxScrollPosition > 0f;
 
         Scroller scroller;
@@ -59,7 +59,7 @@ namespace FancyScrollView
 
         protected virtual float ToScrollerPosition(float position, Alignment alignment = Alignment.Center)
         {
-            var offset = (FancyScrollViewportSize - 2f) * GetAnchore(alignment);
+            var offset = (FancyScrollViewportSize - 1f) * GetAnchore(alignment);
             return ToScrollerPosition(Mathf.Clamp(position - offset, 0f, MaxScrollPosition));
         }
 
