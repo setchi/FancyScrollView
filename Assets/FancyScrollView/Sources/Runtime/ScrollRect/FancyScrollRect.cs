@@ -7,8 +7,8 @@ namespace FancyScrollView
     public abstract class FancyScrollRect<TItemData, TContext>
         : FancyScrollView<TItemData, TContext> where TContext : class, IFancyScrollRectContext, new()
     {
-        protected virtual float FancyScrollViewportSize => 1f / Mathf.Max(cellInterval, 1e-2f) - 1f;
-        protected virtual float MaxScrollPosition => ItemsSource.Count - FancyScrollViewportSize;
+        protected virtual float FancyScrollViewportSize => 1f / Mathf.Max(cellInterval, 1e-2f);
+        protected virtual float MaxScrollPosition => ItemsSource.Count - 1f - FancyScrollViewportSize;
         protected virtual bool ScrollEnabled => MaxScrollPosition > 0f;
 
         Scroller scroller;
@@ -16,7 +16,7 @@ namespace FancyScrollView
 
         protected virtual void Awake()
         {
-            Context.GetFancyScrollViewportSize = () => FancyScrollViewportSize;
+            Context.GetCellInterval = () => cellInterval;
             Context.GetViewportSize = () => Scroller.ScrollDirection == ScrollDirection.Horizontal
                 ? Scroller.Viewport.rect.size.x
                 : Scroller.Viewport.rect.size.y;
@@ -42,8 +42,8 @@ namespace FancyScrollView
 
             Scroller.SetTotalCount(items.Count);
             Scroller.Draggable = ScrollEnabled;
-            Scroller.ScrollSensitivity = FancyScrollViewportSize * ((ItemsSource.Count - 1f) / MaxScrollPosition);
-            Scroller.Position = currentPosition / MaxScrollPosition * (ItemsSource.Count - 1f);
+            Scroller.ScrollSensitivity = ToScrollerPosition(FancyScrollViewportSize);
+            Scroller.Position = ToScrollerPosition(currentPosition);
 
             if (Scroller.Scrollbar)
             {
@@ -54,17 +54,17 @@ namespace FancyScrollView
             }
         }
 
-        protected virtual float ToFancyScrollViewPosition(float scrollerPosition)
-        {
-            scrollerPosition /= Mathf.Max(ItemsSource.Count - 1f, 1e-3f);
-            return scrollerPosition * MaxScrollPosition;
-        }
+        protected virtual float ToFancyScrollViewPosition(float scrollerPosition) =>
+            scrollerPosition / Mathf.Max(ItemsSource.Count - 1, 1) * MaxScrollPosition;
 
         protected virtual float ToScrollerPosition(float position, Alignment alignment = Alignment.Center)
         {
-            var offset = (ItemsSource.Count - 1 - MaxScrollPosition) * GetAnchore(alignment);
-            return Mathf.Clamp01((position - offset) / MaxScrollPosition) * (ItemsSource.Count - 1f);
+            var offset = (FancyScrollViewportSize - 2f) * GetAnchore(alignment);
+            return ToScrollerPosition(Mathf.Clamp(position - offset, 0f, MaxScrollPosition));
         }
+
+        protected virtual float ToScrollerPosition(float position) =>
+            position / MaxScrollPosition * (ItemsSource.Count - 1f);
 
         protected virtual float GetAnchore(Alignment alignment)
         {
