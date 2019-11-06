@@ -37,9 +37,9 @@ namespace FancyScrollView
 
             if (Scroller.Scrollbar)
             {
-                if (p > ItemsSource.Count - 1f)
+                if (p > ItemsSource.Count - 1)
                 {
-                    shrinkScrollbar(p - (ItemsSource.Count - 1f));
+                    shrinkScrollbar(p - (ItemsSource.Count - 1));
                 }
                 else if (p < 0f)
                 {
@@ -100,15 +100,15 @@ namespace FancyScrollView
             return scrollerPosition / Mathf.Max(ItemsSource.Count - 1, 1) * MaxScrollPosition;
         }
 
+        protected virtual float ToScrollerPosition(float position)
+        {
+            return position / MaxScrollPosition * (ItemsSource.Count - 1);
+        }
+
         protected virtual float ToScrollerPosition(float position, Alignment alignment = Alignment.Center)
         {
             var offset = (FancyScrollViewportSize - 1f) * GetAnchore(alignment);
             return ToScrollerPosition(Mathf.Clamp(position - offset, 0f, MaxScrollPosition));
-        }
-
-        protected virtual float ToScrollerPosition(float position)
-        {
-            return position / MaxScrollPosition * (ItemsSource.Count - 1f);
         }
 
         protected virtual float GetAnchore(Alignment alignment)
