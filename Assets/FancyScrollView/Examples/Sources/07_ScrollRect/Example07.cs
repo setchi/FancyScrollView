@@ -23,6 +23,8 @@ namespace FancyScrollView.Example07
 
             dataCountInputField.onValueChanged.AddListener(_ => GenerateItems());
             dataCountInputField.text = "20";
+
+            scrollView.JumpTo(10);
         }
 
         void SelectCell()

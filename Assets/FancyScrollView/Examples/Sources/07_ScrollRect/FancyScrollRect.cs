@@ -23,5 +23,13 @@ namespace FancyScrollView.Example07
 
             ScrollTo(index, duration, EasingCore.Ease.InOutQuint, alignment);
         }
+
+        public void JumpTo(int index, Alignment alignment = Alignment.Center)
+        {
+            Context.SelectedIndex = index;
+            Refresh();
+
+            UpdatePosition(index, alignment);
+        }
     }
 }
