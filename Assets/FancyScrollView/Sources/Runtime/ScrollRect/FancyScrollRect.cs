@@ -27,7 +27,6 @@ namespace FancyScrollView
         protected virtual void Start()
         {
             scrollOffset = cellInterval;
-            Scroller.SnapEnabled = false;
             Scroller.OnValueChanged(OnScrollerValueChanged);
         }
 
@@ -125,8 +124,11 @@ namespace FancyScrollView
         protected virtual void Update()
         {
 #if UNITY_EDITOR
-            Scroller.SnapEnabled = false;
             scrollOffset = cellInterval;
+
+            Debug.Assert(!loop, "Loop is currently not supported in FancyScrollRect.");
+            Debug.Assert(!Scroller.SnapEnabled, "Snap is currently not supported in FancyScrollRect.");
+            Debug.Assert(Scroller.MovementType != MovementType.Unrestricted, "MovementType.Unrestricted is currently not supported in FancyScrollRect.");
 #endif
         }
     }
