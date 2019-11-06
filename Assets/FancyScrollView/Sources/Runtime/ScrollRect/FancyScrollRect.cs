@@ -24,11 +24,32 @@ namespace FancyScrollView
 
         protected virtual void Start()
         {
-            Scroller.SnapEnabled = false;
             scrollOffset = cellInterval;
+            Scroller.SnapEnabled = false;
+            Scroller.OnValueChanged(OnScrollerValueChanged);
+        }
 
-            Scroller.OnValueChanged(p =>
-                base.UpdatePosition(ScrollEnabled ? ToFancyScrollViewPosition(p) : 0f));
+        void OnScrollerValueChanged(float p)
+        {
+            base.UpdatePosition(ScrollEnabled ? ToFancyScrollViewPosition(p) : 0f);
+
+            if (Scroller.Scrollbar)
+            {
+                if (p > ItemsSource.Count - 1f)
+                {
+                    shrinkScrollbar(p - (ItemsSource.Count - 1f));
+                }
+                else if (p < 0f)
+                {
+                    shrinkScrollbar(-p);
+                }
+            }
+
+            void shrinkScrollbar(float offset)
+            {
+                var scale = 1f - ToFancyScrollViewPosition(offset) / FancyScrollViewportSize;
+                UpdateScrollbarSize(FancyScrollViewportSize * scale / Mathf.Max(ItemsSource.Count, 1));
+            }
         }
 
         protected new void UpdatePosition(float position) => UpdatePosition(position, Alignment.Center);
@@ -48,11 +69,12 @@ namespace FancyScrollView
             if (Scroller.Scrollbar)
             {
                 Scroller.Scrollbar.gameObject.SetActive(ScrollEnabled);
-                Scroller.Scrollbar.size = ScrollEnabled
-                    ? Mathf.Clamp01(FancyScrollViewportSize / Mathf.Max(ItemsSource.Count, 1-2f))
-                    : 1f;
+                UpdateScrollbarSize(FancyScrollViewportSize / Mathf.Max(ItemsSource.Count, 1));
             }
         }
+
+        protected void UpdateScrollbarSize(float size) =>
+            Scroller.Scrollbar.size = ScrollEnabled ? Mathf.Clamp01(size) : 1f;
 
         protected virtual float ToFancyScrollViewPosition(float scrollerPosition) =>
             scrollerPosition / Mathf.Max(ItemsSource.Count - 1, 1) * MaxScrollPosition;
