@@ -16,12 +16,12 @@ namespace FancyScrollView.Example07
             UpdateContents(items);
         }
 
-        public void JumpTo(int index, Alignment alignment = Alignment.Center)
+        public void ScrollTo(int index, float duration, Alignment alignment = Alignment.Center)
         {
             Context.SelectedIndex = index;
             Refresh();
 
-            UpdatePosition(index, alignment);
+            ScrollTo(index, duration, EasingCore.Ease.InOutQuint, alignment);
         }
     }
 }

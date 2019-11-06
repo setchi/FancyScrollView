@@ -126,15 +126,16 @@ namespace FancyScrollView
 
         public void SetTotalCount(int totalCount) => this.totalCount = totalCount;
 
-        public void ScrollTo(int index, float duration, Action onComplete = null) => ScrollTo(index, duration, Ease.OutCubic, onComplete);
+        public void ScrollTo(float position, float duration, Action onComplete = null) => ScrollTo(position, duration, Ease.OutCubic, onComplete);
 
-        public void ScrollTo(int index, float duration, Ease easing, Action onComplete = null) => ScrollTo(index, duration, EasingFunction.Get(easing), onComplete);
+        public void ScrollTo(float position, float duration, Ease easing, Action onComplete = null) => ScrollTo(position, duration, EasingFunction.Get(easing), onComplete);
 
-        public void ScrollTo(int index, float duration, Func<float, float> easingFunction, Action onComplete = null)
+        public void ScrollTo(float position, float duration, Func<float, float> easingFunction, Action onComplete = null)
         {
             if (duration <= 0f)
             {
-                JumpTo(CircularIndex(index, totalCount));
+                Position = CircularPosition(position, totalCount);
+                onComplete?.Invoke();
                 return;
             }
 
@@ -143,7 +144,7 @@ namespace FancyScrollView
             autoScrollState.Duration = duration;
             autoScrollState.EasingFunction = easingFunction ?? DefaultEasingFunction;
             autoScrollState.StartTime = Time.unscaledTime;
-            autoScrollState.EndPosition = Mathf.Round(currentPosition + CalculateMovementAmount(currentPosition, index));
+            autoScrollState.EndPosition = currentPosition + CalculateMovementAmount(currentPosition, position);
             autoScrollState.OnComplete = onComplete;
 
             velocity = 0f;

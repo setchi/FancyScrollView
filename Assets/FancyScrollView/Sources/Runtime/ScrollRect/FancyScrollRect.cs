@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
+using EasingCore;
 
 namespace FancyScrollView
 {
@@ -52,11 +54,6 @@ namespace FancyScrollView
             }
         }
 
-        protected new void UpdatePosition(float position) => UpdatePosition(position, Alignment.Center);
-
-        protected virtual void UpdatePosition(float position, Alignment alignment) =>
-            Scroller.Position = ToScrollerPosition(position, alignment);
-
         protected override void UpdateContents(IList<TItemData> items)
         {
             base.UpdateContents(items);
@@ -73,11 +70,35 @@ namespace FancyScrollView
             }
         }
 
-        protected void UpdateScrollbarSize(float size) =>
-            Scroller.Scrollbar.size = ScrollEnabled ? Mathf.Clamp01(size) : 1f;
+        protected new void UpdatePosition(float position)
+        {
+            UpdatePosition(position, Alignment.Center);
+        }
 
-        protected virtual float ToFancyScrollViewPosition(float scrollerPosition) =>
-            scrollerPosition / Mathf.Max(ItemsSource.Count - 1, 1) * MaxScrollPosition;
+        protected virtual void UpdatePosition(float position, Alignment alignment)
+        {
+            Scroller.Position = ToScrollerPosition(position, alignment);
+        }
+
+        public void ScrollTo(float position, float duration, Alignment alignment = Alignment.Center, Action onComplete = null)
+        {
+            Scroller.ScrollTo(ToScrollerPosition(position, alignment), duration, onComplete);
+        }
+
+        public void ScrollTo(float position, float duration, Ease easing, Alignment alignment = Alignment.Center, Action onComplete = null)
+        {
+            Scroller.ScrollTo(ToScrollerPosition(position, alignment), duration, easing, onComplete);
+        }
+
+        protected void UpdateScrollbarSize(float size)
+        {
+            Scroller.Scrollbar.size = ScrollEnabled ? Mathf.Clamp01(size) : 1f;
+        }
+
+        protected virtual float ToFancyScrollViewPosition(float scrollerPosition)
+        {
+            return scrollerPosition / Mathf.Max(ItemsSource.Count - 1, 1) * MaxScrollPosition;
+        }
 
         protected virtual float ToScrollerPosition(float position, Alignment alignment = Alignment.Center)
         {
@@ -85,8 +106,10 @@ namespace FancyScrollView
             return ToScrollerPosition(Mathf.Clamp(position - offset, 0f, MaxScrollPosition));
         }
 
-        protected virtual float ToScrollerPosition(float position) =>
-            position / MaxScrollPosition * (ItemsSource.Count - 1f);
+        protected virtual float ToScrollerPosition(float position)
+        {
+            return position / MaxScrollPosition * (ItemsSource.Count - 1f);
+        }
 
         protected virtual float GetAnchore(Alignment alignment)
         {
@@ -95,8 +118,7 @@ namespace FancyScrollView
                 case Alignment.Head: return 0.0f;
                 case Alignment.Center: return 0.5f;
                 case Alignment.Tail: return 1.0f;
-                default:
-                    return GetAnchore(Alignment.Center);
+                default: return GetAnchore(Alignment.Center);
             }
         }
 

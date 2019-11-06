@@ -18,11 +18,11 @@ namespace FancyScrollView.Example07
             alignmentDropdown.onValueChanged.AddListener(_ => SelectCell());
             alignmentDropdown.value = (int)Alignment.Center;
 
-            dataCountInputField.onValueChanged.AddListener(_ => GenerateItems());
-            dataCountInputField.text = "20";
-
             selectIndexInputField.onValueChanged.AddListener(_ => SelectCell());
             selectIndexInputField.text = "10";
+
+            dataCountInputField.onValueChanged.AddListener(_ => GenerateItems());
+            dataCountInputField.text = "20";
         }
 
         void SelectCell()
@@ -39,7 +39,7 @@ namespace FancyScrollView.Example07
                 return;
             }
 
-            scrollView.JumpTo(index, (Alignment)alignmentDropdown.value);
+            scrollView.ScrollTo(index, 0.3f, (Alignment)alignmentDropdown.value);
         }
 
         void GenerateItems()
