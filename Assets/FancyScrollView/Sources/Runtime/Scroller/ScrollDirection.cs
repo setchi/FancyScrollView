@@ -2,7 +2,7 @@
 {
     public enum ScrollDirection
     {
-        Vertical = 0,
-        Horizontal = 1,
+        Vertical,
+        Horizontal,
     }
 }

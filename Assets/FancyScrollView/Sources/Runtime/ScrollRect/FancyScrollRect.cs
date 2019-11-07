@@ -13,8 +13,8 @@ namespace FancyScrollView
         protected virtual float MaxScrollPosition => ItemsSource.Count - FancyScrollViewportSize;
         protected virtual bool ScrollEnabled => MaxScrollPosition > 0f;
 
-        Scroller scroller;
-        protected Scroller Scroller => scroller ?? (scroller = GetComponent<Scroller>());
+        Scroller cachedScroller;
+        protected Scroller Scroller => cachedScroller ?? (cachedScroller = GetComponent<Scroller>());
 
         protected virtual void Awake()
         {
@@ -38,19 +38,19 @@ namespace FancyScrollView
             {
                 if (p > ItemsSource.Count - 1)
                 {
-                    shrinkScrollbar(p - (ItemsSource.Count - 1));
+                    ShrinkScrollbar(p - (ItemsSource.Count - 1));
                 }
                 else if (p < 0f)
                 {
-                    shrinkScrollbar(-p);
+                    ShrinkScrollbar(-p);
                 }
             }
+        }
 
-            void shrinkScrollbar(float offset)
-            {
-                var scale = 1f - ToFancyScrollViewPosition(offset) / FancyScrollViewportSize;
-                UpdateScrollbarSize(FancyScrollViewportSize * scale / Mathf.Max(ItemsSource.Count, 1));
-            }
+        void ShrinkScrollbar(float offset)
+        {
+            var scale = 1f - ToFancyScrollViewPosition(offset) / FancyScrollViewportSize;
+            UpdateScrollbarSize(FancyScrollViewportSize * scale / Mathf.Max(ItemsSource.Count, 1));
         }
 
         protected override void UpdateContents(IList<TItemData> items)
