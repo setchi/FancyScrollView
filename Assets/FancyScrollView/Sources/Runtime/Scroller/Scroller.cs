@@ -25,7 +25,11 @@ namespace FancyScrollView
         [SerializeField] Scrollbar scrollbar = default;
 
         public ScrollDirection ScrollDirection => scrollDirection;
-        public MovementType MovementType => movementType;
+        public MovementType MovementType
+        {
+            get => movementType;
+            set => movementType = value;
+        }
         public RectTransform Viewport => viewport;
         public bool SnapEnabled
         {

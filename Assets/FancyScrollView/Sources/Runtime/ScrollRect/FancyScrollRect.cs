@@ -121,15 +121,27 @@ namespace FancyScrollView
             }
         }
 
-        protected virtual void Update()
+        protected virtual void OnValidate()
         {
-#if UNITY_EDITOR
             scrollOffset = cellInterval;
 
-            Debug.Assert(!loop, "Loop is currently not supported in FancyScrollRect.");
-            Debug.Assert(!Scroller.SnapEnabled, "Snap is currently not supported in FancyScrollRect.");
-            Debug.Assert(Scroller.MovementType != MovementType.Unrestricted, "MovementType.Unrestricted is currently not supported in FancyScrollRect.");
-#endif
+            if (loop)
+            {
+                loop = false;
+                Debug.LogError("Loop is currently not supported in FancyScrollRect.");
+            }
+
+            if (Scroller.SnapEnabled)
+            {
+                Scroller.SnapEnabled = false;
+                Debug.LogError("Snap is currently not supported in FancyScrollRect.");
+            }
+
+            if (Scroller.MovementType == MovementType.Unrestricted)
+            {
+                Scroller.MovementType = MovementType.Elastic;
+                Debug.LogError("MovementType.Unrestricted is currently not supported in FancyScrollRect.");
+            }
         }
     }
 
