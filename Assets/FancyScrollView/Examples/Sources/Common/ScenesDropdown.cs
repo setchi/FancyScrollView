@@ -17,6 +17,7 @@ namespace FancyScrollView
             "05_Voronoi",
             "06_LoopTabBar",
             "07_ScrollRect",
+            "08_GridView",
         };
 
         [SerializeField] int defaultScene = default;
