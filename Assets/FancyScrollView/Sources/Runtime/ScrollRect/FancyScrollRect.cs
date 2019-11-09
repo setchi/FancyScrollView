@@ -79,14 +79,14 @@ namespace FancyScrollView
             Scroller.Position = ToScrollerPosition(position, alignment);
         }
 
-        public void ScrollTo(float position, float duration, Alignment alignment = Alignment.Center, Action onComplete = null)
+        public virtual void ScrollTo(int index, float duration, Alignment alignment = Alignment.Center, Action onComplete = null)
         {
-            Scroller.ScrollTo(ToScrollerPosition(position, alignment), duration, onComplete);
+            Scroller.ScrollTo(ToScrollerPosition(index, alignment), duration, onComplete);
         }
 
-        public void ScrollTo(float position, float duration, Ease easing, Alignment alignment = Alignment.Center, Action onComplete = null)
+        public virtual void ScrollTo(int index, float duration, Ease easing, Alignment alignment = Alignment.Center, Action onComplete = null)
         {
-            Scroller.ScrollTo(ToScrollerPosition(position, alignment), duration, easing, onComplete);
+            Scroller.ScrollTo(ToScrollerPosition(index, alignment), duration, easing, onComplete);
         }
 
         protected void UpdateScrollbarSize(float size)
