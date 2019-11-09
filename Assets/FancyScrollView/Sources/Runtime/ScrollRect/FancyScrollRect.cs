@@ -6,11 +6,11 @@ using EasingCore;
 namespace FancyScrollView
 {
     [RequireComponent(typeof(Scroller))]
-    public abstract class FancyScrollRect<TItemData, TContext>
-        : FancyScrollView<TItemData, TContext> where TContext : class, IFancyScrollRectContext, new()
+    public abstract class FancyScrollRect<TItemData, TContext> : FancyScrollView<TItemData, TContext>
+        where TContext : class, IFancyScrollRectContext, new()
     {
-        protected virtual float FancyScrollViewportSize => 1f / Mathf.Max(cellInterval, 1e-2f) - 1f;
-        protected virtual float MaxScrollPosition => ItemsSource.Count - FancyScrollViewportSize;
+        protected virtual float ViewportLength => 1f / Mathf.Max(cellInterval, 1e-2f) - 1f;
+        protected virtual float MaxScrollPosition => ItemsSource.Count - ViewportLength;
         protected virtual bool ScrollEnabled => MaxScrollPosition > 0f;
 
         Scroller cachedScroller;
@@ -49,8 +49,8 @@ namespace FancyScrollView
 
         void ShrinkScrollbar(float offset)
         {
-            var scale = 1f - ToFancyScrollViewPosition(offset) / FancyScrollViewportSize;
-            UpdateScrollbarSize(FancyScrollViewportSize * scale / Mathf.Max(ItemsSource.Count, 1));
+            var scale = 1f - ToFancyScrollViewPosition(offset) / ViewportLength;
+            UpdateScrollbarSize(ViewportLength * scale / Mathf.Max(ItemsSource.Count, 1));
         }
 
         protected override void UpdateContents(IList<TItemData> items)
@@ -59,13 +59,13 @@ namespace FancyScrollView
 
             Scroller.SetTotalCount(items.Count);
             Scroller.Draggable = ScrollEnabled;
-            Scroller.ScrollSensitivity = ToScrollerPosition(FancyScrollViewportSize);
+            Scroller.ScrollSensitivity = ToScrollerPosition(ViewportLength);
             Scroller.Position = ToScrollerPosition(currentPosition);
 
             if (Scroller.Scrollbar)
             {
                 Scroller.Scrollbar.gameObject.SetActive(ScrollEnabled);
-                UpdateScrollbarSize(FancyScrollViewportSize / Mathf.Max(ItemsSource.Count, 1));
+                UpdateScrollbarSize(ViewportLength / Mathf.Max(ItemsSource.Count, 1));
             }
         }
 
@@ -106,7 +106,7 @@ namespace FancyScrollView
 
         protected virtual float ToScrollerPosition(float position, Alignment alignment = Alignment.Center)
         {
-            var offset = (FancyScrollViewportSize - 1f) * GetAnchore(alignment);
+            var offset = (ViewportLength - 1f) * GetAnchore(alignment);
             return ToScrollerPosition(Mathf.Clamp(position - offset, 0f, MaxScrollPosition));
         }
 

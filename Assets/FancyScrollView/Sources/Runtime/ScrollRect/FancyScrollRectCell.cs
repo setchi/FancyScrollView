@@ -2,16 +2,16 @@
 
 namespace FancyScrollView
 {
-    public abstract class FancyScrollRectCell<TItemData, TContext>
-        : FancyScrollViewCell<TItemData, TContext> where TContext : class, IFancyScrollRectContext, new()
+    public abstract class FancyScrollRectCell<TItemData, TContext> : FancyScrollViewCell<TItemData, TContext>
+        where TContext : class, IFancyScrollRectContext, new()
     {
         protected float CalculateViewportPosition(float position)
         {
             var cellInterval = Context.GetCellInterval();
             var viewportSize = Context.GetViewportSize();
-            var fancyScrollViewportSize = 1f / Mathf.Max(cellInterval, 1e-2f);
+            var viewportScale = 1f / Mathf.Max(cellInterval, 1e-2f);
 
-            var scale = fancyScrollViewportSize / Mathf.Max(fancyScrollViewportSize - 1f, 1e-2f);
+            var scale = viewportScale / Mathf.Max(viewportScale - 1f, 1e-2f);
             var margin = viewportSize * scale * cellInterval;
             var scrollSize = viewportSize + margin;
 
