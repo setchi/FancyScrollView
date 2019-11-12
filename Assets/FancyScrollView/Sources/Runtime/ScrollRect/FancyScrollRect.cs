@@ -9,8 +9,8 @@ namespace FancyScrollView
     public abstract class FancyScrollRect<TItemData, TContext> : FancyScrollView<TItemData, TContext>
         where TContext : class, IFancyScrollRectContext, new()
     {
-        [SerializeField] protected float cellSpacing;
-        [SerializeField] protected float reuseCellMarginCount;
+        [SerializeField] protected float cellSpacing = 10;
+        [SerializeField] protected float reuseCellMarginCount = 0;
 
         protected virtual float ScrollLength => 1f / Mathf.Max(cellInterval, 1e-2f) - 1f;
         protected virtual float ViewportLength => ScrollLength - reuseCellMarginCount * 2f;
