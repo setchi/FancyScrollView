@@ -18,10 +18,10 @@ namespace FancyScrollView.Example07
                 : new Color32(255, 255, 255, 77);
         }
 
-        protected override void UpdatePosition(float position, float viewportSize)
+        protected override void UpdatePosition(float position, float viewportPosition)
         {
             var x = Mathf.Sin(position * Mathf.PI * 2) * 65;
-            var y = viewportSize;
+            var y = viewportPosition;
 
             transform.localPosition = new Vector2(x, y);
         }

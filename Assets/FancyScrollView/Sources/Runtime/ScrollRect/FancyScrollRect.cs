@@ -13,9 +13,13 @@ namespace FancyScrollView
         [SerializeField] protected float reuseCellMarginCount = 0;
 
         protected virtual float ScrollLength => 1f / Mathf.Max(cellInterval, 1e-2f) - 1f;
+
         protected virtual float ViewportLength => ScrollLength - reuseCellMarginCount * 2f;
+
         protected virtual float MaxScrollPosition => ItemsSource.Count - ScrollLength + reuseCellMarginCount * 2f;
+
         protected virtual bool ScrollEnabled => MaxScrollPosition > 0f;
+
         protected virtual float CellSize => Scroller.ScrollDirection == ScrollDirection.Horizontal
             ? CellRectTransform.rect.width
             : CellRectTransform.rect.height;

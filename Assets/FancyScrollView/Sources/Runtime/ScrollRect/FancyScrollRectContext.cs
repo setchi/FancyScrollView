@@ -4,6 +4,6 @@ namespace FancyScrollView
 {
     public class FancyScrollRectContext : IFancyScrollRectContext
     {
-        Func<(float CellInterval, float ReuseMarginCount)> IFancyScrollRectContext.CalculateScrollSize { get; set; }
+        Func<(float ScrollSize, float ReuseMargin)> IFancyScrollRectContext.CalculateScrollSize { get; set; }
     }
 }

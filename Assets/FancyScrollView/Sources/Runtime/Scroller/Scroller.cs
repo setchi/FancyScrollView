@@ -25,29 +25,35 @@ namespace FancyScrollView
         [SerializeField] Scrollbar scrollbar = default;
 
         public ScrollDirection ScrollDirection => scrollDirection;
+
         public MovementType MovementType
         {
             get => movementType;
             set => movementType = value;
         }
+
         public float ViewportSize => scrollDirection == ScrollDirection.Horizontal
             ? viewport.rect.size.x
             : viewport.rect.size.y;
+
         public bool SnapEnabled
         {
             get => snap.Enable;
             set => snap.Enable = value;
         }
+
         public float ScrollSensitivity
         {
             get => scrollSensitivity;
             set => scrollSensitivity = value;
         }
+
         public bool Draggable
         {
             get => draggable;
             set => draggable = value;
         }
+
         public Scrollbar Scrollbar => scrollbar;
 
         public float Position
