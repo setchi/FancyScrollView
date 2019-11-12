@@ -30,7 +30,9 @@ namespace FancyScrollView
             get => movementType;
             set => movementType = value;
         }
-        public RectTransform Viewport => viewport;
+        public float ViewportSize => scrollDirection == ScrollDirection.Horizontal
+            ? viewport.rect.size.x
+            : viewport.rect.size.y;
         public bool SnapEnabled
         {
             get => snap.Enable;
@@ -249,10 +251,6 @@ namespace FancyScrollView
 
             dragging = false;
         }
-
-        float ViewportSize => scrollDirection == ScrollDirection.Horizontal
-            ? viewport.rect.size.x
-            : viewport.rect.size.y;
 
         float CalculateOffset(float position)
         {

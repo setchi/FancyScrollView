@@ -547,10 +547,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edf2116e61aae4a38bc9be5652078992, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cellInterval: 0.13
-  scrollOffset: 0.13
+  cellInterval: 0.13253011
+  scrollOffset: 0.13253011
   loop: 0
   cellContainer: {fileID: 1230771801}
+  cellSpacing: 10
+  reuseCellMarginCount: 0
   cellPrefab: {fileID: 1865951358068953824, guid: efa276bbc93594b8d9fd30eb37d79102,
     type: 3}
 --- !u!1 &294193290

@@ -9,19 +9,32 @@ namespace FancyScrollView
     public abstract class FancyScrollRect<TItemData, TContext> : FancyScrollView<TItemData, TContext>
         where TContext : class, IFancyScrollRectContext, new()
     {
-        protected virtual float ViewportLength => 1f / Mathf.Max(cellInterval, 1e-2f) - 1f;
-        protected virtual float MaxScrollPosition => ItemsSource.Count - ViewportLength;
+        [SerializeField] protected float cellSpacing;
+        [SerializeField] protected float reuseCellMarginCount;
+
+        protected virtual float ScrollLength => 1f / Mathf.Max(cellInterval, 1e-2f) - 1f;
+        protected virtual float ViewportLength => ScrollLength - reuseCellMarginCount * 2f;
+        protected virtual float MaxScrollPosition => ItemsSource.Count - ScrollLength + reuseCellMarginCount * 2f;
         protected virtual bool ScrollEnabled => MaxScrollPosition > 0f;
+        protected virtual float CellSize => Scroller.ScrollDirection == ScrollDirection.Horizontal
+            ? CellRectTransform.rect.width
+            : CellRectTransform.rect.height;
 
         Scroller cachedScroller;
         protected Scroller Scroller => cachedScroller ?? (cachedScroller = GetComponent<Scroller>());
 
+        RectTransform cachedCellRect;
+        RectTransform CellRectTransform => cachedCellRect ?? (cachedCellRect = CellPrefab.transform as RectTransform);
+
         protected virtual void Awake()
         {
-            Context.GetCellInterval = () => cellInterval;
-            Context.GetViewportSize = () => Scroller.ScrollDirection == ScrollDirection.Horizontal
-                ? Scroller.Viewport.rect.size.x
-                : Scroller.Viewport.rect.size.y;
+            Context.CalculateScrollSize = () =>
+            {
+                var interval = CellSize + cellSpacing;
+                var reuseMargin = interval * reuseCellMarginCount;
+                var scrollSize = Scroller.ViewportSize + interval + reuseMargin * 2f;
+                return (scrollSize, reuseMargin);
+            };
         }
 
         protected virtual void Start()
@@ -55,6 +68,7 @@ namespace FancyScrollView
 
         protected override void UpdateContents(IList<TItemData> items)
         {
+            AdjustCellIntervalAndScrollOffset();
             base.UpdateContents(items);
 
             Scroller.SetTotalCount(items.Count);
@@ -106,7 +120,7 @@ namespace FancyScrollView
 
         protected virtual float ToScrollerPosition(float position, Alignment alignment = Alignment.Center)
         {
-            var offset = (ViewportLength - 1f) * GetAnchore(alignment);
+            var offset = (ScrollLength - (1f + reuseCellMarginCount * 2f)) * GetAnchore(alignment);
             return ToScrollerPosition(Mathf.Clamp(position - offset, 0f, MaxScrollPosition));
         }
 
@@ -121,9 +135,19 @@ namespace FancyScrollView
             }
         }
 
+        void AdjustCellIntervalAndScrollOffset()
+        {
+            var totalSize = Scroller.ViewportSize + (CellSize + cellSpacing) * (1f + reuseCellMarginCount * 2f);
+            cellInterval = (CellSize + cellSpacing) / totalSize;
+            scrollOffset = cellInterval * (1f + reuseCellMarginCount);
+        }
+
         protected virtual void OnValidate()
         {
-            scrollOffset = cellInterval;
+            if (CellPrefab)
+            {
+                AdjustCellIntervalAndScrollOffset();
+            }
 
             if (loop)
             {
