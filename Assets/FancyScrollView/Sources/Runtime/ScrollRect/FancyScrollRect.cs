@@ -9,10 +9,10 @@ namespace FancyScrollView
     public abstract class FancyScrollRect<TItemData, TContext> : FancyScrollView<TItemData, TContext>
         where TContext : class, IFancyScrollRectContext, new()
     {
-        [SerializeField] protected float cellSpacing = 10;
         [SerializeField] protected float reuseCellMarginCount = 0;
         [SerializeField] protected float paddingHead = 0f;
         [SerializeField] protected float paddingTail = 0f;
+        [SerializeField] protected float spacing = 10;
 
         protected virtual float ScrollLength => 1f / Mathf.Max(cellInterval, 1e-2f) - 1f;
 
@@ -21,7 +21,7 @@ namespace FancyScrollView
         protected virtual float MaxScrollPosition => ItemsSource.Count
             - ScrollLength
             + reuseCellMarginCount * 2f
-            + (paddingHead + paddingTail) / (CellSize + cellSpacing);
+            + (paddingHead + paddingTail) / (CellSize + spacing);
 
         protected virtual bool ScrollEnabled => MaxScrollPosition > 0f;
 
@@ -39,7 +39,7 @@ namespace FancyScrollView
         {
             Context.CalculateScrollSize = () =>
             {
-                var interval = CellSize + cellSpacing;
+                var interval = CellSize + spacing;
                 var reuseMargin = interval * reuseCellMarginCount;
                 var scrollSize = Scroller.ViewportSize + interval + reuseMargin * 2f;
                 return (scrollSize, reuseMargin);
@@ -122,12 +122,12 @@ namespace FancyScrollView
             return position
                 / Mathf.Max(ItemsSource.Count - 1, 1)
                 * MaxScrollPosition
-                - (paddingHead - cellSpacing * 0.5f) / (CellSize + cellSpacing);
+                - (paddingHead - spacing * 0.5f) / (CellSize + spacing);
         }
 
         protected virtual float ToScrollerPosition(float position)
         {
-            return (position + (paddingHead - cellSpacing * 0.5f) / (CellSize + cellSpacing))
+            return (position + (paddingHead - spacing * 0.5f) / (CellSize + spacing))
                 / MaxScrollPosition
                 * Mathf.Max(ItemsSource.Count - 1, 1);
         }
@@ -151,8 +151,8 @@ namespace FancyScrollView
 
         void AdjustCellIntervalAndScrollOffset()
         {
-            var totalSize = Scroller.ViewportSize + (CellSize + cellSpacing) * (1f + reuseCellMarginCount * 2f);
-            cellInterval = (CellSize + cellSpacing) / totalSize;
+            var totalSize = Scroller.ViewportSize + (CellSize + spacing) * (1f + reuseCellMarginCount * 2f);
+            cellInterval = (CellSize + spacing) / totalSize;
             scrollOffset = cellInterval * (1f + reuseCellMarginCount);
         }
 
