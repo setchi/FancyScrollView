@@ -21,7 +21,7 @@ namespace FancyScrollView
         protected virtual float MaxScrollPosition => ItemsSource.Count
             - ScrollLength
             + reuseCellMarginCount * 2f
-            + (paddingHead + (paddingTail - spacing)) / (CellSize + spacing);
+            + (paddingHead + paddingTail - spacing) / (CellSize + spacing);
 
         protected virtual bool ScrollEnabled => MaxScrollPosition > 0f;
 
