@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace FancyScrollView
@@ -59,15 +58,8 @@ namespace FancyScrollView
 
         void ResizePool(float firstPosition)
         {
-            if (CellPrefab == null)
-            {
-                throw new NullReferenceException(nameof(CellPrefab));
-            }
-
-            if (cellContainer == null)
-            {
-                throw new MissingComponentException(nameof(cellContainer));
-            }
+            Debug.Assert(CellPrefab != null);
+            Debug.Assert(cellContainer != null);
 
             var addCount = Mathf.CeilToInt((1f - firstPosition) / cellInterval) - pool.Count;
             for (var i = 0; i < addCount; i++)
