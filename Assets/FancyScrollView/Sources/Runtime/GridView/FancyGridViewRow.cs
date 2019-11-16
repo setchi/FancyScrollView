@@ -38,6 +38,8 @@ namespace FancyScrollView
 
         public override void UpdatePosition(float position)
         {
+            base.UpdatePosition(position);
+
             foreach (var cell in Cells)
             {
                 cell.UpdatePosition(position);

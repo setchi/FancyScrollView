@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using UnityEngine;
 using EasingCore;
 
 namespace FancyScrollView
@@ -12,9 +13,15 @@ namespace FancyScrollView
 
         public int DataCount { get; private set; }
 
+        protected override void Awake()
+        {
+            base.Awake();
+            Context.ColumnCount = ColumnCount;
+        }
+
         public virtual void UpdateData(IList<TItemData> items)
         {
-            Context.ColumnCount = ColumnCount;
+            Debug.Assert(ColumnCount > 0);
             DataCount = items.Count;
 
             var rows = items
