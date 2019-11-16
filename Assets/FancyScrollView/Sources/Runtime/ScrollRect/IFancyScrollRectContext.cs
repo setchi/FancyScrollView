@@ -4,7 +4,6 @@ namespace FancyScrollView
 {
     public interface IFancyScrollRectContext
     {
-        Func<float> GetViewportSize { get; set; }
-        Func<float> GetCellInterval { get; set; }
+        Func<(float ScrollSize, float ReuseMargin)> CalculateScrollSize { get; set; }
     }
 }
