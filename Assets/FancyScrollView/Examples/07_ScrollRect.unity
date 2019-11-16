@@ -551,10 +551,10 @@ MonoBehaviour:
   scrollOffset: 0.13253011
   loop: 0
   cellContainer: {fileID: 1230771801}
-  cellSpacing: 10
   reuseCellMarginCount: 0
   paddingHead: 10
   paddingTail: 10
+  spacing: 10
   cellPrefab: {fileID: 1865951358068953824, guid: efa276bbc93594b8d9fd30eb37d79102,
     type: 3}
 --- !u!1 &294193290
