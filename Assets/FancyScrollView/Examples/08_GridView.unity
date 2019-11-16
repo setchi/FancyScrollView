@@ -490,8 +490,8 @@ MonoBehaviour:
   loop: 0
   cellContainer: {fileID: 1230771801}
   reuseCellMarginCount: 0
-  paddingHead: 10
-  paddingTail: 10
+  paddingHead: 25
+  paddingTail: 25
   spacing: 25
   cellPrefab: {fileID: 1865951358068953824, guid: dae216c0ef0ae40f5bd0d42ea33532c6,
     type: 3}
