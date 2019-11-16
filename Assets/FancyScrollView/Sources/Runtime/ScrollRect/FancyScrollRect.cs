@@ -11,12 +11,17 @@ namespace FancyScrollView
     {
         [SerializeField] protected float cellSpacing = 10;
         [SerializeField] protected float reuseCellMarginCount = 0;
+        [SerializeField] protected float paddingHead = 0f;
+        [SerializeField] protected float paddingTail = 0f;
 
         protected virtual float ScrollLength => 1f / Mathf.Max(cellInterval, 1e-2f) - 1f;
 
         protected virtual float ViewportLength => ScrollLength - reuseCellMarginCount * 2f;
 
-        protected virtual float MaxScrollPosition => ItemsSource.Count - ScrollLength + reuseCellMarginCount * 2f;
+        protected virtual float MaxScrollPosition => ItemsSource.Count
+            - ScrollLength
+            + reuseCellMarginCount * 2f
+            + (paddingHead + paddingTail) / (CellSize + cellSpacing);
 
         protected virtual bool ScrollEnabled => MaxScrollPosition > 0f;
 
@@ -43,7 +48,7 @@ namespace FancyScrollView
 
         protected virtual void Start()
         {
-            scrollOffset = cellInterval;
+            AdjustCellIntervalAndScrollOffset();
             Scroller.OnValueChanged(OnScrollerValueChanged);
         }
 
@@ -112,14 +117,19 @@ namespace FancyScrollView
             Scroller.Scrollbar.size = ScrollEnabled ? Mathf.Clamp01(size) : 1f;
         }
 
-        protected virtual float ToFancyScrollViewPosition(float scrollerPosition)
+        protected virtual float ToFancyScrollViewPosition(float position)
         {
-            return scrollerPosition / Mathf.Max(ItemsSource.Count - 1, 1) * MaxScrollPosition;
+            return position
+                / Mathf.Max(ItemsSource.Count - 1, 1)
+                * MaxScrollPosition
+                - (paddingHead - cellSpacing * 0.5f) / (CellSize + cellSpacing);
         }
 
         protected virtual float ToScrollerPosition(float position)
         {
-            return position / MaxScrollPosition * (ItemsSource.Count - 1);
+            return (position + (paddingHead - cellSpacing * 0.5f) / (CellSize + cellSpacing))
+                / MaxScrollPosition
+                * Mathf.Max(ItemsSource.Count - 1, 1);
         }
 
         protected virtual float ToScrollerPosition(float position, Alignment alignment = Alignment.Center)
