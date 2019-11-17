@@ -4630,7 +4630,7 @@ GameObject:
   - component: {fileID: 5674010089336744076}
   - component: {fileID: 5674010089336744077}
   m_Layer: 5
-  m_Name: ControlCanvas
+  m_Name: InspectorCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
