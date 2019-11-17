@@ -6,9 +6,9 @@ namespace FancyScrollView
     public class FancyGridViewRow<TItemData, TContext> : FancyScrollRectCell<FancyGridRowData<TItemData>, TContext>
         where TContext : class, IFancyScrollRectContext, IFancyGridViewContext, new()
     {
-        protected FancyScrollViewCell<TItemData, TContext>[] Cells { get; private set; }
+        protected virtual FancyScrollViewCell<TItemData, TContext>[] Cells { get; private set; }
 
-        protected FancyScrollViewCell<TItemData, TContext>[] InstantiateCells()
+        protected virtual FancyScrollViewCell<TItemData, TContext>[] InstantiateCells()
         {
             return Enumerable.Range(0, Context.GetColumnCount())
                 .Select(_ => Instantiate(Context.CellTemplate, transform))
