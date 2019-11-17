@@ -8,12 +8,27 @@ namespace FancyScrollView.Example07
     public class Example07 : MonoBehaviour
     {
         [SerializeField] FancyScrollRect scrollView = default;
+        [SerializeField] InputField paddingTopInputField = default;
+        [SerializeField] InputField paddingBottomInputField = default;
+        [SerializeField] InputField spacingInputField = default;
         [SerializeField] Dropdown alignmentDropdown = default;
         [SerializeField] InputField dataCountInputField = default;
         [SerializeField] InputField selectIndexInputField = default;
 
         void Start()
         {
+            paddingTopInputField.onValueChanged.AddListener(_ =>
+                TryParseValue(paddingTopInputField, 0, 999, value => scrollView.PaddingTop = value));
+            paddingTopInputField.text = scrollView.PaddingTop.ToString();
+
+            paddingBottomInputField.onValueChanged.AddListener(_ =>
+                TryParseValue(paddingBottomInputField, 0, 999, value => scrollView.PaddingBottom = value));
+            paddingBottomInputField.text = scrollView.PaddingBottom.ToString();
+
+            spacingInputField.onValueChanged.AddListener(_ =>
+                TryParseValue(spacingInputField, 0, 100, value => scrollView.Spacing = value));
+            spacingInputField.text = scrollView.PaddingBottom.ToString();
+
             alignmentDropdown.AddOptions(Enum.GetNames(typeof(Alignment)).Select(x => new Dropdown.OptionData(x)).ToList());
             alignmentDropdown.onValueChanged.AddListener(_ => SelectCell());
             alignmentDropdown.value = (int)Alignment.Center;
@@ -21,42 +36,42 @@ namespace FancyScrollView.Example07
             selectIndexInputField.onValueChanged.AddListener(_ => SelectCell());
             selectIndexInputField.text = "10";
 
-            dataCountInputField.onValueChanged.AddListener(_ => GenerateItems());
+            dataCountInputField.onValueChanged.AddListener(_ =>
+                TryParseValue(dataCountInputField, 1, 99999, GenerateCells));
             dataCountInputField.text = "20";
 
             scrollView.JumpTo(10);
         }
 
-        void SelectCell()
+        void TryParseValue(InputField inputField, int min, int max, Action<int> success)
         {
-            if (scrollView.DataCount == 0 ||
-                !int.TryParse(selectIndexInputField.text, out int index))
+            if (!int.TryParse(inputField.text, out int value))
             {
                 return;
             }
 
-            if (index < 0 || index > scrollView.DataCount - 1)
+            if (value < min || value > max)
             {
-                selectIndexInputField.text = Mathf.Clamp(index, 0, scrollView.DataCount - 1).ToString();
+                inputField.text = Mathf.Clamp(value, min, max).ToString();
                 return;
             }
 
-            scrollView.ScrollTo(index, 0.3f, (Alignment)alignmentDropdown.value);
+            success(value);
         }
 
-        void GenerateItems()
+        void SelectCell()
         {
-            if (!int.TryParse(dataCountInputField.text, out int dataCount))
+            if (scrollView.DataCount == 0)
             {
                 return;
             }
 
-            if (dataCount < 0)
-            {
-                dataCountInputField.text = "1";
-                return;
-            }
+            TryParseValue(selectIndexInputField, 0, scrollView.DataCount - 1, index =>
+                scrollView.ScrollTo(index, 0.3f, (Alignment)alignmentDropdown.value));
+        }
 
+        void GenerateCells(int dataCount)
+        {
             var items = Enumerable.Range(0, dataCount)
                 .Select(i => new ItemData($"Cell {i}"))
                 .ToArray();
