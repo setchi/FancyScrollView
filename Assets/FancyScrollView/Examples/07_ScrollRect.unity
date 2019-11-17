@@ -3502,7 +3502,7 @@ GameObject:
   - component: {fileID: 1850461339}
   - component: {fileID: 1850461340}
   m_Layer: 5
-  m_Name: '-'
+  m_Name: Spacing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4214,7 +4214,7 @@ GameObject:
   - component: {fileID: 2121164729}
   - component: {fileID: 2121164728}
   m_Layer: 5
-  m_Name: Separator
+  m_Name: '-'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

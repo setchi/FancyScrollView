@@ -27,7 +27,7 @@ namespace FancyScrollView.Example07
 
             spacingInputField.onValueChanged.AddListener(_ =>
                 TryParseValue(spacingInputField, 0, 100, value => scrollView.Spacing = value));
-            spacingInputField.text = scrollView.PaddingBottom.ToString();
+            spacingInputField.text = scrollView.Spacing.ToString();
 
             alignmentDropdown.AddOptions(Enum.GetNames(typeof(Alignment)).Select(x => new Dropdown.OptionData(x)).ToList());
             alignmentDropdown.onValueChanged.AddListener(_ => SelectCell());
