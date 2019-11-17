@@ -1,9 +1,7 @@
 ﻿namespace FancyScrollView.Example08
 {
-    public class Context : FancyScrollRectContext, IFancyGridViewContext
+    public class Context : FancyGridViewContext
     {
         public int SelectedItemIndex = -1;
-
-        public int ColumnCount { get; set; }
     }
 }
