@@ -33,6 +33,9 @@ namespace FancyScrollView
 
         protected virtual GameObject SetupRowTemplate()
         {
+            Debug.Assert(CellTemplate != null);
+            Debug.Assert(RowTemplate != null);
+
             var cell = CellTemplate.GetComponent<RectTransform>();
             var row = RowTemplate.GetComponent<RectTransform>();
 
