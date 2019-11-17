@@ -12,6 +12,36 @@ namespace FancyScrollView.Example07
 
         public int DataCount => ItemsSource.Count;
 
+        public float PaddingTop
+        {
+            get => paddingHead;
+            set
+            {
+                paddingHead = value;
+                Refresh();
+            }
+        }
+
+        public float PaddingBottom
+        {
+            get => paddingTail;
+            set
+            {
+                paddingTail = value;
+                Refresh();
+            }
+        }
+
+        public float Spacing
+        {
+            get => spacing;
+            set
+            {
+                spacing = value;
+                Refresh();
+            }
+        }
+
         public void UpdateData(IList<ItemData> items)
         {
             UpdateContents(items);
