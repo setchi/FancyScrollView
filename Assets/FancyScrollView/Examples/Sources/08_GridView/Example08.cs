@@ -2,6 +2,7 @@
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using EasingCore;
 
 namespace FancyScrollView.Example08
 {
@@ -74,7 +75,7 @@ namespace FancyScrollView.Example08
             TryParseValue(selectIndexInputField, 0, gridView.DataCount - 1, index =>
             {
                 gridView.UpdateSelection(index);
-                gridView.ScrollTo(index, 0.5f, (Alignment)alignmentDropdown.value);
+                gridView.ScrollTo(index, 0.4f, Ease.InOutQuint, (Alignment)alignmentDropdown.value);
             });
         }
 
@@ -84,7 +85,7 @@ namespace FancyScrollView.Example08
                 .Select(i => new ItemData(i))
                 .ToArray();
 
-            gridView.UpdateData(items);
+            gridView.UpdateContents(items);
             SelectCell();
         }
     }

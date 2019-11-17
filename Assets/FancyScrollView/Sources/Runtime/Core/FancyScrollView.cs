@@ -64,7 +64,9 @@ namespace FancyScrollView
             var addCount = Mathf.CeilToInt((1f - firstPosition) / cellInterval) - pool.Count;
             for (var i = 0; i < addCount; i++)
             {
-                var cell = Instantiate(CellPrefab, cellContainer).GetComponent<FancyScrollViewCell<TItemData, TContext>>();
+                var cell = Instantiate(CellPrefab, cellContainer)
+                    .GetComponent<FancyScrollViewCell<TItemData, TContext>>();
+
                 if (cell == null)
                 {
                     throw new MissingComponentException(
@@ -116,7 +118,9 @@ namespace FancyScrollView
 
         void LateUpdate()
         {
-            if (cachedLoop != loop || cachedCellInterval != cellInterval || cachedScrollOffset != scrollOffset)
+            if (cachedLoop != loop ||
+                cachedCellInterval != cellInterval ||
+                cachedScrollOffset != scrollOffset)
             {
                 cachedLoop = loop;
                 cachedCellInterval = cellInterval;

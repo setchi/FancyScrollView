@@ -6,7 +6,7 @@ using EasingCore;
 
 namespace FancyScrollView
 {
-    public abstract class FancyGridView<TItemData, TContext> : FancyScrollRect<FancyGridRowData<TItemData>, TContext>
+    public abstract class FancyGridView<TItemData, TContext> : FancyScrollRect<TItemData[], TContext>
         where TContext : class, IFancyScrollRectContext, IFancyGridViewContext, new()
     {
         [SerializeField] protected float columnSpacing = 0f;
@@ -46,8 +46,9 @@ namespace FancyScrollView
             return row.gameObject;
         }
 
-        public virtual void UpdateData(IList<TItemData> items)
+        public virtual void UpdateContents(IList<TItemData> items)
         {
+            Debug.Assert(Context.GetColumnSpacing != null);
             Debug.Assert(Context.GetColumnCount != null);
             Debug.Assert(Context.GetColumnCount() > 0);
 
@@ -58,16 +59,10 @@ namespace FancyScrollView
                 .GroupBy(
                     x => x.index / ColumnCount,
                     x => x.item)
-                .Select(group => new FancyGridRowData<TItemData>(group.ToArray()))
+                .Select(group => group.ToArray())
                 .ToArray();
 
             UpdateContents(rows);
-        }
-
-        protected override void UpdateContents(IList<FancyGridRowData<TItemData>> items)
-        {
-            Debug.Assert(Context.GetColumnSpacing != null);
-            base.UpdateContents(items);
         }
 
         public override void ScrollTo(int itemIndex, float duration, Alignment alignment = Alignment.Center, Action onComplete = null)

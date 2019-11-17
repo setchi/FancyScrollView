@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace FancyScrollView
 {
-    public class FancyGridViewRow<TItemData, TContext> : FancyScrollRectCell<FancyGridRowData<TItemData>, TContext>
+    public class FancyGridViewRow<TItemData, TContext> : FancyScrollRectCell<TItemData[], TContext>
         where TContext : class, IFancyScrollRectContext, IFancyGridViewContext, new()
     {
         protected virtual FancyScrollViewCell<TItemData, TContext>[] Cells { get; private set; }
@@ -23,22 +23,22 @@ namespace FancyScrollView
             Cells = InstantiateCells();
             Debug.Assert(Cells.Length == Context.GetColumnCount());
 
-            foreach (var cell in Cells)
+            for (var i = 0; i < Cells.Length; i++)
             {
-                cell.SetupContext(context);
+                Cells[i].SetupContext(context);
             }
         }
 
-        public override void UpdateContent(FancyGridRowData<TItemData> row)
+        public override void UpdateContent(TItemData[] rowContents)
         {
             for (var i = 0; i < Cells.Length; i++)
             {
                 Cells[i].Index = i + Index * Context.GetColumnCount();
-                Cells[i].SetVisible(i < row.Entities.Length);
+                Cells[i].SetVisible(i < rowContents.Length);
 
                 if (Cells[i].IsVisible)
                 {
-                    Cells[i].UpdateContent(row.Entities[i]);
+                    Cells[i].UpdateContent(rowContents[i]);
                 }
             }
         }
@@ -47,9 +47,9 @@ namespace FancyScrollView
         {
             base.UpdatePosition(position);
 
-            foreach (var cell in Cells)
+            for (var i = 0; i < Cells.Length; i++)
             {
-                cell.UpdatePosition(position);
+                Cells[i].UpdatePosition(position);
             }
         }
 
