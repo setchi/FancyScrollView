@@ -80,8 +80,21 @@ namespace FancyScrollView
         protected override void Refresh()
         {
             AdjustCellIntervalAndScrollOffset();
-            Scroller.ScrollTo(ToScrollerPosition(currentPosition), 0f);
+            RefreshScroller();
             base.Refresh();
+        }
+
+        protected void RefreshScroller()
+        {
+            Scroller.Draggable = ScrollEnabled;
+            Scroller.ScrollSensitivity = ToScrollerPosition(ViewportLength - PaddingHeadLength);
+            Scroller.Position = ToScrollerPosition(currentPosition);
+
+            if (Scroller.Scrollbar)
+            {
+                Scroller.Scrollbar.gameObject.SetActive(ScrollEnabled);
+                UpdateScrollbarSize(ViewportLength);
+            }
         }
 
         protected override void UpdateContents(IList<TItemData> items)
@@ -92,15 +105,7 @@ namespace FancyScrollView
             base.UpdateContents(items);
 
             Scroller.SetTotalCount(items.Count);
-            Scroller.Draggable = ScrollEnabled;
-            Scroller.ScrollSensitivity = ToScrollerPosition(ViewportLength - PaddingHeadLength);
-            Scroller.Position = ToScrollerPosition(currentPosition);
-
-            if (Scroller.Scrollbar)
-            {
-                Scroller.Scrollbar.gameObject.SetActive(ScrollEnabled);
-                UpdateScrollbarSize(ViewportLength);
-            }
+            RefreshScroller();
         }
 
         protected new void UpdatePosition(float position)
