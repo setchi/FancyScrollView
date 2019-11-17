@@ -241,8 +241,8 @@ MonoBehaviour:
   loop: 0
   cellContainer: {fileID: 1230771801}
   reuseCellMarginCount: 0
-  paddingHead: 25
-  paddingTail: 25
+  paddingHead: 10
+  paddingTail: 10
   spacing: 10
   columnSpacing: 10
   columnCount: 4
