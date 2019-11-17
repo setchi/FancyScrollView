@@ -10,7 +10,7 @@ namespace FancyScrollView.Example08
 
         protected override FancyScrollViewCell<ItemData, Context> CellTemplate => cellPrefab;
 
-        protected override FancyGridViewRow<ItemData, Context>  RowTemplate => rowPrefab;
+        protected override FancyGridViewRow<ItemData, Context> RowTemplate => rowPrefab;
 
         protected override int ColumnCount => columnCount;
 
