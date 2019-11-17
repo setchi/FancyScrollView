@@ -77,6 +77,13 @@ namespace FancyScrollView
             UpdateScrollbarSize((ViewportLength - PaddingHeadLength) * scale);
         }
 
+        protected override void Refresh()
+        {
+            AdjustCellIntervalAndScrollOffset();
+            Scroller.ScrollTo(ToScrollerPosition(currentPosition), 0f);
+            base.Refresh();
+        }
+
         protected override void UpdateContents(IList<TItemData> items)
         {
             Debug.Assert(Context.CalculateScrollSize != null);
@@ -149,7 +156,7 @@ namespace FancyScrollView
             }
         }
 
-        void AdjustCellIntervalAndScrollOffset()
+        protected virtual void AdjustCellIntervalAndScrollOffset()
         {
             var totalSize = Scroller.ViewportSize + (CellSize + spacing) * (1f + reuseCellMarginCount * 2f);
             cellInterval = (CellSize + spacing) / totalSize;
