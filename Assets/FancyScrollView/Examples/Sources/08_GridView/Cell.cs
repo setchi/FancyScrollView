@@ -25,11 +25,11 @@ namespace FancyScrollView.Example08
             var count = Index % columnCount;
 
             var cellSize = (transform as RectTransform).rect.width;
-            var slide = 0;// Mathf.Sin(position * Mathf.PI * 2) * 80;
-            var x = slide + (cellSize + spacing) * (count - (columnCount - 1) * 0.5f);
+            var x = (cellSize + spacing) * (count - (columnCount - 1) * 0.5f);
             var y = transform.localPosition.y;
+            var wave = Mathf.Sin(position * Mathf.PI * 2) * 65;
 
-            transform.localPosition = new Vector2(x, y);
+            transform.localPosition = new Vector2(x + wave, y);
         }
     }
 }

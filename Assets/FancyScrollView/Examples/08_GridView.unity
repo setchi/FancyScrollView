@@ -222,7 +222,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 600, y: 0}
+  m_SizeDelta: {x: 800, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &190094663
 MonoBehaviour:
@@ -236,15 +236,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5e61a71311864435b1d875fcb2dd1c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cellInterval: 0.147929
-  scrollOffset: 0.147929
+  cellInterval: 0.13253012
+  scrollOffset: 0.13253012
   loop: 0
   cellContainer: {fileID: 1230771801}
   reuseCellMarginCount: 0
   paddingHead: 25
   paddingTail: 25
-  spacing: 25
-  columnSpacing: 25
+  spacing: 10
+  columnSpacing: 10
   columnCount: 4
   cellPrefab: {fileID: 5648916080528934313, guid: c3da64c29ae8a4e61a6bd072bad4e392,
     type: 3}
@@ -263,7 +263,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.11764706, g: 0.11764706, b: 0.11764706, a: 1}
+  m_Color: {r: 0.11764706, g: 0.11764706, b: 0.11764706, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
