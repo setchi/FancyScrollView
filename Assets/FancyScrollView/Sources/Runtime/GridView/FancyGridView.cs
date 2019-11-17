@@ -39,6 +39,7 @@ namespace FancyScrollView
             row.sizeDelta = Scroller.ScrollDirection == ScrollDirection.Horizontal
                 ? new Vector2(cell.rect.width, row.sizeDelta.y)
                 : new Vector2(row.sizeDelta.y, cell.rect.width);
+
             return row.gameObject;
         }
 

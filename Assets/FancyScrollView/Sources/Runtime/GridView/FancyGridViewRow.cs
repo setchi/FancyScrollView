@@ -55,10 +55,9 @@ namespace FancyScrollView
 
         protected override void UpdatePosition(float position, float viewportPosition)
         {
-            var x = transform.localPosition.x;
-            var y = viewportPosition;
-
-            transform.localPosition = new Vector2(x, y);
+            transform.localPosition = Context.ScrollDirection == ScrollDirection.Horizontal
+                ? new Vector2(viewportPosition, transform.localPosition.y)
+                : new Vector2(transform.localPosition.x, viewportPosition);
         }
     }
 }
