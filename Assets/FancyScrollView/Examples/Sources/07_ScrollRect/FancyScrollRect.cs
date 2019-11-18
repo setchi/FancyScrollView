@@ -47,10 +47,10 @@ namespace FancyScrollView.Example07
             UpdateContents(items);
         }
 
-        public void ScrollTo(int index, float duration, Alignment alignment = Alignment.Center)
+        public void ScrollTo(int index, float duration, Ease easing, Alignment alignment = Alignment.Center)
         {
             UpdateSelection(index);
-            ScrollTo(index, duration, Ease.InOutQuint, alignment);
+            base.ScrollTo(index, duration, easing, alignment);
         }
 
         public void JumpTo(int index, Alignment alignment = Alignment.Center)
