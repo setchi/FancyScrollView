@@ -37,8 +37,10 @@ namespace FancyScrollView
         RectTransform cachedCellRect;
         RectTransform CellRectTransform => cachedCellRect ?? (cachedCellRect = CellPrefab.transform as RectTransform);
 
-        protected virtual void Awake()
+        protected override void Initialize()
         {
+            base.Initialize();
+
             Context.CalculateScrollSize = () =>
             {
                 var interval = CellSize + spacing;
@@ -46,10 +48,7 @@ namespace FancyScrollView
                 var scrollSize = Scroller.ViewportSize + interval + reuseMargin * 2f;
                 return (scrollSize, reuseMargin);
             };
-        }
 
-        protected virtual void Start()
-        {
             AdjustCellIntervalAndScrollOffset();
             Scroller.OnValueChanged(OnScrollerValueChanged);
         }

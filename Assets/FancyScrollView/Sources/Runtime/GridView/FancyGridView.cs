@@ -14,28 +14,30 @@ namespace FancyScrollView
         protected GameObject cachedRowPrefab;
         protected sealed override GameObject CellPrefab => cachedRowPrefab ?? (cachedRowPrefab = SetupRowTemplate());
 
+        protected abstract int ColumnCount { get; }
+
         protected abstract FancyScrollViewCell<TItemData, TContext> CellTemplate { get; }
 
         protected abstract FancyGridViewRow<TItemData, TContext> RowTemplate { get; }
 
-        protected abstract int ColumnCount { get; }
-
         public int DataCount { get; private set; }
 
-        protected override void Awake()
+        protected override void Initialize()
         {
-            base.Awake();
-            Context.GetColumnCount = () => ColumnCount;
-            Context.GetColumnSpacing = () => columnSpacing;
+            base.Initialize();
+
+            Debug.Assert(RowTemplate != null);
+            Debug.Assert(CellTemplate != null);
+            Debug.Assert(ColumnCount > 0);
+
             Context.CellTemplate = CellTemplate.gameObject;
             Context.ScrollDirection = Scroller.ScrollDirection;
+            Context.GetColumnCount = () => ColumnCount;
+            Context.GetColumnSpacing = () => columnSpacing;
         }
 
         protected virtual GameObject SetupRowTemplate()
         {
-            Debug.Assert(CellTemplate != null);
-            Debug.Assert(RowTemplate != null);
-
             var cell = CellTemplate.GetComponent<RectTransform>();
             var row = RowTemplate.GetComponent<RectTransform>();
 
@@ -48,10 +50,6 @@ namespace FancyScrollView
 
         public virtual void UpdateContents(IList<TItemData> items)
         {
-            Debug.Assert(Context.GetColumnSpacing != null);
-            Debug.Assert(Context.GetColumnCount != null);
-            Debug.Assert(Context.GetColumnCount() > 0);
-
             DataCount = items.Count;
 
             var rows = items

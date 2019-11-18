@@ -10,8 +10,9 @@ namespace FancyScrollView.Example01
 
         protected override GameObject CellPrefab => cellPrefab;
 
-        void Start()
+        protected override void Initialize()
         {
+            base.Initialize();
             scroller.OnValueChanged(UpdatePosition);
         }
 

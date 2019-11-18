@@ -16,13 +16,12 @@ namespace FancyScrollView.Example04
 
         public int CellInstanceCount => Mathf.CeilToInt(1f / Mathf.Max(cellInterval, 1e-3f));
 
-        void Awake()
+        protected override void Initialize()
         {
-            Context.OnCellClicked = SelectCell;
-        }
+            base.Initialize();
 
-        void Start()
-        {
+            Context.OnCellClicked = SelectCell;
+
             scroller.OnValueChanged(UpdatePosition);
             scroller.OnSelectionChanged(UpdateSelection);
         }

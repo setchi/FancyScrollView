@@ -11,13 +11,12 @@ namespace FancyScrollView.Example03
 
         protected override GameObject CellPrefab => cellPrefab;
 
-        void Awake()
+        protected override void Initialize()
         {
-            Context.OnCellClicked = SelectCell;
-        }
+            base.Initialize();
 
-        void Start()
-        {
+            Context.OnCellClicked = SelectCell;
+
             scroller.OnValueChanged(UpdatePosition);
             scroller.OnSelectionChanged(UpdateSelection);
         }
