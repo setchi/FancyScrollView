@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace FancyScrollView
 {
-    public class FancyGridViewRow<TItemData, TContext> : FancyScrollRectCell<TItemData[], TContext>
+    public abstract class FancyGridViewRow<TItemData, TContext> : FancyScrollRectCell<TItemData[], TContext>
         where TContext : class, IFancyScrollRectContext, IFancyGridViewContext, new()
     {
         protected virtual FancyScrollViewCell<TItemData, TContext>[] Cells { get; private set; }

@@ -25,7 +25,7 @@ namespace FancyScrollView
             + reuseCellMarginCount * 2f
             + (paddingHead + paddingTail - spacing) / (CellSize + spacing);
 
-        protected virtual bool ScrollEnabled => MaxScrollPosition > 0f;
+        protected virtual bool Scrollable => MaxScrollPosition > 0f;
 
         protected virtual float CellSize => Scroller.ScrollDirection == ScrollDirection.Horizontal
             ? CellRectTransform.rect.width
@@ -55,7 +55,7 @@ namespace FancyScrollView
 
         void OnScrollerValueChanged(float p)
         {
-            base.UpdatePosition(ScrollEnabled ? ToFancyScrollViewPosition(p) : 0f);
+            base.UpdatePosition(Scrollable ? ToFancyScrollViewPosition(p) : 0f);
 
             if (Scroller.Scrollbar)
             {
@@ -85,13 +85,13 @@ namespace FancyScrollView
 
         protected void RefreshScroller()
         {
-            Scroller.Draggable = ScrollEnabled;
+            Scroller.Draggable = Scrollable;
             Scroller.ScrollSensitivity = ToScrollerPosition(ViewportLength - PaddingHeadLength);
             Scroller.Position = ToScrollerPosition(currentPosition);
 
             if (Scroller.Scrollbar)
             {
-                Scroller.Scrollbar.gameObject.SetActive(ScrollEnabled);
+                Scroller.Scrollbar.gameObject.SetActive(Scrollable);
                 UpdateScrollbarSize(ViewportLength);
             }
         }
@@ -130,7 +130,7 @@ namespace FancyScrollView
         protected void UpdateScrollbarSize(float viewportLength)
         {
             var contentLength = Mathf.Max(ItemsSource.Count + (paddingHead + paddingTail - spacing) / (CellSize + spacing), 1);
-            Scroller.Scrollbar.size = ScrollEnabled ? Mathf.Clamp01(viewportLength / contentLength) : 1f;
+            Scroller.Scrollbar.size = Scrollable ? Mathf.Clamp01(viewportLength / contentLength) : 1f;
         }
 
         protected virtual float ToFancyScrollViewPosition(float position)
