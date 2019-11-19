@@ -15,7 +15,7 @@ namespace FancyScrollView
         where TContext : class, IFancyScrollRectContext, new()
     {
         /// <summary>
-        /// スクロール中にセルが再利用されるまでの余白をセル数で指定します.
+        /// スクロール中にセルが再利用されるまでの余白のセル数.
         /// </summary>
         /// <remarks>
         /// 0 を指定するとセルが完全に隠れた直後に再利用されます.
@@ -24,17 +24,17 @@ namespace FancyScrollView
         [SerializeField] protected float reuseCellMarginCount = 0f;
 
         /// <summary>
-        /// コンテンツ先頭の余白を指定します.
+        /// コンテンツ先頭の余白.
         /// </summary>
         [SerializeField] protected float paddingHead = 0f;
 
         /// <summary>
-        /// コンテンツ末尾の余白を指定します.
+        /// コンテンツ末尾の余白.
         /// </summary>
         [SerializeField] protected float paddingTail = 0f;
 
         /// <summary>
-        /// セル同士の間隔を指定します.
+        /// セル同士の余白.
         /// </summary>
         [SerializeField] protected float spacing = 0f;
 

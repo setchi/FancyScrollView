@@ -11,12 +11,12 @@ namespace FancyScrollView
     public abstract class FancyScrollView<TItemData, TContext> : MonoBehaviour where TContext : class, new()
     {
         /// <summary>
-        /// セル同士の間隔を 0.01 ~ 1.0 の範囲で指定します.
+        /// セル同士の間隔.
         /// </summary>
         [SerializeField, Range(1e-2f, 1f)] protected float cellInterval = 0.2f;
 
         /// <summary>
-        /// スクロール位置の基準を指定します.
+        /// スクロール位置の基準.
         /// </summary>
         /// <remarks>
         /// たとえば、 0.5 を指定してスクロール位置が 0 の場合, 中央に最初のセルが配置されます.
@@ -24,7 +24,7 @@ namespace FancyScrollView
         [SerializeField, Range(0f, 1f)] protected float scrollOffset = 0.5f;
 
         /// <summary>
-        /// セルを循環して配置させるどうかを指定します.
+        /// セルを循環して配置させるどうか.
         /// </summary>
         /// <remarks>
         /// true にすると最後のセルの後に最初のセル, 最初のセルの前に最後のセルが並ぶようになります.
@@ -33,7 +33,7 @@ namespace FancyScrollView
         [SerializeField] protected bool loop = false;
 
         /// <summary>
-        /// セルの親要素となる Transform を指定します.
+        /// セルの親要素となる Transform.
         /// </summary>
         [SerializeField] protected Transform cellContainer = default;
 
@@ -57,7 +57,7 @@ namespace FancyScrollView
         /// コンテキストのインスタンス.
         /// </summary>
         /// <remarks>
-        /// セルとスクロールビュー間で同じインスタンスを共有します. 情報の受け渡しや状態の保持に使用します.
+        /// セルとスクロールビュー間で同じインスタンスが共有されます. 情報の受け渡しや状態の保持に使用します.
         /// </remarks>
         protected TContext Context { get; } = new TContext();
 
@@ -80,7 +80,7 @@ namespace FancyScrollView
         }
 
         /// <summary>
-        /// アイテム一覧に基づいてセルを再表示します.
+        /// セルの表示内容を更新します.
         /// </summary>
         protected virtual void Refresh() => UpdatePosition(currentPosition, true);
 

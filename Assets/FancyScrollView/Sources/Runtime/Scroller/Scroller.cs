@@ -12,29 +12,29 @@ namespace FancyScrollView
     public class Scroller : UIBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
     {
         /// <summary>
-        /// ビューポートとなる RectTransform を指定します.
+        /// ビューポートとなる RectTransform.
         /// </summary>
         [SerializeField] RectTransform viewport = default;
 
         /// <summary>
-        /// スクロール方向を指定します.
+        /// スクロール方向.
         /// <see cref="FancyScrollView.ScrollDirection"/>
         /// </summary>
         [SerializeField] ScrollDirection scrollDirection = ScrollDirection.Vertical;
 
         /// <summary>
-        /// コンテンツがスクロール範囲を越えて移動するときに使用する挙動を指定します.
+        /// コンテンツがスクロール範囲を越えて移動するときに使用する挙動.
         /// <see cref="FancyScrollView.MovementType"/>
         /// </summary>
         [SerializeField] MovementType movementType = MovementType.Elastic;
 
         /// <summary>
-        /// コンテンツがスクロール範囲を越えて移動するときに使用する弾力性の量を指定します.
+        /// コンテンツがスクロール範囲を越えて移動するときに使用する弾力性の量.
         /// </summary>
         [SerializeField] float elasticity = 0.1f;
 
         /// <summary>
-        /// スクロールの感度を指定します.
+        /// スクロールの感度.
         /// </summary>
         [SerializeField] float scrollSensitivity = 1f;
 
@@ -44,12 +44,12 @@ namespace FancyScrollView
         [SerializeField] bool inertia = true;
 
         /// <summary>
-        /// <see cref="inertia"/> が true の場合のみ有効です. スクロールの減速率を指定します.
+        /// スクロールの減速率. <see cref="inertia"/> が true の場合のみ有効です.
         /// </summary>
         [SerializeField] float decelerationRate = 0.03f;
 
         /// <summary>
-        /// スナップに関する挙動を指定します.
+        /// スナップに関する挙動.
         /// </summary>
         [SerializeField] Snap snap = new Snap {
             Enable = true,
@@ -59,12 +59,12 @@ namespace FancyScrollView
         };
 
         /// <summary>
-        /// Drag 入力を受付けるかどうかを指定します.
+        /// Drag 入力を受付けるかどうか.
         /// </summary>
         [SerializeField] bool draggable = true;
 
         /// <summary>
-        /// スクロールバーのオブジェクトを指定します(任意).
+        /// スクロールバーのオブジェクト(任意).
         /// </summary>
         [SerializeField] Scrollbar scrollbar = default;
 

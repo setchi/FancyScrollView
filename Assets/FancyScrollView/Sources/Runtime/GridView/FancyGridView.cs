@@ -15,7 +15,7 @@ namespace FancyScrollView
         where TContext : class, IFancyScrollRectContext, IFancyGridViewContext, new()
     {
         /// <summary>
-        /// 行同士の余白を指定します.
+        /// 行同士の余白.
         /// </summary>
         [SerializeField] protected float columnSpacing = 0f;
 
@@ -31,7 +31,7 @@ namespace FancyScrollView
         protected sealed override GameObject CellPrefab => cachedRowPrefab ?? (cachedRowPrefab = SetupRowTemplate());
 
         /// <summary>
-        /// 一行に存在する要素数.
+        /// 一行あたりの要素数.
         /// </summary>
         protected abstract int ColumnCount { get; }
 

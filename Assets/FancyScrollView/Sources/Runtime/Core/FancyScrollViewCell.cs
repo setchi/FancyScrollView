@@ -23,7 +23,7 @@ namespace FancyScrollView
         /// コンテキストの参照.
         /// </summary>
         /// <remarks>
-        /// セルとスクロールビュー間で同じインスタンスを共有します. 情報の受け渡しや状態の保持に使用します.
+        /// セルとスクロールビュー間で同じインスタンスが共有されます. 情報の受け渡しや状態の保持に使用します.
         /// </remarks>
         protected TContext Context { get; private set; }
 
@@ -46,7 +46,7 @@ namespace FancyScrollView
         public abstract void UpdateContent(TItemData itemData);
 
         /// <summary>
-        /// 0.0 ~ 1.0 の値に基づいて, このセルのスクロール位置を更新します.
+        /// 0.0 ~ 1.0 の値に基づいてこのセルのスクロール位置を更新します.
         /// </summary>
         /// <param name="position">正規化されたスクロール位置.</param>
         public abstract void UpdatePosition(float position);
