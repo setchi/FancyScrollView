@@ -3,11 +3,23 @@ using System.Linq;
 
 namespace FancyScrollView
 {
+    /// <summary>
+    /// FancyGridViewRow 抽象基底クラス.
+    /// </summary>
+    /// <typeparam name="TItemData">アイテムのデータ型.</typeparam>
+    /// <typeparam name="TContext">コンテキストの型.</typeparam>
     public abstract class FancyGridViewRow<TItemData, TContext> : FancyScrollRectCell<TItemData[], TContext>
         where TContext : class, IFancyScrollRectContext, IFancyGridViewContext, new()
     {
+        /// <summary>
+        /// この行で表示するセルの配列.
+        /// </summary>
         protected virtual FancyScrollViewCell<TItemData, TContext>[] Cells { get; private set; }
 
+        /// <summary>
+        /// この行で表示するセルの配列をインスタンス化します.
+        /// </summary>
+        /// <returns>この行で表示するセルの配列.</returns>
         protected virtual FancyScrollViewCell<TItemData, TContext>[] InstantiateCells()
         {
             return Enumerable.Range(0, Context.GetColumnCount())
@@ -16,6 +28,7 @@ namespace FancyScrollView
                 .ToArray();
         }
 
+        /// <inheritdoc/>
         public override void SetupContext(TContext context)
         {
             base.SetupContext(context);
@@ -29,6 +42,7 @@ namespace FancyScrollView
             }
         }
 
+        /// <inheritdoc/>
         public override void UpdateContent(TItemData[] rowContents)
         {
             for (var i = 0; i < Cells.Length; i++)
@@ -43,6 +57,7 @@ namespace FancyScrollView
             }
         }
 
+        /// <inheritdoc/>
         public override void UpdatePosition(float position)
         {
             base.UpdatePosition(position);
@@ -53,6 +68,7 @@ namespace FancyScrollView
             }
         }
 
+        /// <inheritdoc/>
         protected override void UpdatePosition(float position, float viewportPosition)
         {
             transform.localPosition = Context.ScrollDirection == ScrollDirection.Horizontal
