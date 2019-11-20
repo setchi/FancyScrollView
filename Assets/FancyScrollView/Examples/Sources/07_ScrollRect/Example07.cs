@@ -15,7 +15,6 @@ namespace FancyScrollView.Example07
         [SerializeField] InputField dataCountInputField = default;
         [SerializeField] InputField selectIndexInputField = default;
         [SerializeField] Dropdown alignmentDropdown = default;
-        [SerializeField] Dropdown easingDropdown = default;
 
         void Start()
         {
@@ -34,10 +33,6 @@ namespace FancyScrollView.Example07
             alignmentDropdown.AddOptions(Enum.GetNames(typeof(Alignment)).Select(x => new Dropdown.OptionData(x)).ToList());
             alignmentDropdown.onValueChanged.AddListener(_ => SelectCell());
             alignmentDropdown.value = (int)Alignment.Center;
-
-            easingDropdown.AddOptions(Enum.GetNames(typeof(Ease)).Select(x => new Dropdown.OptionData(x)).ToList());
-            easingDropdown.onValueChanged.AddListener(_ => SelectCell());
-            easingDropdown.value = (int)Ease.InOutQuint;
 
             selectIndexInputField.onValueChanged.AddListener(_ => SelectCell());
             selectIndexInputField.text = "10";
@@ -73,7 +68,7 @@ namespace FancyScrollView.Example07
             }
 
             TryParseValue(selectIndexInputField, 0, scrollView.DataCount - 1, index =>
-                scrollView.ScrollTo(index, 0.4f, (Ease)easingDropdown.value, (Alignment)alignmentDropdown.value));
+                scrollView.ScrollTo(index, 0.3f, Ease.InOutQuint, (Alignment)alignmentDropdown.value));
         }
 
         void GenerateCells(int dataCount)
