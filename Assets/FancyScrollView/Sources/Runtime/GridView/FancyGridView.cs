@@ -102,7 +102,7 @@ namespace FancyScrollView
         }
 
         /// <summary>
-        /// 指定したインデックスの位置まで移動します.
+        /// 指定したアイテムの位置まで移動します.
         /// </summary>
         /// <param name="itemIndex">アイテムのインデックス.</param>
         /// <param name="duration">移動にかける秒数.</param>
@@ -115,7 +115,7 @@ namespace FancyScrollView
         }
 
         /// <summary>
-        /// 指定したインデックスの位置まで移動します.
+        /// 指定したアイテムの位置まで移動します.
         /// </summary>
         /// <param name="itemIndex">アイテムのインデックス.</param>
         /// <param name="duration">移動にかける秒数.</param>
@@ -129,7 +129,7 @@ namespace FancyScrollView
         }
 
         /// <summary>
-        /// 指定したインデックスの位置までジャンプします.
+        /// 指定したアイテムの位置までジャンプします.
         /// </summary>
         /// <param name="itemIndex">アイテムのインデックス.</param>
         /// <param name="alignment"><see cref="Alignment"/>.</param>

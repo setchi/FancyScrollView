@@ -90,8 +90,11 @@ namespace FancyScrollView
         };
 
         /// <summary>
-        /// スナップに関する挙動.
+        /// <c>true</c> ならスナップし, <c>false</c>ならスナップしません.
         /// </summary>
+        /// <remarks>
+        /// スナップを有効にすると, 慣性でスクロールが止まる直前に最寄りのセルへ移動します.
+        /// </remarks>
         public bool SnapEnabled
         {
             get => snap.Enable;

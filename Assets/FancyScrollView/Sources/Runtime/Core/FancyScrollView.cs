@@ -205,5 +205,6 @@ namespace FancyScrollView
     /// 無限スクロールおよびスナップに対応しています.
     /// </summary>
     /// <typeparam name="TItemData"></typeparam>
+    /// <seealso cref="FancyScrollView{TItemData, TContext}"/>
     public abstract class FancyScrollView<TItemData> : FancyScrollView<TItemData, FancyScrollViewNullContext> { }
 }

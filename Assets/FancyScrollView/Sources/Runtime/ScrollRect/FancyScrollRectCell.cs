@@ -41,6 +41,7 @@ namespace FancyScrollView
     /// <see cref="FancyScrollRect{TItemData}"/> のセルを実装するための抽象基底クラス.
     /// </summary>
     /// <typeparam name="TItemData">アイテムのデータ型.</typeparam>
+    /// <seealso cref="FancyScrollRectCell{TItemData, TContext}"/>
     public abstract class FancyScrollRectCell<TItemData> : FancyScrollRectCell<TItemData, FancyScrollRectContext>
     {
         /// <inheritdoc/>
