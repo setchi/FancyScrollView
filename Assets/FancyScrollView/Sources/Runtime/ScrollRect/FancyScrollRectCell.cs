@@ -3,7 +3,9 @@
 namespace FancyScrollView
 {
     /// <summary>
-    /// FancyScrollRect セルの抽象基底クラス.
+    /// <see cref="FancyScrollRect{TItemData, TContext}"/> のセルを実装するための抽象基底クラス.
+    /// <see cref="FancyScrollViewCell{TItemData, TContext}.Context"/> が不要な場合は
+    /// 代わりに <see cref="FancyScrollRectCell{TItemData}"/> を使用します.
     /// </summary>
     /// <typeparam name="TItemData">アイテムのデータ型.</typeparam>
     /// <typeparam name="TContext">コンテキストの型.</typeparam>
@@ -36,11 +38,8 @@ namespace FancyScrollView
     }
 
     /// <summary>
-    /// FancyScrollRect セルの抽象基底クラス.
+    /// <see cref="FancyScrollRect{TItemData}"/> のセルを実装するための抽象基底クラス.
     /// </summary>
-    /// <remarks>
-    /// <see cref="FancyScrollRectCell{TItemData, TContext}.Context"/> が不要な場合はこちらを使用します.
-    /// </remarks>
     /// <typeparam name="TItemData">アイテムのデータ型.</typeparam>
     public abstract class FancyScrollRectCell<TItemData> : FancyScrollRectCell<TItemData, FancyScrollRectContext>
     {
