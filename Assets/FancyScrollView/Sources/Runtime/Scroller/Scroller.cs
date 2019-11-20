@@ -52,7 +52,7 @@ namespace FancyScrollView
         [SerializeField] float scrollSensitivity = 1f;
 
         /// <summary>
-        /// ビューポートの端から端まで Drag したときのスクロール位置の変化量.
+        /// <see cref="ViewportSize"/> の端から端まで Drag したときのスクロール位置の変化量.
         /// </summary>
         public float ScrollSensitivity
         {
@@ -63,7 +63,7 @@ namespace FancyScrollView
         [SerializeField] bool inertia = true;
 
         /// <summary>
-        /// 慣性を使用するかどうか. true を指定すると慣性が有効に, false を指定すると慣性が無効になります.
+        /// 慣性を使用するかどうか. <c>true</c> を指定すると慣性が有効に, <c>false</c> を指定すると慣性が無効になります.
         /// </summary>
         public bool Inertia
         {
@@ -214,7 +214,7 @@ namespace FancyScrollView
         /// アイテムの総数を設定します.
         /// </summary>
         /// <remarks>
-        /// この値を元に最大スクロール位置を計算します.
+        /// <paramref name="totalCount"/> を元に最大スクロール位置を計算します.
         /// </remarks>
         /// <param name="totalCount">アイテムの総数.</param>
         public void SetTotalCount(int totalCount) => this.totalCount = totalCount;
@@ -305,6 +305,7 @@ namespace FancyScrollView
                     : MovementDirection.Down;
         }
 
+        /// <inheritdoc/>
         void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
         {
             if (!draggable || eventData.button != PointerEventData.InputButton.Left)
@@ -323,6 +324,7 @@ namespace FancyScrollView
             autoScrollState.Reset();
         }
 
+        /// <inheritdoc/>
         void IDragHandler.OnDrag(PointerEventData eventData)
         {
             if (!draggable || eventData.button != PointerEventData.InputButton.Left || !dragging)
@@ -359,6 +361,7 @@ namespace FancyScrollView
             UpdatePosition(position);
         }
 
+        /// <inheritdoc/>
         void IEndDragHandler.OnEndDrag(PointerEventData eventData)
         {
             if (!draggable || eventData.button != PointerEventData.InputButton.Left)

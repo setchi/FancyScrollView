@@ -4,6 +4,8 @@ namespace FancyScrollView
 {
     /// <summary>
     /// <see cref="FancyScrollView{TItemData, TContext}"/> のセルを実装するための抽象基底クラス.
+    /// <see cref="FancyScrollViewCell{TItemData, TContext}.Context"/> が不要な場合は
+    /// 代わりに <see cref="FancyScrollViewCell{TItemData}"/> を使用します.
     /// </summary>
     /// <typeparam name="TItemData">アイテムのデータ型.</typeparam>
     /// <typeparam name="TContext">コンテキストの型.</typeparam>
@@ -21,10 +23,8 @@ namespace FancyScrollView
 
         /// <summary>
         /// <see cref="FancyScrollView{TItemData, TContext}.Context"/> の参照.
-        /// </summary>
-        /// <remarks>
         /// セルとスクロールビュー間で同じインスタンスが共有されます. 情報の受け渡しや状態の保持に使用します.
-        /// </remarks>
+        /// </summary>
         protected TContext Context { get; private set; }
 
         /// <summary>
@@ -53,11 +53,8 @@ namespace FancyScrollView
     }
 
     /// <summary>
-    /// <see cref="FancyScrollView{TItemData, TContext}"/> のセルを実装するための抽象基底クラス.
+    /// <see cref="FancyScrollView{TItemData}"/> のセルを実装するための抽象基底クラス.
     /// </summary>
-    /// <remarks>
-    /// <see cref="FancyScrollViewCell{TItemData, TContext}.Context"/> が不要な場合はこちらを使用します.
-    /// </remarks>
     /// <typeparam name="TItemData">アイテムのデータ型.</typeparam>
     public abstract class FancyScrollViewCell<TItemData> : FancyScrollViewCell<TItemData, FancyScrollViewNullContext>
     {

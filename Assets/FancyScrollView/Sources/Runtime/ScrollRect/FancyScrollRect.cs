@@ -7,9 +7,12 @@ namespace FancyScrollView
 {
     /// <summary>
     /// ScrollRect 風スクロールビューを実装するための抽象基底クラス.
+    /// 無限スクロールおよびスナップには対応していません.
+    /// <see cref="FancyScrollView{TItemData, TContext}.Context"/> が不要な場合は
+    /// 代わりに <see cref="FancyScrollRect{TItemData}"/> を使用します.
     /// </summary>
     /// <typeparam name="TItemData">アイテムのデータ型.</typeparam>
-    /// <typeparam name="TContext">コンテキストのデータ型.</typeparam>
+    /// <typeparam name="TContext"><see cref="FancyScrollView{TItemData, TContext}.Context"/> の型.</typeparam>
     [RequireComponent(typeof(Scroller))]
     public abstract class FancyScrollRect<TItemData, TContext> : FancyScrollView<TItemData, TContext>
         where TContext : class, IFancyScrollRectContext, new()
@@ -215,19 +218,19 @@ namespace FancyScrollView
         }
 
         /// <summary>
-        /// <see cref="Scroller"/> が扱うスクロール位置を, スクロールビューが扱うスクロール位置に変換します.
+        /// <see cref="Scroller"/> が扱うスクロール位置を <see cref="FancyScrollRect{TItemData, TContext}"/> が扱うスクロール位置に変換します.
         /// </summary>
         /// <param name="position"><see cref="Scroller"/> が扱うスクロール位置.</param>
-        /// <returns>スクロールビューが扱うスクロール位置.</returns>
+        /// <returns><see cref="FancyScrollRect{TItemData, TContext}"/> が扱うスクロール位置.</returns>
         protected virtual float ToFancyScrollViewPosition(float position)
         {
             return position / Mathf.Max(ItemsSource.Count - 1, 1) * MaxScrollPosition - PaddingHeadLength;
         }
 
         /// <summary>
-        /// スクロールビューが扱うスクロール位置を, <see cref="Scroller"/> が扱うスクロール位置に変換します.
+        /// <see cref="FancyScrollRect{TItemData, TContext}"/> が扱うスクロール位置を <see cref="Scroller"/> が扱うスクロール位置に変換します.
         /// </summary>
-        /// <param name="position">スクロールビューが扱うスクロール位置.</param>
+        /// <param name="position"><see cref="FancyScrollRect{TItemData, TContext}"/> が扱うスクロール位置.</param>
         /// <returns><see cref="Scroller"/> が扱うスクロール位置.</returns>
         protected virtual float ToScrollerPosition(float position)
         {
@@ -235,9 +238,9 @@ namespace FancyScrollView
         }
 
         /// <summary>
-        /// スクロールビューが扱うスクロール位置を, <see cref="Scroller"/> が扱うスクロール位置に変換します.
+        /// <see cref="FancyScrollRect{TItemData, TContext}"/> が扱うスクロール位置を <see cref="Scroller"/> が扱うスクロール位置に変換します.
         /// </summary>
-        /// <param name="position">スクロールビューが扱うスクロール位置.</param>
+        /// <param name="position"><see cref="FancyScrollRect{TItemData, TContext}"/> が扱うスクロール位置.</param>
         /// <param name="alignment"><see cref="Alignment"/>.</param>
         /// <returns><see cref="Scroller"/> が扱うスクロール位置.</returns>
         protected virtual float ToScrollerPosition(float position, Alignment alignment = Alignment.Center)
@@ -259,8 +262,8 @@ namespace FancyScrollView
 
         /// <summary>
         /// 指定された設定を実現するための
-        /// <see cref="FancyScrollRect{TItemData,TContext}.cellInterval"/> と
-        /// <see cref="FancyScrollRect{TItemData,TContext}.scrollOffset"/> を計算して適用します.
+        /// <see cref="FancyScrollView{TItemData,TContext}.cellInterval"/> と
+        /// <see cref="FancyScrollView{TItemData,TContext}.scrollOffset"/> を計算して適用します.
         /// </summary>
         protected virtual void AdjustCellIntervalAndScrollOffset()
         {
@@ -298,10 +301,8 @@ namespace FancyScrollView
 
     /// <summary>
     /// ScrollRect 風スクロールビューを実装するための抽象基底クラス.
+    /// 無限スクロールおよびスナップには対応していません.
     /// </summary>
-    /// <remarks>
-    /// <see cref="FancyScrollRect{TItemData, TContext}.Context"/> が不要な場合はこちらを使用します.
-    /// </remarks>
     /// <typeparam name="TItemData">アイテムのデータ型.</typeparam>
     public abstract class FancyScrollRect<TItemData> : FancyScrollRect<TItemData, FancyScrollRectContext> { }
 }

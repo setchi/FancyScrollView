@@ -8,9 +8,10 @@ namespace FancyScrollView
 {
     /// <summary>
     /// グリッドレイアウトのスクロールビューを実装するための抽象基底クラス.
+    /// 無限スクロールおよびスナップには対応していません.
     /// </summary>
     /// <typeparam name="TItemData">アイテムのデータ型.</typeparam>
-    /// <typeparam name="TContext">コンテキストのデータ型.</typeparam>
+    /// <typeparam name="TContext"><see cref="FancyScrollView{TItemData, TContext}.Context"/> の型.</typeparam>
     public abstract class FancyGridView<TItemData, TContext> : FancyScrollRect<TItemData[], TContext>
         where TContext : class, IFancyScrollRectContext, IFancyGridViewContext, new()
     {
@@ -19,7 +20,7 @@ namespace FancyScrollView
         /// </summary>
         [SerializeField] protected float columnSpacing = 0f;
 
-        protected GameObject cachedRowPrefab;
+        GameObject cachedRowPrefab;
 
         /// <summary>
         /// 行の Prefab.

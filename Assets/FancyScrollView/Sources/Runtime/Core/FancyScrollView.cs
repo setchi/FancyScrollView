@@ -5,9 +5,12 @@ namespace FancyScrollView
 {
     /// <summary>
     /// スクロールビューを実装するための抽象基底クラス.
+    /// 無限スクロールおよびスナップに対応しています.
+    /// <see cref="FancyScrollView{TItemData, TContext}.Context"/> が不要な場合は
+    /// 代わりに <see cref="FancyScrollView{TItemData}"/> を使用します.
     /// </summary>
     /// <typeparam name="TItemData">アイテムのデータ型.</typeparam>
-    /// <typeparam name="TContext">コンテキストの型.</typeparam>
+    /// <typeparam name="TContext"><see cref="Context"/> の型.</typeparam>
     public abstract class FancyScrollView<TItemData, TContext> : MonoBehaviour where TContext : class, new()
     {
         /// <summary>
@@ -40,7 +43,14 @@ namespace FancyScrollView
         readonly IList<FancyScrollViewCell<TItemData, TContext>> pool =
             new List<FancyScrollViewCell<TItemData, TContext>>();
 
+        /// <summary>
+        /// 初期化済みかどうか.
+        /// </summary>
         protected bool initialized;
+
+        /// <summary>
+        /// 現在のスクロール位置.
+        /// </summary>
         protected float currentPosition;
 
         /// <summary>
@@ -55,10 +65,8 @@ namespace FancyScrollView
 
         /// <summary>
         /// <typeparamref name="TContext"/> のインスタンス.
-        /// </summary>
-        /// <remarks>
         /// セルとスクロールビュー間で同じインスタンスが共有されます. 情報の受け渡しや状態の保持に使用します.
-        /// </remarks>
+        /// </summary>
         protected TContext Context { get; } = new TContext();
 
         /// <summary>
@@ -194,10 +202,8 @@ namespace FancyScrollView
 
     /// <summary>
     /// スクロールビューを実装するための抽象基底クラス.
+    /// 無限スクロールおよびスナップに対応しています.
     /// </summary>
-    /// <remarks>
-    /// <see cref="FancyScrollView{TItemData, TContext}.Context"/> が不要な場合はこちらを使用します.
-    /// </remarks>
     /// <typeparam name="TItemData"></typeparam>
     public abstract class FancyScrollView<TItemData> : FancyScrollView<TItemData, FancyScrollViewNullContext> { }
 }
