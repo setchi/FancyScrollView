@@ -45,10 +45,10 @@ FancyScrollView はセルの位置を更新するとき、可視領域の正規�
 `Context` 経由で、セルがクリックされたことをスクロールビューで検知したり、スクロールビューからセルに指示を出す処理がシンプルに実装できます。実装例（[Examples/02_FocusOn](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples/Sources/02_FocusOn)）が含まれていますので、参考にしてください。
 
 ### 特定のセルにスクロールやジャンプができます
-移動にかける秒数や Easing の指定もできます。詳しくは API Reference の [Scroller - Methods](https://github.com/setchi/FancyScrollView/blob/master/README.md#methods-2) を参照してください。
+移動にかける秒数や Easing の指定もできます。詳しくは [API Documentation](https://setchi.jp/FancyScrollView/api/FancyScrollView.html) の [Class Scroller](https://setchi.jp/FancyScrollView/api/FancyScrollView.Scroller.html#FancyScrollView_Scroller_ScrollTo_System_Single_System_Single_EasingCore_Ease_System_Action_) を参照してください。
 
 ### スクロールの挙動を細かく設定できます
-慣性の有無、減速率などスクロールに関する挙動の設定ができます。詳しくは API Reference の [Scroller - Inspector](https://github.com/setchi/FancyScrollView/blob/master/README.md#inspector-1) を参照してください。
+慣性の有無、減速率などスクロールに関する挙動の設定ができます。詳しくは [API Documentation](https://setchi.jp/FancyScrollView/api/FancyScrollView.html) の [Class Scroller](https://setchi.jp/FancyScrollView/api/FancyScrollView.Scroller.html) を参照してください。
 
 ### スナップをサポートしています
 スナップを有効にすると、スクロールが止まる直前に最寄りのセルへ移動します。スナップがはじまる速度のしきい値、移動にかける秒数、 Easing を指定できます。[FancyScrollRect](https://setchi.jp/FancyScrollView/api/FancyScrollView.FancyScrollRect-2.html) および [FancyGridView](https://setchi.jp/FancyScrollView/api/FancyScrollView.FancyGridView-2.html) はスナップをサポートしていません。
