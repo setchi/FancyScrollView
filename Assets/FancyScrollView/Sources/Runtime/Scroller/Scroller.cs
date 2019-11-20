@@ -11,46 +11,77 @@ namespace FancyScrollView
     /// </summary>
     public class Scroller : UIBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
     {
-        /// <summary>
-        /// ビューポートとなる RectTransform.
-        /// </summary>
         [SerializeField] RectTransform viewport = default;
 
         /// <summary>
-        /// スクロール方向.
-        /// <see cref="FancyScrollView.ScrollDirection"/>
+        /// ビューポートのサイズ.
         /// </summary>
+        public float ViewportSize => scrollDirection == ScrollDirection.Horizontal
+            ? viewport.rect.size.x
+            : viewport.rect.size.y;
+
         [SerializeField] ScrollDirection scrollDirection = ScrollDirection.Vertical;
 
         /// <summary>
-        /// コンテンツがスクロール範囲を越えて移動するときに使用する挙動.
-        /// <see cref="FancyScrollView.MovementType"/>
+        /// スクロール方向.
         /// </summary>
+        public ScrollDirection ScrollDirection => scrollDirection;
+
         [SerializeField] MovementType movementType = MovementType.Elastic;
+
+        /// <summary>
+        /// コンテンツがスクロール範囲を越えて移動するときに使用する挙動.
+        /// </summary>
+        public MovementType MovementType
+        {
+            get => movementType;
+            set => movementType = value;
+        }
+
+        [SerializeField] float elasticity = 0.1f;
 
         /// <summary>
         /// コンテンツがスクロール範囲を越えて移動するときに使用する弾力性の量.
         /// </summary>
-        [SerializeField] float elasticity = 0.1f;
+        public float Elasticity
+        {
+            get => elasticity;
+            set => elasticity = value;
+        }
 
-        /// <summary>
-        /// スクロールの感度.
-        /// </summary>
         [SerializeField] float scrollSensitivity = 1f;
 
         /// <summary>
-        /// true を指定すると慣性が有効に, false を指定すると慣性が無効になります.
+        /// <see cref="ViewportSize"/> の端から端まで Drag したときのスクロール位置の変化量.
         /// </summary>
+        public float ScrollSensitivity
+        {
+            get => scrollSensitivity;
+            set => scrollSensitivity = value;
+        }
+
         [SerializeField] bool inertia = true;
 
         /// <summary>
-        /// スクロールの減速率. <see cref="inertia"/> が true の場合のみ有効です.
+        /// 慣性を使用するかどうか. <c>true</c> を指定すると慣性が有効に, <c>false</c> を指定すると慣性が無効になります.
         /// </summary>
+        public bool Inertia
+        {
+            get => inertia;
+            set => inertia = value;
+        }
+
         [SerializeField] float decelerationRate = 0.03f;
 
         /// <summary>
-        /// スナップに関する挙動.
+        /// スクロールの減速率. <see cref="Inertia"/> が true の場合のみ有効です.
         /// </summary>
+        public float DecelerationRate
+        {
+            get => decelerationRate;
+            set => decelerationRate = value;
+        }
+
         [SerializeField] Snap snap = new Snap {
             Enable = true,
             VelocityThreshold = 0.5f,
@@ -59,51 +90,41 @@ namespace FancyScrollView
         };
 
         /// <summary>
-        /// Drag 入力を受付けるかどうか.
+        /// スナップに関する挙動.
         /// </summary>
-        [SerializeField] bool draggable = true;
-
-        /// <summary>
-        /// スクロールバーのオブジェクト(任意).
-        /// </summary>
-        [SerializeField] Scrollbar scrollbar = default;
-
-        public ScrollDirection ScrollDirection => scrollDirection;
-
-        public MovementType MovementType
-        {
-            get => movementType;
-            set => movementType = value;
-        }
-
-        public float ViewportSize => scrollDirection == ScrollDirection.Horizontal
-            ? viewport.rect.size.x
-            : viewport.rect.size.y;
-
         public bool SnapEnabled
         {
             get => snap.Enable;
             set => snap.Enable = value;
         }
 
-        public float ScrollSensitivity
-        {
-            get => scrollSensitivity;
-            set => scrollSensitivity = value;
-        }
+        [SerializeField] bool draggable = true;
 
+        /// <summary>
+        /// Drag 入力を受付けるかどうか.
+        /// </summary>
         public bool Draggable
         {
             get => draggable;
             set => draggable = value;
         }
 
+        [SerializeField] Scrollbar scrollbar = default;
+
+        /// <summary>
+        /// スクロールバーのオブジェクト.
+        /// </summary>
         public Scrollbar Scrollbar => scrollbar;
 
+        /// <summary>
+        /// 現在のスクロール位置.
+        /// </summary>
+        /// <value></value>
         public float Position
         {
             get => currentPosition;
-            set {
+            set
+            {
                 autoScrollState.Reset();
                 velocity = 0f;
                 dragging = false;
@@ -193,7 +214,7 @@ namespace FancyScrollView
         /// アイテムの総数を設定します.
         /// </summary>
         /// <remarks>
-        /// この値を元に最大スクロール位置を計算します.
+        /// <paramref name="totalCount"/> を元に最大スクロール位置を計算します.
         /// </remarks>
         /// <param name="totalCount">アイテムの総数.</param>
         public void SetTotalCount(int totalCount) => this.totalCount = totalCount;
@@ -284,6 +305,7 @@ namespace FancyScrollView
                     : MovementDirection.Down;
         }
 
+        /// <inheritdoc/>
         void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
         {
             if (!draggable || eventData.button != PointerEventData.InputButton.Left)
@@ -302,6 +324,7 @@ namespace FancyScrollView
             autoScrollState.Reset();
         }
 
+        /// <inheritdoc/>
         void IDragHandler.OnDrag(PointerEventData eventData)
         {
             if (!draggable || eventData.button != PointerEventData.InputButton.Left || !dragging)
@@ -338,6 +361,7 @@ namespace FancyScrollView
             UpdatePosition(position);
         }
 
+        /// <inheritdoc/>
         void IEndDragHandler.OnEndDrag(PointerEventData eventData)
         {
             if (!draggable || eventData.button != PointerEventData.InputButton.Left)
