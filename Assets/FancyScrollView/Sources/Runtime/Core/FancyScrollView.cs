@@ -4,7 +4,7 @@ using UnityEngine;
 namespace FancyScrollView
 {
     /// <summary>
-    /// スクロールビューの抽象基底クラス.
+    /// スクロールビューを実装するための抽象基底クラス.
     /// </summary>
     /// <typeparam name="TItemData">アイテムのデータ型.</typeparam>
     /// <typeparam name="TContext">コンテキストの型.</typeparam>
@@ -54,7 +54,7 @@ namespace FancyScrollView
         protected IList<TItemData> ItemsSource { get; set; } = new List<TItemData>();
 
         /// <summary>
-        /// コンテキストのインスタンス.
+        /// <typeparamref name="TContext"/> のインスタンス.
         /// </summary>
         /// <remarks>
         /// セルとスクロールビュー間で同じインスタンスが共有されます. 情報の受け渡しや状態の保持に使用します.
@@ -188,12 +188,12 @@ namespace FancyScrollView
     }
 
     /// <summary>
-    /// <see cref="FancyScrollView{TItemData}"/> を使用した際にシステムが使用する <see cref="FancyScrollView{TItemData, TContext}.Context"/>.
+    /// <see cref="FancyScrollView{TItemData}"/> のコンテキストクラス.
     /// </summary>
     public sealed class FancyScrollViewNullContext { }
 
     /// <summary>
-    /// スクロールビューの抽象基底クラス.
+    /// スクロールビューを実装するための抽象基底クラス.
     /// </summary>
     /// <remarks>
     /// <see cref="FancyScrollView{TItemData, TContext}.Context"/> が不要な場合はこちらを使用します.

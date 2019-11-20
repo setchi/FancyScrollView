@@ -6,7 +6,7 @@ using EasingCore;
 namespace FancyScrollView
 {
     /// <summary>
-    /// FancyScrollRect 抽象基底クラス.
+    /// ScrollRect 風スクロールビューを実装するための抽象基底クラス.
     /// </summary>
     /// <typeparam name="TItemData">アイテムのデータ型.</typeparam>
     /// <typeparam name="TContext">コンテキストのデータ型.</typeparam>
@@ -297,7 +297,7 @@ namespace FancyScrollView
     }
 
     /// <summary>
-    /// FancyScrollRect 抽象基底クラス.
+    /// ScrollRect 風スクロールビューを実装するための抽象基底クラス.
     /// </summary>
     /// <remarks>
     /// <see cref="FancyScrollRect{TItemData, TContext}.Context"/> が不要な場合はこちらを使用します.

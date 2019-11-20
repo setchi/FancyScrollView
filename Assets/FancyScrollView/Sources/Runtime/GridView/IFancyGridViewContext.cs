@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace FancyScrollView
 {
+    /// <summary>
+    /// <see cref="FancyGridView{TItemData, TContext}"/> のコンテキストインターフェース.
+    /// </summary>
     public interface IFancyGridViewContext
     {
         GameObject CellTemplate { get; set; }

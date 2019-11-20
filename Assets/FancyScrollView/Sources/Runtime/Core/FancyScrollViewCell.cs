@@ -3,7 +3,7 @@
 namespace FancyScrollView
 {
     /// <summary>
-    /// セルの抽象基底クラス.
+    /// <see cref="FancyScrollView{TItemData, TContext}"/> のセルを実装するための抽象基底クラス.
     /// </summary>
     /// <typeparam name="TItemData">アイテムのデータ型.</typeparam>
     /// <typeparam name="TContext">コンテキストの型.</typeparam>
@@ -20,7 +20,7 @@ namespace FancyScrollView
         public virtual bool IsVisible => gameObject.activeSelf;
 
         /// <summary>
-        /// コンテキストの参照.
+        /// <see cref="FancyScrollView{TItemData, TContext}.Context"/> の参照.
         /// </summary>
         /// <remarks>
         /// セルとスクロールビュー間で同じインスタンスが共有されます. 情報の受け渡しや状態の保持に使用します.
@@ -53,7 +53,7 @@ namespace FancyScrollView
     }
 
     /// <summary>
-    /// セルの抽象基底クラス.
+    /// <see cref="FancyScrollView{TItemData, TContext}"/> のセルを実装するための抽象基底クラス.
     /// </summary>
     /// <remarks>
     /// <see cref="FancyScrollViewCell{TItemData, TContext}.Context"/> が不要な場合はこちらを使用します.

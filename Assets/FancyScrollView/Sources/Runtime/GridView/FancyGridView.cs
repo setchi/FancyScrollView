@@ -7,7 +7,7 @@ using EasingCore;
 namespace FancyScrollView
 {
     /// <summary>
-    /// FancyGridView 抽象基底クラス.
+    /// グリッドレイアウトのスクロールビューを実装するための抽象基底クラス.
     /// </summary>
     /// <typeparam name="TItemData">アイテムのデータ型.</typeparam>
     /// <typeparam name="TContext">コンテキストのデータ型.</typeparam>
