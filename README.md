@@ -1,4 +1,4 @@
-# FancyScrollView [![license](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square)](https://github.com/setchi/FancyScrollView/blob/master/LICENSE)
+# FancyScrollView [![license](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square)](https://github.com/setchi/FancyScrollView/blob/master/LICENSE) [![Release](https://img.shields.io/github/release/setchi/FancyScrollView.svg?style=flat-square)](https://github.com/setchi/FancyScrollView/releases/latest)
 
 [English](https://translate.google.com/translate?sl=ja&tl=en&u=https://github.com/setchi/FancyScrollView) (by Google Translate)
 
@@ -7,16 +7,19 @@
 <img src="https://user-images.githubusercontent.com/8326814/68384224-84a1a980-019a-11ea-9cee-aa6acc4860e2.gif" width="320"><img src="https://user-images.githubusercontent.com/8326814/69004520-d2b36b80-0957-11ea-8277-06bfd3e8f033.gif" width="320"><img src="https://user-images.githubusercontent.com/8326814/59548448-a3549900-8f8a-11e9-9a27-b04f1410a7b5.gif" width="320"><img src="https://user-images.githubusercontent.com/8326814/59548462-b8c9c300-8f8a-11e9-8985-5f1c2e610309.gif" width="320"><img src="https://user-images.githubusercontent.com/8326814/59550410-7f528100-8fa5-11e9-8f1b-41e59b645571.gif" width="320"><img src="https://user-images.githubusercontent.com/8326814/59550411-7f528100-8fa5-11e9-8bfb-bd42da47f7a0.gif" width="320">
 
 ## Demo
-https://setchi.jp/FancyScrollView/demo/
+[https://setchi.jp/FancyScrollView/demo/](https://setchi.jp/FancyScrollView/demo/)
 
 ## API Documentation
-https://setchi.jp/FancyScrollView/api/FancyScrollView.html
+[https://setchi.jp/FancyScrollView/api/FancyScrollView.html](https://setchi.jp/FancyScrollView/api/FancyScrollView.html)
 
 ## Requirements
 - Unity 2019.2 or later.
 - [.NET 4.x Scripting Runtime](https://docs.unity3d.com/2018.3/Documentation/Manual/ScriptingRuntimeUpgrade.html)
 
 ## Installation
+### GitHub Releases
+[![Release](https://img.shields.io/github/release/setchi/FancyScrollView.svg?style=flat-square)](https://github.com/setchi/FancyScrollView/releases/latest) から `FancyScrollView.unitypackage` をダウンロードして Unity Project へインポートします.
+
 ### Unity Asset Store
 [Asset Store](https://assetstore.unity.com/packages/tools/gui/fancyscrollview-96530) からパッケージをプロジェクトにインストールします。
 
@@ -30,9 +33,6 @@ https://setchi.jp/FancyScrollView/api/FancyScrollView.html
   }
 }
 ```
-
-### Manual
-このリポジトリを Clone または Download します。
 
 ## Features
 ### 自由にスクロールアニメーションを実装できます
