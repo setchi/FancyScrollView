@@ -21,8 +21,8 @@ namespace FancyScrollView
         /// スクロール中にセルが再利用されるまでの余白のセル数.
         /// </summary>
         /// <remarks>
-        /// 0 を指定するとセルが完全に隠れた直後に再利用されます.
-        /// 1 以上を指定すると, そのセル数だけ余分にスクロールしてから再利用されます.
+        /// <c>0</c> を指定するとセルが完全に隠れた直後に再利用されます.
+        /// <c>1</c> 以上を指定すると, そのセル数だけ余分にスクロールしてから再利用されます.
         /// </remarks>
         [SerializeField] protected float reuseCellMarginCount = 0f;
 
@@ -56,7 +56,7 @@ namespace FancyScrollView
         /// スクロール可能かどうか.
         /// </summary>
         /// <remarks>
-        /// アイテム数が十分少なくビューポート内に全てのセルが収まっている場合は false, それ以外は true になります.
+        /// アイテム数が十分少なくビューポート内に全てのセルが収まっている場合は <c>false</c>, それ以外は <c>true</c> になります.
         /// </remarks>
         protected virtual bool Scrollable => MaxScrollPosition > 0f;
 

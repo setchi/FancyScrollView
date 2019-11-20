@@ -69,7 +69,7 @@ namespace FancyScrollView
         /// <summary>
         /// 行オブジェクトのセットアップを行います.
         /// </summary>
-        /// <returns>行を構成する GameObject.</returns>
+        /// <returns>行を構成する <c>GameObject</c>.</returns>
         protected virtual GameObject SetupRowTemplate()
         {
             var cell = CellTemplate.GetComponent<RectTransform>();

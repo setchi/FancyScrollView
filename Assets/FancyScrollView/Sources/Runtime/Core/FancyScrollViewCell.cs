@@ -8,7 +8,7 @@ namespace FancyScrollView
     /// 代わりに <see cref="FancyScrollViewCell{TItemData}"/> を使用します.
     /// </summary>
     /// <typeparam name="TItemData">アイテムのデータ型.</typeparam>
-    /// <typeparam name="TContext">コンテキストの型.</typeparam>
+    /// <typeparam name="TContext"><see cref="Context"/> の型.</typeparam>
     public abstract class FancyScrollViewCell<TItemData, TContext> : MonoBehaviour where TContext : class, new()
     {
         /// <summary>
@@ -36,7 +36,7 @@ namespace FancyScrollView
         /// <summary>
         /// このセルの可視状態を設定します.
         /// </summary>
-        /// <param name="visible">可視状態なら true, 非可視状態なら false.</param>
+        /// <param name="visible">可視状態なら <c>true</c>, 非可視状態なら <c>false</c>.</param>
         public virtual void SetVisible(bool visible) => gameObject.SetActive(visible);
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace FancyScrollView
         public abstract void UpdateContent(TItemData itemData);
 
         /// <summary>
-        /// 0.0 ~ 1.0 の値に基づいてこのセルのスクロール位置を更新します.
+        /// <c>0.0</c> ~ <c>1.0</c> の値に基づいてこのセルのスクロール位置を更新します.
         /// </summary>
         /// <param name="position">正規化されたスクロール位置.</param>
         public abstract void UpdatePosition(float position);

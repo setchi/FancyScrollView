@@ -74,7 +74,7 @@ namespace FancyScrollView
         [SerializeField] float decelerationRate = 0.03f;
 
         /// <summary>
-        /// スクロールの減速率. <see cref="Inertia"/> が true の場合のみ有効です.
+        /// スクロールの減速率. <see cref="Inertia"/> が <c>true</c> の場合のみ有効です.
         /// </summary>
         public float DecelerationRate
         {
@@ -222,7 +222,7 @@ namespace FancyScrollView
         /// <summary>
         /// 指定した位置まで移動します.
         /// </summary>
-        /// <param name="position">スクロール位置. 0.0 ~ totalCount - 1 の範囲.</param>
+        /// <param name="position">スクロール位置. <c>0.0</c> ~ <c>totalCount - 1</c> の範囲.</param>
         /// <param name="duration">移動にかける秒数.</param>
         /// <param name="onComplete">移動が完了した際に呼び出されるコールバック.</param>
         public void ScrollTo(float position, float duration, Action onComplete = null) => ScrollTo(position, duration, Ease.OutCubic, onComplete);
@@ -230,7 +230,7 @@ namespace FancyScrollView
         /// <summary>
         /// 指定した位置まで移動します.
         /// </summary>
-        /// <param name="position">スクロール位置. 0.0 ~ totalCount - 1 の範囲.</param>
+        /// <param name="position">スクロール位置. <c>0.0</c> ~ <c>totalCount - 1</c> の範囲.</param>
         /// <param name="duration">移動にかける秒数.</param>
         /// <param name="easing">移動に使用するイージング.</param>
         /// <param name="onComplete">移動が完了した際に呼び出されるコールバック.</param>
@@ -239,7 +239,7 @@ namespace FancyScrollView
         /// <summary>
         /// 指定した位置まで移動します.
         /// </summary>
-        /// <param name="position">スクロール位置. 0.0 ~ totalCount - 1 の範囲.</param>
+        /// <param name="position">スクロール位置. <c>0.0</c> ~ <c>totalCount - 1</c> の範囲.</param>
         /// <param name="duration">移動にかける秒数.</param>
         /// <param name="easingFunction">移動に使用するイージング関数.</param>
         /// <param name="onComplete">移動が完了した際に呼び出されるコールバック.</param>

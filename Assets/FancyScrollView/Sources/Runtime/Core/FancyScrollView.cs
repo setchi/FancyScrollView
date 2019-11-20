@@ -22,7 +22,7 @@ namespace FancyScrollView
         /// スクロール位置の基準.
         /// </summary>
         /// <remarks>
-        /// たとえば、 0.5 を指定してスクロール位置が 0 の場合, 中央に最初のセルが配置されます.
+        /// たとえば、 <c>0.5</c> を指定してスクロール位置が <c>0</c> の場合, 中央に最初のセルが配置されます.
         /// </remarks>
         [SerializeField, Range(0f, 1f)] protected float scrollOffset = 0.5f;
 
@@ -30,13 +30,13 @@ namespace FancyScrollView
         /// セルを循環して配置させるどうか.
         /// </summary>
         /// <remarks>
-        /// true にすると最後のセルの後に最初のセル, 最初のセルの前に最後のセルが並ぶようになります.
-        /// 無限スクロールを実装する場合は true を指定します.
+        /// <c>true</c> にすると最後のセルの後に最初のセル, 最初のセルの前に最後のセルが並ぶようになります.
+        /// 無限スクロールを実装する場合は <c>true</c> を指定します.
         /// </remarks>
         [SerializeField] protected bool loop = false;
 
         /// <summary>
-        /// セルの親要素となる Transform.
+        /// セルの親要素となる <c>Transform</c>.
         /// </summary>
         [SerializeField] protected Transform cellContainer = default;
 

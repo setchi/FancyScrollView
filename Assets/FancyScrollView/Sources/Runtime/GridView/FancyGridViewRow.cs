@@ -7,7 +7,7 @@ namespace FancyScrollView
     /// <see cref="FancyGridView{TItemData, TContext}"/> の行を実装するための抽象基底クラス.
     /// </summary>
     /// <typeparam name="TItemData">アイテムのデータ型.</typeparam>
-    /// <typeparam name="TContext">コンテキストの型.</typeparam>
+    /// <typeparam name="TContext"><see cref="FancyScrollViewCell{TItemData, TContext}.Context"/> の型.</typeparam>
     public abstract class FancyGridViewRow<TItemData, TContext> : FancyScrollRectCell<TItemData[], TContext>
         where TContext : class, IFancyScrollRectContext, IFancyGridViewContext, new()
     {

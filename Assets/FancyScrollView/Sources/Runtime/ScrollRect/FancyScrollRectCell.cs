@@ -8,7 +8,7 @@ namespace FancyScrollView
     /// 代わりに <see cref="FancyScrollRectCell{TItemData}"/> を使用します.
     /// </summary>
     /// <typeparam name="TItemData">アイテムのデータ型.</typeparam>
-    /// <typeparam name="TContext">コンテキストの型.</typeparam>
+    /// <typeparam name="TContext"><see cref="FancyScrollViewCell{TItemData, TContext}.Context"/> の型.</typeparam>
     public abstract class FancyScrollRectCell<TItemData, TContext> : FancyScrollViewCell<TItemData, TContext>
         where TContext : class, IFancyScrollRectContext, new()
     {
@@ -31,7 +31,7 @@ namespace FancyScrollView
         /// <param name="position">
         /// ビューポートの範囲で正規化されたスクロール位置.
         /// <see cref="FancyScrollRect{TItemData, TContext}.reuseCellMarginCount"/> の値に基づいて
-        ///  0.0 ~ 1.0 の範囲を超えた値が渡されることがあります.
+        ///  <c>0.0</c> ~ <c>1.0</c> の範囲を超えた値が渡されることがあります.
         /// </param>
         /// <param name="viewportPosition">ローカル位置.</param>
         protected virtual void UpdatePosition(float position, float viewportPosition) { }
