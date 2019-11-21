@@ -36,10 +36,10 @@
 
 ## Features
 ### 自由にスクロールアニメーションを実装できます
-FancyScrollView はセルの位置を更新するとき、可視領域の正規化された値を各セルに渡します。セル側では、0.0 ~ 1.0 の値に基づいてスクロールの外観を自由に制御できます。サンプルでは Animator を使用してセルの動きを制御しています。
+FancyScrollView はスクロール位置を更新するとき、ビューポートの範囲の正規化された位置を各セルに渡します。セル側では `0.0` ~ `1.0` の値に基づいてスクロール中の位置や見た目を[セル自身で制御](https://setchi.jp/FancyScrollView/api/FancyScrollView.FancyScrollViewCell-2.html#FancyScrollView_FancyScrollViewCell_2_UpdatePosition_System_Single_)します。サンプルでは Animator や数式を使用してスクロール中の動きを実装しています。
 
 ### データ件数が多くても軽快に動作します
-表示に必要なセル数のみが生成され、セルは再利用されます。
+表示に必要なセル数のみが生成され、セルは再利用されます。 [Demo](https://setchi.jp/FancyScrollView/demo/) で実際にデータ件数を増やしながら動作を確認できます。 [FancyScrollRect](https://setchi.jp/FancyScrollView/api/FancyScrollView.FancyScrollRect-2.html) および [FancyGridView](https://setchi.jp/FancyScrollView/api/FancyScrollView.FancyGridView-2.html) では、[スクロール中にセルが再利用されるまでの余白](https://setchi.jp/FancyScrollView/api/FancyScrollView.FancyScrollRect-2.html#FancyScrollView_FancyScrollRect_2_reuseCellMarginCount)の指定もできます。
 
 ### セルとスクロールビュー間で自由にメッセージのやりとりができます
 `Context` 経由で、セルがクリックされたことをスクロールビューで検知したり、スクロールビューからセルに指示を出す処理がシンプルに実装できます。実装例（[Examples/02_FocusOn](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples/Sources/02_FocusOn)）が含まれていますので、参考にしてください。
@@ -164,6 +164,8 @@ public class EntryPoint : MonoBehaviour
     }
 }
 ```
+
+その他の詳細は [Examples](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples) および [API Documentation](https://setchi.jp/FancyScrollView/api/FancyScrollView.html) を参照してください。
 
 ## Author
 [setchi](https://github.com/setchi)
