@@ -210,7 +210,7 @@ namespace FancyScrollView
         /// <summary>
         /// 選択位置が変化したときのコールバックを設定します.
         /// </summary>
-        /// <param name="callback">選択セルが変化したときのコールバック.</param>
+        /// <param name="callback">選択位置が変化したときのコールバック.</param>
         public void OnSelectionChanged(Action<int> callback) => onSelectionChanged = callback;
 
         /// <summary>

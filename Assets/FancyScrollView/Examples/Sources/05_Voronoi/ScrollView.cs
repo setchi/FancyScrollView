@@ -26,7 +26,7 @@ namespace FancyScrollView.Example05
             scroller.OnSelectionChanged(UpdateSelection);
         }
 
-        void UpdateSelection(int index)
+        public void UpdateSelection(int index)
         {
             if (Context.SelectedIndex == index)
             {
@@ -68,7 +68,17 @@ namespace FancyScrollView.Example05
             }
 
             UpdateSelection(index);
-            scroller.ScrollTo(index, 0.35f, Ease.OutCubic);
+            ScrollTo(index, 0.35f, Ease.OutCubic);
+        }
+
+        public void ScrollTo(float position, float duration, Ease easing, Action onComplete = null)
+        {
+            scroller.ScrollTo(position, duration, easing, onComplete);
+        }
+
+        public void JumpTo(int index)
+        {
+            scroller.JumpTo(index);
         }
 
         public Vector4[] GetCellState()

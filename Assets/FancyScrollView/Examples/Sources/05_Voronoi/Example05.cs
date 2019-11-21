@@ -22,7 +22,8 @@ namespace FancyScrollView.Example05
                 .ToList();
 
             scrollView.UpdateData(items);
-            scrollView.SelectCell(0);
+            scrollView.UpdateSelection(10);
+            scrollView.JumpTo(10);
         }
 
         void OnSelectionChanged(int index)

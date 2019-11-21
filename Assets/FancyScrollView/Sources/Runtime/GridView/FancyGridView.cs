@@ -16,7 +16,7 @@ namespace FancyScrollView
         where TContext : class, IFancyScrollRectContext, IFancyGridViewContext, new()
     {
         /// <summary>
-        /// 行同士の余白.
+        /// カラム同士の余白.
         /// </summary>
         [SerializeField] protected float columnSpacing = 0f;
 
