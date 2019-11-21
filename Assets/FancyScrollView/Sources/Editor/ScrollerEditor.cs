@@ -1,4 +1,10 @@
-﻿using UnityEditor;
+﻿/*
+ * FancyScrollView (https://github.com/setchi/FancyScrollView)
+ * Copyright (c) 2019 setchi
+ * Licensed under MIT (https://github.com/setchi/FancyScrollView/blob/master/LICENSE)
+ */
+
+using UnityEditor;
 using UnityEditor.AnimatedValues;
 
 // For manteinance, every new [SerializeField] variable in Scroller must be declared here
