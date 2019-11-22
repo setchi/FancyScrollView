@@ -18,10 +18,10 @@
 
 ## Installation
 ### GitHub Releases
-[![Release](https://img.shields.io/github/release/setchi/FancyScrollView.svg?style=flat-square)](https://github.com/setchi/FancyScrollView/releases/latest) から `FancyScrollView.unitypackage` をダウンロードして Unity Project へインポートします.
+[Releases](https://github.com/setchi/FancyScrollView/releases/latest) から `FancyScrollView.unitypackage` をダウンロードして Unity Project にインポートします。
 
 ### Unity Asset Store
-[Asset Store](https://assetstore.unity.com/packages/tools/gui/fancyscrollview-96530) からパッケージをプロジェクトにインストールします。
+[Asset Store](https://assetstore.unity.com/packages/tools/gui/fancyscrollview-96530) からパッケージを Unity Project にインポートします。
 
 ### Unity Package Manager *(Example scenes not included)*
 プロジェクトディレクトリの [`Packages/manifest.json`](https://docs.unity3d.com/Packages/com.unity.package-manager-ui@1.8/manual/index.html#project-manifests) ファイルにリポジトリへの参照を追加します。
@@ -36,10 +36,10 @@
 
 ## Features
 ### 自由にスクロールアニメーションを実装できます
-FancyScrollView はスクロール位置を更新するとき、ビューポートの範囲の正規化された位置を各セルに渡します。セル側では `0.0` ~ `1.0` の値に基づいてスクロール中の位置や見た目を[セル自身で制御](https://setchi.jp/FancyScrollView/api/FancyScrollView.FancyScrollViewCell-2.html#FancyScrollView_FancyScrollViewCell_2_UpdatePosition_System_Single_)します。サンプルでは Animator や数式を使用してスクロール中の動きを実装しています。
+FancyScrollView はスクロール位置を更新するとき、ビューポート範囲の正規化された位置を各セルに渡します。セル側では `0.0` ~ `1.0` の値に基づいてスクロール中の位置や見た目を[セル自身で制御](https://setchi.jp/FancyScrollView/api/FancyScrollView.FancyScrollViewCell-2.html#FancyScrollView_FancyScrollViewCell_2_UpdatePosition_System_Single_)します。サンプルでは Animator や数式を使用してスクロール中の動きを実装しています。
 
 ### データ件数が多くても軽快に動作します
-表示に必要なセル数のみが生成され、セルは再利用されます。 [Demo](https://setchi.jp/FancyScrollView/demo/) で実際にデータ件数を増やしながら動作を確認できます。 [FancyScrollRect](https://setchi.jp/FancyScrollView/api/FancyScrollView.FancyScrollRect-2.html) および [FancyGridView](https://setchi.jp/FancyScrollView/api/FancyScrollView.FancyGridView-2.html) では、[スクロール中にセルが再利用されるまでの余白](https://setchi.jp/FancyScrollView/api/FancyScrollView.FancyScrollRect-2.html#FancyScrollView_FancyScrollRect_2_reuseCellMarginCount)の指定もできます。
+表示に必要なセル数のみが生成され、セルは再利用されます。 [Demo](https://setchi.jp/FancyScrollView/demo/) で実際にデータ件数を増やしながら動作を確認できます。 [FancyScrollRect](https://setchi.jp/FancyScrollView/api/FancyScrollView.FancyScrollRect-2.html) および [FancyGridView](https://setchi.jp/FancyScrollView/api/FancyScrollView.FancyGridView-2.html) では、[スクロール中にセルが再利用されるまでの余白](https://setchi.jp/FancyScrollView/api/FancyScrollView.FancyScrollRect-2.html#FancyScrollView_FancyScrollRect_2_reuseCellMarginCount)も指定できます。
 
 ### セルとスクロールビュー間で自由にメッセージのやりとりができます
 `Context` 経由で、セルがクリックされたことをスクロールビューで検知したり、スクロールビューからセルに指示を出す処理がシンプルに実装できます。実装例（[Examples/02_FocusOn](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples/Sources/02_FocusOn)）が含まれていますので、参考にしてください。
