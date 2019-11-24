@@ -50,7 +50,7 @@ namespace FancyScrollView
             snapEasing = serializedObject.FindProperty("snap.Easing");
             draggable = serializedObject.FindProperty("draggable");
             scrollbar = serializedObject.FindProperty("scrollbar");
-            
+
             showElasticity = new AnimBool(Repaint);
             showInertiaRelatedValues = new AnimBool(Repaint);
             showSnapEnableRelatedValues = new AnimBool(Repaint);
@@ -120,7 +120,7 @@ namespace FancyScrollView
         {
             using (var group = new EditorGUILayout.FadeGroupScope(showInertiaRelatedValues.faded))
             {
-                if (!group.visible) 
+                if (!group.visible)
                 {
                     return;
                 }
