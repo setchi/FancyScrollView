@@ -7,10 +7,10 @@
 <img src="https://user-images.githubusercontent.com/8326814/68384224-84a1a980-019a-11ea-9cee-aa6acc4860e2.gif" width="320"><img src="https://user-images.githubusercontent.com/8326814/69004520-d2b36b80-0957-11ea-8277-06bfd3e8f033.gif" width="320"><img src="https://user-images.githubusercontent.com/8326814/59548448-a3549900-8f8a-11e9-9a27-b04f1410a7b5.gif" width="320"><img src="https://user-images.githubusercontent.com/8326814/59548462-b8c9c300-8f8a-11e9-8985-5f1c2e610309.gif" width="320"><img src="https://user-images.githubusercontent.com/8326814/59550410-7f528100-8fa5-11e9-8f1b-41e59b645571.gif" width="320"><img src="https://user-images.githubusercontent.com/8326814/59550411-7f528100-8fa5-11e9-8bfb-bd42da47f7a0.gif" width="320">
 
 ## Demo
-[https://setchi.jp/FancyScrollView/demo/](https://setchi.jp/FancyScrollView/demo/)
+[![WebGL Demo](https://img.shields.io/badge/demo-WebGL-blueviolet.svg?style=flat-square)](https://setchi.jp/FancyScrollView/demo)
 
 ## API Documentation
-[https://setchi.jp/FancyScrollView/api/FancyScrollView.html](https://setchi.jp/FancyScrollView/api/FancyScrollView.html)
+[![API Documentation](https://img.shields.io/badge/api-documentation-blue.svg?style=flat-square)](https://setchi.jp/FancyScrollView/api/FancyScrollView.html)
 
 ## Requirements
 - Unity 2019.2 or later.
@@ -61,17 +61,17 @@ Inspector で下記の設定をすることで無限スクロールを実装で�
 実装例（[Examples/03_InfiniteScroll](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples)）が含まれていますので、こちらも参考にしてください。[FancyScrollRect](https://setchi.jp/FancyScrollView/api/FancyScrollView.FancyScrollRect-2.html) および [FancyGridView](https://setchi.jp/FancyScrollView/api/FancyScrollView.FancyGridView-2.html) は無限スクロールをサポートしていません。
 
 ## Examples
-[FancyScrollView/Examples](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples) を参照してください。
+[![WebGL Demo](https://img.shields.io/badge/demo-WebGL-blueviolet.svg?style=flat-square)](https://setchi.jp/FancyScrollView/demo)
 
-WebGL Demo : https://setchi.jp/FancyScrollView/demo/
+[FancyScrollView/Examples](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples) を参照してください。
 
 | Name | Description |
 |:-----------|:------------|
 |01_Basic|最もシンプルな構成の実装例です。|
 |02_FocusOn|ボタンで左右のセルにフォーカスする実装例です。|
 |03_InfiniteScroll|無限スクロールの実装例です。|
-|04_Metaball|シェーダー表現を活用したメタボールの実装例です。|
-|05_Voronoi|シェーダー表現を活用したボロノイの実装例です。|
+|04_Metaball|シェーダーを使用したメタボールの実装例です。|
+|05_Voronoi|シェーダーを使用したボロノイの実装例です。|
 |06_LoopTabBar|タブで画面を切り替える実装例です。|
 |07_ScrollRect|スクロールバー付きの `ScrollRect` 風スクロールビューの実装例です。|
 |08_GridView|グリッドレイアウトの実装例です。|
