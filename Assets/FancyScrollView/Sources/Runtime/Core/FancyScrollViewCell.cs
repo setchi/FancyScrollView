@@ -52,9 +52,9 @@ namespace FancyScrollView
         public abstract void UpdateContent(TItemData itemData);
 
         /// <summary>
-        /// <c>0.0</c> ~ <c>1.0</c> の値に基づいてこのセルのスクロール位置を更新します.
+        /// <c>0.0f</c> ~ <c>1.0f</c> の値に基づいてこのセルのスクロール位置を更新します.
         /// </summary>
-        /// <param name="position">正規化されたスクロール位置.</param>
+        /// <param name="position">ビューポート範囲の正規化されたスクロール位置.</param>
         public abstract void UpdatePosition(float position);
     }
 
