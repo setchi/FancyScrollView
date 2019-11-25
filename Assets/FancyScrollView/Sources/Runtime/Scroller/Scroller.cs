@@ -519,14 +519,14 @@ namespace FancyScrollView
                 return Mathf.Clamp(destPosition, 0, totalCount - 1) - sourcePosition;
             }
 
-            var movementAmount = CircularPosition(destPosition, totalCount) - CircularPosition(sourcePosition, totalCount);
+            var amount = CircularPosition(destPosition, totalCount) - CircularPosition(sourcePosition, totalCount);
 
-            if (Mathf.Abs(movementAmount) > totalCount * 0.5f)
+            if (Mathf.Abs(amount) > totalCount * 0.5f)
             {
-                movementAmount = Mathf.Sign(-movementAmount) * (totalCount - Mathf.Abs(movementAmount));
+                amount = Mathf.Sign(-amount) * (totalCount - Mathf.Abs(amount));
             }
 
-            return movementAmount;
+            return amount;
         }
 
         float CircularPosition(float p, int size) => size < 1 ? 0 : p < 0 ? size - 1 + (p + 1) % size : p % size;
