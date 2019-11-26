@@ -1,4 +1,9 @@
-# FancyScrollView [![license](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square)](https://github.com/setchi/FancyScrollView/blob/master/LICENSE) [![Release](https://img.shields.io/github/release/setchi/FancyScrollView.svg?style=flat-square)](https://github.com/setchi/FancyScrollView/releases/latest)
+# FancyScrollView
+
+[![license](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square)](https://github.com/setchi/FancyScrollView/blob/master/LICENSE)
+[![WebGL Demo](https://img.shields.io/badge/demo-WebGL-orange.svg?style=flat-square&logo=google-chrome&logoColor=white)](https://setchi.jp/FancyScrollView/demo)
+[![API Documentation](https://img.shields.io/badge/API-Documentation-blueviolet.svg?style=flat-square&logo=csharp)](https://setchi.jp/FancyScrollView/api/FancyScrollView.html)
+[![Release](https://img.shields.io/github/release/setchi/FancyScrollView.svg?style=flat-square&logo=github)](https://github.com/setchi/FancyScrollView/releases/latest)
 
 [English](https://translate.google.com/translate?sl=ja&tl=en&u=https://github.com/setchi/FancyScrollView) (by Google Translate)
 
@@ -6,15 +11,9 @@
 
 <img src="https://user-images.githubusercontent.com/8326814/68384224-84a1a980-019a-11ea-9cee-aa6acc4860e2.gif" width="320"><img src="https://user-images.githubusercontent.com/8326814/69004520-d2b36b80-0957-11ea-8277-06bfd3e8f033.gif" width="320"><img src="https://user-images.githubusercontent.com/8326814/59548448-a3549900-8f8a-11e9-9a27-b04f1410a7b5.gif" width="320"><img src="https://user-images.githubusercontent.com/8326814/59548462-b8c9c300-8f8a-11e9-8985-5f1c2e610309.gif" width="320"><img src="https://user-images.githubusercontent.com/8326814/59550410-7f528100-8fa5-11e9-8f1b-41e59b645571.gif" width="320"><img src="https://user-images.githubusercontent.com/8326814/59550411-7f528100-8fa5-11e9-8bfb-bd42da47f7a0.gif" width="320">
 
-## Demo
-[![WebGL Demo](https://img.shields.io/badge/demo-WebGL-blueviolet.svg?style=flat-square)](https://setchi.jp/FancyScrollView/demo)
-
-## API Documentation
-[![API Documentation](https://img.shields.io/badge/api-documentation-blue.svg?style=flat-square)](https://setchi.jp/FancyScrollView/api/FancyScrollView.html)
-
 ## Requirements
-- Unity 2019.2 or later.
-- [.NET 4.x Scripting Runtime](https://docs.unity3d.com/2018.3/Documentation/Manual/ScriptingRuntimeUpgrade.html)
+[![Unity Version](https://img.shields.io/badge/unity-2019.2+-black.svg?style=flat-square&logo=unity)](https://unity3d.com/get-unity/download/archive)
+[![.NET 4.x Scripting Runtime](https://img.shields.io/badge/.NET-4.x-blueviolet.svg?style=flat-square)](https://docs.unity3d.com/2018.3/Documentation/Manual/ScriptingRuntimeUpgrade.html)
 
 ## Installation
 ### GitHub Releases
@@ -61,7 +60,7 @@ Inspector で下記の設定をすることで無限スクロールを実装で�
 実装例（[Examples/03_InfiniteScroll](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples)）が含まれていますので、こちらも参考にしてください。[FancyScrollRect](https://setchi.jp/FancyScrollView/api/FancyScrollView.FancyScrollRect-2.html) および [FancyGridView](https://setchi.jp/FancyScrollView/api/FancyScrollView.FancyGridView-2.html) は無限スクロールをサポートしていません。
 
 ## Examples
-[![WebGL Demo](https://img.shields.io/badge/demo-WebGL-blueviolet.svg?style=flat-square)](https://setchi.jp/FancyScrollView/demo)
+[![WebGL Demo](https://img.shields.io/badge/demo-WebGL-orange.svg?style=flat-square&logo=google-chrome&logoColor=white)](https://setchi.jp/FancyScrollView/demo)
 
 [FancyScrollView/Examples](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples) を参照してください。
 
