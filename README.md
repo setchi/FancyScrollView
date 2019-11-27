@@ -2,7 +2,7 @@
 
 [![license](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square)](https://github.com/setchi/FancyScrollView/blob/master/LICENSE)
 [![WebGL Demo](https://img.shields.io/badge/demo-WebGL-orange.svg?style=flat-square&logo=google-chrome&logoColor=white)](https://setchi.jp/FancyScrollView/demo)
-[![API Documentation](https://img.shields.io/badge/API-Documentation-blueviolet.svg?style=flat-square&logo=csharp)](https://setchi.jp/FancyScrollView/api/FancyScrollView.html)
+[![API Documentation](https://img.shields.io/badge/API-Documentation-ff69b4.svg?style=flat-square&logo=csharp)](https://setchi.jp/FancyScrollView/api/FancyScrollView.html)
 [![Release](https://img.shields.io/github/release/setchi/FancyScrollView.svg?style=flat-square&logo=github)](https://github.com/setchi/FancyScrollView/releases/latest)
 
 [English](https://translate.google.com/translate?sl=ja&tl=en&u=https://github.com/setchi/FancyScrollView) (by Google Translate)
@@ -72,7 +72,7 @@ Inspector で下記の設定をすることで無限スクロールを実装で�
 |04_Metaball|シェーダーを使用したメタボールの実装例です。|
 |05_Voronoi|シェーダーを使用したボロノイの実装例です。|
 |06_LoopTabBar|タブで画面を切り替える実装例です。|
-|07_ScrollRect|スクロールバー付きの `ScrollRect` 風スクロールビューの実装例です。|
+|07_ScrollRect|スクロールバー付きの `ScrollRect` スタイルの実装例です。|
 |08_GridView|グリッドレイアウトの実装例です。|
 
 ## Usage
