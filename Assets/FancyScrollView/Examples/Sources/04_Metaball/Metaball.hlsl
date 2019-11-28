@@ -1,4 +1,10 @@
-﻿#ifndef GALLERY_METABALL_HLSL_INCLUDED
+﻿/*
+ * FancyScrollView (https://github.com/setchi/FancyScrollView)
+ * Copyright (c) 2019 setchi
+ * Licensed under MIT (https://github.com/setchi/FancyScrollView/blob/master/LICENSE)
+ */
+
+#ifndef GALLERY_METABALL_HLSL_INCLUDED
 #define GALLERY_METABALL_HLSL_INCLUDED
 
 #define CELL_COUNT 5 // CeilToInt(1f / cellInterval)
