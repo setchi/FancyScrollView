@@ -2,7 +2,7 @@
 
 [![license](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square&cacheSeconds=2592000)](https://github.com/setchi/FancyScrollView/blob/master/LICENSE)
 [![WebGL Demo](https://img.shields.io/badge/demo-WebGL-orange.svg?style=flat-square&logo=google-chrome&logoColor=white&cacheSeconds=2592000)](https://setchi.jp/FancyScrollView/demo)
-[![API Documentation](https://img.shields.io/badge/API-Documentation-ff69b4.svg?style=flat-square&logo=csharp&cacheSeconds=2592000)](https://setchi.jp/FancyScrollView/api/FancyScrollView.html)
+[![API Documentation](https://img.shields.io/badge/API-Documentation-ff69b4.svg?style=flat-square&logo=c-sharp&cacheSeconds=2592000)](https://setchi.jp/FancyScrollView/api/FancyScrollView.html)
 [![Release](https://img.shields.io/github/release/setchi/FancyScrollView.svg?style=flat-square&logo=github)](https://github.com/setchi/FancyScrollView/releases/latest)
 
 [English](https://translate.google.com/translate?sl=ja&tl=en&u=https://github.com/setchi/FancyScrollView) (by Google Translate)
