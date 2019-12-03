@@ -18,7 +18,7 @@ namespace FancyScrollView.Example04
 
         RectTransform rectTransform;
 
-        static class ShaderId
+        static class Uniform
         {
             public static readonly int Resolution = Shader.PropertyToID("_Resolution");
             public static readonly int CellState = Shader.PropertyToID("_CellState");
@@ -36,8 +36,8 @@ namespace FancyScrollView.Example04
             scrollView.SetCellState(offset + 0, -1,  500, -330 + Mathf.Sin(Time.time) * 60, 2.5f);
             scrollView.SetCellState(offset + 1, -1, -500, -330 + Mathf.Sin(Time.time) * 60, 2.5f);
 
-            background.material.SetVector(ShaderId.Resolution, rectTransform.rect.size);
-            background.material.SetVectorArray(ShaderId.CellState, scrollView.GetCellState());
+            background.material.SetVector(Uniform.Resolution, rectTransform.rect.size);
+            background.material.SetVectorArray(Uniform.CellState, scrollView.GetCellState());
         }
 
         bool MetaballContains(Vector2 p, Vector4[] cellState)

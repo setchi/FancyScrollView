@@ -4,6 +4,7 @@
  * Licensed under MIT (https://github.com/setchi/FancyScrollView/blob/master/LICENSE)
  */
 
+using System;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -26,8 +27,6 @@ namespace FancyScrollView
             "08_GridView",
         };
 
-        [SerializeField] int defaultScene = default;
-
         Dropdown dropdown;
 
         void Awake() => dropdown = GetComponent<Dropdown>();
@@ -35,7 +34,7 @@ namespace FancyScrollView
         void Start()
         {
             dropdown.AddOptions(scenes.Select(x => new Dropdown.OptionData(x)).ToList());
-            dropdown.value = defaultScene;
+            dropdown.value = Mathf.Max(0, Array.IndexOf(scenes, SceneManager.GetActiveScene().name));
             dropdown.onValueChanged.AddListener(value =>
                 SceneManager.LoadScene(scenes[value], LoadSceneMode.Single));
         }

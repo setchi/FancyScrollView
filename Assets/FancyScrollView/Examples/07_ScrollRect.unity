@@ -4387,7 +4387,6 @@ MonoBehaviour:
   dataCountInputField: {fileID: 294193292}
   selectIndexInputField: {fileID: 405778941}
   alignmentDropdown: {fileID: 42409703}
-  easingDropdown: {fileID: 0}
 --- !u!1 &4998554889859472777
 GameObject:
   m_ObjectHideFlags: 0
