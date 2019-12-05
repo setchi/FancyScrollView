@@ -138,9 +138,9 @@ namespace FancyScrollView
                     .GetComponent<FancyScrollViewCell<TItemData, TContext>>();
                 if (cell == null)
                 {
-                    throw new MissingComponentException(
-                        $"FancyScrollViewCell<{typeof(TItemData).FullName}, {typeof(TContext).FullName}> " +
-                        $"component not found in {CellPrefab.name}.");
+                    throw new MissingComponentException(string.Format(
+                        "FancyScrollViewCell<{0}, {1}> component not found in {2}.",
+                        typeof(TItemData).FullName, typeof(TContext).FullName, CellPrefab.name));
                 }
 
                 cell.SetupContext(Context);
