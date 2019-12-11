@@ -29,4 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/FancyScrollView/Examples/08_GridView.unity
     guid: 8441a013bef6d450aa8dc5de6207a233
+  - enabled: 1
+    path: Assets/FancyScrollView/Examples/09_LoadTexture.unity
+    guid: eb8cb776d6776468eb0bec979e0c2010
   m_configObjects: {}

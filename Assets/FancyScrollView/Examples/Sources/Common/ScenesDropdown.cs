@@ -25,6 +25,7 @@ namespace FancyScrollView
             "06_LoopTabBar",
             "07_ScrollRect",
             "08_GridView",
+            "09_LoadTexture"
         };
 
         Dropdown dropdown;
