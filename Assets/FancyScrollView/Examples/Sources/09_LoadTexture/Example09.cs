@@ -14,48 +14,48 @@ namespace FancyScrollView.Example09
         {
             new ItemData(
                 "01_Basic",
-                "最もシンプルな構成の実装例です。",
-                "https://user-images.githubusercontent.com/8326814/70611606-ce255e80-1c48-11ea-8d3b-2baa5ffa83a4.png"
+                "Example of simplest implementation.",
+                "https://user-images.githubusercontent.com/8326814/70628608-d0e57b00-1c6b-11ea-8755-d6b246611af1.png"
             ),
             new ItemData(
                 "02_FocusOn",
-                "ボタンで左右のセルにフォーカスする実装例です。",
-                "https://user-images.githubusercontent.com/8326814/70611607-cebdf500-1c48-11ea-99ed-4efd11a90df0.png"
+                "Example of focusing on the left and right cells with buttons.",
+                "https://user-images.githubusercontent.com/8326814/70628610-d0e57b00-1c6b-11ea-9693-c19903dbf74f.png"
             ),
             new ItemData(
                 "03_InfiniteScroll",
-                "無限スクロールの実装例です。",
-                "https://user-images.githubusercontent.com/8326814/70611608-cebdf500-1c48-11ea-8bdf-531284063cca.png"
+                "Example of infinite scroll implementation.",
+                "https://user-images.githubusercontent.com/8326814/70628611-d0e57b00-1c6b-11ea-8d7c-8d8fc80981ca.png"
             ),
             new ItemData(
                 "04_Metaball",
-                "シェーダーを使用したメタボールの実装例です。",
-                "https://user-images.githubusercontent.com/8326814/70611609-cebdf500-1c48-11ea-8b8f-2e7410dc4985.png"
+                "Example of metaball implementation using shaders.",
+                "https://user-images.githubusercontent.com/8326814/70628612-d0e57b00-1c6b-11ea-9acf-754b440cfae9.png"
             ),
             new ItemData(
                 "05_Voronoi",
-                "シェーダーを使用したボロノイの実装例です。",
-                "https://user-images.githubusercontent.com/8326814/70611610-cebdf500-1c48-11ea-81af-aa054c98ee76.png"
+                "Example of voronoi implementation using shaders.",
+                "https://user-images.githubusercontent.com/8326814/70628613-d17e1180-1c6b-11ea-8356-f98e04d87d23.png"
             ),
             new ItemData(
                 "06_LoopTabBar",
-                "タブで画面を切り替える実装例です。",
-                "https://user-images.githubusercontent.com/8326814/70611612-cf568b80-1c48-11ea-86bf-c8f6747dc640.png"
+                "Example of switching screens with tabs.",
+                "https://user-images.githubusercontent.com/8326814/70628614-d17e1180-1c6b-11ea-92c8-991bb88ad4f0.png"
             ),
             new ItemData(
                 "07_ScrollRect",
-                "スクロールバー付きの ScrollRect スタイルの実装例です。",
-                "https://user-images.githubusercontent.com/8326814/70611613-cf568b80-1c48-11ea-8f02-1b9003a29fe5.png"
+                "Example of ScrollRect style implementation with scroll bar.",
+                "https://user-images.githubusercontent.com/8326814/70628615-d17e1180-1c6b-11ea-9928-6f09916e1bda.png"
             ),
             new ItemData(
                 "08_GridView",
-                "グリッドレイアウトの実装例です。",
-                "https://user-images.githubusercontent.com/8326814/70611614-cf568b80-1c48-11ea-8abd-8fd6aa577a4d.png"
+                "Example of grid layout implementation.",
+                "https://user-images.githubusercontent.com/8326814/70628617-d216a800-1c6b-11ea-908e-a0052678ef06.png"
             ),
             new ItemData(
                 "09_LoadTexture",
-                "Description",
-                "https://user-images.githubusercontent.com/8326814/70611614-cf568b80-1c48-11ea-8abd-8fd6aa577a4d.png"
+                "Example of load textures implementation.",
+                "https://user-images.githubusercontent.com/8326814/70631409-7995d980-1c70-11ea-9753-dbd34f8b361b.png"
             )
         };
 

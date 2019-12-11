@@ -15,17 +15,17 @@ namespace FancyScrollView.Example09
     public static class TextureLoader
     {
         public static void Load(string url, Action<(string Url, Texture Texture)> onSuccess) =>
-            InternalLoader.Instance.Load(url, onSuccess);
+            Loader.Instance.Load(url, onSuccess);
 
-        class InternalLoader : MonoBehaviour
+        class Loader : MonoBehaviour
         {
             readonly Dictionary<string, Texture> cache = new Dictionary<string, Texture>();
 
-            static InternalLoader instance;
+            static Loader instance;
 
-            public static InternalLoader Instance => instance ??
-                (instance = FindObjectOfType<InternalLoader>() ??
-                    new GameObject(typeof(TextureLoader).Name).AddComponent<InternalLoader>());
+            public static Loader Instance => instance ??
+                (instance = FindObjectOfType<Loader>() ??
+                    new GameObject(typeof(TextureLoader).Name).AddComponent<Loader>());
 
             public void Load(string url, Action<(string Url, Texture Texture)> onSuccess)
             {

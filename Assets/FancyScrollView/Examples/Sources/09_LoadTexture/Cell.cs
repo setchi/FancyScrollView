@@ -24,6 +24,8 @@ namespace FancyScrollView.Example09
 
         public override void UpdateContent(ItemData itemData)
         {
+            image.texture = null;
+
             TextureLoader.Load(itemData.Url, result =>
             {
                 if (image == null || result.Url != itemData.Url)
@@ -57,19 +59,19 @@ namespace FancyScrollView.Example09
             }
         }
 
-        public override void UpdatePosition(float position)
+        public override void UpdatePosition(float t)
         {
             const float PopAngle = -15;
-            const float SlideAngle = 20;
+            const float SlideAngle = 25;
 
-            position = 1f - position;
+            t = 1f - t;
 
             var key = 1f / 4f;
             var popTime = key * 3f;
-            var pop = Mathf.Min(popTime, position) / popTime;
-            var slide = (Mathf.Max(popTime, position) - popTime) / key;
+            var pop = Mathf.Min(popTime, t) / popTime;
+            var slide = (Mathf.Max(popTime, t) - popTime) / key;
 
-            transform.localRotation = position < popTime
+            transform.localRotation = t < popTime
                 ? Quaternion.Euler(0, 0, Mathf.Lerp(PopAngle, 0, pop))
                 : Quaternion.Euler(0, 0, Mathf.Lerp(0, SlideAngle, slide));
 
