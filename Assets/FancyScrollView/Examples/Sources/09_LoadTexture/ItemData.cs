@@ -9,9 +9,7 @@ namespace FancyScrollView.Example09
     public class ItemData
     {
         public string Title { get; }
-
         public string Description { get; }
-
         public string Url { get; }
 
         public ItemData(string title, string description, string url)

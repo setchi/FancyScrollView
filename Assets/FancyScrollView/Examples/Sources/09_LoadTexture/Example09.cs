@@ -54,7 +54,7 @@ namespace FancyScrollView.Example09
             ),
             new ItemData(
                 "09_LoadTexture",
-                "Example of load textures implementation.",
+                "Example of load texture implementation.",
                 "https://user-images.githubusercontent.com/8326814/70631409-7995d980-1c70-11ea-9753-dbd34f8b361b.png"
             )
         };
