@@ -44,7 +44,7 @@ namespace EasingCore
         InOutSine,
     }
 
-    public static class EasingFunction
+    public static class Easing
     {
         /// <summary>
         /// Gets the easing function
