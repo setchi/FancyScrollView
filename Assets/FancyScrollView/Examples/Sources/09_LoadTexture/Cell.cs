@@ -61,22 +61,22 @@ namespace FancyScrollView.Example09
 
         public override void UpdatePosition(float t)
         {
-            const float PopAngle = -15;
-            const float SlideAngle = 25;
+            const float popAngle = -15;
+            const float slideAngle = 25;
+
+            const float popSpan = 0.75f;
+            const float slideSpan = 0.25f;
 
             t = 1f - t;
 
-            var popSpan = 0.75f;
-            var slideSpan = 0.25f;
-
             var pop = Mathf.Min(popSpan, t) / popSpan;
-            var slide = (Mathf.Max(popSpan, t) - popSpan) / slideSpan;
+            var slide = Mathf.Max(0, t - popSpan) / slideSpan;
 
             transform.localRotation = t < popSpan
-                ? Quaternion.Euler(0, 0, Mathf.Lerp(PopAngle, 0, pop))
-                : Quaternion.Euler(0, 0, Mathf.Lerp(0, SlideAngle, slide));
+                ? Quaternion.Euler(0, 0, popAngle * (1f - pop))
+                : Quaternion.Euler(0, 0, slideAngle * slide);
 
-            transform.localPosition = Vector3.Lerp(Vector3.zero, Vector3.left * 500, slide);
+            transform.localPosition = Vector3.left * 500f * slide;
 
             canvasGroup.alpha = alphaEasing(1f - slide);
 
