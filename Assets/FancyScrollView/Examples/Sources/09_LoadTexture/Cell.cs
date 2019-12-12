@@ -66,12 +66,13 @@ namespace FancyScrollView.Example09
 
             t = 1f - t;
 
-            var key = 1f / 4f;
-            var popTime = key * 3f;
-            var pop = Mathf.Min(popTime, t) / popTime;
-            var slide = (Mathf.Max(popTime, t) - popTime) / key;
+            var popSpan = 0.75f;
+            var slideSpan = 0.25f;
 
-            transform.localRotation = t < popTime
+            var pop = Mathf.Min(popSpan, t) / popSpan;
+            var slide = (Mathf.Max(popSpan, t) - popSpan) / slideSpan;
+
+            transform.localRotation = t < popSpan
                 ? Quaternion.Euler(0, 0, Mathf.Lerp(PopAngle, 0, pop))
                 : Quaternion.Euler(0, 0, Mathf.Lerp(0, SlideAngle, slide));
 
