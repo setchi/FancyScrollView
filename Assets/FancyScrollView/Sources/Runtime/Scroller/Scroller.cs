@@ -374,7 +374,7 @@ namespace FancyScrollView
             var position = currentPosition + scrollDelta / ViewportSize * scrollSensitivity;
             if (movementType == MovementType.Clamped)
             {
-                position += CalculateOffset(position - currentPosition);
+                position += CalculateOffset(position);
             }
 
             if (autoScrollState.Enable)
