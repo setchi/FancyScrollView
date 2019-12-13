@@ -14,7 +14,7 @@ namespace FancyScrollView.Example09
 {
     public class Cell : FancyScrollViewCell<ItemData>
     {
-        readonly Func<float, float> alphaEasing = Easing.Get(Ease.OutQuint);
+        readonly EasingFunction alphaEasing = Easing.Get(Ease.OutQuint);
 
         [SerializeField] Text title = default;
         [SerializeField] Text description = default;

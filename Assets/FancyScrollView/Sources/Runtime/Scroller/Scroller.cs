@@ -168,14 +168,14 @@ namespace FancyScrollView
             public Ease Easing;
         }
 
-        static readonly Func<float, float> DefaultEasingFunction = Easing.Get(Ease.OutCubic);
+        static readonly EasingFunction DefaultEasingFunction = Easing.Get(Ease.OutCubic);
 
         class AutoScrollState
         {
             public bool Enable;
             public bool Elastic;
             public float Duration;
-            public Func<float, float> EasingFunction;
+            public EasingFunction EasingFunction;
             public float StartTime;
             public float EndPosition;
 
@@ -254,7 +254,7 @@ namespace FancyScrollView
         /// <param name="duration">移動にかける秒数.</param>
         /// <param name="easingFunction">移動に使用するイージング関数.</param>
         /// <param name="onComplete">移動が完了した際に呼び出されるコールバック.</param>
-        public void ScrollTo(float position, float duration, Func<float, float> easingFunction, Action onComplete = null)
+        public void ScrollTo(float position, float duration, EasingFunction easingFunction, Action onComplete = null)
         {
             if (duration <= 0f)
             {

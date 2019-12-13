@@ -4,7 +4,6 @@
  * Licensed under MIT (https://github.com/setchi/EasingCore/blob/master/LICENSE)
  */
 
-using System;
 using UnityEngine;
 
 namespace EasingCore
@@ -44,6 +43,8 @@ namespace EasingCore
         InOutSine,
     }
 
+    public delegate float EasingFunction(float t);
+
     public static class Easing
     {
         /// <summary>
@@ -51,7 +52,7 @@ namespace EasingCore
         /// </summary>
         /// <param name="type">Ease type</param>
         /// <returns>Easing function</returns>
-        public static Func<float, float> Get(Ease type)
+        public static EasingFunction Get(Ease type)
         {
             switch (type)
             {
