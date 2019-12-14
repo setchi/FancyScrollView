@@ -4,7 +4,6 @@
  * Licensed under MIT (https://github.com/setchi/FancyScrollView/blob/master/LICENSE)
  */
 
-using System;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;

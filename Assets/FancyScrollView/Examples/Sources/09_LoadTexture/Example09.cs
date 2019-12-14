@@ -13,6 +13,11 @@ namespace FancyScrollView.Example09
         readonly ItemData[] itemData =
         {
             new ItemData(
+                "FancyScrollView",
+                "A scrollview component that can implement highly flexible animation.",
+                "https://setchi.jp/FancyScrollView/09_LoadTexture/Images/00.png"
+            ),
+            new ItemData(
                 "01_Basic",
                 "Example of simplest implementation.",
                 "https://setchi.jp/FancyScrollView/09_LoadTexture/Images/01.png"
