@@ -44,16 +44,16 @@ namespace FancyScrollView.Example09
 
         void UpdateSibling()
         {
-            var isLast = Index <= transform.parent.Cast<Transform>()
-                .Min(x => x.GetComponent<Cell>().Index);
-            if (isLast)
+            var cells = transform.parent.Cast<Transform>()
+                .Select(t => t.GetComponent<Cell>())
+                .Where(cell => cell.IsVisible);
+
+            if (Index == cells.Min(x => x.Index))
             {
                 transform.SetAsLastSibling();
             }
 
-            var isFirst = Index >= transform.parent.Cast<Transform>()
-                .Max(x => x.GetComponent<Cell>().Index);
-            if (isFirst)
+            if (Index == cells.Max(x => x.Index))
             {
                 transform.SetAsFirstSibling();
             }
