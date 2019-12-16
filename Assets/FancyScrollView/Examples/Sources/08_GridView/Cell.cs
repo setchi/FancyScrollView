@@ -26,11 +26,11 @@ namespace FancyScrollView.Example08
 
         public override void UpdatePosition(float position)
         {
+            var cellSize = Context.GetCellSize();
             var spacing = Context.GetColumnSpacing();
             var columnCount = Context.GetColumnCount();
             var count = Index % columnCount;
 
-            var cellSize = (transform as RectTransform).rect.width;
             var x = (cellSize + spacing) * (count - (columnCount - 1) * 0.5f);
             var y = transform.localPosition.y;
             var wave = Mathf.Sin(position * Mathf.PI * 2) * 65;

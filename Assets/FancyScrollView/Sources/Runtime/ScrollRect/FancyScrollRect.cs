@@ -48,19 +48,17 @@ namespace FancyScrollView
         [SerializeField] protected float spacing = 0f;
 
         /// <summary>
+        /// セルのサイズ.
+        /// </summary>
+        protected abstract float CellSize { get; }
+
+        /// <summary>
         /// スクロール可能かどうか.
         /// </summary>
         /// <remarks>
         /// アイテム数が十分少なくビューポート内に全てのセルが収まっている場合は <c>false</c>, それ以外は <c>true</c> になります.
         /// </remarks>
         protected virtual bool Scrollable => MaxScrollPosition > 0f;
-
-        /// <summary>
-        /// セルのサイズ.
-        /// </summary>
-        protected virtual float CellSize => Scroller.ScrollDirection == ScrollDirection.Horizontal
-            ? CellRectTransform.rect.width
-            : CellRectTransform.rect.height;
 
         Scroller cachedScroller;
 
@@ -71,9 +69,6 @@ namespace FancyScrollView
         /// <see cref="Scroller"/> のスクロール位置を変更する際は必ず <see cref="ToScrollerPosition(float)"/> を使用して変換した位置を使用してください.
         /// </remarks>
         protected Scroller Scroller => cachedScroller ?? (cachedScroller = GetComponent<Scroller>());
-
-        RectTransform cachedCellRect;
-        RectTransform CellRectTransform => cachedCellRect ?? (cachedCellRect = CellPrefab.transform as RectTransform);
 
         float ScrollLength => 1f / Mathf.Max(cellInterval, 1e-2f) - 1f;
 

@@ -15,9 +15,7 @@ namespace FancyScrollView.Example08
         [SerializeField] Row rowPrefab = default;
 
         protected override int ColumnCount => columnCount;
-
         protected override FancyScrollViewCell<ItemData, Context> CellTemplate => cellPrefab;
-
         protected override FancyGridViewRow<ItemData, Context> RowTemplate => rowPrefab;
 
         public float PaddingTop

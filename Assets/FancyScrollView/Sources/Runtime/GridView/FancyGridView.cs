@@ -26,7 +26,10 @@ namespace FancyScrollView
         /// </summary>
         [SerializeField] protected float columnSpacing = 0f;
 
-        GameObject cachedRowPrefab;
+        /// <summary>
+        /// セルのサイズ.
+        /// </summary>
+        [SerializeField] protected Vector2 cellSize = new Vector2(100f, 100f);
 
         /// <summary>
         /// 行の Prefab.
@@ -35,7 +38,12 @@ namespace FancyScrollView
         /// <see cref="FancyGridView{TItemData, TContext}"/> では,
         /// <see cref="FancyScrollView{TItemData, TContext}.CellPrefab"/> を行オブジェクトとして使用します.
         /// </remarks>
-        protected sealed override GameObject CellPrefab => cachedRowPrefab ?? (cachedRowPrefab = SetupRowTemplate());
+        protected sealed override GameObject CellPrefab => RowTemplate.gameObject;
+
+        /// <inheritdoc/>
+        protected override float CellSize => Scroller.ScrollDirection == ScrollDirection.Horizontal
+            ? cellSize.x
+            : cellSize.y;
 
         /// <summary>
         /// 一行あたりの要素数.
@@ -70,22 +78,9 @@ namespace FancyScrollView
             Context.ScrollDirection = Scroller.ScrollDirection;
             Context.GetColumnCount = () => ColumnCount;
             Context.GetColumnSpacing = () => columnSpacing;
-        }
-
-        /// <summary>
-        /// 行オブジェクトのセットアップを行います.
-        /// </summary>
-        /// <returns>行を構成する <c>GameObject</c>.</returns>
-        protected virtual GameObject SetupRowTemplate()
-        {
-            var cell = CellTemplate.GetComponent<RectTransform>();
-            var row = RowTemplate.GetComponent<RectTransform>();
-
-            row.sizeDelta = Scroller.ScrollDirection == ScrollDirection.Horizontal
-                ? new Vector2(cell.rect.width, row.sizeDelta.y)
-                : new Vector2(row.sizeDelta.x, cell.rect.height);
-
-            return row.gameObject;
+            Context.GetCellSize = () => Scroller.ScrollDirection == ScrollDirection.Horizontal
+                ? cellSize.y
+                : cellSize.x;
         }
 
         /// <summary>

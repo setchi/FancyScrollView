@@ -245,6 +245,7 @@ MonoBehaviour:
   paddingTail: 10
   spacing: 10
   columnSpacing: 10
+  cellSize: {x: 100, y: 100}
   columnCount: 4
   cellPrefab: {fileID: 5648916080528934313, guid: c3da64c29ae8a4e61a6bd072bad4e392,
     type: 3}

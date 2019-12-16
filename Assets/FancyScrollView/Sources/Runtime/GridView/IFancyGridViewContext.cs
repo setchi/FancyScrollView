@@ -18,5 +18,6 @@ namespace FancyScrollView
         ScrollDirection ScrollDirection { get; set; }
         Func<int> GetColumnCount { get; set; }
         Func<float> GetColumnSpacing { get; set; }
+        Func<float> GetCellSize { get; set ; }
     }
 }

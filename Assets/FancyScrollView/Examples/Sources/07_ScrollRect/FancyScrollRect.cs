@@ -12,10 +12,11 @@ namespace FancyScrollView.Example07
 {
     public class FancyScrollRect : FancyScrollRect<ItemData, Context>
     {
+        [SerializeField] float cellSize = 100f;
         [SerializeField] GameObject cellPrefab = default;
 
+        protected override float CellSize => cellSize;
         protected override GameObject CellPrefab => cellPrefab;
-
         public int DataCount => ItemsSource.Count;
 
         public float PaddingTop

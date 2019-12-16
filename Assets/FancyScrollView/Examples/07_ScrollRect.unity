@@ -696,6 +696,7 @@ MonoBehaviour:
   spacing: 10
   cellPrefab: {fileID: 1865951358068953824, guid: efa276bbc93594b8d9fd30eb37d79102,
     type: 3}
+  cellSize: 100
 --- !u!1 &200634892
 GameObject:
   m_ObjectHideFlags: 0
