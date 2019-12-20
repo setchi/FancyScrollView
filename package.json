@@ -2,14 +2,14 @@
   "name": "jp.setchi.fancyscrollview",
   "displayName": "FancyScrollView",
   "description": "A scrollview component that can implement highly flexible animation.",
-  "version": "1.7.7",
+  "version": "1.7.8",
   "unity": "2019.2",
   "license": "MIT",
   "author": "setchi",
   "dependencies": {},
   "samples": [
     {
-      "displayName": "FancyScrollView Demo",
+      "displayName": "Demo",
       "path": "Samples~"
     }
   ]
