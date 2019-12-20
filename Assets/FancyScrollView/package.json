@@ -6,12 +6,5 @@
   "unity": "2019.2",
   "license": "MIT",
   "author": "setchi",
-  "dependencies": {},
-  "samples": [
-    {
-      "displayName": "FancyScrollView Demo",
-      "description": "Description for sample 1",
-      "path": "Samples~"
-    }
-  ]
+  "dependencies": {}
 }
