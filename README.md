@@ -16,13 +16,7 @@
 [![.NET 4.x Scripting Runtime](https://img.shields.io/badge/.NET-4.x-blueviolet.svg?style=flat-square&cacheSeconds=2592000)](https://docs.unity3d.com/2018.3/Documentation/Manual/ScriptingRuntimeUpgrade.html)
 
 ## Installation
-### GitHub Releases
-[Releases](https://github.com/setchi/FancyScrollView/releases/latest) から `FancyScrollView.unitypackage` をダウンロードして Unity Project にインポートします。
-
-### Unity Asset Store
-[Asset Store](https://assetstore.unity.com/packages/tools/gui/fancyscrollview-96530) からパッケージを Unity Project にインポートします。
-
-### Unity Package Manager *(Example scenes not included)*
+### Unity Package Manager
 プロジェクトディレクトリの [`Packages/manifest.json`](https://docs.unity3d.com/Packages/com.unity.package-manager-ui@1.8/manual/index.html#project-manifests) ファイルにリポジトリへの参照を追加します。
 
 ```json
@@ -32,6 +26,9 @@
   }
 }
 ```
+
+### Unity Asset Store
+[Asset Store](https://assetstore.unity.com/packages/tools/gui/fancyscrollview-96530) からパッケージを Unity Project にインポートします。
 
 ## Features
 ### 自由にスクロールアニメーションを実装できます
