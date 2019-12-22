@@ -75,8 +75,7 @@ namespace FancyScrollView.Example04
                     index: Mathf.RoundToInt(s.z),
                     distance: (new Vector2(s.x, s.y) - clickPosition).sqrMagnitude
                 ))
-                .OrderBy(x => x.distance)
-                .FirstOrDefault()
+                .Aggregate((min, x) => x.distance < min.distance ? x : min)
                 .index;
 
             scrollView.SelectCell(dataIndex);
