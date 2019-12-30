@@ -8,8 +8,8 @@ namespace FancyScrollView.Example07
 {
     public enum Alignment
     {
-        Head,
-        Center,
-        Tail,
+        Upper,
+        Middle,
+        Lower,
     }
 }
