@@ -73,23 +73,23 @@ namespace FancyScrollView.Example08
         public void ScrollTo(int index, float duration, Ease easing, Alignment alignment = Alignment.Middle)
         {
             UpdateSelection(index);
-            ScrollTo(index, duration, easing, GetAnchor(alignment));
+            ScrollTo(index, duration, easing, GetAlignment(alignment));
         }
 
         public void JumpTo(int index, Alignment alignment = Alignment.Middle)
         {
             UpdateSelection(index);
-            JumpTo(index, GetAnchor(alignment));
+            JumpTo(index, GetAlignment(alignment));
         }
 
-        float GetAnchor(Alignment alignment)
+        float GetAlignment(Alignment alignment)
         {
             switch (alignment)
             {
                 case Alignment.Upper: return 0.0f;
                 case Alignment.Middle: return 0.5f;
                 case Alignment.Lower: return 1.0f;
-                default: return GetAnchor(Alignment.Middle);
+                default: return GetAlignment(Alignment.Middle);
             }
         }
     }

@@ -178,10 +178,10 @@ namespace FancyScrollView
         /// 指定したアイテムの位置までジャンプします.
         /// </summary>
         /// <param name="itemIndex">アイテムのインデックス.</param>
-        /// <param name="anchor">ビューポート内におけるセル位置の基準点. 0f(先頭) ~ 1f(末尾).</param>
-        protected virtual void JumpTo(int itemIndex, float anchor = 0.5f)
+        /// <param name="alignment">ビューポート内におけるセル位置の基準. 0f(先頭) ~ 1f(末尾).</param>
+        protected virtual void JumpTo(int itemIndex, float alignment = 0.5f)
         {
-            Scroller.Position = ToScrollerPosition(itemIndex, anchor);
+            Scroller.Position = ToScrollerPosition(itemIndex, alignment);
         }
 
         /// <summary>
@@ -189,11 +189,11 @@ namespace FancyScrollView
         /// </summary>
         /// <param name="index">アイテムのインデックス.</param>
         /// <param name="duration">移動にかける秒数.</param>
-        /// <param name="anchor">ビューポート内におけるセル位置の基準点. 0f(先頭) ~ 1f(末尾).</param>
+        /// <param name="alignment">ビューポート内におけるセル位置の基準. 0f(先頭) ~ 1f(末尾).</param>
         /// <param name="onComplete">移動が完了した際に呼び出されるコールバック.</param>
-        public virtual void ScrollTo(int index, float duration, float anchor = 0.5f, Action onComplete = null)
+        public virtual void ScrollTo(int index, float duration, float alignment = 0.5f, Action onComplete = null)
         {
-            Scroller.ScrollTo(ToScrollerPosition(index, anchor), duration, onComplete);
+            Scroller.ScrollTo(ToScrollerPosition(index, alignment), duration, onComplete);
         }
 
         /// <summary>
@@ -202,11 +202,11 @@ namespace FancyScrollView
         /// <param name="index">アイテムのインデックス.</param>
         /// <param name="duration">移動にかける秒数.</param>
         /// <param name="easing">移動に使用するイージング.</param>
-        /// <param name="anchor">ビューポート内におけるセル位置の基準点. 0f(先頭) ~ 1f(末尾).</param>
+        /// <param name="alignment">ビューポート内におけるセル位置の基準. 0f(先頭) ~ 1f(末尾).</param>
         /// <param name="onComplete">移動が完了した際に呼び出されるコールバック.</param>
-        public virtual void ScrollTo(int index, float duration, Ease easing, float anchor = 0.5f, Action onComplete = null)
+        public virtual void ScrollTo(int index, float duration, Ease easing, float alignment = 0.5f, Action onComplete = null)
         {
-            Scroller.ScrollTo(ToScrollerPosition(index, anchor), duration, easing, onComplete);
+            Scroller.ScrollTo(ToScrollerPosition(index, alignment), duration, easing, onComplete);
         }
 
         /// <summary>
@@ -243,11 +243,11 @@ namespace FancyScrollView
         /// <see cref="FancyScrollRect{TItemData, TContext}"/> が扱うスクロール位置を <see cref="Scroller"/> が扱うスクロール位置に変換します.
         /// </summary>
         /// <param name="position"><see cref="FancyScrollRect{TItemData, TContext}"/> が扱うスクロール位置.</param>
-        /// <param name="anchor">ビューポート内におけるセル位置の基準点. 0f(先頭) ~ 1f(末尾).</param>
+        /// <param name="alignment">ビューポート内におけるセル位置の基準. 0f(先頭) ~ 1f(末尾).</param>
         /// <returns><see cref="Scroller"/> が扱うスクロール位置.</returns>
-        protected float ToScrollerPosition(float position, float anchor = 0.5f)
+        protected float ToScrollerPosition(float position, float alignment = 0.5f)
         {
-            var offset = (ScrollLength - (1f + reuseCellMarginCount * 2f)) * anchor;
+            var offset = (ScrollLength - (1f + reuseCellMarginCount * 2f)) * alignment;
             return ToScrollerPosition(Mathf.Clamp(position - offset, 0f, MaxScrollPosition));
         }
 
