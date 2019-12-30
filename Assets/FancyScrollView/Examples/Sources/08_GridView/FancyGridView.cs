@@ -5,6 +5,7 @@
  */
 
 using UnityEngine;
+using EasingCore;
 
 namespace FancyScrollView.Example08
 {
@@ -67,6 +68,29 @@ namespace FancyScrollView.Example08
 
             Context.SelectedItemIndex = index;
             Refresh();
+        }
+
+        public void ScrollTo(int index, float duration, Ease easing, Alignment alignment = Alignment.Center)
+        {
+            UpdateSelection(index);
+            ScrollTo(index, duration, easing, GetAnchor(alignment));
+        }
+
+        public void JumpTo(int index, Alignment alignment = Alignment.Center)
+        {
+            UpdateSelection(index);
+            JumpTo(index, GetAnchor(alignment));
+        }
+
+        float GetAnchor(Alignment alignment)
+        {
+            switch (alignment)
+            {
+                case Alignment.Head: return 0.0f;
+                case Alignment.Center: return 0.5f;
+                case Alignment.Tail: return 1.0f;
+                default: return GetAnchor(Alignment.Center);
+            }
         }
     }
 }

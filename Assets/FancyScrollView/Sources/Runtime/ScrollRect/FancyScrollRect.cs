@@ -171,17 +171,17 @@ namespace FancyScrollView
         /// <param name="position">スクロール位置.</param>
         protected new void UpdatePosition(float position)
         {
-            UpdatePosition(position, Alignment.Center);
+            Scroller.Position = ToScrollerPosition(position, 0.5f);
         }
 
         /// <summary>
-        /// スクロール位置を更新します.
+        /// 指定したアイテムの位置までジャンプします.
         /// </summary>
-        /// <param name="position">スクロール位置.</param>
-        /// <param name="alignment"><see cref="Alignment"/>.</param>
-        protected virtual void UpdatePosition(float position, Alignment alignment)
+        /// <param name="itemIndex">アイテムのインデックス.</param>
+        /// <param name="anchor">ビューポート内におけるセル位置の基準点. 0f(先頭) ~ 1f(末尾).</param>
+        protected virtual void JumpTo(int itemIndex, float anchor = 0.5f)
         {
-            Scroller.Position = ToScrollerPosition(position, alignment);
+            Scroller.Position = ToScrollerPosition(itemIndex, anchor);
         }
 
         /// <summary>
@@ -189,11 +189,11 @@ namespace FancyScrollView
         /// </summary>
         /// <param name="index">アイテムのインデックス.</param>
         /// <param name="duration">移動にかける秒数.</param>
-        /// <param name="alignment"><see cref="Alignment"/>.</param>
+        /// <param name="anchor">ビューポート内におけるセル位置の基準点. 0f(先頭) ~ 1f(末尾).</param>
         /// <param name="onComplete">移動が完了した際に呼び出されるコールバック.</param>
-        public virtual void ScrollTo(int index, float duration, Alignment alignment = Alignment.Center, Action onComplete = null)
+        public virtual void ScrollTo(int index, float duration, float anchor = 0.5f, Action onComplete = null)
         {
-            Scroller.ScrollTo(ToScrollerPosition(index, alignment), duration, onComplete);
+            Scroller.ScrollTo(ToScrollerPosition(index, anchor), duration, onComplete);
         }
 
         /// <summary>
@@ -202,11 +202,11 @@ namespace FancyScrollView
         /// <param name="index">アイテムのインデックス.</param>
         /// <param name="duration">移動にかける秒数.</param>
         /// <param name="easing">移動に使用するイージング.</param>
-        /// <param name="alignment"><see cref="Alignment"/>.</param>
+        /// <param name="anchor">ビューポート内におけるセル位置の基準点. 0f(先頭) ~ 1f(末尾).</param>
         /// <param name="onComplete">移動が完了した際に呼び出されるコールバック.</param>
-        public virtual void ScrollTo(int index, float duration, Ease easing, Alignment alignment = Alignment.Center, Action onComplete = null)
+        public virtual void ScrollTo(int index, float duration, Ease easing, float anchor = 0.5f, Action onComplete = null)
         {
-            Scroller.ScrollTo(ToScrollerPosition(index, alignment), duration, easing, onComplete);
+            Scroller.ScrollTo(ToScrollerPosition(index, anchor), duration, easing, onComplete);
         }
 
         /// <summary>
@@ -243,23 +243,12 @@ namespace FancyScrollView
         /// <see cref="FancyScrollRect{TItemData, TContext}"/> が扱うスクロール位置を <see cref="Scroller"/> が扱うスクロール位置に変換します.
         /// </summary>
         /// <param name="position"><see cref="FancyScrollRect{TItemData, TContext}"/> が扱うスクロール位置.</param>
-        /// <param name="alignment"><see cref="Alignment"/>.</param>
+        /// <param name="anchor">ビューポート内におけるセル位置の基準点. 0f(先頭) ~ 1f(末尾).</param>
         /// <returns><see cref="Scroller"/> が扱うスクロール位置.</returns>
-        protected float ToScrollerPosition(float position, Alignment alignment = Alignment.Center)
+        protected float ToScrollerPosition(float position, float anchor = 0.5f)
         {
-            var offset = (ScrollLength - (1f + reuseCellMarginCount * 2f)) * GetAnchore(alignment);
+            var offset = (ScrollLength - (1f + reuseCellMarginCount * 2f)) * anchor;
             return ToScrollerPosition(Mathf.Clamp(position - offset, 0f, MaxScrollPosition));
-        }
-
-        float GetAnchore(Alignment alignment)
-        {
-            switch (alignment)
-            {
-                case Alignment.Head: return 0.0f;
-                case Alignment.Center: return 0.5f;
-                case Alignment.Tail: return 1.0f;
-                default: return GetAnchore(Alignment.Center);
-            }
         }
 
         /// <summary>
