@@ -3,7 +3,7 @@
 [![license](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square&cacheSeconds=2592000)](https://github.com/setchi/FancyScrollView/blob/master/LICENSE)
 [![WebGL Demo](https://img.shields.io/badge/demo-WebGL-orange.svg?style=flat-square&logo=google-chrome&logoColor=white&cacheSeconds=2592000)](https://setchi.jp/FancyScrollView/demo)
 [![API Documentation](https://img.shields.io/badge/API-Documentation-ff69b4.svg?style=flat-square&logo=c-sharp&cacheSeconds=2592000)](https://setchi.jp/FancyScrollView/api/FancyScrollView.html)
-[![Release](https://img.shields.io/github/release/setchi/FancyScrollView.svg?style=flat-square&logo=github)](https://github.com/setchi/FancyScrollView/releases/latest)
+[![openupm](https://img.shields.io/npm/v/jp.setchi.fancyscrollview?label=openupm&registry_uri=https://package.openupm.com&style=flat-square)](https://openupm.com/packages/jp.setchi.fancyscrollview/)
 
 [English](https://translate.google.com/translate?sl=ja&tl=en&u=https://github.com/setchi/FancyScrollView) (by Google Translate)
 
@@ -16,6 +16,13 @@
 [![.NET 4.x Scripting Runtime](https://img.shields.io/badge/.NET-4.x-blueviolet.svg?style=flat-square&cacheSeconds=2592000)](https://docs.unity3d.com/2018.3/Documentation/Manual/ScriptingRuntimeUpgrade.html)
 
 ## Installation
+### OpenUPM
+[OpenUPM](https://openupm.com/) レジストリからパッケージを Unity Project に追加します。
+
+```
+openupm add jp.setchi.fancyscrollview
+```
+
 ### Unity Package Manager
 プロジェクトディレクトリの [`Packages/manifest.json`](https://docs.unity3d.com/Packages/com.unity.package-manager-ui@1.8/manual/index.html#project-manifests) ファイルにリポジトリへの参照を追加します。
 
