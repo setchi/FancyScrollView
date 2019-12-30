@@ -107,12 +107,12 @@ namespace FancyScrollView
         /// </summary>
         /// <param name="itemIndex">アイテムのインデックス.</param>
         /// <param name="duration">移動にかける秒数.</param>
-        /// <param name="alignment"><see cref="Alignment"/>.</param>
+        /// <param name="anchor">ビューポート内におけるセル位置の基準点. 0f(先頭) ~ 1f(末尾).</param>
         /// <param name="onComplete">移動が完了した際に呼び出されるコールバック.</param>
-        public override void ScrollTo(int itemIndex, float duration, Alignment alignment = Alignment.Center, Action onComplete = null)
+        public override void ScrollTo(int itemIndex, float duration, float anchor = 0.5f, Action onComplete = null)
         {
             var rowIndex = itemIndex / Context.GetColumnCount();
-            base.ScrollTo(rowIndex, duration, alignment, onComplete);
+            base.ScrollTo(rowIndex, duration, anchor, onComplete);
         }
 
         /// <summary>
@@ -121,23 +121,23 @@ namespace FancyScrollView
         /// <param name="itemIndex">アイテムのインデックス.</param>
         /// <param name="duration">移動にかける秒数.</param>
         /// <param name="easing">移動に使用するイージング.</param>
-        /// <param name="alignment"><see cref="Alignment"/>.</param>
+        /// <param name="anchor">ビューポート内におけるセル位置の基準点. 0f(先頭) ~ 1f(末尾).</param>
         /// <param name="onComplete">移動が完了した際に呼び出されるコールバック.</param>
-        public override void ScrollTo(int itemIndex, float duration, Ease easing, Alignment alignment = Alignment.Center, Action onComplete = null)
+        public override void ScrollTo(int itemIndex, float duration, Ease easing, float anchor = 0.5f, Action onComplete = null)
         {
             var rowIndex = itemIndex / Context.GetColumnCount();
-            base.ScrollTo(rowIndex, duration, easing, alignment, onComplete);
+            base.ScrollTo(rowIndex, duration, easing, anchor, onComplete);
         }
 
         /// <summary>
         /// 指定したアイテムの位置までジャンプします.
         /// </summary>
         /// <param name="itemIndex">アイテムのインデックス.</param>
-        /// <param name="alignment"><see cref="Alignment"/>.</param>
-        public virtual void JumpTo(int itemIndex, Alignment alignment = Alignment.Center)
+        /// <param name="anchor">ビューポート内におけるセル位置の基準点. 0f(先頭) ~ 1f(末尾).</param>
+        protected override void JumpTo(int itemIndex, float anchor = 0.5f)
         {
             var rowIndex = itemIndex / Context.GetColumnCount();
-            UpdatePosition(rowIndex, alignment);
+            base.JumpTo(rowIndex, anchor);
         }
     }
 }

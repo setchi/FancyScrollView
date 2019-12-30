@@ -38,7 +38,7 @@ namespace FancyScrollView.Example07
 
             alignmentDropdown.AddOptions(Enum.GetNames(typeof(Alignment)).Select(x => new Dropdown.OptionData(x)).ToList());
             alignmentDropdown.onValueChanged.AddListener(_ => SelectCell());
-            alignmentDropdown.value = (int)Alignment.Center;
+            alignmentDropdown.value = (int)Alignment.Middle;
 
             selectIndexInputField.onValueChanged.AddListener(_ => SelectCell());
             selectIndexInputField.text = "10";

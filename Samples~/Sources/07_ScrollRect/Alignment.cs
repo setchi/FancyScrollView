@@ -4,12 +4,12 @@
  * Licensed under MIT (https://github.com/setchi/FancyScrollView/blob/master/LICENSE)
  */
 
-namespace FancyScrollView
+namespace FancyScrollView.Example07
 {
     public enum Alignment
     {
-        Head,
-        Center,
-        Tail,
+        Upper,
+        Middle,
+        Lower,
     }
 }

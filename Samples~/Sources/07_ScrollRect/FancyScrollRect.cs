@@ -54,16 +54,27 @@ namespace FancyScrollView.Example07
             UpdateContents(items);
         }
 
-        public void ScrollTo(int index, float duration, Ease easing, Alignment alignment = Alignment.Center)
+        public void ScrollTo(int index, float duration, Ease easing, Alignment alignment = Alignment.Middle)
         {
             UpdateSelection(index);
-            base.ScrollTo(index, duration, easing, alignment);
+            ScrollTo(index, duration, easing, GetAnchor(alignment));
         }
 
-        public void JumpTo(int index, Alignment alignment = Alignment.Center)
+        public void JumpTo(int index, Alignment alignment = Alignment.Middle)
         {
             UpdateSelection(index);
-            UpdatePosition(index, alignment);
+            JumpTo(index, GetAnchor(alignment));
+        }
+
+        float GetAnchor(Alignment alignment)
+        {
+            switch (alignment)
+            {
+                case Alignment.Upper: return 0.0f;
+                case Alignment.Middle: return 0.5f;
+                case Alignment.Lower: return 1.0f;
+                default: return GetAnchor(Alignment.Middle);
+            }
         }
 
         void UpdateSelection(int index)
