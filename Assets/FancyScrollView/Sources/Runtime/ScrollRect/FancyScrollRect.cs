@@ -191,7 +191,7 @@ namespace FancyScrollView
         /// <param name="duration">移動にかける秒数.</param>
         /// <param name="alignment">ビューポート内におけるセル位置の基準. 0f(先頭) ~ 1f(末尾).</param>
         /// <param name="onComplete">移動が完了した際に呼び出されるコールバック.</param>
-        public virtual void ScrollTo(int index, float duration, float alignment = 0.5f, Action onComplete = null)
+        protected virtual void ScrollTo(int index, float duration, float alignment = 0.5f, Action onComplete = null)
         {
             Scroller.ScrollTo(ToScrollerPosition(index, alignment), duration, onComplete);
         }
@@ -204,7 +204,7 @@ namespace FancyScrollView
         /// <param name="easing">移動に使用するイージング.</param>
         /// <param name="alignment">ビューポート内におけるセル位置の基準. 0f(先頭) ~ 1f(末尾).</param>
         /// <param name="onComplete">移動が完了した際に呼び出されるコールバック.</param>
-        public virtual void ScrollTo(int index, float duration, Ease easing, float alignment = 0.5f, Action onComplete = null)
+        protected virtual void ScrollTo(int index, float duration, Ease easing, float alignment = 0.5f, Action onComplete = null)
         {
             Scroller.ScrollTo(ToScrollerPosition(index, alignment), duration, easing, onComplete);
         }
