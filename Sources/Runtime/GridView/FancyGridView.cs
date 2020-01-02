@@ -120,7 +120,7 @@ namespace FancyScrollView
         /// <param name="duration">移動にかける秒数.</param>
         /// <param name="alignment">ビューポート内におけるセル位置の基準. 0f(先頭) ~ 1f(末尾).</param>
         /// <param name="onComplete">移動が完了した際に呼び出されるコールバック.</param>
-        public override void ScrollTo(int itemIndex, float duration, float alignment = 0.5f, Action onComplete = null)
+        protected override void ScrollTo(int itemIndex, float duration, float alignment = 0.5f, Action onComplete = null)
         {
             var rowIndex = itemIndex / Context.GetColumnCount();
             base.ScrollTo(rowIndex, duration, alignment, onComplete);
@@ -134,7 +134,7 @@ namespace FancyScrollView
         /// <param name="easing">移動に使用するイージング.</param>
         /// <param name="alignment">ビューポート内におけるセル位置の基準. 0f(先頭) ~ 1f(末尾).</param>
         /// <param name="onComplete">移動が完了した際に呼び出されるコールバック.</param>
-        public override void ScrollTo(int itemIndex, float duration, Ease easing, float alignment = 0.5f, Action onComplete = null)
+        protected override void ScrollTo(int itemIndex, float duration, Ease easing, float alignment = 0.5f, Action onComplete = null)
         {
             var rowIndex = itemIndex / Context.GetColumnCount();
             base.ScrollTo(rowIndex, duration, easing, alignment, onComplete);
