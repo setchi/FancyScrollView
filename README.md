@@ -39,7 +39,7 @@ openupm add jp.setchi.fancyscrollview
 
 ## Features
 ### 自由にスクロールアニメーションを実装できます
-FancyScrollView はスクロール位置を更新するとき、ビューポート範囲の正規化された位置を各セルに渡します。セル側では `0.0` ~ `1.0` の値に基づいてスクロール中の位置や見た目を[セル自身で制御](https://setchi.jp/FancyScrollView/api/FancyScrollView.FancyScrollViewCell-2.html#FancyScrollView_FancyScrollViewCell_2_UpdatePosition_System_Single_)します。サンプルでは Animator や数式を使用してスクロール中の動きを実装しています。
+FancyScrollView はスクロール位置を更新するとき、ビューポート範囲の正規化された位置を各セルに渡します。セル側では `0.0` ~ `1.0` の値に基づいてスクロール中の位置や見た目を[セル自身で制御](https://setchi.jp/FancyScrollView/api/FancyScrollView.FancyCell-2.html#FancyScrollView_FancyCell_2_UpdatePosition_System_Single_)します。サンプルでは Animator や数式を使用してスクロール中の動きを実装しています。
 
 ### データ件数が多くても軽快に動作します
 表示に必要なセル数のみが生成され、セルは再利用されます。 [Demo](https://setchi.jp/FancyScrollView/demo/) で実際にデータ件数を増やしながら動作を確認できます。 [FancyScrollRect](https://setchi.jp/FancyScrollView/api/FancyScrollView.FancyScrollRect-2.html) および [FancyGridView](https://setchi.jp/FancyScrollView/api/FancyScrollView.FancyGridView-2.html) では、[スクロール中にセルが再利用されるまでの余白](https://setchi.jp/FancyScrollView/api/FancyScrollView.FancyScrollRect-2.html#FancyScrollView_FancyScrollRect_2_reuseCellMarginCount)も指定できます。
@@ -102,13 +102,13 @@ public class ItemData
     }
 }
 ```
-`FancyScrollViewCell<TItemData>` を継承して自分のセルを実装します。
+`FancyCell<TItemData>` を継承して自分のセルを実装します。
 ```csharp
 using UnityEngine;
 using UnityEngine.UI;
 using FancyScrollView;
 
-public class MyCell : FancyScrollViewCell<ItemData>
+public class MyCell : FancyCell<ItemData>
 {
     [SerializeField] Text message = default;
 

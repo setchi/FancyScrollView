@@ -46,8 +46,7 @@ namespace FancyScrollView
         /// </summary>
         [SerializeField] protected Transform cellContainer = default;
 
-        readonly IList<FancyScrollViewCell<TItemData, TContext>> pool =
-            new List<FancyScrollViewCell<TItemData, TContext>>();
+        readonly IList<FancyCell<TItemData, TContext>> pool = new List<FancyCell<TItemData, TContext>>();
 
         /// <summary>
         /// 初期化済みかどうか.
@@ -134,12 +133,11 @@ namespace FancyScrollView
             var addCount = Mathf.CeilToInt((1f - firstPosition) / cellInterval) - pool.Count;
             for (var i = 0; i < addCount; i++)
             {
-                var cell = Instantiate(CellPrefab, cellContainer)
-                    .GetComponent<FancyScrollViewCell<TItemData, TContext>>();
+                var cell = Instantiate(CellPrefab, cellContainer).GetComponent<FancyCell<TItemData, TContext>>();
                 if (cell == null)
                 {
                     throw new MissingComponentException(string.Format(
-                        "FancyScrollViewCell<{0}, {1}> component not found in {2}.",
+                        "FancyCell<{0}, {1}> component not found in {2}.",
                         typeof(TItemData).FullName, typeof(TContext).FullName, CellPrefab.name));
                 }
 
@@ -204,7 +202,7 @@ namespace FancyScrollView
     /// <summary>
     /// <see cref="FancyScrollView{TItemData}"/> のコンテキストクラス.
     /// </summary>
-    public sealed class FancyScrollViewNullContext { }
+    public sealed class NullContext { }
 
     /// <summary>
     /// スクロールビューを実装するための抽象基底クラス.
@@ -212,5 +210,5 @@ namespace FancyScrollView
     /// </summary>
     /// <typeparam name="TItemData"></typeparam>
     /// <seealso cref="FancyScrollView{TItemData, TContext}"/>
-    public abstract class FancyScrollView<TItemData> : FancyScrollView<TItemData, FancyScrollViewNullContext> { }
+    public abstract class FancyScrollView<TItemData> : FancyScrollView<TItemData, NullContext> { }
 }

@@ -10,7 +10,7 @@ using UnityEngine.UI;
 namespace FancyScrollView.Example04
 {
     [ExecuteInEditMode]
-    public class Cell : FancyScrollViewCell<ItemData, Context>
+    public class Cell : FancyCell<ItemData, Context>
     {
         [SerializeField] Animator scrollAnimator = default;
         [SerializeField] Animator selectAnimator = default;
