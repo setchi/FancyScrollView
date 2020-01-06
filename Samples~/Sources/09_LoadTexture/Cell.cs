@@ -11,7 +11,7 @@ using EasingCore;
 
 namespace FancyScrollView.Example09
 {
-    public class Cell : FancyScrollViewCell<ItemData>
+    public class Cell : FancyCell<ItemData>
     {
         readonly EasingFunction alphaEasing = Easing.Get(Ease.OutQuint);
 

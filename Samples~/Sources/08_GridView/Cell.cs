@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 namespace FancyScrollView.Example08
 {
-    public class Cell : FancyScrollViewCell<ItemData, Context>
+    public class Cell : FancyCell<ItemData, Context>
     {
         [SerializeField] Text message = default;
         [SerializeField] Image image = default;

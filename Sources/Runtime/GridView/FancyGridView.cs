@@ -53,7 +53,7 @@ namespace FancyScrollView
         /// <summary>
         /// セルのテンプレート.
         /// </summary>
-        protected abstract FancyScrollViewCell<TItemData, TContext> CellTemplate { get; }
+        protected abstract FancyCell<TItemData, TContext> CellTemplate { get; }
 
         /// <summary>
         /// 行オブジェクトのテンプレート.
