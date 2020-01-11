@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 namespace FancyScrollView.Example08
 {
-    public class Cell : FancyCell<ItemData, Context>
+    public class Cell : FancyGridViewCell<ItemData, Context>
     {
         [SerializeField] Text message = default;
         [SerializeField] Image image = default;
@@ -26,16 +26,10 @@ namespace FancyScrollView.Example08
 
         public override void UpdatePosition(float position)
         {
-            var cellSize = Context.GetCellSize();
-            var spacing = Context.GetColumnSpacing();
-            var columnCount = Context.GetColumnCount();
-            var count = Index % columnCount;
+            base.UpdatePosition(position);
 
-            var x = (cellSize + spacing) * (count - (columnCount - 1) * 0.5f);
-            var y = transform.localPosition.y;
             var wave = Mathf.Sin(position * Mathf.PI * 2) * 65;
-
-            transform.localPosition = new Vector2(x + wave, y);
+            transform.localPosition += Vector3.right * wave;
         }
     }
 }

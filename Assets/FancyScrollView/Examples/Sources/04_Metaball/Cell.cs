@@ -30,10 +30,21 @@ namespace FancyScrollView.Example04
         float hash;
         bool currentSelection;
 
-        void Start()
+        public override void Initialize()
         {
             hash = Random.value * 100f;
             button.onClick.AddListener(() => Context.OnCellClicked?.Invoke(Index));
+
+            Context.UpdateCellState += () =>
+            {
+                var siblingIndex = rectTransform.GetSiblingIndex();
+                var scale = Mathf.Min(1f, 10 * (0.5f - Mathf.Abs(currentPosition - 0.5f)));
+                var position = IsVisible
+                    ? this.position + GetFluctuation()
+                    : rectTransform.rect.size.x * 10f * Vector3.left;
+
+                Context.SetCellState(siblingIndex, Index, position.x, position.y, scale);
+            };
         }
 
         void LateUpdate()
@@ -46,22 +57,6 @@ namespace FancyScrollView.Example04
             var fluctX = Mathf.Sin(Time.time + hash * 40) * 12;
             var fluctY = Mathf.Sin(Time.time + hash) * 12;
             return new Vector3(fluctX, fluctY, 0f);
-        }
-
-        public override void SetupContext(Context context)
-        {
-            base.SetupContext(context);
-
-            Context.UpdateCellState += () =>
-            {
-                var siblingIndex = rectTransform.GetSiblingIndex();
-                var scale = Mathf.Min(1f, 10 * (0.5f - Mathf.Abs(currentPosition - 0.5f)));
-                var position = IsVisible
-                    ? this.position + GetFluctuation()
-                    : rectTransform.rect.size.x * 10f * Vector3.left;
-
-                Context.SetCellState(siblingIndex, Index, position.x, position.y, scale);
-            };
         }
 
         public override void UpdateContent(ItemData cellData)
