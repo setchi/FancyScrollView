@@ -1,19 +1,19 @@
 # FancyScrollView
 
-[![license](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square&cacheSeconds=2592000)](https://github.com/setchi/FancyScrollView/blob/master/LICENSE)
-[![WebGL Demo](https://img.shields.io/badge/demo-WebGL-orange.svg?style=flat-square&logo=google-chrome&logoColor=white&cacheSeconds=2592000)](https://setchi.jp/FancyScrollView/demo)
-[![API Documentation](https://img.shields.io/badge/API-Documentation-ff69b4.svg?style=flat-square&logo=c-sharp&cacheSeconds=2592000)](https://setchi.jp/FancyScrollView/api/FancyScrollView.html)
-[![openupm](https://img.shields.io/npm/v/jp.setchi.fancyscrollview?label=openupm&registry_uri=https://package.openupm.com&style=flat-square)](https://openupm.com/packages/jp.setchi.fancyscrollview/)
+[![license](https://img.shields.io/badge/license-MIT-green.svg?style=flat&cacheSeconds=2592000)](https://github.com/setchi/FancyScrollView/blob/master/LICENSE)
+[![WebGL Demo](https://img.shields.io/badge/demo-WebGL-orange.svg?style=flat&logo=google-chrome&logoColor=white&cacheSeconds=2592000)](https://setchi.jp/FancyScrollView/demo)
+[![API Documentation](https://img.shields.io/badge/API-Documentation-ff69b4.svg?style=flat&logo=c-sharp&cacheSeconds=2592000)](https://setchi.jp/FancyScrollView/api/FancyScrollView.html)
+[![openupm](https://img.shields.io/npm/v/jp.setchi.fancyscrollview?label=openupm&registry_uri=https://package.openupm.com&style=flat)](https://openupm.com/packages/jp.setchi.fancyscrollview/)
 
 [English](https://translate.google.com/translate?sl=ja&tl=en&u=https://github.com/setchi/FancyScrollView) (by Google Translate)
 
 高度に柔軟なアニメーションを実装できる汎用の ScrollView コンポーネントです。 無限スクロールもサポートしています。
 
-<img src="https://user-images.githubusercontent.com/8326814/68384224-84a1a980-019a-11ea-9cee-aa6acc4860e2.gif" width="320"><img src="https://user-images.githubusercontent.com/8326814/70638335-0b571400-1c7c-11ea-8701-a0d1ae0cb7e3.gif" width="320"><img src="https://user-images.githubusercontent.com/8326814/59548448-a3549900-8f8a-11e9-9a27-b04f1410a7b5.gif" width="320"><img src="https://user-images.githubusercontent.com/8326814/59548462-b8c9c300-8f8a-11e9-8985-5f1c2e610309.gif" width="320"><img src="https://user-images.githubusercontent.com/8326814/59550410-7f528100-8fa5-11e9-8f1b-41e59b645571.gif" width="320"><img src="https://user-images.githubusercontent.com/8326814/59550411-7f528100-8fa5-11e9-8bfb-bd42da47f7a0.gif" width="320">
+<img src="https://user-images.githubusercontent.com/8326814/69004520-d2b36b80-0957-11ea-8277-06bfd3e8f033.gif" width="320"><img src="https://user-images.githubusercontent.com/8326814/70638335-0b571400-1c7c-11ea-8701-a0d1ae0cb7e3.gif" width="320"><img src="https://user-images.githubusercontent.com/8326814/59548448-a3549900-8f8a-11e9-9a27-b04f1410a7b5.gif" width="320"><img src="https://user-images.githubusercontent.com/8326814/59548462-b8c9c300-8f8a-11e9-8985-5f1c2e610309.gif" width="320"><img src="https://user-images.githubusercontent.com/8326814/59550410-7f528100-8fa5-11e9-8f1b-41e59b645571.gif" width="320"><img src="https://user-images.githubusercontent.com/8326814/59550411-7f528100-8fa5-11e9-8bfb-bd42da47f7a0.gif" width="320">
 
 ## Requirements
-[![Unity 2019.2+](https://img.shields.io/badge/unity-2019.2+-black.svg?style=flat-square&logo=unity&cacheSeconds=2592000)](https://unity3d.com/get-unity/download/archive)
-[![.NET 4.x Scripting Runtime](https://img.shields.io/badge/.NET-4.x-blueviolet.svg?style=flat-square&cacheSeconds=2592000)](https://docs.unity3d.com/2018.3/Documentation/Manual/ScriptingRuntimeUpgrade.html)
+[![Unity 2019.2+](https://img.shields.io/badge/unity-2019.2+-black.svg?style=flat&logo=unity&cacheSeconds=2592000)](https://unity3d.com/get-unity/download/archive)
+[![.NET 4.x Scripting Runtime](https://img.shields.io/badge/.NET-4.x-blueviolet.svg?style=flat&cacheSeconds=2592000)](https://docs.unity3d.com/2018.3/Documentation/Manual/ScriptingRuntimeUpgrade.html)
 
 ## Installation
 ### OpenUPM
@@ -64,7 +64,7 @@ Inspector で下記の設定をすることで無限スクロールを実装で�
 実装例（[Examples/03_InfiniteScroll](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples)）が含まれていますので、こちらも参考にしてください。[FancyScrollRect](https://setchi.jp/FancyScrollView/api/FancyScrollView.FancyScrollRect-2.html) および [FancyGridView](https://setchi.jp/FancyScrollView/api/FancyScrollView.FancyGridView-2.html) は無限スクロールをサポートしていません。
 
 ## Examples
-[![WebGL Demo](https://img.shields.io/badge/demo-WebGL-orange.svg?style=flat-square&logo=google-chrome&logoColor=white&cacheSeconds=2592000)](https://setchi.jp/FancyScrollView/demo)
+[![WebGL Demo](https://img.shields.io/badge/demo-WebGL-orange.svg?style=flat&logo=google-chrome&logoColor=white&cacheSeconds=2592000)](https://setchi.jp/FancyScrollView/demo)
 
 [FancyScrollView/Examples](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples) を参照してください。
 
