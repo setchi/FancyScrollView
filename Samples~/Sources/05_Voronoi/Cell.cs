@@ -31,27 +31,10 @@ namespace FancyScrollView.Example05
         bool currentSelection;
         float updateSelectionTime;
 
-        void Start()
+        public override void Initialize()
         {
             hash = Random.value * 100f;
             button.onClick.AddListener(() => Context.OnCellClicked?.Invoke(Index));
-        }
-
-        void LateUpdate()
-        {
-            image.rectTransform.localPosition = position + GetFluctuation();
-        }
-
-        Vector3 GetFluctuation()
-        {
-            var fluctX = Mathf.Sin(Time.time + hash * 40) * 10;
-            var fluctY = Mathf.Sin(Time.time + hash) * 10;
-            return new Vector3(fluctX, fluctY, 0f);
-        }
-
-        public override void SetupContext(Context context)
-        {
-            base.SetupContext(context);
 
             Context.UpdateCellState += () =>
             {
@@ -64,6 +47,18 @@ namespace FancyScrollView.Example05
 
                 Context.SetCellState(siblingIndex, Index, position.x, position.y, selectAnimation);
             };
+        }
+
+        void LateUpdate()
+        {
+            image.rectTransform.localPosition = position + GetFluctuation();
+        }
+
+        Vector3 GetFluctuation()
+        {
+            var fluctX = Mathf.Sin(Time.time + hash * 40) * 10;
+            var fluctY = Mathf.Sin(Time.time + hash) * 10;
+            return new Vector3(fluctX, fluctY, 0f);
         }
 
         public override void UpdateContent(ItemData cellData)

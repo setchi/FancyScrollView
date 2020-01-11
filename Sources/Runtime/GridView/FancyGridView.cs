@@ -15,11 +15,13 @@ namespace FancyScrollView
     /// <summary>
     /// グリッドレイアウトのスクロールビューを実装するための抽象基底クラス.
     /// 無限スクロールおよびスナップには対応していません.
+    /// <see cref="FancyScrollView{TItemData, TContext}.Context"/> が不要な場合は
+    /// 代わりに <see cref="FancyGridView{TItemData}"/> を使用します.
     /// </summary>
     /// <typeparam name="TItemData">アイテムのデータ型.</typeparam>
     /// <typeparam name="TContext"><see cref="FancyScrollView{TItemData, TContext}.Context"/> の型.</typeparam>
     public abstract class FancyGridView<TItemData, TContext> : FancyScrollRect<TItemData[], TContext>
-        where TContext : class, IFancyScrollRectContext, IFancyGridViewContext, new()
+        where TContext : class, IFancyGridViewContext, new()
     {
         /// <summary>
         /// カラム同士の余白.
@@ -140,4 +142,12 @@ namespace FancyScrollView
             base.ScrollTo(rowIndex, duration, easing, alignment, onComplete);
         }
     }
+
+    /// <summary>
+    /// グリッドレイアウトのスクロールビューを実装するための抽象基底クラス.
+    /// 無限スクロールおよびスナップには対応していません.
+    /// </summary>
+    /// <typeparam name="TItemData">アイテムのデータ型.</typeparam>
+    /// <seealso cref="FancyGridView{TItemData, TContext}"/>
+    public abstract class FancyGridView<TItemData> : FancyGridView<TItemData, FancyGridViewContext> { }
 }

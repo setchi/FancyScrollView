@@ -12,7 +12,7 @@ namespace FancyScrollView
     /// <summary>
     /// <see cref="FancyGridView{TItemData, TContext}"/> のコンテキストインターフェース.
     /// </summary>
-    public interface IFancyGridViewContext
+    public interface IFancyGridViewContext : IFancyScrollRectContext
     {
         GameObject CellTemplate { get; set; }
         ScrollDirection ScrollDirection { get; set; }
