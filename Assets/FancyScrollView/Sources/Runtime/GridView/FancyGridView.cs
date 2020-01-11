@@ -15,7 +15,7 @@ namespace FancyScrollView
     /// <summary>
     /// グリッドレイアウトのスクロールビューを実装するための抽象基底クラス.
     /// 無限スクロールおよびスナップには対応していません.
-    /// /// <see cref="FancyScrollView{TItemData, TContext}.Context"/> が不要な場合は
+    /// <see cref="FancyScrollView{TItemData, TContext}.Context"/> が不要な場合は
     /// 代わりに <see cref="FancyGridView{TItemData}"/> を使用します.
     /// </summary>
     /// <typeparam name="TItemData">アイテムのデータ型.</typeparam>
