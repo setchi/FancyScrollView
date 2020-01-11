@@ -34,10 +34,15 @@ namespace FancyScrollView
         protected TContext Context { get; private set; }
 
         /// <summary>
-        /// <see cref="Context"/> のセットアップを行います.
+        /// <see cref="Context"/> をセットします.
         /// </summary>
         /// <param name="context">コンテキスト.</param>
-        public virtual void SetupContext(TContext context) => Context = context;
+        public virtual void SetContext(TContext context) => Context = context;
+
+        /// <summary>
+        /// 初期化を行います.
+        /// </summary>
+        public virtual void Initialize() { }
 
         /// <summary>
         /// このセルの可視状態を設定します.
@@ -66,6 +71,6 @@ namespace FancyScrollView
     public abstract class FancyCell<TItemData> : FancyCell<TItemData, NullContext>
     {
         /// <inheritdoc/>
-        public sealed override void SetupContext(NullContext context) => base.SetupContext(context);
+        public sealed override void SetContext(NullContext context) => base.SetContext(context);
     }
 }

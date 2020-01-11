@@ -35,16 +35,15 @@ namespace FancyScrollView
         }
 
         /// <inheritdoc/>
-        public override void SetupContext(TContext context)
+        public override void Initialize()
         {
-            base.SetupContext(context);
-
             Cells = InstantiateCells();
             Debug.Assert(Cells.Length == Context.GetColumnCount());
 
             for (var i = 0; i < Cells.Length; i++)
             {
-                Cells[i].SetupContext(context);
+                Cells[i].SetContext(Context);
+                Cells[i].Initialize();
             }
         }
 

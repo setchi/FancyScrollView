@@ -141,7 +141,8 @@ namespace FancyScrollView
                         typeof(TItemData).FullName, typeof(TContext).FullName, CellPrefab.name));
                 }
 
-                cell.SetupContext(Context);
+                cell.SetContext(Context);
+                cell.Initialize();
                 cell.SetVisible(false);
                 pool.Add(cell);
             }

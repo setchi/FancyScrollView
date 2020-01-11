@@ -20,7 +20,7 @@ namespace FancyScrollView.Example06
             public static readonly int Scroll = Animator.StringToHash("scroll");
         }
 
-        void Start()
+        public override void Initialize()
         {
             button.onClick.AddListener(() => Context.OnCellClicked?.Invoke(Index));
         }
