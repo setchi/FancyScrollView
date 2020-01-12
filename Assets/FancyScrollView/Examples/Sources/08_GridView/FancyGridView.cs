@@ -13,10 +13,7 @@ namespace FancyScrollView.Example08
     {
         class CellGroup : DefaultCellGroup { }
 
-        [SerializeField] int columnCount = default;
         [SerializeField] Cell cellPrefab = default;
-
-        protected override int StartAxisCellCount => columnCount;
 
         protected override void SetupCellTemplate() => Setup<CellGroup>(cellPrefab);
 

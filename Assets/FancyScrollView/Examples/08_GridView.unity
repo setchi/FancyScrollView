@@ -245,8 +245,8 @@ MonoBehaviour:
   paddingTail: 10
   spacing: 10
   startAxisSpacing: 10
+  startAxisCellCount: 4
   cellSize: {x: 100, y: 100}
-  columnCount: 4
   cellPrefab: {fileID: 5648916080528934313, guid: c3da64c29ae8a4e61a6bd072bad4e392,
     type: 3}
 --- !u!114 &190094664

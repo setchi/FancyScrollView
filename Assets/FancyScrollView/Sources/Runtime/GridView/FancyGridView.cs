@@ -34,6 +34,11 @@ namespace FancyScrollView
         [SerializeField] protected float startAxisSpacing = 0f;
 
         /// <summary>
+        /// 最初にセルを配置する軸方向のセル数.
+        /// </summary>
+        [SerializeField] protected int startAxisCellCount = 4;
+
+        /// <summary>
         /// セルのサイズ.
         /// </summary>
         [SerializeField] protected Vector2 cellSize = new Vector2(100f, 100f);
@@ -53,11 +58,6 @@ namespace FancyScrollView
             : cellSize.y;
 
         /// <summary>
-        /// 最初にセルを配置する軸方向のセル数.
-        /// </summary>
-        protected abstract int StartAxisCellCount { get; }
-
-        /// <summary>
         /// アイテムの総数.
         /// </summary>
         public int DataCount { get; private set; }
@@ -69,10 +69,10 @@ namespace FancyScrollView
         {
             base.Initialize();
 
-            Debug.Assert(StartAxisCellCount > 0);
+            Debug.Assert(startAxisCellCount > 0);
 
             Context.ScrollDirection = Scroller.ScrollDirection;
-            Context.GetGroupCount = () => StartAxisCellCount;
+            Context.GetGroupCount = () => startAxisCellCount;
             Context.GetStartAxisSpacing = () => startAxisSpacing;
             Context.GetCellSize = () => Scroller.ScrollDirection == ScrollDirection.Horizontal
                 ? cellSize.y
@@ -82,6 +82,7 @@ namespace FancyScrollView
         }
 
         /// <summary>
+        /// 最初にセルが生成される直前に呼び出されます.
         /// <see cref="Setup{TGroup}(FancyCell{TItemData, TContext})"/> メソッドを使用してセルテンプレートのセットアップを行ってください.
         /// </summary>
         /// <example>
@@ -95,7 +96,6 @@ namespace FancyScrollView
         /// 
         ///     [SerializeField] Cell cellPrefab = default;
         /// 
-        ///     protected override int StartAxisCellCount => 4;
         ///     protected override void SetupCellTemplate() => Setup<CellGroup>(cellPrefab);
         /// }
         /// ]]></code>
@@ -128,7 +128,7 @@ namespace FancyScrollView
             var itemGroups = items
                 .Select((item, index) => (item, index))
                 .GroupBy(
-                    x => x.index / StartAxisCellCount,
+                    x => x.index / startAxisCellCount,
                     x => x.item)
                 .Select(group => group.ToArray())
                 .ToArray();
@@ -143,7 +143,7 @@ namespace FancyScrollView
         /// <param name="alignment">ビューポート内におけるセル位置の基準. 0f(先頭) ~ 1f(末尾).</param>
         protected override void JumpTo(int itemIndex, float alignment = 0.5f)
         {
-            var groupIndex = itemIndex / StartAxisCellCount;
+            var groupIndex = itemIndex / startAxisCellCount;
             base.JumpTo(groupIndex, alignment);
         }
 
@@ -156,7 +156,7 @@ namespace FancyScrollView
         /// <param name="onComplete">移動が完了した際に呼び出されるコールバック.</param>
         protected override void ScrollTo(int itemIndex, float duration, float alignment = 0.5f, Action onComplete = null)
         {
-            var groupIndex = itemIndex / StartAxisCellCount;
+            var groupIndex = itemIndex / startAxisCellCount;
             base.ScrollTo(groupIndex, duration, alignment, onComplete);
         }
 
@@ -170,7 +170,7 @@ namespace FancyScrollView
         /// <param name="onComplete">移動が完了した際に呼び出されるコールバック.</param>
         protected override void ScrollTo(int itemIndex, float duration, Ease easing, float alignment = 0.5f, Action onComplete = null)
         {
-            var groupIndex = itemIndex / StartAxisCellCount;
+            var groupIndex = itemIndex / startAxisCellCount;
             base.ScrollTo(groupIndex, duration, easing, alignment, onComplete);
         }
     }
