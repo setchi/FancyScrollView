@@ -11,13 +11,11 @@ namespace FancyScrollView.Example08
 {
     public class FancyGridView : FancyGridView<ItemData, Context>
     {
-        [SerializeField] int columnCount = 3;
-        [SerializeField] Cell cellPrefab = default;
-        [SerializeField] Row rowPrefab = default;
+        class CellGroup : DefaultCellGroup { }
 
-        protected override int ColumnCount => columnCount;
-        protected override FancyCell<ItemData, Context> CellTemplate => cellPrefab;
-        protected override FancyGridViewRow<ItemData, Context> RowTemplate => rowPrefab;
+        [SerializeField] Cell cellPrefab = default;
+
+        protected override void SetupCellTemplate() => Setup<CellGroup>(cellPrefab);
 
         public float PaddingTop
         {
@@ -51,10 +49,10 @@ namespace FancyScrollView.Example08
 
         public float SpacingX
         {
-            get => columnSpacing;
+            get => startAxisSpacing;
             set
             {
-                columnSpacing = value;
+                startAxisSpacing = value;
                 Refresh();
             }
         }

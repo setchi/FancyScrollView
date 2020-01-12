@@ -43,7 +43,7 @@ namespace FancyScrollView
         [SerializeField] protected float paddingTail = 0f;
 
         /// <summary>
-        /// セル同士の余白.
+        /// スクロール軸方向のセル同士の余白.
         /// </summary>
         [SerializeField] protected float spacing = 0f;
 
@@ -265,10 +265,7 @@ namespace FancyScrollView
 
         protected virtual void OnValidate()
         {
-            if (CellPrefab)
-            {
-                AdjustCellIntervalAndScrollOffset();
-            }
+            AdjustCellIntervalAndScrollOffset();
 
             if (loop)
             {
