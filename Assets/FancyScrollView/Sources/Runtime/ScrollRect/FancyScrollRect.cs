@@ -265,10 +265,7 @@ namespace FancyScrollView
 
         protected virtual void OnValidate()
         {
-            if (CellPrefab)
-            {
-                AdjustCellIntervalAndScrollOffset();
-            }
+            AdjustCellIntervalAndScrollOffset();
 
             if (loop)
             {

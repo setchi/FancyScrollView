@@ -14,8 +14,8 @@ namespace FancyScrollView
     /// </summary>
     /// <typeparam name="TItemData">アイテムのデータ型.</typeparam>
     /// <typeparam name="TContext"><see cref="FancyCell{TItemData, TContext}.Context"/> の型.</typeparam>
-    public abstract class FancyGridViewRow<TItemData, TContext> : FancyScrollRectCell<TItemData[], TContext>
-        where TContext : class, IFancyScrollRectContext, IFancyGridViewContext, new()
+    public abstract class FancyGridViewRow<TItemData, TContext> : FancyCell<TItemData[], TContext>
+        where TContext : class, IFancyGridViewContext, new()
     {
         /// <summary>
         /// この行で表示するセルの配列.
@@ -65,20 +65,10 @@ namespace FancyScrollView
         /// <inheritdoc/>
         public override void UpdatePosition(float position)
         {
-            base.UpdatePosition(position);
-
             for (var i = 0; i < Cells.Length; i++)
             {
                 Cells[i].UpdatePosition(position);
             }
-        }
-
-        /// <inheritdoc/>
-        protected override void UpdatePosition(float position, float viewportPosition)
-        {
-            transform.localPosition = Context.ScrollDirection == ScrollDirection.Horizontal
-                ? new Vector2(viewportPosition, transform.localPosition.y)
-                : new Vector2(transform.localPosition.x, viewportPosition);
         }
     }
 }
