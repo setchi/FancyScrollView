@@ -20,15 +20,13 @@ namespace FancyScrollView
     /// </summary>
     /// <typeparam name="TItemData">アイテムのデータ型.</typeparam>
     /// <typeparam name="TContext"><see cref="FancyScrollView{TItemData, TContext}.Context"/> の型.</typeparam>
-    /// <typeparam name="TGroup">セルグループの型.</typeparam>
-    public abstract class FancyGridView<TItemData, TContext, TGroup> : FancyScrollRect<TItemData[], TContext>
+    public abstract class FancyGridView<TItemData, TContext> : FancyScrollRect<TItemData[], TContext>
         where TContext : class, IFancyGridViewContext, new()
-        where TGroup : FancyCellGroup<TItemData, TContext>
     {
         /// <summary>
         /// デフォルトのセルグループクラス.
         /// </summary>
-        public abstract class DefaultGroup : FancyCellGroup<TItemData, TContext> { }
+        protected abstract class DefaultCellGroup : FancyCellGroup<TItemData, TContext> { }
 
         /// <summary>
         /// 最初にセルを配置する軸方向のセル同士の余白.
@@ -60,11 +58,6 @@ namespace FancyScrollView
         protected abstract int StartAxisCellCount { get; }
 
         /// <summary>
-        /// セルのテンプレート.
-        /// </summary>
-        protected abstract FancyCell<TItemData, TContext> CellTemplate { get; }
-
-        /// <summary>
         /// アイテムの総数.
         /// </summary>
         public int DataCount { get; private set; }
@@ -76,20 +69,52 @@ namespace FancyScrollView
         {
             base.Initialize();
 
-            Debug.Assert(CellTemplate != null);
             Debug.Assert(StartAxisCellCount > 0);
 
-            cellGroupTemplate = new GameObject("Group").AddComponent<TGroup>().gameObject;
-            cellGroupTemplate.transform.SetParent(cellContainer, false);
-            cellGroupTemplate.SetActive(false);
-
-            Context.CellTemplate = CellTemplate.gameObject;
             Context.ScrollDirection = Scroller.ScrollDirection;
             Context.GetGroupCount = () => StartAxisCellCount;
             Context.GetStartAxisSpacing = () => startAxisSpacing;
             Context.GetCellSize = () => Scroller.ScrollDirection == ScrollDirection.Horizontal
                 ? cellSize.y
                 : cellSize.x;
+
+            SetupCellTemplate();
+        }
+
+        /// <summary>
+        /// <see cref="Setup{TGroup}(FancyCell{TItemData, TContext})"/> メソッドを使用してセルテンプレートのセットアップを行ってください.
+        /// </summary>
+        /// <example>
+        /// <code><![CDATA[
+        /// using UnityEngine;
+        /// using FancyScrollView;
+        /// 
+        /// public class MyGridView : FancyGridView<ItemData, Context>
+        /// {
+        ///     class CellGroup : DefaultCellGroup { }
+        /// 
+        ///     [SerializeField] Cell cellPrefab = default;
+        /// 
+        ///     protected override int StartAxisCellCount => 4;
+        ///     protected override void SetupCellTemplate() => Setup<CellGroup>(cellPrefab);
+        /// }
+        /// ]]></code>
+        /// </example>
+        protected abstract void SetupCellTemplate();
+
+        /// <summary>
+        /// セルテンプレートのセットアップを行います.
+        /// </summary>
+        /// <param name="cellTemplate">セルのテンプレート.</param>
+        /// <typeparam name="TGroup">セルグループの型.</typeparam>
+        protected virtual void Setup<TGroup>(FancyCell<TItemData, TContext> cellTemplate)
+            where TGroup : FancyCellGroup<TItemData, TContext>
+        {
+            Context.CellTemplate = cellTemplate.gameObject;
+
+            cellGroupTemplate = new GameObject("Group").AddComponent<TGroup>().gameObject;
+            cellGroupTemplate.transform.SetParent(cellContainer, false);
+            cellGroupTemplate.SetActive(false);
         }
 
         /// <summary>
@@ -155,8 +180,6 @@ namespace FancyScrollView
     /// 無限スクロールおよびスナップには対応していません.
     /// </summary>
     /// <typeparam name="TItemData">アイテムのデータ型.</typeparam>
-    /// <typeparam name="TGroup">セルグループの型.</typeparam>
     /// <seealso cref="FancyGridView{TItemData, TContext}"/>
-    public abstract class FancyGridView<TItemData, TGroup> : FancyGridView<TItemData, FancyGridViewContext, TGroup> 
-        where TGroup : FancyCellGroup<TItemData, FancyGridViewContext> { }
+    public abstract class FancyGridView<TItemData> : FancyGridView<TItemData, FancyGridViewContext> { }
 }

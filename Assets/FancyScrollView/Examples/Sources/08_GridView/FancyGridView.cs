@@ -9,15 +9,16 @@ using EasingCore;
 
 namespace FancyScrollView.Example08
 {
-    public class FancyGridView : FancyGridView<ItemData, Context, FancyGridView.Group>
+    public class FancyGridView : FancyGridView<ItemData, Context>
     {
-        public class Group : DefaultGroup {}
+        class CellGroup : DefaultCellGroup { }
 
         [SerializeField] int columnCount = default;
         [SerializeField] Cell cellPrefab = default;
 
         protected override int StartAxisCellCount => columnCount;
-        protected override FancyCell<ItemData, Context> CellTemplate => cellPrefab;
+
+        protected override void SetupCellTemplate() => Setup<CellGroup>(cellPrefab);
 
         public float PaddingTop
         {
