@@ -5,19 +5,16 @@
  */
 
 using System;
-using UnityEngine;
 
 namespace FancyScrollView
 {
     /// <summary>
     /// <see cref="FancyGridView{TItemData, TContext}"/> のコンテキストインターフェース.
     /// </summary>
-    public interface IFancyGridViewContext : IFancyScrollRectContext
+    public interface IFancyGridViewContext : IFancyScrollRectContext, IFancyCellGroupContext
     {
-        GameObject CellTemplate { get; set; }
         ScrollDirection ScrollDirection { get; set; }
-        Func<int> GetColumnCount { get; set; }
-        Func<float> GetColumnSpacing { get; set; }
+        Func<float> GetStartAxisSpacing { get; set; }
         Func<float> GetCellSize { get; set ; }
     }
 }
