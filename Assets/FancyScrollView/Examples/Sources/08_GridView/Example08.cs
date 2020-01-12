@@ -14,7 +14,7 @@ namespace FancyScrollView.Example08
 {
     public class Example08 : MonoBehaviour
     {
-        [SerializeField] FancyGridView gridView = default;
+        [SerializeField] GridView gridView = default;
         [SerializeField] InputField paddingTopInputField = default;
         [SerializeField] InputField paddingBottomInputField = default;
         [SerializeField] InputField xSpacingInputField = default;

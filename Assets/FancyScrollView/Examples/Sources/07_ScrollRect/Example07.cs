@@ -14,7 +14,7 @@ namespace FancyScrollView.Example07
 {
     public class Example07 : MonoBehaviour
     {
-        [SerializeField] FancyScrollRect scrollView = default;
+        [SerializeField] ScrollView scrollView = default;
         [SerializeField] InputField paddingTopInputField = default;
         [SerializeField] InputField paddingBottomInputField = default;
         [SerializeField] InputField spacingInputField = default;

@@ -4,18 +4,20 @@
  * Licensed under MIT (https://github.com/setchi/FancyScrollView/blob/master/LICENSE)
  */
 
+using System.Collections.Generic;
 using UnityEngine;
 using EasingCore;
 
-namespace FancyScrollView.Example08
+namespace FancyScrollView.Example07
 {
-    public class FancyGridView : FancyGridView<ItemData, Context>
+    public class ScrollView : FancyScrollRect<ItemData, Context>
     {
-        class CellGroup : DefaultCellGroup { }
+        [SerializeField] float cellSize = 100f;
+        [SerializeField] GameObject cellPrefab = default;
 
-        [SerializeField] Cell cellPrefab = default;
-
-        protected override void SetupCellTemplate() => Setup<CellGroup>(cellPrefab);
+        protected override float CellSize => cellSize;
+        protected override GameObject CellPrefab => cellPrefab;
+        public int DataCount => ItemsSource.Count;
 
         public float PaddingTop
         {
@@ -37,7 +39,7 @@ namespace FancyScrollView.Example08
             }
         }
 
-        public float SpacingY
+        public float Spacing
         {
             get => spacing;
             set
@@ -47,25 +49,9 @@ namespace FancyScrollView.Example08
             }
         }
 
-        public float SpacingX
+        public void UpdateData(IList<ItemData> items)
         {
-            get => startAxisSpacing;
-            set
-            {
-                startAxisSpacing = value;
-                Refresh();
-            }
-        }
-
-        public void UpdateSelection(int index)
-        {
-            if (Context.SelectedItemIndex == index)
-            {
-                return;
-            }
-
-            Context.SelectedItemIndex = index;
-            Refresh();
+            UpdateContents(items);
         }
 
         public void ScrollTo(int index, float duration, Ease easing, Alignment alignment = Alignment.Middle)
@@ -89,6 +75,17 @@ namespace FancyScrollView.Example08
                 case Alignment.Lower: return 1.0f;
                 default: return GetAlignment(Alignment.Middle);
             }
+        }
+
+        void UpdateSelection(int index)
+        {
+            if (Context.SelectedIndex == index)
+            {
+                return;
+            }
+
+            Context.SelectedIndex = index;
+            Refresh();
         }
     }
 }

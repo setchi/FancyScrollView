@@ -132,6 +132,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dropdown
       objectReference: {fileID: 0}
+    - target: {fileID: 1747360886316832958, guid: a5f73e63b9cf5418ca91edef13ad6686,
+        type: 3}
+      propertyPath: defaultScene
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1747360886316832959, guid: a5f73e63b9cf5418ca91edef13ad6686,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -235,11 +240,6 @@ PrefabInstance:
     - target: {fileID: 1747360886316832959, guid: a5f73e63b9cf5418ca91edef13ad6686,
         type: 3}
       propertyPath: m_Pivot.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1747360886316832958, guid: a5f73e63b9cf5418ca91edef13ad6686,
-        type: 3}
-      propertyPath: defaultScene
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -693,9 +693,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1492537696}
   - component: {fileID: 1492537702}
+  - component: {fileID: 1492537701}
   - component: {fileID: 1492537699}
   - component: {fileID: 1492537697}
-  - component: {fileID: 1492537701}
   m_Layer: 5
   m_Name: ScrollView
   m_TagString: Untagged
