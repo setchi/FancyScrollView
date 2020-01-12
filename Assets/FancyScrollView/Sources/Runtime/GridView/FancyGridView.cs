@@ -24,9 +24,19 @@ namespace FancyScrollView
         where TContext : class, IFancyGridViewContext, new()
     {
         /// <summary>
-        /// カラム同士の余白.
+        /// デフォルトのセルグループクラス.
         /// </summary>
-        [SerializeField] protected float columnSpacing = 0f;
+        protected abstract class DefaultCellGroup : FancyCellGroup<TItemData, TContext> { }
+
+        /// <summary>
+        /// 最初にセルを配置する軸方向のセル同士の余白.
+        /// </summary>
+        [SerializeField] protected float startAxisSpacing = 0f;
+
+        /// <summary>
+        /// 最初にセルを配置する軸方向のセル数.
+        /// </summary>
+        [SerializeField] protected int startAxisCellCount = 4;
 
         /// <summary>
         /// セルのサイズ.
@@ -34,13 +44,13 @@ namespace FancyScrollView
         [SerializeField] protected Vector2 cellSize = new Vector2(100f, 100f);
 
         /// <summary>
-        /// 行の Prefab.
+        /// セルのグループ Prefab.
         /// </summary>
         /// <remarks>
         /// <see cref="FancyGridView{TItemData, TContext}"/> では,
-        /// <see cref="FancyScrollView{TItemData, TContext}.CellPrefab"/> を行オブジェクトとして使用します.
+        /// <see cref="FancyScrollView{TItemData, TContext}.CellPrefab"/> を最初にセルを配置する軸方向のセルコンテナとして使用します.
         /// </remarks>
-        protected sealed override GameObject CellPrefab => RowTemplate.gameObject;
+        protected sealed override GameObject CellPrefab => cellGroupTemplate;
 
         /// <inheritdoc/>
         protected override float CellSize => Scroller.ScrollDirection == ScrollDirection.Horizontal
@@ -48,41 +58,63 @@ namespace FancyScrollView
             : cellSize.y;
 
         /// <summary>
-        /// 一行あたりの要素数.
-        /// </summary>
-        protected abstract int ColumnCount { get; }
-
-        /// <summary>
-        /// セルのテンプレート.
-        /// </summary>
-        protected abstract FancyCell<TItemData, TContext> CellTemplate { get; }
-
-        /// <summary>
-        /// 行オブジェクトのテンプレート.
-        /// </summary>
-        protected abstract FancyGridViewRow<TItemData, TContext> RowTemplate { get; }
-
-        /// <summary>
         /// アイテムの総数.
         /// </summary>
         public int DataCount { get; private set; }
+
+        GameObject cellGroupTemplate;
 
         /// <inheritdoc/>
         protected override void Initialize()
         {
             base.Initialize();
 
-            Debug.Assert(RowTemplate != null);
-            Debug.Assert(CellTemplate != null);
-            Debug.Assert(ColumnCount > 0);
+            Debug.Assert(startAxisCellCount > 0);
 
-            Context.CellTemplate = CellTemplate.gameObject;
             Context.ScrollDirection = Scroller.ScrollDirection;
-            Context.GetColumnCount = () => ColumnCount;
-            Context.GetColumnSpacing = () => columnSpacing;
+            Context.GetGroupCount = () => startAxisCellCount;
+            Context.GetStartAxisSpacing = () => startAxisSpacing;
             Context.GetCellSize = () => Scroller.ScrollDirection == ScrollDirection.Horizontal
                 ? cellSize.y
                 : cellSize.x;
+
+            SetupCellTemplate();
+        }
+
+        /// <summary>
+        /// 最初にセルが生成される直前に呼び出されます.
+        /// <see cref="Setup{TGroup}(FancyCell{TItemData, TContext})"/> メソッドを使用してセルテンプレートのセットアップを行ってください.
+        /// </summary>
+        /// <example>
+        /// <code><![CDATA[
+        /// using UnityEngine;
+        /// using FancyScrollView;
+        /// 
+        /// public class MyGridView : FancyGridView<ItemData, Context>
+        /// {
+        ///     class CellGroup : DefaultCellGroup { }
+        /// 
+        ///     [SerializeField] Cell cellPrefab = default;
+        /// 
+        ///     protected override void SetupCellTemplate() => Setup<CellGroup>(cellPrefab);
+        /// }
+        /// ]]></code>
+        /// </example>
+        protected abstract void SetupCellTemplate();
+
+        /// <summary>
+        /// セルテンプレートのセットアップを行います.
+        /// </summary>
+        /// <param name="cellTemplate">セルのテンプレート.</param>
+        /// <typeparam name="TGroup">セルグループの型.</typeparam>
+        protected virtual void Setup<TGroup>(FancyCell<TItemData, TContext> cellTemplate)
+            where TGroup : FancyCellGroup<TItemData, TContext>
+        {
+            Context.CellTemplate = cellTemplate.gameObject;
+
+            cellGroupTemplate = new GameObject("Group").AddComponent<TGroup>().gameObject;
+            cellGroupTemplate.transform.SetParent(cellContainer, false);
+            cellGroupTemplate.SetActive(false);
         }
 
         /// <summary>
@@ -93,15 +125,15 @@ namespace FancyScrollView
         {
             DataCount = items.Count;
 
-            var rows = items
+            var itemGroups = items
                 .Select((item, index) => (item, index))
                 .GroupBy(
-                    x => x.index / ColumnCount,
+                    x => x.index / startAxisCellCount,
                     x => x.item)
                 .Select(group => group.ToArray())
                 .ToArray();
 
-            UpdateContents(rows);
+            UpdateContents(itemGroups);
         }
 
         /// <summary>
@@ -111,8 +143,8 @@ namespace FancyScrollView
         /// <param name="alignment">ビューポート内におけるセル位置の基準. 0f(先頭) ~ 1f(末尾).</param>
         protected override void JumpTo(int itemIndex, float alignment = 0.5f)
         {
-            var rowIndex = itemIndex / Context.GetColumnCount();
-            base.JumpTo(rowIndex, alignment);
+            var groupIndex = itemIndex / startAxisCellCount;
+            base.JumpTo(groupIndex, alignment);
         }
 
         /// <summary>
@@ -124,8 +156,8 @@ namespace FancyScrollView
         /// <param name="onComplete">移動が完了した際に呼び出されるコールバック.</param>
         protected override void ScrollTo(int itemIndex, float duration, float alignment = 0.5f, Action onComplete = null)
         {
-            var rowIndex = itemIndex / Context.GetColumnCount();
-            base.ScrollTo(rowIndex, duration, alignment, onComplete);
+            var groupIndex = itemIndex / startAxisCellCount;
+            base.ScrollTo(groupIndex, duration, alignment, onComplete);
         }
 
         /// <summary>
@@ -138,8 +170,8 @@ namespace FancyScrollView
         /// <param name="onComplete">移動が完了した際に呼び出されるコールバック.</param>
         protected override void ScrollTo(int itemIndex, float duration, Ease easing, float alignment = 0.5f, Action onComplete = null)
         {
-            var rowIndex = itemIndex / Context.GetColumnCount();
-            base.ScrollTo(rowIndex, duration, easing, alignment, onComplete);
+            var groupIndex = itemIndex / startAxisCellCount;
+            base.ScrollTo(groupIndex, duration, easing, alignment, onComplete);
         }
     }
 

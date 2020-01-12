@@ -10,25 +10,25 @@ using System.Linq;
 namespace FancyScrollView
 {
     /// <summary>
-    /// <see cref="FancyGridView{TItemData, TContext}"/> の行を実装するための抽象基底クラス.
+    /// 複数の <see cref="FancyCell{TItemData, TContext}"/> を持つセルグループ実装するための抽象基底クラス.
     /// </summary>
     /// <typeparam name="TItemData">アイテムのデータ型.</typeparam>
     /// <typeparam name="TContext"><see cref="FancyCell{TItemData, TContext}.Context"/> の型.</typeparam>
-    public abstract class FancyGridViewRow<TItemData, TContext> : FancyScrollRectCell<TItemData[], TContext>
-        where TContext : class, IFancyScrollRectContext, IFancyGridViewContext, new()
+    public abstract class FancyCellGroup<TItemData, TContext> : FancyCell<TItemData[], TContext>
+        where TContext : class, IFancyCellGroupContext, new()
     {
         /// <summary>
-        /// この行で表示するセルの配列.
+        /// このグループで表示するセルの配列.
         /// </summary>
         protected virtual FancyCell<TItemData, TContext>[] Cells { get; private set; }
 
         /// <summary>
-        /// この行で表示するセルの配列をインスタンス化します.
+        /// このグループで表示するセルの配列をインスタンス化します.
         /// </summary>
-        /// <returns>この行で表示するセルの配列.</returns>
+        /// <returns>このグループで表示するセルの配列.</returns>
         protected virtual FancyCell<TItemData, TContext>[] InstantiateCells()
         {
-            return Enumerable.Range(0, Context.GetColumnCount())
+            return Enumerable.Range(0, Context.GetGroupCount())
                 .Select(_ => Instantiate(Context.CellTemplate, transform))
                 .Select(x => x.GetComponent<FancyCell<TItemData, TContext>>())
                 .ToArray();
@@ -38,7 +38,7 @@ namespace FancyScrollView
         public override void Initialize()
         {
             Cells = InstantiateCells();
-            Debug.Assert(Cells.Length == Context.GetColumnCount());
+            Debug.Assert(Cells.Length == Context.GetGroupCount());
 
             for (var i = 0; i < Cells.Length; i++)
             {
@@ -48,16 +48,18 @@ namespace FancyScrollView
         }
 
         /// <inheritdoc/>
-        public override void UpdateContent(TItemData[] rowContents)
+        public override void UpdateContent(TItemData[] contents)
         {
+            var firstCellIndex = Index * Context.GetGroupCount();
+
             for (var i = 0; i < Cells.Length; i++)
             {
-                Cells[i].Index = i + Index * Context.GetColumnCount();
-                Cells[i].SetVisible(i < rowContents.Length);
+                Cells[i].Index = i + firstCellIndex;
+                Cells[i].SetVisible(i < contents.Length);
 
                 if (Cells[i].IsVisible)
                 {
-                    Cells[i].UpdateContent(rowContents[i]);
+                    Cells[i].UpdateContent(contents[i]);
                 }
             }
         }
@@ -65,20 +67,10 @@ namespace FancyScrollView
         /// <inheritdoc/>
         public override void UpdatePosition(float position)
         {
-            base.UpdatePosition(position);
-
             for (var i = 0; i < Cells.Length; i++)
             {
                 Cells[i].UpdatePosition(position);
             }
-        }
-
-        /// <inheritdoc/>
-        protected override void UpdatePosition(float position, float viewportPosition)
-        {
-            transform.localPosition = Context.ScrollDirection == ScrollDirection.Horizontal
-                ? new Vector2(viewportPosition, transform.localPosition.y)
-                : new Vector2(transform.localPosition.x, viewportPosition);
         }
     }
 }
