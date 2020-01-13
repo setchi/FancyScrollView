@@ -247,7 +247,8 @@ namespace FancyScrollView
         /// <returns><see cref="Scroller"/> が扱うスクロール位置.</returns>
         protected float ToScrollerPosition(float position, float alignment = 0.5f)
         {
-            var offset = (ScrollLength - (1f + reuseCellMarginCount * 2f)) * alignment;
+            var offset = alignment * (ScrollLength - (1f + reuseCellMarginCount * 2f))
+                + (1f - alignment - 0.5f) * spacing / (CellSize + spacing);
             return ToScrollerPosition(Mathf.Clamp(position - offset, 0f, MaxScrollPosition));
         }
 
