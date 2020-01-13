@@ -13,7 +13,6 @@ namespace FancyScrollView
     /// </summary>
     public interface IFancyGridViewContext : IFancyScrollRectContext, IFancyCellGroupContext
     {
-        ScrollDirection ScrollDirection { get; set; }
         Func<float> GetStartAxisSpacing { get; set; }
         Func<float> GetCellSize { get; set ; }
     }

@@ -24,11 +24,11 @@ namespace FancyScrollView.Example08
                 : new Color32(255, 255, 255, 77);
         }
 
-        public override void UpdatePosition(float position)
+        protected override void UpdatePosition(float normalizedPosition, float localPosition)
         {
-            base.UpdatePosition(position);
+            base.UpdatePosition(normalizedPosition, localPosition);
 
-            var wave = Mathf.Sin(position * Mathf.PI * 2) * 65;
+            var wave = Mathf.Sin(normalizedPosition * Mathf.PI * 2) * 65;
             transform.localPosition += Vector3.right * wave;
         }
     }
