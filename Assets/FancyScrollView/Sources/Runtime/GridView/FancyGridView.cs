@@ -108,7 +108,7 @@ namespace FancyScrollView
         /// <param name="cellTemplate">セルのテンプレート.</param>
         /// <typeparam name="TGroup">セルグループの型.</typeparam>
         protected virtual void Setup<TGroup>(FancyCell<TItemData, TContext> cellTemplate)
-            where TGroup : FancyCellGroup<TItemData, TContext>
+            where TGroup : FancyCell<TItemData[], TContext>
         {
             Context.CellTemplate = cellTemplate.gameObject;
 
