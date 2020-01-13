@@ -1,6 +1,6 @@
 ﻿/*
  * FancyScrollView (https://github.com/setchi/FancyScrollView)
- * Copyright (c) 2019 setchi
+ * Copyright (c) 2020 setchi
  * Licensed under MIT (https://github.com/setchi/FancyScrollView/blob/master/LICENSE)
  */
 
@@ -108,7 +108,7 @@ namespace FancyScrollView
         /// <param name="cellTemplate">セルのテンプレート.</param>
         /// <typeparam name="TGroup">セルグループの型.</typeparam>
         protected virtual void Setup<TGroup>(FancyCell<TItemData, TContext> cellTemplate)
-            where TGroup : FancyCellGroup<TItemData, TContext>
+            where TGroup : FancyCell<TItemData[], TContext>
         {
             Context.CellTemplate = cellTemplate.gameObject;
 

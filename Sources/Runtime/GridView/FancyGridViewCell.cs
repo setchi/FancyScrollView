@@ -1,6 +1,6 @@
 ﻿/*
  * FancyScrollView (https://github.com/setchi/FancyScrollView)
- * Copyright (c) 2019 setchi
+ * Copyright (c) 2020 setchi
  * Licensed under MIT (https://github.com/setchi/FancyScrollView/blob/master/LICENSE)
  */
 
@@ -19,7 +19,7 @@ namespace FancyScrollView
         where TContext : class, IFancyGridViewContext, new()
     {
         /// <inheritdoc/>
-        protected override void UpdatePosition(float position, float scrollPosition)
+        protected override void UpdatePosition(float normalizedPosition, float localPosition)
         {
             var cellSize = Context.GetCellSize();
             var spacing = Context.GetStartAxisSpacing();
@@ -29,8 +29,8 @@ namespace FancyScrollView
             var positionInGroup = (cellSize + spacing) * (indexInGroup - (groupCount - 1) * 0.5f);
 
             transform.localPosition = Context.ScrollDirection == ScrollDirection.Horizontal
-                ? new Vector2(-scrollPosition, -positionInGroup)
-                : new Vector2(positionInGroup, scrollPosition);
+                ? new Vector2(-localPosition, -positionInGroup)
+                : new Vector2(positionInGroup, localPosition);
         }
     }
 

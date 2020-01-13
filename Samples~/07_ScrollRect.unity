@@ -582,8 +582,8 @@ GameObject:
   - component: {fileID: 190094662}
   - component: {fileID: 190094665}
   - component: {fileID: 190094664}
-  - component: {fileID: 190094667}
   - component: {fileID: 190094666}
+  - component: {fileID: 190094667}
   m_Layer: 5
   m_Name: Scroll View
   m_TagString: Untagged
@@ -694,9 +694,9 @@ MonoBehaviour:
   paddingHead: 10
   paddingTail: 10
   spacing: 10
+  cellSize: 100
   cellPrefab: {fileID: 1865951358068953824, guid: efa276bbc93594b8d9fd30eb37d79102,
     type: 3}
-  cellSize: 100
 --- !u!1 &200634892
 GameObject:
   m_ObjectHideFlags: 0
@@ -2741,6 +2741,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dropdown
       objectReference: {fileID: 0}
+    - target: {fileID: 1747360886316832958, guid: a5f73e63b9cf5418ca91edef13ad6686,
+        type: 3}
+      propertyPath: defaultScene
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 1747360886316832959, guid: a5f73e63b9cf5418ca91edef13ad6686,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2845,11 +2850,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1747360886316832958, guid: a5f73e63b9cf5418ca91edef13ad6686,
-        type: 3}
-      propertyPath: defaultScene
-      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5f73e63b9cf5418ca91edef13ad6686, type: 3}

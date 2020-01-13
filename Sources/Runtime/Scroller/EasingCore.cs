@@ -1,6 +1,6 @@
 ﻿/*
  * EasingCore (https://github.com/setchi/EasingCore)
- * Copyright (c) 2019 setchi
+ * Copyright (c) 2020 setchi
  * Licensed under MIT (https://github.com/setchi/EasingCore/blob/master/LICENSE)
  */
 

@@ -1,6 +1,6 @@
 ﻿/*
  * FancyScrollView (https://github.com/setchi/FancyScrollView)
- * Copyright (c) 2019 setchi
+ * Copyright (c) 2020 setchi
  * Licensed under MIT (https://github.com/setchi/FancyScrollView/blob/master/LICENSE)
  */
 
@@ -14,7 +14,7 @@ namespace FancyScrollView.Example08
 {
     public class Example08 : MonoBehaviour
     {
-        [SerializeField] FancyGridView gridView = default;
+        [SerializeField] GridView gridView = default;
         [SerializeField] InputField paddingTopInputField = default;
         [SerializeField] InputField paddingBottomInputField = default;
         [SerializeField] InputField xSpacingInputField = default;

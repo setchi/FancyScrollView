@@ -1,23 +1,21 @@
 ﻿/*
  * FancyScrollView (https://github.com/setchi/FancyScrollView)
- * Copyright (c) 2019 setchi
+ * Copyright (c) 2020 setchi
  * Licensed under MIT (https://github.com/setchi/FancyScrollView/blob/master/LICENSE)
  */
 
-using System.Collections.Generic;
 using UnityEngine;
 using EasingCore;
 
-namespace FancyScrollView.Example07
+namespace FancyScrollView.Example08
 {
-    public class FancyScrollRect : FancyScrollRect<ItemData, Context>
+    public class GridView : FancyGridView<ItemData, Context>
     {
-        [SerializeField] float cellSize = 100f;
-        [SerializeField] GameObject cellPrefab = default;
+        class CellGroup : DefaultCellGroup { }
 
-        protected override float CellSize => cellSize;
-        protected override GameObject CellPrefab => cellPrefab;
-        public int DataCount => ItemsSource.Count;
+        [SerializeField] Cell cellPrefab = default;
+
+        protected override void SetupCellTemplate() => Setup<CellGroup>(cellPrefab);
 
         public float PaddingTop
         {
@@ -39,7 +37,7 @@ namespace FancyScrollView.Example07
             }
         }
 
-        public float Spacing
+        public float SpacingY
         {
             get => spacing;
             set
@@ -49,9 +47,25 @@ namespace FancyScrollView.Example07
             }
         }
 
-        public void UpdateData(IList<ItemData> items)
+        public float SpacingX
         {
-            UpdateContents(items);
+            get => startAxisSpacing;
+            set
+            {
+                startAxisSpacing = value;
+                Refresh();
+            }
+        }
+
+        public void UpdateSelection(int index)
+        {
+            if (Context.SelectedItemIndex == index)
+            {
+                return;
+            }
+
+            Context.SelectedItemIndex = index;
+            Refresh();
         }
 
         public void ScrollTo(int index, float duration, Ease easing, Alignment alignment = Alignment.Middle)
@@ -75,17 +89,6 @@ namespace FancyScrollView.Example07
                 case Alignment.Lower: return 1.0f;
                 default: return GetAlignment(Alignment.Middle);
             }
-        }
-
-        void UpdateSelection(int index)
-        {
-            if (Context.SelectedIndex == index)
-            {
-                return;
-            }
-
-            Context.SelectedIndex = index;
-            Refresh();
         }
     }
 }
