@@ -21,13 +21,16 @@ namespace FancyScrollView.Example09
         [SerializeField] Image background = default;
         [SerializeField] CanvasGroup canvasGroup = default;
 
+        ItemData data;
+
         public override void UpdateContent(ItemData itemData)
         {
+            data = itemData;
             image.texture = null;
 
             TextureLoader.Load(itemData.Url, result =>
             {
-                if (image == null || result.Url != itemData.Url)
+                if (image == null || result.Url != data.Url)
                 {
                     return;
                 }
