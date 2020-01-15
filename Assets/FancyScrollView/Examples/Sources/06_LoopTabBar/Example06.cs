@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 namespace FancyScrollView.Example06
 {
-    public class Example06 : MonoBehaviour
+    class Example06 : MonoBehaviour
     {
         [SerializeField] ScrollView scrollView = default;
         [SerializeField] Text selectedItemInfo = default;

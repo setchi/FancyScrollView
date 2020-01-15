@@ -12,7 +12,7 @@ using EasingCore;
 
 namespace FancyScrollView.Example07
 {
-    public class Example07 : MonoBehaviour
+    class Example07 : MonoBehaviour
     {
         [SerializeField] ScrollView scrollView = default;
         [SerializeField] InputField paddingTopInputField = default;

@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 namespace FancyScrollView.Example05
 {
-    public class Example05 : MonoBehaviour
+    class Example05 : MonoBehaviour
     {
         [SerializeField] ScrollView scrollView = default;
         [SerializeField] Button prevCellButton = default;

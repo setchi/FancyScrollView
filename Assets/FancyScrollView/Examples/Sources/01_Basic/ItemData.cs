@@ -6,7 +6,7 @@
 
 namespace FancyScrollView.Example01
 {
-    public class ItemData
+    class ItemData
     {
         public string Message { get; }
 

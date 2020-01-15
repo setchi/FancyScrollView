@@ -13,7 +13,7 @@ using UnityEngine.SceneManagement;
 namespace FancyScrollView
 {
     [RequireComponent(typeof(Dropdown))]
-    public class ScenesDropdown : MonoBehaviour
+    class ScenesDropdown : MonoBehaviour
     {
         readonly string[] scenes =
         {

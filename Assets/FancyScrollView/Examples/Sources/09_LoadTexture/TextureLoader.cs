@@ -12,7 +12,7 @@ using System.Collections.Generic;
 
 namespace FancyScrollView.Example09
 {
-    public static class TextureLoader
+    static class TextureLoader
     {
         public static void Load(string url, Action<(string Url, Texture Texture)> onSuccess) =>
             Loader.Instance.Load(url, onSuccess);

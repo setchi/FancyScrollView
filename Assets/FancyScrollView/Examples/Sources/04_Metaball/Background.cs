@@ -11,7 +11,7 @@ using UnityEngine.UI;
 
 namespace FancyScrollView.Example04
 {
-    public class Background : MonoBehaviour, IPointerClickHandler
+    class Background : MonoBehaviour, IPointerClickHandler
     {
         [SerializeField] Image background = default;
         [SerializeField] ScrollView scrollView = default;

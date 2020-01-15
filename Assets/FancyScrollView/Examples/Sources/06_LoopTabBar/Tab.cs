@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 namespace FancyScrollView.Example06
 {
-    public class Tab : FancyCell<ItemData, Context>
+    class Tab : FancyCell<ItemData, Context>
     {
         [SerializeField] Animator animator = default;
         [SerializeField] Text message = default;

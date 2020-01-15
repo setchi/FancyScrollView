@@ -11,7 +11,7 @@ using EasingCore;
 
 namespace FancyScrollView.Example04
 {
-    public class ScrollView : FancyScrollView<ItemData, Context>
+    class ScrollView : FancyScrollView<ItemData, Context>
     {
         [SerializeField] Scroller scroller = default;
         [SerializeField] GameObject cellPrefab = default;

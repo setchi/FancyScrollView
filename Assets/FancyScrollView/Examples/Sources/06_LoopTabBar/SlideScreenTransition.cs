@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 namespace FancyScrollView.Example06
 {
-    public class SlideScreenTransition : MonoBehaviour
+    class SlideScreenTransition : MonoBehaviour
     {
         [SerializeField] RectTransform targetTransform = default;
         [SerializeField] GraphicRaycaster graphicRaycaster = default;

@@ -9,7 +9,7 @@ using EasingCore;
 
 namespace FancyScrollView.Example08
 {
-    public class GridView : FancyGridView<ItemData, Context>
+    class GridView : FancyGridView<ItemData, Context>
     {
         class CellGroup : DefaultCellGroup { }
 

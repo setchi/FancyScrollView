@@ -12,7 +12,7 @@ using EasingCore;
 
 namespace FancyScrollView.Example08
 {
-    public class Example08 : MonoBehaviour
+    class Example08 : MonoBehaviour
     {
         [SerializeField] GridView gridView = default;
         [SerializeField] InputField paddingTopInputField = default;
