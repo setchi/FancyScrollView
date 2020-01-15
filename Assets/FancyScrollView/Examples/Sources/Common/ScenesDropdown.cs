@@ -28,12 +28,9 @@ namespace FancyScrollView
             "09_LoadTexture"
         };
 
-        Dropdown dropdown;
-
-        void Awake() => dropdown = GetComponent<Dropdown>();
-
         void Start()
         {
+            var dropdown = GetComponent<Dropdown>();
             dropdown.AddOptions(scenes.Select(x => new Dropdown.OptionData(x)).ToList());
             dropdown.value = Mathf.Max(0, Array.IndexOf(scenes, SceneManager.GetActiveScene().name));
             dropdown.onValueChanged.AddListener(value =>
