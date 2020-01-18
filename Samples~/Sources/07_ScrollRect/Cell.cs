@@ -9,10 +9,16 @@ using UnityEngine.UI;
 
 namespace FancyScrollView.Example07
 {
-    public class Cell : FancyScrollRectCell<ItemData, Context>
+    class Cell : FancyScrollRectCell<ItemData, Context>
     {
         [SerializeField] Text message = default;
         [SerializeField] Image image = default;
+        [SerializeField] Button button = default;
+
+        public override void Initialize()
+        {
+            button.onClick.AddListener(() => Context.OnCellClicked?.Invoke(Index));
+        }
 
         public override void UpdateContent(ItemData itemData)
         {

@@ -6,7 +6,7 @@
 
 namespace FancyScrollView.Example08
 {
-    public enum Alignment
+    enum Alignment
     {
         Upper,
         Middle,

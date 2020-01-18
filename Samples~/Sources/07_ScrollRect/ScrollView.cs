@@ -4,13 +4,14 @@
  * Licensed under MIT (https://github.com/setchi/FancyScrollView/blob/master/LICENSE)
  */
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using EasingCore;
 
 namespace FancyScrollView.Example07
 {
-    public class ScrollView : FancyScrollRect<ItemData, Context>
+    class ScrollView : FancyScrollRect<ItemData, Context>
     {
         [SerializeField] float cellSize = 100f;
         [SerializeField] GameObject cellPrefab = default;
@@ -47,6 +48,11 @@ namespace FancyScrollView.Example07
                 spacing = value;
                 Refresh();
             }
+        }
+
+        public void OnCellClicked(Action<int> callback)
+        {
+            Context.OnCellClicked = callback;
         }
 
         public void UpdateData(IList<ItemData> items)

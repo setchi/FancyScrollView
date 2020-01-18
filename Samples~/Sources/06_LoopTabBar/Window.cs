@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace FancyScrollView.Example06
 {
-    public class Window : MonoBehaviour
+    class Window : MonoBehaviour
     {
         [SerializeField] SlideScreenTransition transition = default;
 

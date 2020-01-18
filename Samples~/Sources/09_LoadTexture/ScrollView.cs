@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace FancyScrollView.Example09
 {
-    public class ScrollView : FancyScrollView<ItemData>
+    class ScrollView : FancyScrollView<ItemData>
     {
         [SerializeField] Scroller scroller = default;
         [SerializeField] GameObject cellPrefab = default;

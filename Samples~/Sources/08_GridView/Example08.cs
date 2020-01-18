@@ -12,7 +12,7 @@ using EasingCore;
 
 namespace FancyScrollView.Example08
 {
-    public class Example08 : MonoBehaviour
+    class Example08 : MonoBehaviour
     {
         [SerializeField] GridView gridView = default;
         [SerializeField] InputField paddingTopInputField = default;
@@ -25,6 +25,8 @@ namespace FancyScrollView.Example08
 
         void Start()
         {
+            gridView.OnCellClicked(index => selectIndexInputField.text = index.ToString());
+
             paddingTopInputField.onValueChanged.AddListener(_ =>
                 TryParseValue(paddingTopInputField, 0, 999, value => gridView.PaddingTop = value));
             paddingTopInputField.text = gridView.PaddingTop.ToString();

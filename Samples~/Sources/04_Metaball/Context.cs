@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace FancyScrollView.Example04
 {
-    public class Context
+    class Context
     {
         public int SelectedIndex = -1;
 

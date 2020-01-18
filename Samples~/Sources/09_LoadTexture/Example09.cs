@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace FancyScrollView.Example09
 {
-    public class Example09 : MonoBehaviour
+    class Example09 : MonoBehaviour
     {
         readonly ItemData[] itemData =
         {

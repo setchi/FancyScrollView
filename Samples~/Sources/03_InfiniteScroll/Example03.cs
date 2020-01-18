@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace FancyScrollView.Example03
 {
-    public class Example03 : MonoBehaviour
+    class Example03 : MonoBehaviour
     {
         [SerializeField] ScrollView scrollView = default;
 

@@ -4,10 +4,13 @@
  * Licensed under MIT (https://github.com/setchi/FancyScrollView/blob/master/LICENSE)
  */
 
+using System;
+
 namespace FancyScrollView.Example07
 {
-    public class Context : FancyScrollRectContext
+    class Context : FancyScrollRectContext
     {
         public int SelectedIndex = -1;
+        public Action<int> OnCellClicked;
     }
 }
