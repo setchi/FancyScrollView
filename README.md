@@ -92,7 +92,7 @@ Inspector で下記の設定をすることで無限スクロールを実装で�
 ### Implementation
 セルにデータを渡すためのオブジェクトを定義します。
 ```csharp
-public class ItemData
+class ItemData
 {
     public string Message { get; }
 
@@ -108,7 +108,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using FancyScrollView;
 
-public class MyCell : FancyCell<ItemData>
+class MyCell : FancyCell<ItemData>
 {
     [SerializeField] Text message = default;
 
@@ -130,7 +130,7 @@ using UnityEngine;
 using System.Linq;
 using FancyScrollView;
 
-public class MyScrollView : FancyScrollView<ItemData>
+class MyScrollView : FancyScrollView<ItemData>
 {
     [SerializeField] Scroller scroller = default;
     [SerializeField] GameObject cellPrefab = default;
@@ -154,7 +154,7 @@ public class MyScrollView : FancyScrollView<ItemData>
 using UnityEngine;
 using System.Linq;
 
-public class EntryPoint : MonoBehaviour
+class EntryPoint : MonoBehaviour
 {
     [SerializeField] MyScrollView myScrollView = default;
 
