@@ -4,6 +4,7 @@
  * Licensed under MIT (https://github.com/setchi/FancyScrollView/blob/master/LICENSE)
  */
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using EasingCore;
@@ -47,6 +48,11 @@ namespace FancyScrollView.Example07
                 spacing = value;
                 Refresh();
             }
+        }
+
+        public void OnCellClicked(Action<int> callback)
+        {
+            Context.OnCellClicked = callback;
         }
 
         public void UpdateData(IList<ItemData> items)

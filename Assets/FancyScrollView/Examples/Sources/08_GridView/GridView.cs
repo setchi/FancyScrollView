@@ -4,6 +4,7 @@
  * Licensed under MIT (https://github.com/setchi/FancyScrollView/blob/master/LICENSE)
  */
 
+using System;
 using UnityEngine;
 using EasingCore;
 
@@ -59,13 +60,18 @@ namespace FancyScrollView.Example08
 
         public void UpdateSelection(int index)
         {
-            if (Context.SelectedItemIndex == index)
+            if (Context.SelectedIndex == index)
             {
                 return;
             }
 
-            Context.SelectedItemIndex = index;
+            Context.SelectedIndex = index;
             Refresh();
+        }
+
+        public void OnCellClicked(Action<int> callback)
+        {
+            Context.OnCellClicked = callback;
         }
 
         public void ScrollTo(int index, float duration, Ease easing, Alignment alignment = Alignment.Middle)

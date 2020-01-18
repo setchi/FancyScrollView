@@ -13,6 +13,12 @@ namespace FancyScrollView.Example07
     {
         [SerializeField] Text message = default;
         [SerializeField] Image image = default;
+        [SerializeField] Button button = default;
+
+        public override void Initialize()
+        {
+            button.onClick.AddListener(() => Context.OnCellClicked?.Invoke(Index));
+        }
 
         public override void UpdateContent(ItemData itemData)
         {
