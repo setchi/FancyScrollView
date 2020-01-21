@@ -288,13 +288,8 @@ namespace FancyScrollView
                 throw new ArgumentOutOfRangeException(nameof(index));
             }
 
-            autoScrollState.Reset();
-
-            velocity = 0f;
-            dragging = false;
-
             UpdateSelection(index);
-            UpdatePosition(index);
+            Position = index;
         }
 
         /// <summary>

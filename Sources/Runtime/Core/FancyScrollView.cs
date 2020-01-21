@@ -93,7 +93,12 @@ namespace FancyScrollView
         }
 
         /// <summary>
-        /// セルの表示内容を更新します.
+        /// セルのレイアウトを強制的に更新します.
+        /// </summary>
+        protected virtual void Relayout() => UpdatePosition(currentPosition, false);
+
+        /// <summary>
+        /// セルのレイアウトと表示内容を強制的に更新します.
         /// </summary>
         protected virtual void Refresh() => UpdatePosition(currentPosition, true);
 

@@ -138,6 +138,14 @@ namespace FancyScrollView
             base.Refresh();
         }
 
+        /// <inheritdoc/>
+        protected override void Relayout()
+        {
+            AdjustCellIntervalAndScrollOffset();
+            RefreshScroller();
+            base.Relayout();
+        }
+
         /// <summary>
         /// <see cref="Scroller"/> の各種状態を更新します.
         /// </summary>
