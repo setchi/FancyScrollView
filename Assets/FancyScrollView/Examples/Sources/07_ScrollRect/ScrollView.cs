@@ -26,7 +26,7 @@ namespace FancyScrollView.Example07
             set
             {
                 paddingHead = value;
-                Refresh();
+                Relayout();
             }
         }
 
@@ -36,7 +36,7 @@ namespace FancyScrollView.Example07
             set
             {
                 paddingTail = value;
-                Refresh();
+                Relayout();
             }
         }
 
@@ -46,7 +46,7 @@ namespace FancyScrollView.Example07
             set
             {
                 spacing = value;
-                Refresh();
+                Relayout();
             }
         }
 
