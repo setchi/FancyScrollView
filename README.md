@@ -16,6 +16,9 @@
 [![.NET 4.x Scripting Runtime](https://img.shields.io/badge/.NET-4.x-blueviolet.svg?style=flat&cacheSeconds=2592000)](https://docs.unity3d.com/2018.3/Documentation/Manual/ScriptingRuntimeUpgrade.html)
 
 ## Installation
+### Unity Asset Store
+[Unity Asset Store](https://assetstore.unity.com/packages/tools/gui/fancyscrollview-96530) から購入して、さらなる開発のサポートを検討してください。
+
 ### OpenUPM
 [OpenUPM](https://openupm.com/) レジストリからパッケージを Unity Project に追加します。
 
@@ -33,9 +36,6 @@ openupm add jp.setchi.fancyscrollview
   }
 }
 ```
-
-### Unity Asset Store
-[Asset Store](https://assetstore.unity.com/packages/tools/gui/fancyscrollview-96530) からパッケージを Unity Project にインポートします。
 
 ## Features
 ### 自由にスクロールアニメーションを実装できます
