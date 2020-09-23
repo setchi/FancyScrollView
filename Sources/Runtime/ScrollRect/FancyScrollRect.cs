@@ -105,7 +105,7 @@ namespace FancyScrollView
         /// <param name="p"><see cref="Scroller"/> のスクロール位置.</param>
         void OnScrollerValueChanged(float p)
         {
-            base.UpdatePosition(Scrollable ? ToFancyScrollViewPosition(p) : 0f);
+            base.UpdatePosition(ToFancyScrollViewPosition(Scrollable ? p : 0f));
 
             if (Scroller.Scrollbar)
             {
