@@ -65,7 +65,7 @@ An implementation example（[Examples/03_InfiniteScroll](https://github.com/setc
 ## Examples
 [![WebGL Demo](https://img.shields.io/badge/demo-WebGL-orange.svg?style=flat&logo=google-chrome&logoColor=white&cacheSeconds=2592000)](https://setchi.jp/FancyScrollView/demo)
 
-[FancyScrollView/Examples](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples) を参照してください。
+See [FancyScrollView/Examples](https://github.com/setchi/FancyScrollView/tree/master/Assets/FancyScrollView/Examples).
 
 | Name | Description |
 |:-----------|:------------|
