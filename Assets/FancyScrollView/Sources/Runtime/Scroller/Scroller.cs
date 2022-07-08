@@ -9,6 +9,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using EasingCore;
+using UnityEngine.Events;
 
 namespace FancyScrollView
 {
@@ -141,6 +142,11 @@ namespace FancyScrollView
                 UpdatePosition(value);
             }
         }
+        
+        /// <summary>
+        /// Scrollbar onValueChangedAction
+        /// </summary>
+        private UnityAction<float> scrollbarOnValueChangedAction;
 
         readonly AutoScrollState autoScrollState = new AutoScrollState();
 
@@ -205,7 +211,7 @@ namespace FancyScrollView
 
             if (scrollbar)
             {
-                scrollbar.onValueChanged.AddListener(x => UpdatePosition(x * (totalCount - 1f), false));
+                scrollbarOnValueChangedAction = x => UpdatePosition(x * (totalCount - 1f), false);
             }
         }
 
@@ -472,9 +478,18 @@ namespace FancyScrollView
         {
             onValueChanged?.Invoke(currentPosition = position);
 
-            if (scrollbar && updateScrollbar)
+            if (!scrollbar)
             {
+                return;
+            }
+            
+            // If 'updateScrollbar' equals 'true' means this method is called by 'Scroller', otherwise from the
+            // scrollbar drag invoke
+            if (updateScrollbar)
+            {
+                scrollbar.onValueChanged.RemoveListener(scrollbarOnValueChangedAction);
                 scrollbar.value = Mathf.Clamp01(position / Mathf.Max(totalCount - 1f, 1e-4f));
+                scrollbar.onValueChanged.AddListener(scrollbarOnValueChangedAction);
             }
         }
 
